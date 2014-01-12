@@ -18,7 +18,7 @@
  */
 public class DoubleAdd {
 	public static void main(String[] args) {
-		double d1 = 12.69D;
+		double d1 = 12.69D; 
 		double d2 = -1.31D;
 		double d3 = d1 + d2;
 		System.out.println(d3);
