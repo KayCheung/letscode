@@ -48,7 +48,7 @@ public class GoodLuckFrame extends JFrame {
 
 	private static final int ALREADY_WIN_COUNT_INDEX = 0;
 	/**
-	 * already_win_person[0] is the count of already win
+	 * already_win_person[0] is the count of already won
 	 */
 	private static int[] already_win_person;
 
