@@ -42,4 +42,10 @@ public class UserInfo implements Serializable {
 		this.mobile = mobile;
 	}
 
+	@Override
+	public String toString() {
+		return "UserInfo [userId=" + userId + ", userName=" + userName
+				+ ", email=" + email + ", mobile=" + mobile + "]";
+	}
+
 }

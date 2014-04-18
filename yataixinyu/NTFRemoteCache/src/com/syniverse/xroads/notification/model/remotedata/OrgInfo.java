@@ -24,4 +24,9 @@ public class OrgInfo implements Serializable {
 		this.orgName = orgName;
 	}
 
+	@Override
+	public String toString() {
+		return "OrgInfo [orgId=" + orgId + ", orgName=" + orgName + "]";
+	}
+
 }

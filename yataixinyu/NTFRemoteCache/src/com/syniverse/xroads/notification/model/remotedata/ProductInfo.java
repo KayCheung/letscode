@@ -24,4 +24,9 @@ public class ProductInfo implements Serializable {
 		this.prodName = prodName;
 	}
 
+	@Override
+	public String toString() {
+		return "ProductInfo [prodId=" + prodId + ", prodName=" + prodName + "]";
+	}
+
 }

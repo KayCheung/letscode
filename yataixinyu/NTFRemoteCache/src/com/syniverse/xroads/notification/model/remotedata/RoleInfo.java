@@ -24,4 +24,9 @@ public class RoleInfo implements Serializable {
 		this.roleName = roleName;
 	}
 
+	@Override
+	public String toString() {
+		return "RoleInfo [roleId=" + roleId + ", roleName=" + roleName + "]";
+	}
+
 }

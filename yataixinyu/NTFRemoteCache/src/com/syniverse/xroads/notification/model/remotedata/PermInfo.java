@@ -24,4 +24,9 @@ public class PermInfo implements Serializable {
 		this.permName = permName;
 	}
 
+	@Override
+	public String toString() {
+		return "PermInfo [permId=" + permId + ", permName=" + permName + "]";
+	}
+	
 }

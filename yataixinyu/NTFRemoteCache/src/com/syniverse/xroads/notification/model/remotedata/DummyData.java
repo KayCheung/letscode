@@ -40,7 +40,7 @@ public class DummyData {
 
 		prod2 = new ProductInfo();
 		prod2.setProdId("CSP");
-		prod3.setProdName("Common Subscriber Profile");
+		prod2.setProdName("Common Subscriber Profile");
 
 		prod3 = new ProductInfo();
 		prod3.setProdId("PCS");
