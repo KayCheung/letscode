@@ -1,4 +1,4 @@
 
 public class SyncIsFetch {
-// ubuntu modify later
+// Win7 modify after ubuntu's modification
 }
