@@ -1,4 +1,4 @@
-// I'm editing files on master branch
+// Edit on master, then add to index. But, NOT commit
 public class SyncIsFetch {
 // ubuntu modify later, ubuntu does not kndddow win7 has push a new modification
 // Win7 modify after ubuntu's modification
