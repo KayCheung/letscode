@@ -4,5 +4,5 @@ public class SyncIsFetch {
 // Win7 modify after ubuntu's modification
 // qqqqq
 // ubuntu modify later, ubuntu does not know win7 has push a new modification
-// Win7 modify after ubuntu's modificationlllfd
+// Win7 modify afdddter ubuntu's modificationlllfd
 }
