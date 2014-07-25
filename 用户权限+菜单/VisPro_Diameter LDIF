@@ -13,7 +13,7 @@ DN=permissiongroupid
 ID=VisPro_Diameter_userP
     echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
     echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
-    echo "presentationorder: 0217">>$1.ldif;
+    echo "presentationorder: 02104">>$1.ldif;
     echo "presentationlabel: VisProactive - Diameter">>$1.ldif;
     echo "presentationlabeltag: 3061">>$1.ldif;
     echo "objectclass: tsipermissiongroup">>$1.ldif;
