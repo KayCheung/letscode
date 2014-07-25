@@ -138,7 +138,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
         PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
         VALUES  
-        ('VisPro_Diameter_userP_prsn',null,null,null,'Diameter',null,
+        ('VisPro_Diameter_userP_prsn',null,null,null,'VisProactive - Diameter',null,
         '3065',null,'0020',null,null,
         null,null,null,null,null,
         null,null,null,systimestamp,systimestamp,
