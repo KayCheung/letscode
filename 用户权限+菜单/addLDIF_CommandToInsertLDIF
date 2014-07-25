@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+#  Script %name:	addLDIF.oamt1 %
+#  Instance:		1
+#  %version:		1 %
+#  Description:		
+#  %created_by:		cp00306 %
+#  %date_created:	Mon Jan 31 15:13:34 2011 %
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./ldap_libs
+#./ldapmodify -h xroads-sup2.syniverse.com -p 30705 -D "cn=Directory Manager" -w "#europa#" -f ./$1 -ac $2 $3
+./ldapmodify -h crossroads-lb-dev.syniverse.com -p 3889 -D "cn=Directory Manager" -w "Xroads2000" -f ./$1 -ac $2 $3

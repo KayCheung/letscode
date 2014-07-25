@@ -1,0 +1,72 @@
+Diameter Heatmap
+
+Diameter Alert
+
+@Noemi
+current Diameter application connected to Crossroads checking permissions
+(就是指上面的两个链接嘛？vispro就是这里的 Diameter吧)
+
+是集成到xroads，但，不按着portlet的方式集成
+
+
+xroads进行 Diameter的authentication
+在xroads中，设置Diameter的time zone
+Operator name/登陆用户的 user id（使这些在 angular js中可用）
+两个链接，搞进去
+
+@Aaron
+Crossroads and all of the applications that are accessed via Crossroads are protected by OAM via the Webgate on the OHS proxy servers
+所有的 syniverse app都是通过proxy server来访问的
+
+DEV:xroads-ofmd2.syniverse.com:5575（webgate的地址）
+TEST:xroads-oamt1.syniverse.com:5575
+
+OAM第一
+OID第二
+用 ADF security for authentication
+
+OAM 进行 authentication：(app的 login page 被无视)，直接forward到自己的app
+OAM 不   authentication：app自己的 login page
+
+这个设置的用处：app的developer，还是访问自己的login page（不用OAM进行authentication）
+
+
+使用OAM了（app's login page 被无视）app自己，如何获取：
+使用本app的 user id（当然，这是xroads的 user id）-->http request's OAM_REMOTE_USER
+使用本app的 user id 使用了哪 一 个company-->cookie value of "xroads_company_id"
+这个cookie 是http only的，所以 javascript 无法获取。只能 standard java code 来获取其值
+
+
+@Timothy
+browser直接从 WSDL 获取数据（这是作不到的）。
+AngularJS调，VisPro，而 VisPro 调 WSDL
+
+browser在syniverse network外面（可以访问 VisPro，而不能访问 WSDL）
+
+公网-->OHS proxy servers-->syniverse network
+
+crossroads可以直接从公网 login-->xroads's proxy(OHS proxy servers)-->now in syniverse network. all apps accessed by xroads
+即：只有xroads暴漏在  公网，，，其他都通过xroads访问（通过xroads的代理来 reach到 所有apps）
+
+
+
+@Alex
+Create scripts（从而在 DB、LDAP中插入：menus, permission）
+that currently exist（xroads7中，早就有了 VisPro menus/permission）
+
+问题就是：如何给 DB&LDAP 中插入 menus/permission
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

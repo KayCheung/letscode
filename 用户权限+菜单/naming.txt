@@ -1,0 +1,91 @@
+公司权限，这才是真正的公司权限，resource type code：2 (permission)
+
+我们的 Diameter （它的上级label: VisProactive, VisProactive_Co--rsrc_id, rsrc_type_cd: 3 (permissiongroup) ）
+
+resource id/name
+VisPro_Diameter_cmpyP
+resource type code：2 (permission)
+
+productuid: VisPro??
+
+prsnid: VisPro_Diameter_cmpyP_prsn
+label: Diameter
+presentationoder：0070 (还得为这个resource分配个 presentation啊，分配后)
+
+
+用户权限，resource type code：3 (permissiongroup)
+
+VisProactive - Diameter 用户权限
+resource id/name
+VisPro_Diameter_userP
+
+
+prsnt_id: VisPro_Diameter_userP_prsn
+label: VisProactive - Diameter
+presentationorder: 0070
+
+
+
+
+Alert Pod View
+
+resource id/name
+VisPro_Diameter_Alert_Pod_View_userP
+
+prsnt_id: VisPro_Diameter_Alert_Pod_View_userP_prsn
+label: Alert Pod View
+presentationorder: 0010
+
+
+
+Heat Map Pod View
+resource id/name
+VisPro_Diameter_Heat_Map_Pod_View_userP
+
+prsnt_id: VisPro_Diameter_Heat_Map_Pod_View_userP_prsn
+label: Heat Map Pod View
+presentationorder: 0020
+
+
+
+
+菜单这边，resource type code：4 (presentationgroup)
+VisPro_Diameter_Menu
+
+resource id/name
+VisPro_Diameter_Menu
+presentationgroupid: VisSvc????
+
+prsnt_id: VisPro_Diameter_Menu_prsn
+label: Diameter
+
+
+
+
+Alert Pod
+resource id/name
+VisPro_Diameter_Alert_Pod_menuitem
+
+prsnt_id: VisPro_Diameter_Alert_Pod_menuitem_prsn
+label: Alert Pod
+
+Heat Map Pod
+resource id/name
+VisPro_Diameter_Heat_Map_Pod_menuitem
+
+prsnt_id: VisPro_Diameter_Heat_Map_Pod_menuitem_prsn
+label: Heat Map Pod
+
+
+
+赛铃的 URL
+Alert Pod
+URL: http://${VISPRO_DIAMETER}:9090/crossroad_sample/
+onclick: 
+parent.NavFrame.openWindow(''http://${VISPRO_DIAMETER}:9090/crossroad_sample/'',''Heat Map Pod''+parent.NavFrame.sUIDParam)
+
+
+Heat Map Pod
+URL: parent.NavFrame.makeWindow(''http://${VISPRO_DIAMETER}:9090/crossroad_sample/'',''Alert Pod''+parent.NavFrame.sUIDParam)
+onclick: http://${VISPRO_DIAMETER}:9090/crossroad_sample/
+
