@@ -17,7 +17,7 @@ ID=Subscriber_Common_Profile
     echo "">>$1.ldif;
 SEARCHBASE=ou=PermissionCode,o=Crossroads	
 DN=permissionid
-ID=Common_Subscriber_Profile_Co;
+ID=Common_Subscriber_Profile_Co;(Marvin: Company Permission should pertain to productuid)
     echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
     echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
     echo "presentationlabel: Common Subscriber Profile">>$1.ldif;
@@ -29,7 +29,7 @@ ID=Common_Subscriber_Profile_Co;
     echo "permissiongroupid: Subscriber_Config_Group_Co">>$1.ldif;
     echo "productuid: SUBSCRIBER">>$1.ldif;
     echo "">>$1.ldif;	
-ID=CSP_PROV_VIEW
+ID=CSP_PROV_VIEW(Marvin: User Permission should pertain to productuid)
     echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
     echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
     echo "presentationlabel: Implied View">>$1.ldif; 
@@ -38,7 +38,7 @@ ID=CSP_PROV_VIEW
     echo "objectclass: top">>$1.ldif;
 	echo "productuid: SUBSCRIBER">>$1.ldif;
     echo "">>$1.ldif;
-ID=CSP_PROV_ADMIN
+ID=CSP_PROV_ADMIN(Marvin: User Permission should pertain to productuid)
     echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
     echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
     echo "presentationlabel: Admin">>$1.ldif; 
@@ -51,7 +51,7 @@ ID=CSP_PROV_ADMIN
 	echo "permissiongroupid: Subscriber_Common_Profile">>$1.ldif;    
     echo "productuid: SUBSCRIBER">>$1.ldif;
     echo "">>$1.ldif;
-ID=CSP_PROV_MODIFY
+ID=CSP_PROV_MODIFY(Marvin: User Permission should pertain to productuid)
     echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
     echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
     echo "presentationlabel: Modify">>$1.ldif; 
@@ -64,7 +64,7 @@ ID=CSP_PROV_MODIFY
 	echo "permissiongroupid: Subscriber_Common_Profile">>$1.ldif;    
     echo "productuid: SUBSCRIBER">>$1.ldif;
     echo "">>$1.ldif;     
-ID=CSP_PROV_VIEW_ONLY
+ID=CSP_PROV_VIEW_ONLY(Marvin: User Permission should pertain to productuid)
     echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
     echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
     echo "presentationlabel: View">>$1.ldif; 

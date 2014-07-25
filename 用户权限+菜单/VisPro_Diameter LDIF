@@ -139,7 +139,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
         VALUES  
         ('VisPro_Diameter_userP_prsn',null,null,null,'VisProactive - Diameter',null,
-        '3065',null,'0020',null,null,
+        '3065',null,'02104',null,null,
         null,null,null,null,null,
         null,null,null,systimestamp,systimestamp,
         'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
