@@ -1,0 +1,26 @@
+
+
+http://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/diameterHeatmap/index.html
+http://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/alert/index.html
+
+6.0
+null, null，然后后面是这个
+parent.NavFrame.openWindow('http://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/alert/index.html','Alert Pod'+parent.NavFrame.sUIDParam)
+parent.NavFrame.openWindow('http://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/diameterHeatmap/index.html','Heat Map Pod'+parent.NavFrame.sUIDParam)
+
+parent.NavFrame.openWindow(''http://${VISPRO_DIAMETER}/visproGUI/alert/index.html'',''Alert Pod''+parent.NavFrame.sUIDParam)
+parent.NavFrame.openWindow(''http://${VISPRO_DIAMETER}/visproGUI/diameterHeatmap/index.html'',''Heat Map Pod''+parent.NavFrame.sUIDParam)
+
+
+
+
+1、我看到，删除了 RSRC_TO_COMPANY_REL，那么，分配给user的，怎么删除呢？
+2、删除时，目前删除的这些，和 CSP、GTPC比起来，是不是删除的足够了。
+3、有没有删除 RSRC_TO_USER_REL表
+4、SCM还没有，怎么release代码
+5、貌似openWindow不大好使啊
+6、IE8 invalid argument?
+
+
+
+

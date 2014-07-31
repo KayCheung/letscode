@@ -1,6 +1,6 @@
 #This line must be first
 dn: permissiongroupid=VisPro_Diameter_userP, ou=PermissionGroups,o=Crossroads
-presentationorder: 0217
+presentationorder: 02104
 presentationlabel: VisProactive - Diameter
 presentationlabeltag: 3061
 objectclass: tsipermissiongroup
@@ -15,7 +15,6 @@ objectclass: top
 permissiongroupid: VisProactive_Co
 productuid: VisPro
 impliedpermissionid: VisPro_Co
-impliedpermissionid: URA2
 impliedpermissionid: VisPro_Vis
 
 dn: permissionid=VisPro_Diameter_Alert_Pod_View_userP, ou=PermissionCode,o=Crossroads
@@ -42,7 +41,7 @@ impliedpermissionid: VisPro
 impliedpermissionid: VisPro_Vis
 copermissionid: VisPro_Diameter_cmpyP
 
-dn: uid=VisPro_Diameter_Menu, ou=PresentationObjects,o=Crossroads
+dn: uid=VisPro_Diameter_Menu_prsn, ou=PresentationObjects,o=Crossroads
 presentationorder: 0020
 presentationlabel: Diameter
 presentationlabeltag: 3065
@@ -53,7 +52,7 @@ objectclass: presentationinfo
 objectclass: top
 type: presentationgroup
 
-dn: uid=VisPro_Diameter_Alert_Pod_menuitem, ou=PresentationObjects,o=Crossroads
+dn: uid=VisPro_Diameter_Alert_Pod_menuitem_prsn, ou=PresentationObjects,o=Crossroads
 presentationlabel: Alert Pod
 presentationlabeltag: 3066
 presentationorder: 0010
@@ -63,11 +62,11 @@ objectclass: presentationgroup
 objectclass: presentationinfo
 objectclass: top
 frameid: NEW_TAB
-presentationgroupid: VisPro_Diameter_Menu
-url: http://vis-diameter-portal-dev-alt.syniverse.com:9090/crossroad_sample/
+presentationgroupid: VisPro_Diameter_Menu_prsn
+url: http://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/alert/index.html
 type: menuitem
 
-dn: uid=VisPro_Diameter_Heat_Map_Pod_menuitem, ou=PresentationObjects,o=Crossroads
+dn: uid=VisPro_Diameter_Heat_Map_Pod_menuitem_prsn, ou=PresentationObjects,o=Crossroads
 presentationlabel: Heat Map Pod
 presentationlabeltag: 3067
 presentationorder: 0020
@@ -77,8 +76,8 @@ objectclass: presentationgroup
 objectclass: presentationinfo
 objectclass: top
 frameid: NEW_TAB
-presentationgroupid: VisPro_Diameter_Menu
-url: http://vis-diameter-portal-dev-alt.syniverse.com:9090/crossroad_sample/
+presentationgroupid: VisPro_Diameter_Menu_prsn
+url: http://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/diameterHeatmap/index.html
 type: menuitem
 
 dn: carrieruid=57, ou=Carriers,o=Crossroads

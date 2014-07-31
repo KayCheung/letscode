@@ -9,8 +9,8 @@ INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_
         PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
         PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
         VALUES  
-        ('VisPro_Diameter_userP_prsn',null,null,null,'Diameter',null,
-        '3065',null,'0020',null,null,
+        ('VisPro_Diameter_userP_prsn',null,null,null,'VisProactive - Diameter',null,
+        '3065',null,'02104',null,null,
         null,null,null,null,null,
         null,null,null,systimestamp,systimestamp,
         'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
@@ -66,11 +66,6 @@ Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_D
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
 	values 
 	('VisPro_Diameter_cmpyP','VisPro_Co','Implied',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');
-Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('VisPro_Diameter_cmpyP','URA2','Implied',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','2');
 Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
@@ -234,7 +229,7 @@ INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_
 	PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
 	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
 	VALUES  
-	('VisPro_Diameter_Alert_Pod_menuitem_prsn','NEW_TAB','http://vis-diameter-portal-dev-alt.syniverse.com:9090/crossroad_sample/', 'parent.NavFrame.openWindow(''http://vis-diameter-portal-dev-alt.syniverse.com:9090/crossroad_sample/'',''Heat Map Pod''+parent.NavFrame.sUIDParam)','Alert Pod',null,
+	('VisPro_Diameter_Alert_Pod_menuitem_prsn',null,null,'parent.NavFrame.openWindow(''http://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/alert/index.html'',''Alert Pod''+parent.NavFrame.sUIDParam)','Alert Pod',null,
 	'3066',null,'0010',null,null,
 	null,null,null,null,null,
 	null,null,null,systimestamp,systimestamp,
@@ -268,7 +263,7 @@ INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_
 	PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
 	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
 	VALUES  
-	('VisPro_Diameter_Heat_Map_Pod_menuitem_prsn','NEW_TAB','parent.NavFrame.makeWindow(''http://vis-diameter-portal-dev-alt.syniverse.com:9090/crossroad_sample/'',''Alert Pod''+parent.NavFrame.sUIDParam)', 'http://vis-diameter-portal-dev-alt.syniverse.com:9090/crossroad_sample/','Heat Map Pod',null,
+	('VisPro_Diameter_Heat_Map_Pod_menuitem_prsn',null,null, 'parent.NavFrame.openWindow(''http://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/diameterHeatmap/index.html'',''Heat Map Pod''+parent.NavFrame.sUIDParam)','Heat Map Pod',null,
 	'3067',null,'0020',null,null,
 	null,null,null,null,null,
 	null,null,null,systimestamp,systimestamp,
