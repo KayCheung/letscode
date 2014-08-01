@@ -1,0 +1,87 @@
+#This line must be first
+dn: permissiongroupid=VisPro_Diameter_userP, ou=PermissionGroups,o=Crossroads
+presentationorder: 02104
+presentationlabel: VisProactive - Diameter
+presentationlabeltag: 4408
+objectclass: tsipermissiongroup
+grouptype: user
+
+dn: permissionid=VisPro_Diameter_cmpyP, ou=PermissionCode,o=Crossroads
+presentationlabel: Diameter
+presentationlabeltag: 4409
+presentationorder: 0070
+objectclass: tsipermissioncode
+objectclass: top
+permissiongroupid: VisProactive_Co
+productuid: VisPro
+impliedpermissionid: VisPro_Co
+impliedpermissionid: VisPro_Vis
+
+dn: permissionid=VisPro_Diameter_Alert_Pod_View_userP, ou=PermissionCode,o=Crossroads
+presentationorder: 0010
+presentationlabel: Alert Pod View
+presentationlabeltag: 4410
+permissiongroupid: VisPro_Diameter_userP
+objectclass: tsipermissioncode
+objectclass: top
+productuid: VisSvc
+impliedpermissionid: VisPro
+impliedpermissionid: VisPro_Vis
+copermissionid: VisPro_Diameter_cmpyP
+
+dn: permissionid=VisPro_Diameter_Heat_Map_Pod_View_userP, ou=PermissionCode,o=Crossroads
+presentationorder: 0020
+presentationlabel: Heat Map Pod View
+presentationlabeltag: 4411
+permissiongroupid: VisPro_Diameter_userP
+objectclass: tsipermissioncode
+objectclass: top
+productuid: VisSvc
+impliedpermissionid: VisPro
+impliedpermissionid: VisPro_Vis
+copermissionid: VisPro_Diameter_cmpyP
+
+dn: uid=VisPro_Diameter_Menu_prsn, ou=PresentationObjects,o=Crossroads
+presentationorder: 0020
+presentationlabel: Diameter
+presentationlabeltag: 4412
+presentationgroupid: VisSvc
+objectclass: menuitem
+objectclass: presentationgroup
+objectclass: presentationinfo
+objectclass: top
+type: presentationgroup
+
+dn: uid=VisPro_Diameter_Alert_Pod_menuitem_prsn, ou=PresentationObjects,o=Crossroads
+presentationlabel: Alert Pod
+presentationlabeltag: 4413
+presentationorder: 0010
+permissionid: VisPro_Diameter_Alert_Pod_View_userP
+objectclass: menuitem
+objectclass: presentationgroup
+objectclass: presentationinfo
+objectclass: top
+frameid: NEW_TAB
+presentationgroupid: VisPro_Diameter_Menu_prsn
+url: http://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/alert/index.html
+type: menuitem
+
+dn: uid=VisPro_Diameter_Heat_Map_Pod_menuitem_prsn, ou=PresentationObjects,o=Crossroads
+presentationlabel: Heat Map Pod
+presentationlabeltag: 4414
+presentationorder: 0020
+permissionid: VisPro_Diameter_Heat_Map_Pod_View_userP
+objectclass: menuitem
+objectclass: presentationgroup
+objectclass: presentationinfo
+objectclass: top
+frameid: NEW_TAB
+presentationgroupid: VisPro_Diameter_Menu_prsn
+url: http://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/diameterHeatmap/index.html
+type: menuitem
+
+dn: carrieruid=57, ou=Carriers,o=Crossroads
+changetype: modify
+add: permissionid
+permissionid: VisPro_Diameter_cmpyP^VisSvc
+
