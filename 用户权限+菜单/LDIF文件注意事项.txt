@@ -1,68 +1,68 @@
-COMPANY_RESOURCE
-±íÃ÷£ºCompany£¨57É¶µÄ£©£¬ÊÇ·ñµÃµ½ÁËÄ³¸ö×ÊÔ´
+ï»¿COMPANY_RESOURCE
+è¡¨æ˜ï¼šCompanyï¼ˆ57å•¥çš„ï¼‰ï¼Œæ˜¯å¦å¾—åˆ°äº†æŸä¸ªèµ„æº
 
-rsrc_typ_cd µÄÀàĞÍ£¬²éÁËÏÂ£¬5ÖÖ
-1(product)£¬2(permission)£¬5(aocid)£¬6(altspid)£¬null(²»ÖªµÀÉ¶Çé¿ö)
+rsrc_typ_cd çš„ç±»å‹ï¼ŒæŸ¥äº†ä¸‹ï¼Œ5ç§
+1(product)ï¼Œ2(permission)ï¼Œ5(aocid)ï¼Œ6(altspid)ï¼Œnull(ä¸çŸ¥é“å•¥æƒ…å†µ)
 
-integration½Å±¾ÖĞ£¬company permission¶¼Ö±½Ó¸øÁË57
+integrationè„šæœ¬ä¸­ï¼Œcompany permissionéƒ½ç›´æ¥ç»™äº†57
 
 
 
 RSRC_TO_COMPANY_REL
-²»ÖªµÀ¸ÉÂïÓÃµÄ¡£·ÖÅä¸ø companyµÄpermission£¬Ò²²»ÊÇ·ÅÔÚÕâ¸öÀïÃæ
+ä¸çŸ¥é“å¹²å˜›ç”¨çš„ã€‚åˆ†é…ç»™ companyçš„permissionï¼Œä¹Ÿä¸æ˜¯æ”¾åœ¨è¿™ä¸ªé‡Œé¢
 
 
-É¾³ıÊ±£¬½ö½ö¾ÍÉ¾³ı 4 ¸ö±í
+åˆ é™¤æ—¶ï¼Œä»…ä»…å°±åˆ é™¤ 4 ä¸ªè¡¨
 RSRC_TO_RSRC_REL
-RSRC_TO_COMPANY_REL£¨²»ÖªµÀºÍÕâ¸ö±íÓĞÉ¶¹ØÏµ£©
+RSRC_TO_COMPANY_RELï¼ˆä¸çŸ¥é“å’Œè¿™ä¸ªè¡¨æœ‰å•¥å…³ç³»ï¼‰
 RESOURC
 PRESENTATION
 
 
-presentation.PRSNTTN_PERMISSIONID£¨Èç¹û²»ÊÇnull£¬Ôò±íÃ÷£ºÈç¹ûÒªÏÔÊ¾´Ëprsn£¬Ôò£¬ÓÃ»§±ØĞëÒªÓµÓĞ ´Ë´¦µÄpermissionid£©
-presentation.PRSNTTN_PRODUCTID   £¨Èç¹û²»ÊÇnull£¬Ôò±íÃ÷£ºÈç¹ûÒªÏÔÊ¾´Ëprsn£¬Ôò£¬ÓÃ»§±ØĞëÒªÓµÓĞ ´Ë´¦µÄproductid£©
-presentation.PRSNTTN_COPERMISSION£¨Èç¹û²»ÊÇnull£¬Ôò±íÃ÷£ºÈç¹ûÒªÏÔÊ¾´Ëprsn£¬Ôò£¬ÓÃ»§±ØĞëÒªÓµÓĞ ´Ë´¦µÄcompany permission£©
+presentation.PRSNTTN_PERMISSIONIDï¼ˆå¦‚æœä¸æ˜¯nullï¼Œåˆ™è¡¨æ˜ï¼šå¦‚æœè¦æ˜¾ç¤ºæ­¤prsnï¼Œåˆ™ï¼Œç”¨æˆ·å¿…é¡»è¦æ‹¥æœ‰ æ­¤å¤„çš„permissionidï¼‰
+presentation.PRSNTTN_PRODUCTID   ï¼ˆå¦‚æœä¸æ˜¯nullï¼Œåˆ™è¡¨æ˜ï¼šå¦‚æœè¦æ˜¾ç¤ºæ­¤prsnï¼Œåˆ™ï¼Œç”¨æˆ·å¿…é¡»è¦æ‹¥æœ‰ æ­¤å¤„çš„productidï¼‰
+presentation.PRSNTTN_COPERMISSIONï¼ˆå¦‚æœä¸æ˜¯nullï¼Œåˆ™è¡¨æ˜ï¼šå¦‚æœè¦æ˜¾ç¤ºæ­¤prsnï¼Œåˆ™ï¼Œç”¨æˆ·å¿…é¡»è¦æ‹¥æœ‰ æ­¤å¤„çš„company permissionï¼‰
 
 
 
 
-ÎÒ×¢Òâµ½£¬ĞÂ¼ÓÒ»¸ö user permissionÊ±£¬ĞèÒª½«Õâ¸ö user permission
-1¡¢¹Ò¸ø company permission
-2¡¢¹Ò¸ø product¡££¨ÎÊÌâÀ´ÁË£ºÒÑ¾­¹Ò¸ø company permissionÀ²¡£company permissionÄÑµÀ²»ÊÇ°µº¬ ÒÑ¾­¸øÁËÄ³productÂï£©
-3¡¢
+æˆ‘æ³¨æ„åˆ°ï¼Œæ–°åŠ ä¸€ä¸ª user permissionæ—¶ï¼Œéœ€è¦å°†è¿™ä¸ª user permission
+1ã€æŒ‚ç»™ company permission
+2ã€æŒ‚ç»™ productã€‚ï¼ˆé—®é¢˜æ¥äº†ï¼šå·²ç»æŒ‚ç»™ company permissionå•¦ã€‚company permissionéš¾é“ä¸æ˜¯æš—å« å·²ç»ç»™äº†æŸproductå˜›ï¼‰
+3ã€
 
 
-Ìí¼ÓÒ»¸ö menu item¡£Ö»ĞèÒª²åÈëÒ»ÌõÊı¾İµ½ RSRC_TO_RSRC_REL
-1¡¢×î³¶µ­µÄÊÇ£ºRSRC_TO_RSRC_REL£¬RSRC_ID2 ÆäÊµÊÇ PRSNTTN_ID£¨Ìí¼Ó UP/CP Ê±£¬ÊÇ Õı¶ù°Ë¾­ µÄ RESOURCE_ID£©
-2¡¢RSRC_TO_RSRC_REL£¬Ö»Ğè²åÈëÒ»ÌõÊı¾İ£¨½«´Ë menuitem ¹Ò½Óµ½ ¸¸½ÚµãÉÏ£©
-3¡¢PRESENTATION£¬Ò¶×Ó menuitem£¬presentation.prsnttn_permissionid£¬ĞèÒªÖ¸¶¨´ËmenuitemĞèÒªµÄ user permission
-4¡¢PRESENTATION£¬·ÇÒ¶×Ó presentationgroup£¬Ôò¸ù±¾¾Í²»ĞèÒªÖ¸¶¨ presentation.prsnttn_permissionid¡£ºÃÆæ¹Ö
-
-
-
-
-Ìí¼ÓÒ»¸ö user permission
-£¨×¢Òâ£ºÌí¼ÓÒ»¸ö UP Ê±£¬presentation, resourc ÖĞ²»ĞèÒªÈÎºÎµÄ£¬permissionĞÅÏ¢¡£¶¼ÔÚ RSRC_TO_RSRC_RELÖĞÀ´¿ØÖÆ£©
-1¡¢½«Æä ¹Ò½Ó ÔÚ company permission ÉÏ£¨´Ó¶ø£ºuser permission´æÔÚµÄÇ°ÌáÊÇ£¬ÆäËù¹Ò½ÓµÄ company permission ÒÑ´æÔÚ£©
-2¡¢½«Æä ¹Ò½Ó ÔÚ product ÉÏ£¨ÆäÊµ²»Ã÷°×£¬ÒÑ¾­¹Ò¸øÁËcompany permission£¬ÔõÃ´»¹µÃÔÙ¹Ò¸ø product °¡£©
-3¡¢½«Æä ¹Ò½Ó ÔÚ PermissionGroup ÉÏ£¨´Ó¶ø£¬User PermissionÒ³ÃæÖĞ£¬´Ë UP ¿ÉÒÔÕ¹ÏÖÔÚ Ä³¸ö ¸¸½ÚµãÏÂ£¬¹©ÄãÑ¡Ôñ UP£©
-4¡¢¹Ò½Ó ÔÚ implied ÉÏ¡£ÒâË¼ÊÇ£ºÑ¡Ôñ´Ë user permission¾Í»áµ¼ÖÂ ÔùËÍ VisPro,VisPro_Vis£¨ÕâÁ½¸öÊÇ rsrc_id£©
-
-
-Ìí¼ÓÒ»¸ö company permission
-£¨×¢Òâ£ºÌí¼ÓÒ»¸ö CP Ê±£¬presentation, resourcÖĞ£¬ÎŞĞèÈÎºÎpermission¡£¶¼ÔÚ RSRC_TO_RSRC_RELÖĞÀ´¿ØÖÆ£©
-1¡¢½«Æä ¹Ò½Ó ÔÚ product ÉÏ
-2¡¢½«Æä ¹Ò½Ó ÔÚ PermissionGroup ÉÏ£¨´Ó¶ø£¬Company PermissionÒ³ÃæÖĞ£¬´Ë CP ¿ÉÒÔÕ¹ÏÖÔÚ Ä³¸ö ¸¸½ÚµãÏÂ£¬¹©ÄãÑ¡Ôñ CP£©
-3¡¢¹Ò½Ó ÔÚ implied ÉÏ¡£ÒâË¼ÊÇ£ºÑ¡ÔñÁË´Ë CP£¬»áµ¼ÖÂ£¬×Ô¶¯ÔùËÍ VisPro_Co£¬VisPro_Vis£¨ÕâÁ½¸öÊÇ rsrc_id£©
-
-
-Ìí¼ÓÒ»¸ö permission group £¨ÕâÀïÊÇ user permission group£©
-£¨×¢Òâ£ºÉõÖÁ£¬¶¼ ²»ĞèÒª ÔÚ RSRC_TO_RSRC_REL ÖĞ²åÈë¼ÇÂ¼¡£presentation, resourcÖĞ£¬Ò²Ã»ÓĞÈ¨ÏŞÏà¹ØµÄĞÅÏ¢£©
+æ·»åŠ ä¸€ä¸ª menu itemã€‚åªéœ€è¦æ’å…¥ä¸€æ¡æ•°æ®åˆ° RSRC_TO_RSRC_REL
+1ã€æœ€æ‰¯æ·¡çš„æ˜¯ï¼šRSRC_TO_RSRC_RELï¼ŒRSRC_ID2 å…¶å®æ˜¯ PRSNTTN_IDï¼ˆæ·»åŠ  UP/CP æ—¶ï¼Œæ˜¯ æ­£å„¿å…«ç» çš„ RESOURCE_IDï¼‰
+2ã€RSRC_TO_RSRC_RELï¼Œåªéœ€æ’å…¥ä¸€æ¡æ•°æ®ï¼ˆå°†æ­¤ menuitem æŒ‚æ¥åˆ° çˆ¶èŠ‚ç‚¹ä¸Šï¼‰
+3ã€PRESENTATIONï¼Œå¶å­ menuitemï¼Œpresentation.prsnttn_permissionidï¼Œéœ€è¦æŒ‡å®šæ­¤menuiteméœ€è¦çš„ user permission
+4ã€PRESENTATIONï¼Œéå¶å­ presentationgroupï¼Œåˆ™æ ¹æœ¬å°±ä¸éœ€è¦æŒ‡å®š presentation.prsnttn_permissionidã€‚å¥½å¥‡æ€ª
 
 
 
 
-LDIFÊ±
+æ·»åŠ ä¸€ä¸ª user permission
+ï¼ˆæ³¨æ„ï¼šæ·»åŠ ä¸€ä¸ª UP æ—¶ï¼Œpresentation, resourc ä¸­ä¸éœ€è¦ä»»ä½•çš„ï¼Œpermissionä¿¡æ¯ã€‚éƒ½åœ¨ RSRC_TO_RSRC_RELä¸­æ¥æ§åˆ¶ï¼‰
+1ã€å°†å…¶ æŒ‚æ¥ åœ¨ company permission ä¸Šï¼ˆä»è€Œï¼šuser permissionå­˜åœ¨çš„å‰ææ˜¯ï¼Œå…¶æ‰€æŒ‚æ¥çš„ company permission å·²å­˜åœ¨ï¼‰
+2ã€å°†å…¶ æŒ‚æ¥ åœ¨ product ä¸Šï¼ˆå…¶å®ä¸æ˜ç™½ï¼Œå·²ç»æŒ‚ç»™äº†company permissionï¼Œæ€ä¹ˆè¿˜å¾—å†æŒ‚ç»™ product å•Šï¼‰
+3ã€å°†å…¶ æŒ‚æ¥ åœ¨ PermissionGroup ä¸Šï¼ˆä»è€Œï¼ŒUser Permissioné¡µé¢ä¸­ï¼Œæ­¤ UP å¯ä»¥å±•ç°åœ¨ æŸä¸ª çˆ¶èŠ‚ç‚¹ä¸‹ï¼Œä¾›ä½ é€‰æ‹© UPï¼‰
+4ã€æŒ‚æ¥ åœ¨ implied ä¸Šã€‚æ„æ€æ˜¯ï¼šé€‰æ‹©æ­¤ user permissionå°±ä¼šå¯¼è‡´ èµ é€ VisPro,VisPro_Visï¼ˆè¿™ä¸¤ä¸ªæ˜¯ rsrc_idï¼‰
+
+
+æ·»åŠ ä¸€ä¸ª company permission
+ï¼ˆæ³¨æ„ï¼šæ·»åŠ ä¸€ä¸ª CP æ—¶ï¼Œpresentation, resourcä¸­ï¼Œæ— éœ€ä»»ä½•permissionã€‚éƒ½åœ¨ RSRC_TO_RSRC_RELä¸­æ¥æ§åˆ¶ï¼‰
+1ã€å°†å…¶ æŒ‚æ¥ åœ¨ product ä¸Š
+2ã€å°†å…¶ æŒ‚æ¥ åœ¨ PermissionGroup ä¸Šï¼ˆä»è€Œï¼ŒCompany Permissioné¡µé¢ä¸­ï¼Œæ­¤ CP å¯ä»¥å±•ç°åœ¨ æŸä¸ª çˆ¶èŠ‚ç‚¹ä¸‹ï¼Œä¾›ä½ é€‰æ‹© CPï¼‰
+3ã€æŒ‚æ¥ åœ¨ implied ä¸Šã€‚æ„æ€æ˜¯ï¼šé€‰æ‹©äº†æ­¤ CPï¼Œä¼šå¯¼è‡´ï¼Œè‡ªåŠ¨èµ é€ VisPro_Coï¼ŒVisPro_Visï¼ˆè¿™ä¸¤ä¸ªæ˜¯ rsrc_idï¼‰
+
+
+æ·»åŠ ä¸€ä¸ª permission group ï¼ˆè¿™é‡Œæ˜¯ user permission groupï¼‰
+ï¼ˆæ³¨æ„ï¼šç”šè‡³ï¼Œéƒ½ ä¸éœ€è¦ åœ¨ RSRC_TO_RSRC_REL ä¸­æ’å…¥è®°å½•ã€‚presentation, resourcä¸­ï¼Œä¹Ÿæ²¡æœ‰æƒé™ç›¸å…³çš„ä¿¡æ¯ï¼‰
+
+
+
+
+LDIFæ—¶
 
 
 

@@ -1,10 +1,10 @@
-
+ï»¿
 
 http://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/diameterHeatmap/index.html
 http://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/alert/index.html
 
 6.0
-null, null£¬È»ºóºóÃæÊÇÕâ¸ö
+null, nullï¼Œç„¶ååé¢æ˜¯è¿™ä¸ª
 parent.NavFrame.openWindow('http://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/alert/index.html','Alert Pod'+parent.NavFrame.sUIDParam)
 parent.NavFrame.openWindow('http://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/diameterHeatmap/index.html','Heat Map Pod'+parent.NavFrame.sUIDParam)
 
@@ -14,12 +14,12 @@ parent.NavFrame.openWindow(''http://${VISPRO_DIAMETER}/visproGUI/diameterHeatmap
 
 
 
-1¡¢ÎÒ¿´µ½£¬É¾³ıÁË RSRC_TO_COMPANY_REL£¬ÄÇÃ´£¬·ÖÅä¸øuserµÄ£¬ÔõÃ´É¾³ıÄØ£¿
-2¡¢É¾³ıÊ±£¬Ä¿Ç°É¾³ıµÄÕâĞ©£¬ºÍ CSP¡¢GTPC±ÈÆğÀ´£¬ÊÇ²»ÊÇÉ¾³ıµÄ×ã¹»ÁË¡£
-3¡¢ÓĞÃ»ÓĞÉ¾³ı RSRC_TO_USER_REL±í
-4¡¢SCM»¹Ã»ÓĞ£¬ÔõÃ´release´úÂë
-5¡¢Ã²ËÆopenWindow²»´óºÃÊ¹°¡
-6¡¢IE8 invalid argument?
+1ã€æˆ‘çœ‹åˆ°ï¼Œåˆ é™¤äº† RSRC_TO_COMPANY_RELï¼Œé‚£ä¹ˆï¼Œåˆ†é…ç»™userçš„ï¼Œæ€ä¹ˆåˆ é™¤å‘¢ï¼Ÿ
+2ã€åˆ é™¤æ—¶ï¼Œç›®å‰åˆ é™¤çš„è¿™äº›ï¼Œå’Œ CSPã€GTPCæ¯”èµ·æ¥ï¼Œæ˜¯ä¸æ˜¯åˆ é™¤çš„è¶³å¤Ÿäº†ã€‚
+3ã€æœ‰æ²¡æœ‰åˆ é™¤ RSRC_TO_USER_RELè¡¨
+4ã€SCMè¿˜æ²¡æœ‰ï¼Œæ€ä¹ˆreleaseä»£ç 
+5ã€è²Œä¼¼openWindowä¸å¤§å¥½ä½¿å•Š
+6ã€IE8 invalid argument?
 
 
 
