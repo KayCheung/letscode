@@ -15,7 +15,7 @@ ID=VisPro_Diameter_userP
     echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
     echo "presentationorder: 02104">>$1.ldif;
     echo "presentationlabel: VisProactive - Diameter">>$1.ldif;
-    echo "presentationlabeltag: 3061">>$1.ldif;
+    echo "presentationlabeltag: 4408">>$1.ldif;
     echo "objectclass: tsipermissiongroup">>$1.ldif;
     echo "grouptype: user">>$1.ldif;
     echo "">>$1.ldif;
@@ -25,7 +25,7 @@ ID=VisPro_Diameter_cmpyP
     echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
     echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
     echo "presentationlabel: Diameter">>$1.ldif;
-    echo "presentationlabeltag: 3062">>$1.ldif;
+    echo "presentationlabeltag: 4409">>$1.ldif;
     echo "presentationorder: 0070">>$1.ldif;
     echo "objectclass: tsipermissioncode">>$1.ldif;
     echo "objectclass: top">>$1.ldif;
@@ -39,7 +39,7 @@ ID=VisPro_Diameter_Alert_Pod_View_userP
 	echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
 	echo "presentationorder: 0010">>$1.ldif;
 	echo "presentationlabel: Alert Pod View">>$1.ldif;
-	echo "presentationlabeltag: 3063">>$1.ldif;
+	echo "presentationlabeltag: 4410">>$1.ldif;
 	echo "permissiongroupid: VisPro_Diameter_userP">>$1.ldif;
 	echo "objectclass: tsipermissioncode">>$1.ldif;
 	echo "objectclass: top">>$1.ldif;
@@ -53,7 +53,7 @@ ID=VisPro_Diameter_Heat_Map_Pod_View_userP
 	echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
 	echo "presentationorder: 0020">>$1.ldif;
 	echo "presentationlabel: Heat Map Pod View">>$1.ldif;
-	echo "presentationlabeltag: 3064">>$1.ldif;
+	echo "presentationlabeltag: 4411">>$1.ldif;
 	echo "permissiongroupid: VisPro_Diameter_userP">>$1.ldif;
 	echo "objectclass: tsipermissioncode">>$1.ldif;
 	echo "objectclass: top">>$1.ldif;
@@ -70,7 +70,7 @@ ID=VisPro_Diameter_Menu_prsn
     echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
     echo "presentationorder: 0020">>$1.ldif;
     echo "presentationlabel: Diameter">>$1.ldif;
-    echo "presentationlabeltag: 3065">>$1.ldif;
+    echo "presentationlabeltag: 4412">>$1.ldif;
     echo "presentationgroupid: VisSvc">>$1.ldif;
 	echo "objectclass: menuitem">>$1.ldif;
     echo "objectclass: presentationgroup">>$1.ldif;
@@ -82,7 +82,7 @@ ID=VisPro_Diameter_Alert_Pod_menuitem_prsn
     echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
     echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
     echo "presentationlabel: Alert Pod">>$1.ldif; 
-    echo "presentationlabeltag: 3066">>$1.ldif;
+    echo "presentationlabeltag: 4413">>$1.ldif;
     echo "presentationorder: 0010">>$1.ldif;
     echo "permissionid: VisPro_Diameter_Alert_Pod_View_userP">>$1.ldif;
 	echo "objectclass: menuitem">>$1.ldif;
@@ -98,7 +98,7 @@ ID=VisPro_Diameter_Heat_Map_Pod_menuitem_prsn
     echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
     echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
     echo "presentationlabel: Heat Map Pod">>$1.ldif; 
-    echo "presentationlabeltag: 3067">>$1.ldif;
+    echo "presentationlabeltag: 4414">>$1.ldif;
     echo "presentationorder: 0020">>$1.ldif;
     echo "permissionid: VisPro_Diameter_Heat_Map_Pod_View_userP">>$1.ldif;
 	echo "objectclass: menuitem">>$1.ldif;
@@ -138,7 +138,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
         VALUES  
         ('VisPro_Diameter_userP_prsn',null,null,null,'VisProactive - Diameter',null,
-        '3065',null,'02104',null,null,
+        '4412',null,'02104',null,null,
         null,null,null,null,null,
         null,null,null,systimestamp,systimestamp,
         'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
@@ -168,7 +168,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
         VALUES  
         ('VisPro_Diameter_cmpyP_prsn',null,null,null,'Diameter',null,
-        '3062',null,'0070',null,null,
+        '4409',null,'0070',null,null,
         null,null,null,null,null,
         null,null,null,systimestamp,systimestamp,
         'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
@@ -220,7 +220,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
         VALUES  
         ('VisPro_Diameter_Alert_Pod_View_userP_prsn',null,null,null,'Alert Pod View',null,
-        '3063',null,'0010',null,null,
+        '4410',null,'0010',null,null,
         null,null,null,null,null,
         null,null,null,systimestamp,systimestamp,
         'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
@@ -277,7 +277,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
         VALUES  
         ('VisPro_Diameter_Heat_Map_Pod_View_userP_prsn',null,null,null,'Heat Map Pod View',null,
-        '3064',null,'0020',null,null,
+        '4411',null,'0020',null,null,
         null,null,null,null,null,
         null,null,null,systimestamp,systimestamp,
         'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
@@ -335,7 +335,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
 	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
 	VALUES  
 	('VisPro_Diameter_Menu_prsn',null,null, null,'Diameter',null,
-	'3065',null,'0020',null,null,
+	'4412',null,'0020',null,null,
 	null,null,null,null,null,
 	null,null,null,systimestamp,systimestamp,
 	'cn=directory manager','uid=xroads,o=crossroads',null,'presentationgroup',null,
@@ -371,7 +371,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
 	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
 	VALUES  
 	('VisPro_Diameter_Alert_Pod_menuitem_prsn',null,null,'parent.NavFrame.openWindow(''http://${VISPRO_DIAMETER}/visproGUI/alert/index.html'',''Alert Pod''+parent.NavFrame.sUIDParam)','Alert Pod',null,
-	'3066',null,'0010',null,null,
+	'4413',null,'0010',null,null,
 	null,null,null,null,null,
 	null,null,null,systimestamp,systimestamp,
 	'cn=directory manager','uid=xroads,o=crossroads',null,'menuitem',null,
@@ -407,7 +407,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
 	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
 	VALUES  
 	('VisPro_Diameter_Heat_Map_Pod_menuitem_prsn',null,null, 'parent.NavFrame.openWindow(''http://${VISPRO_DIAMETER}/visproGUI/diameterHeatmap/index.html'',''Heat Map Pod''+parent.NavFrame.sUIDParam)','Heat Map Pod',null,
-	'3067',null,'0020',null,null,
+	'4414',null,'0020',null,null,
 	null,null,null,null,null,
 	null,null,null,systimestamp,systimestamp,
 	'cn=directory manager','uid=xroads,o=crossroads',null,'menuitem',null,
