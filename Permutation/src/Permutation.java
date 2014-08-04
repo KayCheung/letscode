@@ -3,20 +3,23 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Permutation {
-	public static void generatePermutation(byte[] allElement) {
-		int length = allElement.length;
+
+	public static void generatePermutation(byte[] orgnArray) {
+		// byte[] newArray = reverseArray(orgnArray);
+		byte[] newArray = orgnArray;
+		int length = newArray.length;
 
 		List<byte[]> currentContainer = new ArrayList<byte[]>();
 		byte[] aArray = new byte[length];
-		aArray[0] = allElement[0];
+		aArray[0] = newArray[0];
 		currentContainer.add(aArray);
 
 		List<byte[]> newSpawnedContainer = new ArrayList<byte[]>();
 
-		for (int i = 1; i < allElement.length; i++) {
+		for (int i = 1; i < newArray.length; i++) {
 			for (byte[] oneAlignedArray : currentContainer) {
 				AlignmentInfo aInfo = new AlignmentInfo(oneAlignedArray, i);
-				List<byte[]> aContainer = aInfo.spawnAlignment(allElement[i]);
+				List<byte[]> aContainer = aInfo.spawnAlignment(newArray[i]);
 				newSpawnedContainer.addAll(aContainer);
 			}
 			currentContainer.clear();
@@ -24,10 +27,19 @@ public class Permutation {
 			newSpawnedContainer.clear();
 		}
 
-		System.out.println("result:");
+		System.out.println("result count:" + currentContainer.size());
 		for (byte[] bArray : currentContainer) {
 			System.out.println(Arrays.toString(bArray));
 		}
+	}
+
+	private static byte[] reverseArray(byte[] orgn) {
+		int length = orgn.length;
+		byte[] newArray = new byte[orgn.length];
+		for (int i = length - 1; i >= 0; i--) {
+			newArray[length - i - 1] = orgn[i];
+		}
+		return newArray;
 	}
 
 	public static void main(String[] args) {
