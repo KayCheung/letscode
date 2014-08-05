@@ -1,9 +1,9 @@
 import java.util.Arrays;
 
 public class MergeSort {
-	public static int[] merge(int[] array1, int startIndex1, int endIndex1,
-			int[] array2, int startIndex2, int endIndex2) {
-		
+	public static int[] merge(int[] sortedArray1, int startIndex1,
+			int endIndex1, int[] sortedArray2, int startIndex2, int endIndex2) {
+
 		int[] result = new int[(endIndex1 - startIndex1 + 1)
 				+ (endIndex2 - startIndex2 + 1)];
 
@@ -15,24 +15,24 @@ public class MergeSort {
 			if (curIndex1 <= endIndex1) {
 				// array2 still OK
 				if (curIndex2 <= endIndex2) {
-					if (array1[curIndex1] < array2[curIndex2]) {
-						result[currentResultIndex] = array1[curIndex1];
+					if (sortedArray1[curIndex1] < sortedArray2[curIndex2]) {
+						result[currentResultIndex] = sortedArray1[curIndex1];
 						curIndex1++;
 					} else {
-						result[currentResultIndex] = array2[curIndex2];
+						result[currentResultIndex] = sortedArray2[curIndex2];
 						curIndex2++;
 					}
 				}
 				// array2 done
 				else {
-					result[currentResultIndex] = array1[curIndex1];
+					result[currentResultIndex] = sortedArray1[curIndex1];
 					curIndex1++;
 				}
 			}
-			
+
 			// array1 done, only left array2
 			else {
-				result[currentResultIndex] = array2[curIndex2];
+				result[currentResultIndex] = sortedArray2[curIndex2];
 				curIndex2++;
 			}
 
