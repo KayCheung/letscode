@@ -1,12 +1,33 @@
 ﻿
+6.xx DEV box name : xroads-ofmd1
+VISPRO_DIAMETER=vis-diameter-portal-dev-alt.syniverse.com 6.xx DEV 
 
-http://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/diameterHeatmap/index.html
-http://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/alert/index.html
+6.xx TEST box name: xroads-oamt1|xroads-oamt2
+VISPRO_DIAMETER=vis-diameter-portal-test-alt.syniverse.com  6.xx TEST
 
+
+For Production you can define under *)
+VISPRO_DIAMETER=vis-diameter.syniverse.com              production
+
+
+7.xx DEV box name: vapp013-hw1
+VISPRO_DIAMETER=vis-diameter-portal-dev.syniverse.com   7.xx DEV
+
+7.xx TEST box name: hw-xroads-t3|hw-xroads-t4|hw-xroads-t5|hw-xroads-t6
+VISPRO_DIAMETER=vis-diameter-portal-test.syniverse.com  7.xx TEST
+
+
+
+
+
+
+6.0 dev's URL
+https://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/alert/index.html
+https://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/diameterHeatmap/index.html
 
 6.0
-null, null，然后后面是这个
-
+null, null, onclick
+Onclick:
 LDIF
 parent.NavFrame.openWindow('https://${VISPRO_DIAMETER}/visproGUI/alert/index.html','AlertPod','Alert%20Pod')
 parent.NavFrame.openWindow('https://${VISPRO_DIAMETER}/visproGUI/diameterHeatmap/index.html','HeatMapPod','Heat%20Map%20Pod')
@@ -14,6 +35,12 @@ parent.NavFrame.openWindow('https://${VISPRO_DIAMETER}/visproGUI/diameterHeatmap
 SQL
 parent.NavFrame.openWindow(''https://${VISPRO_DIAMETER}/visproGUI/alert/index.html'',''AlertPod'',''Alert%20Pod'')
 parent.NavFrame.openWindow(''https://${VISPRO_DIAMETER}/visproGUI/diameterHeatmap/index.html'',''HeatMapPod'',''Heat%20Map%20Pod'')
+
+7.0
+frameid: NEW_TAB
+URL: https://vis-diameter-portal-dev-alt.syniverse.com/visproGUI/alert/index.html
+onclick: parent.NavFrame.openWindow(''https://${VISPRO_DIAMETER}/visproGUI/alert/index.html'',''AlertPod'',''Alert%20Pod'')
+
 
 
 
