@@ -4,7 +4,7 @@
 
 IDC=N
 PROD=UNKN
-VISPRO_DIAMETER=vis-diameter-portal-dev-alt.syniverse.com
+VISPRO_DIAMETER=vis-diameter-portal-dev.syniverse.com
 	echo "#This line must be first">$1.ldif;
 	echo "#This line must be first">$1.backout;
 
@@ -90,6 +90,8 @@ ID=VisPro_Diameter_Alarm_Pod_menuitem_prsn
     echo "objectclass: presentationinfo">>$1.ldif;
     echo "objectclass: top">>$1.ldif;
     echo "presentationgroupid: VisPro_Diameter_Menu_prsn">>$1.ldif;
+	echo "frameid: NEW_TAB">>$1.ldif;
+	echo "url: https://${VISPRO_DIAMETER}/visproGUI/alert/index.html">>$1.ldif;
 	echo "onclick: parent.NavFrame.openWindow('https://${VISPRO_DIAMETER}/visproGUI/alert/index.html','AlarmPod','Alarm%20Pod')">>$1.ldif;
     echo "type: menuitem">>$1.ldif;
     echo "">>$1.ldif;     
@@ -105,6 +107,8 @@ ID=VisPro_Diameter_Heat_Map_Pod_menuitem_prsn
     echo "objectclass: presentationinfo">>$1.ldif;
     echo "objectclass: top">>$1.ldif;
     echo "presentationgroupid: VisPro_Diameter_Menu_prsn">>$1.ldif;
+	echo "frameid: NEW_TAB">>$1.ldif;
+	echo "url: https://${VISPRO_DIAMETER}/visproGUI/diameterHeatmap/index.html">>$1.ldif;
     echo "onclick: parent.NavFrame.openWindow('https://${VISPRO_DIAMETER}/visproGUI/diameterHeatmap/index.html','HeatMapPod','Heat%20Map%20Pod')">>$1.ldif;
     echo "type: menuitem">>$1.ldif;
     echo "">>$1.ldif;
@@ -133,7 +137,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
         TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
         PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
-        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
+        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID,EXCLUDED_COPERMISSIONS) 
         VALUES  
         ('VisPro_Diameter_userP_prsn',null,null,null,'VisProactive - Diameter',null,
         '4412',null,'02104',null,null,
@@ -141,11 +145,11 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         null,null,null,systimestamp,systimestamp,
         'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
         null, null,null,null,
-        null,null,null );">>$1.sql;
+        null,null,null,null );">>$1.sql;
 echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,
 	PRSNTTN_ID,RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,
 	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
-	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
+	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO,IS_LIVE) 
 	values 
 	('VisPro_Diameter_userP', 'VisPro_Diameter_userP', null, '3', null, 
 	null, 'VisPro_Diameter_userP_prsn', null, null, 
@@ -153,7 +157,7 @@ echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,
 	null, null, null, null, null, 
 	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
 	null, 'user', null, null, 
-	'n');">>$1.sql;
+	'n',1);">>$1.sql;
 
 echo "-- ######################################">>$1.sql;
 echo "-- dn: permissionid=VisPro_Diameter_cmpyP, ou=PermissionCode,o=Crossroads">>$1.sql;
@@ -163,7 +167,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
         TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
         PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
-        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
+        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID,EXCLUDED_COPERMISSIONS) 
         VALUES  
         ('VisPro_Diameter_cmpyP_prsn',null,null,null,'Diameter',null,
         '4409',null,'0070',null,null,
@@ -171,11 +175,11 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         null,null,null,systimestamp,systimestamp,
         'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
         null, null,null,null,
-        null,null,null );">>$1.sql;
+        null,null,null,null );">>$1.sql;
 echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,
 	PRSNTTN_ID,RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,
 	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
-	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
+	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO,IS_LIVE) 
 	values 
 	('VisPro_Diameter_cmpyP', 'VisPro_Diameter_cmpyP', null, '2', 'Unassigned', 
 	null, 'VisPro_Diameter_cmpyP_prsn', null, null, 
@@ -183,7 +187,7 @@ echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,
 	null, null, null, null, null, 
 	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
 	null, null, null, null, 
-	'n');">>$1.sql;
+	'n',1);">>$1.sql;
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
 	values 
@@ -215,7 +219,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
         TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
         PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
-        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
+        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID,EXCLUDED_COPERMISSIONS) 
         VALUES  
         ('VisPro_Diameter_Alarm_Pod_View_userP_prsn',null,null,null,'Alarm Pod View',null,
         '4410',null,'0010',null,null,
@@ -223,11 +227,11 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         null,null,null,systimestamp,systimestamp,
         'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
         null, null,null,null,
-        null,null,null );">>$1.sql;
+        null,null,null,null );">>$1.sql;
 echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,
 	PRSNTTN_ID,RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,
 	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
-	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
+	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO,IS_LIVE) 
 	values 
 	('VisPro_Diameter_Alarm_Pod_View_userP', 'VisPro_Diameter_Alarm_Pod_View_userP', null, '2', 'Unassigned', 
 	null, 'VisPro_Diameter_Alarm_Pod_View_userP_prsn', null, null, 
@@ -235,7 +239,7 @@ echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,
 	null, null, null, null, null, 
 	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
 	null, null, null, null, 
-	'n');">>$1.sql;
+	'n',1);">>$1.sql;
 
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
@@ -272,7 +276,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
         TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
         PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
-        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
+        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID,EXCLUDED_COPERMISSIONS) 
         VALUES  
         ('VisPro_Diameter_Heat_Map_Pod_View_userP_prsn',null,null,null,'Heat Map Pod',null,
         '4411',null,'0020',null,null,
@@ -280,11 +284,11 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         null,null,null,systimestamp,systimestamp,
         'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
         null, null,null,null,
-        null,null,null );">>$1.sql;
+        null,null,null,null );">>$1.sql;
 echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,
 	PRSNTTN_ID,RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,
 	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
-	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
+	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO,IS_LIVE) 
 	values 
 	('VisPro_Diameter_Heat_Map_Pod_View_userP', 'VisPro_Diameter_Heat_Map_Pod_View_userP', null, '2', 'admin', 
 	null, 'VisPro_Diameter_Heat_Map_Pod_View_userP_prsn', null, null, 
@@ -292,7 +296,7 @@ echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,
 	null, null, null, null, null, 
 	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
 	null, null, null, null, 
-	'n');">>$1.sql;
+	'n',1);">>$1.sql;
 
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
@@ -330,7 +334,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
 	PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
 	TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
 	PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
-	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
+	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID,EXCLUDED_COPERMISSIONS) 
 	VALUES  
 	('VisPro_Diameter_Menu_prsn',null,null, null,'Diameter',null,
 	'4412',null,'0020',null,null,
@@ -338,11 +342,11 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
 	null,null,null,systimestamp,systimestamp,
 	'cn=directory manager','uid=xroads,o=crossroads',null,'presentationgroup',null,
 	null, null,null,null,
-	null,null,null );">>$1.sql;
+	null,null,null,null );">>$1.sql;
 echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,PRSNTTN_ID,
 	RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,RSRC_HOME_PAGE,RSRC_MAIL,
 	RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,PROD_MENU_CATEGORY, PRESENTATION_ORDER,
-	RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
+	RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO,IS_LIVE) 
 	values 
 	('VisPro_Diameter_Menu', 'VisPro_Diameter_Menu', null, '4', null, 
 	null, 'VisPro_Diameter_Menu_prsn', null, null, 
@@ -350,7 +354,7 @@ echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,
 	null, null, null, null, null, 
 	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
 	null, null, null, null, 
-	'n');">>$1.sql;
+	'n',1);">>$1.sql;
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY,RSRC_TYP_CD) 
 	values 
@@ -366,19 +370,19 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
 	PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
 	TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
 	PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
-	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
+	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID,EXCLUDED_COPERMISSIONS) 
 	VALUES  
-	('VisPro_Diameter_Alarm_Pod_menuitem_prsn',null,null,'parent.NavFrame.openWindow(''https://${VISPRO_DIAMETER}/visproGUI/alert/index.html'',''AlarmPod'',''Alarm%20Pod'')','Alarm Pod',null,
+	('VisPro_Diameter_Alarm_Pod_menuitem_prsn','NEW_TAB','https://${VISPRO_DIAMETER}/visproGUI/alert/index.html','parent.NavFrame.openWindow(''https://${VISPRO_DIAMETER}/visproGUI/alert/index.html'',''AlarmPod'',''Alarm%20Pod'')','Alarm Pod',null,
 	'4413',null,'0010',null,null,
 	null,null,null,null,null,
 	null,null,null,systimestamp,systimestamp,
 	'cn=directory manager','uid=xroads,o=crossroads',null,'menuitem',null,
 	'VisPro_Diameter_Alarm_Pod_View_userP', null,null,null,
-	null,null,null );">>$1.sql;
+	null,null,null,null );">>$1.sql;
 echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,PRSNTTN_ID,
 	RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,RSRC_HOME_PAGE,RSRC_MAIL,
 	RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,PROD_MENU_CATEGORY, PRESENTATION_ORDER,
-	RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
+	RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO,IS_LIVE) 
 	values 
 	('VisPro_Diameter_Alarm_Pod_menuitem', 'VisPro_Diameter_Alarm_Pod_menuitem', null, '4', null, 
 	null, 'VisPro_Diameter_Alarm_Pod_menuitem_prsn', null, null, 
@@ -386,7 +390,7 @@ echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,
 	null, null, null, null, null, 
 	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
 	null, null, null, null, 
-	'n');">>$1.sql;
+	'n',1);">>$1.sql;
 	
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY,RSRC_TYP_CD) 
@@ -402,19 +406,19 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
 	PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
 	TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
 	PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
-	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
+	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID,EXCLUDED_COPERMISSIONS) 
 	VALUES  
-	('VisPro_Diameter_Heat_Map_Pod_menuitem_prsn',null,null, 'parent.NavFrame.openWindow(''https://${VISPRO_DIAMETER}/visproGUI/diameterHeatmap/index.html'',''HeatMapPod'',''Heat%20Map%20Pod'')','Heat Map Pod',null,
+	('VisPro_Diameter_Heat_Map_Pod_menuitem_prsn','NEW_TAB','https://${VISPRO_DIAMETER}/visproGUI/diameterHeatmap/index.html', 'parent.NavFrame.openWindow(''https://${VISPRO_DIAMETER}/visproGUI/diameterHeatmap/index.html'',''HeatMapPod'',''Heat%20Map%20Pod'')','Heat Map Pod',null,
 	'4414',null,'0020',null,null,
 	null,null,null,null,null,
 	null,null,null,systimestamp,systimestamp,
 	'cn=directory manager','uid=xroads,o=crossroads',null,'menuitem',null,
 	'VisPro_Diameter_Heat_Map_Pod_View_userP', null,null,null,
-	null,null,null );">>$1.sql;
+	null,null,null,null );">>$1.sql;
 echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,PRSNTTN_ID,
 	RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,RSRC_HOME_PAGE,RSRC_MAIL,
 	RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,PROD_MENU_CATEGORY, PRESENTATION_ORDER,
-	RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
+	RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO,IS_LIVE) 
 	values 
 	('VisPro_Diameter_Heat_Map_Pod_menuitem', 'VisPro_Diameter_Heat_Map_Pod_menuitem', null, '4', null, 
 	null, 'VisPro_Diameter_Heat_Map_Pod_menuitem_prsn', null, null, 
@@ -422,7 +426,7 @@ echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,
 	null, null, null, null, null, 
 	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
 	null, null, null, null, 
-	'n');">>$1.sql;
+	'n',1);">>$1.sql;
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY,RSRC_TYP_CD) 
 	values 
