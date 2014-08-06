@@ -5,7 +5,11 @@ public class SimpleSelectionSort {
 	 * Marvin: original array也被改变了
 	 * 
 	 * 
+	 * 在这个基础上进行改进，就能得到 锦标赛排序
+	 * n个记录中，找到最小值，需要进行 n-1 次比较
+	 * 在剩下的 n-1 个中，找到最小值，并非一定进行 n-2 次比较
 	 * 
+	 * 我们要利用 前 n-1 次比较所得到的信息，从而减少后面各趟选择时的比较次数
 	 * 
 	 * @param array
 	 * @param startIndex
