@@ -1,6 +1,17 @@
 import java.util.Arrays;
 
 public class SimpleSelectionSort {
+	/**
+	 * Marvin: original array也被改变了
+	 * 
+	 * 
+	 * 
+	 * 
+	 * @param array
+	 * @param startIndex
+	 * @param endIndex
+	 * @return
+	 */
 	public static int[] simpleSelectionSort(int[] array, int startIndex,
 			int endIndex) {
 		int[] result = new int[endIndex - startIndex + 1];
@@ -18,6 +29,7 @@ public class SimpleSelectionSort {
 			currentResultIndex++;
 
 		}
+		System.out.println(Arrays.toString(array));
 		return result;
 	}
 
