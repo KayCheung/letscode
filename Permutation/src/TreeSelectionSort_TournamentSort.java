@@ -1,21 +1,20 @@
 class Node {
-	public Node(Node parent, int orgnIndex, Node cpNode) {
-		this.orgnIndex = orgnIndex;
-		this.parent = parent;
-		this.cpNode = cpNode;
-	}
-
 	public int orgnIndex;
 	public Node parent;
 	public Node cpNode;
 	public boolean bMax = false;
 
+	public Node(Node parent, int orgnIndex, Node cpNode) {
+		this.orgnIndex = orgnIndex;
+		this.parent = parent;
+		this.cpNode = cpNode;
+	}
 }
 
 public class TreeSelectionSort_TournamentSort {
 
 	public static void main(String[] args) {
-		int[] array = { 3};
+		int[] array = { 3,0,4,3,9 };
 		int[] resultIndex = treeSelectionSort(array, 0, array.length - 1);
 		for (int i = 0; i < resultIndex.length; i++) {
 			System.out.print(array[resultIndex[i]] + ", ");
@@ -24,12 +23,7 @@ public class TreeSelectionSort_TournamentSort {
 
 	public static int[] treeSelectionSort(int[] arrayToBeSort, int startIndex,
 			int endIndex) {
-		Node[] nodeLeaves = new Node[endIndex - startIndex + 1];
-		int nodeIndex = 0;
-		for (int i = startIndex; i <= endIndex; i++) {
-			nodeLeaves[nodeIndex] = new Node(null, i, null);
-			nodeIndex++;
-		}
+		Node[] nodeLeaves = constructLeaves(arrayToBeSort, startIndex, endIndex);
 
 		Node root = buildTree(arrayToBeSort, nodeLeaves);
 
@@ -40,13 +34,24 @@ public class TreeSelectionSort_TournamentSort {
 		return resultIndex;
 	}
 
+	private static Node[] constructLeaves(int[] arrayToBeSort, int startIndex,
+			int endIndex) {
+		Node[] nodeLeaves = new Node[endIndex - startIndex + 1];
+		int nodeIndex = 0;
+		for (int i = startIndex; i <= endIndex; i++) {
+			nodeLeaves[nodeIndex] = new Node(null, i, null);
+			nodeIndex++;
+		}
+		return nodeLeaves;
+	}
+
 	private static Node buildTree(int[] arrayToBeSort, Node[] arrayChildren) {
-		setCPRelation(arrayChildren);
-		int totalCount = arrayChildren.length;
-		if (totalCount == 1) {
+		setCounterPartRelation(arrayChildren);
+		if (arrayChildren.length == 1) {
 			return arrayChildren[0];
 		}
 
+		int totalCount = arrayChildren.length;
 		Node[] arrayParent = new Node[ceilDivideBy2(totalCount)];
 		int curParentIndex = 0;
 		for (int i = 0; i < totalCount;) {
@@ -61,13 +66,16 @@ public class TreeSelectionSort_TournamentSort {
 				int oddValue = arrayToBeSort[oddN.orgnIndex];
 				int parentNodeOrgnIndex = evenValue < oddValue ? evenN.orgnIndex
 						: oddN.orgnIndex;
-				nodeParent = new Node(null, parentNodeOrgnIndex, null);
-				oddN.parent = nodeParent;
-			} else {
-				nodeParent = new Node(null, evenN.orgnIndex, null);
-			}
 
-			evenN.parent = nodeParent;
+				nodeParent = new Node(null, parentNodeOrgnIndex, null);
+				evenN.parent = nodeParent;
+				oddN.parent = nodeParent;
+			}
+			// odd node does not exist
+			else {
+				nodeParent = new Node(null, evenN.orgnIndex, null);
+				evenN.parent = nodeParent;
+			}
 
 			arrayParent[curParentIndex] = nodeParent;
 			curParentIndex++;
@@ -144,14 +152,14 @@ public class TreeSelectionSort_TournamentSort {
 		return traveseUp2SetRootIndex(arrayToBeSort, parentN, node1, node2);
 	}
 
-	private static void setCPRelation(Node[] listChildren) {
-		int size = listChildren.length;
-		for (int i = 0; i < size;) {
-			Node evenN = listChildren[i];
+	private static void setCounterPartRelation(Node[] arrayChildren) {
+		int length = arrayChildren.length;
+		for (int i = 0; i < length;) {
+			Node evenN = arrayChildren[i];
 			int oddIndex = i + 1;
 			// still available
-			if (oddIndex <= size - 1) {
-				Node oddN = listChildren[oddIndex];
+			if (oddIndex <= length - 1) {
+				Node oddN = arrayChildren[oddIndex];
 				evenN.cpNode = oddN;
 				oddN.cpNode = evenN;
 			} else {
