@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 class Node {
 	public Node(Node parent, int orgnIndex, Node cpNode) {
 		this.orgnIndex = orgnIndex;
@@ -11,12 +9,13 @@ class Node {
 	public Node parent;
 	public Node cpNode;
 	public boolean bMax = false;
+
 }
 
 public class TreeSelectionSort_TournamentSort {
 
 	public static void main(String[] args) {
-		int[] array = { 3, 5, 2, 9, 8, 0, 3, 5, 8, 4, 7 };
+		int[] array = { 3};
 		int[] resultIndex = treeSelectionSort(array, 0, array.length - 1);
 		for (int i = 0; i < resultIndex.length; i++) {
 			System.out.print(array[resultIndex[i]] + ", ");
@@ -33,9 +32,68 @@ public class TreeSelectionSort_TournamentSort {
 		}
 
 		Node root = buildTree(arrayToBeSort, nodeLeaves);
-		int[] result = traveseLeaves(arrayToBeSort, nodeLeaves, root,
+
+		int[] resultIndex = new int[endIndex - startIndex + 1];
+
+		traveseLeaves(arrayToBeSort, nodeLeaves, resultIndex, 0, root,
 				startIndex, endIndex);
-		return result;
+		return resultIndex;
+	}
+
+	private static Node buildTree(int[] arrayToBeSort, Node[] arrayChildren) {
+		setCPRelation(arrayChildren);
+		int totalCount = arrayChildren.length;
+		if (totalCount == 1) {
+			return arrayChildren[0];
+		}
+
+		Node[] arrayParent = new Node[ceilDivideBy2(totalCount)];
+		int curParentIndex = 0;
+		for (int i = 0; i < totalCount;) {
+			Node evenN = arrayChildren[i];
+			int oddIndex = i + 1;
+
+			Node nodeParent = null;
+			// still available
+			if (oddIndex <= totalCount - 1) {
+				Node oddN = arrayChildren[oddIndex];
+				int evenValue = arrayToBeSort[evenN.orgnIndex];
+				int oddValue = arrayToBeSort[oddN.orgnIndex];
+				int parentNodeOrgnIndex = evenValue < oddValue ? evenN.orgnIndex
+						: oddN.orgnIndex;
+				nodeParent = new Node(null, parentNodeOrgnIndex, null);
+				oddN.parent = nodeParent;
+			} else {
+				nodeParent = new Node(null, evenN.orgnIndex, null);
+			}
+
+			evenN.parent = nodeParent;
+
+			arrayParent[curParentIndex] = nodeParent;
+			curParentIndex++;
+			i = i + 2;
+		}
+
+		return buildTree(arrayToBeSort, arrayParent);
+	}
+
+	public static void traveseLeaves(int[] arrayToBeSort, Node[] nodeLeaves,
+			int[] resultIndex, int shouldBeIndex, Node root, int startIndex,
+			int endIndex) {
+		// done
+		if (root.bMax) {
+			return;
+		}
+		resultIndex[shouldBeIndex] = root.orgnIndex;
+		shouldBeIndex++;
+
+		Node leaf = nodeLeaves[root.orgnIndex - startIndex];
+		leaf.bMax = true;
+		Node theRoot = traveseUp2SetRootIndex(arrayToBeSort, leaf.parent, leaf,
+				leaf.cpNode);
+
+		traveseLeaves(arrayToBeSort, nodeLeaves, resultIndex, shouldBeIndex,
+				theRoot, startIndex, endIndex);
 	}
 
 	/**
@@ -86,43 +144,6 @@ public class TreeSelectionSort_TournamentSort {
 		return traveseUp2SetRootIndex(arrayToBeSort, parentN, node1, node2);
 	}
 
-	private static Node buildTree(int[] arrayToBeSort, Node[] arrayChildren) {
-		setCPRelation(arrayChildren);
-		int totalCount = arrayChildren.length;
-		if (totalCount == 1) {
-			return arrayChildren[0];
-		}
-
-		Node[] arrayParent = new Node[ceilDivideBy2(totalCount)];
-		int curParentIndex = 0;
-		for (int i = 0; i < totalCount;) {
-			Node evenN = arrayChildren[i];
-			int oddIndex = i + 1;
-
-			Node nodeParent = null;
-			// still available
-			if (oddIndex <= totalCount - 1) {
-				Node oddN = arrayChildren[oddIndex];
-				int evenValue = arrayToBeSort[evenN.orgnIndex];
-				int oddValue = arrayToBeSort[oddIndex];
-				int parentNodeOrgnIndex = evenValue < oddValue ? evenN.orgnIndex
-						: oddN.orgnIndex;
-				nodeParent = new Node(null, parentNodeOrgnIndex, null);
-				oddN.parent = nodeParent;
-			} else {
-				nodeParent = new Node(null, evenN.orgnIndex, null);
-			}
-
-			evenN.parent = nodeParent;
-
-			arrayParent[curParentIndex] = nodeParent;
-			curParentIndex++;
-			i = i + 2;
-		}
-
-		return buildTree(arrayToBeSort, arrayParent);
-	}
-
 	private static void setCPRelation(Node[] listChildren) {
 		int size = listChildren.length;
 		for (int i = 0; i < size;) {
@@ -138,21 +159,6 @@ public class TreeSelectionSort_TournamentSort {
 			}
 			i = i + 2;
 		}
-	}
-
-	public static int[] traveseLeaves(int[] arrayToBeSort, Node[] nodeLeaves,
-			Node root, int startIndex, int endIndex) {
-		int[] resultIndex = new int[endIndex - startIndex + 1];
-		// done
-		if (root.bMax) {
-			return resultIndex;
-		}
-		Node leaf = nodeLeaves[root.orgnIndex - startIndex];
-		leaf.bMax = true;
-		Node theRoot = traveseUp2SetRootIndex(arrayToBeSort, leaf.parent, leaf,
-				leaf.cpNode);
-		return traveseLeaves(arrayToBeSort, nodeLeaves, theRoot, startIndex,
-				endIndex);
 	}
 
 	public static int ceilDivideBy2(int i) {
