@@ -80,10 +80,10 @@ public class MultiWayMerge {
 
 	}
 
-	private static LSNode[] constructLeaves(int k) {
-		LSNode[] arrayLeaves = new LSNode[k];
+	private static LSNode[] constructLeaves(int[] arrayToBeSearch) {
+		LSNode[] arrayLeaves = new LSNode[arrayToBeSearch.length];
 		for (int i = 0; i < arrayLeaves.length; i++) {
-			arrayLeaves[i] = LSNode.createMinLeaf();
+			arrayLeaves[i] = new LSNode(i);
 		}
 		return arrayLeaves;
 	}
