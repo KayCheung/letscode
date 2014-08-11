@@ -1,4 +1,7 @@
-﻿
+﻿6.0 version
+6.28.10
+
+
 6.xx DEV box name : xroads-ofmd1
 VISPRO_DIAMETER=vis-diameter-portal-dev-alt.syniverse.com 6.xx DEV 
 
