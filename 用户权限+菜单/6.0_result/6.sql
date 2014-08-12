@@ -153,7 +153,7 @@ INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_R
 	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
 	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
 	values 
-	('VisPro_Diameter_Heat_Map_Pod_View_userP', 'VisPro_Diameter_Heat_Map_Pod_View_userP', null, '2', 'admin', 
+	('VisPro_Diameter_Heat_Map_Pod_View_userP', 'VisPro_Diameter_Heat_Map_Pod_View_userP', null, '2', 'Unassigned', 
 	null, 'VisPro_Diameter_Heat_Map_Pod_View_userP_prsn', null, null, 
 	null, null, null, null, 
 	null, null, null, null, null, 
