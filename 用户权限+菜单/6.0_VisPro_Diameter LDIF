@@ -24,7 +24,7 @@ DN=permissionid
 ID=VisPro_Diameter_cmpyP
     echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
     echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
-    echo "presentationlabel: Diameter">>$1.ldif;
+    echo "presentationlabel: Diameter (requires Visibility Diameter Option)">>$1.ldif;
     echo "presentationlabeltag: 4409">>$1.ldif;
     echo "presentationorder: 0070">>$1.ldif;
     echo "objectclass: tsipermissioncode">>$1.ldif;
@@ -34,6 +34,20 @@ ID=VisPro_Diameter_cmpyP
 	echo "impliedpermissionid: VisPro_Co">>$1.ldif;
 	echo "impliedpermissionid: VisPro_Vis">>$1.ldif;
     echo "">>$1.ldif;
+
+ID=Vis_Diameter_Option 
+	echo "dn: permissionid=${ID}, $SEARCHBASE">>$1.ldif;
+	echo "./delObj \"permissionid=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
+	echo "presentationorder: 0030">>$1.ldif;
+	echo "presentationlabel: Diameter Option">>$1.ldif;
+	echo "permissiongroupid: Vis_Data_Options">>$1.ldif;
+	echo "objectclass: tsipermissioncode">>$1.ldif;
+	echo "objectclass: top">>$1.ldif;
+	echo "dependentpermissionid: VisPro_Diameter_cmpyP">>$1.ldif;
+	echo "productuid: VisSvc">>$1.ldif;
+	echo "impliedpermissionid: URA2">>$1.ldif;
+	echo "">>$1.ldif;
+
 ID=VisPro_Diameter_Alarm_Pod_View_userP
 	echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
 	echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
@@ -165,7 +179,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
         PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
         VALUES  
-        ('VisPro_Diameter_cmpyP_prsn',null,null,null,'Diameter',null,
+        ('VisPro_Diameter_cmpyP_prsn',null,null,null,'Diameter (requires Visibility Diameter Option)',null,
         '4409',null,'0070',null,null,
         null,null,null,null,null,
         null,null,null,systimestamp,systimestamp,
@@ -204,9 +218,13 @@ echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODI
 	values 
 	('VisPro_Diameter_cmpyP','VisProactive_Co','PermissionGroup',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('Vis_Diameter_Option','VisPro_Diameter_cmpyP','Dependant',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
 
 
-        
 echo "-- ######################################">>$1.sql;
 echo "-- dn: permissionid=VisPro_Diameter_Alarm_Pod_View_userP, ou=PermissionCode,o=Crossroads">>$1.sql;
 echo "-- ######################################">>$1.sql;
