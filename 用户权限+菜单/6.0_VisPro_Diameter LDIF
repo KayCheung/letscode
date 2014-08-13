@@ -35,17 +35,12 @@ ID=VisPro_Diameter_cmpyP
 	echo "impliedpermissionid: VisPro_Vis">>$1.ldif;
     echo "">>$1.ldif;
 
-ID=Vis_Diameter_Option 
-	echo "dn: permissionid=${ID}, $SEARCHBASE">>$1.ldif;
-	echo "./delObj \"permissionid=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
-	echo "presentationorder: 0030">>$1.ldif;
-	echo "presentationlabel: Diameter Option">>$1.ldif;
-	echo "permissiongroupid: Vis_Data_Options">>$1.ldif;
-	echo "objectclass: tsipermissioncode">>$1.ldif;
-	echo "objectclass: top">>$1.ldif;
-	echo "dependentpermissionid: VisPro_Diameter_cmpyP">>$1.ldif;
-	echo "productuid: VisSvc">>$1.ldif;
-	echo "impliedpermissionid: URA2">>$1.ldif;
+ID=Vis_Diameter_Option
+	echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
+	echo "./multiAttrDel \"${DN}=${ID}\" \"$SEARCHBASE\" dependentpermissionid VisPro_Diameter_cmpyP">>$1.backout;
+	echo "changetype: modify">>$1.ldif;
+	echo "add: dependentpermissionid">>$1.ldif;
+	echo "dependentpermissionid: VisPro_Diameter_cmpyP">>$1.ldif; 
 	echo "">>$1.ldif;
 
 ID=VisPro_Diameter_Alarm_Pod_View_userP
@@ -489,6 +484,7 @@ echo "-- ######################################">>$1.backout.sql;
 echo "-- ./delObj "permissionid=VisPro_Diameter_cmpyP" "ou=PermissionCode,o=Crossroads" 
 ">>$1.backout.sql;
 echo "-- ######################################">>$1.backout.sql;
+echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='Vis_Diameter_Option' and RSRC_ID2='VisPro_Diameter_cmpyP' and REL_TYP_CD='Dependant' and RSRC_TYP_CD='2';">>$1.backout.sql;
 echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='VisPro_Diameter_cmpyP'  and 
 		RSRC_TYP_CD='2';
 delete from RSRC_TO_COMPANY_REL where RSRC_ID='VisPro_Diameter_cmpyP'  and 
