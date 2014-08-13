@@ -18,14 +18,9 @@ impliedpermissionid: VisPro_Co
 impliedpermissionid: VisPro_Vis
 
 dn: permissionid=Vis_Diameter_Option, ou=PermissionCode,o=Crossroads
-presentationorder: 0030
-presentationlabel: Diameter Option
-permissiongroupid: Vis_Data_Options
-objectclass: tsipermissioncode
-objectclass: top
+changetype: modify
+add: dependentpermissionid
 dependentpermissionid: VisPro_Diameter_cmpyP
-productuid: VisSvc
-impliedpermissionid: URA2
 
 dn: permissionid=VisPro_Diameter_Alarm_Pod_View_userP, ou=PermissionCode,o=Crossroads
 presentationorder: 0010
