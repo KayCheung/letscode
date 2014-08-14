@@ -29,12 +29,11 @@ public class TreeUtil {
 			} else {
 				parent.L = Node.createNode(nowData);
 			}
-
 		}
 		return root;
 	}
 
-	public static void test_createBST() {
+	private static void test_createBST() {
 		Random r = new Random(47);
 		int maxInt = 51;
 		int nodeCount = 10;
@@ -47,21 +46,42 @@ public class TreeUtil {
 		System.out.println(root);
 	}
 
-	public static int H(Node root) {
-		// root node is in level 1(NOTE: 1, not 0)
+	public static Node createFullTree(int H) {
+		Node root = Node.createNode(1);// root is level 1
+		Node[] currentLevelLeaves = new Node[] { root };
+		int currentLevel = 1; // root is level 1
+		while (currentLevel <= H - 1) {
+			Node[] nextLevelLeaves = new Node[pow2(currentLevel)];
+
+			for (int i = 0; i < currentLevelLeaves.length; i++) {
+				Node n = currentLevelLeaves[i];
+				n.L = Node.createNode(n.data * 2);
+				n.R = Node.createNode(n.data * 2 + 1);
+
+				nextLevelLeaves[2 * i] = n.L;
+				nextLevelLeaves[2 * i + 1] = n.R;
+			}
+			currentLevel++;
+			currentLevelLeaves = nextLevelLeaves;
+		}
+		return root;
+	}
+
+	public static int H(VisibleNode root) {
+		// root node is in level 1 (NOTE: 1, not 0)
 		if (root == null) {
 			return 0;
 		}
-		int subLeftH = H(root.L);
+		int subLeftH = H(root.L());
 		int totalLeftH = subLeftH + 1;
-		int subRightH = H(root.R);
+		int subRightH = H(root.R());
 		int totalRightH = subRightH + 1;
 
 		return (totalLeftH > totalRightH) ? totalLeftH : totalRightH;
 	}
 
-	public static void test_H() {
-		Random r = new Random(47);
+	private static void test_H() {
+		Random r = new Random();
 		int maxInt = 51;
 		int nodeCount = 10;
 		int[] array = new int[nodeCount];
