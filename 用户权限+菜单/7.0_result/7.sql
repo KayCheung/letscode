@@ -38,7 +38,7 @@ INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_
         PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
         PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID,EXCLUDED_COPERMISSIONS) 
         VALUES  
-        ('VisPro_Diameter_cmpyP_prsn',null,null,null,'Diameter',null,
+        ('VisPro_Diameter_cmpyP_prsn',null,null,null,'Diameter (requires Visibility Diameter Option)',null,
         '4409',null,'0070',null,null,
         null,null,null,null,null,
         null,null,null,systimestamp,systimestamp,
@@ -76,6 +76,11 @@ Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_D
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
 	values 
 	('VisPro_Diameter_cmpyP','VisProactive_Co','PermissionGroup',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');
+Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('Vis_Diameter_Option','VisPro_Diameter_cmpyP','Dependant',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','2');
 -- ######################################
 -- dn: permissionid=VisPro_Diameter_Alarm_Pod_View_userP, ou=PermissionCode,o=Crossroads
@@ -153,7 +158,7 @@ INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_R
 	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
 	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO,IS_LIVE) 
 	values 
-	('VisPro_Diameter_Heat_Map_Pod_View_userP', 'VisPro_Diameter_Heat_Map_Pod_View_userP', null, '2', 'admin', 
+	('VisPro_Diameter_Heat_Map_Pod_View_userP', 'VisPro_Diameter_Heat_Map_Pod_View_userP', null, '2', 'Unassigned', 
 	null, 'VisPro_Diameter_Heat_Map_Pod_View_userP_prsn', null, null, 
 	null, null, null, null, 
 	null, null, null, null, null, 

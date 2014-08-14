@@ -7,7 +7,7 @@ objectclass: tsipermissiongroup
 grouptype: user
 
 dn: permissionid=VisPro_Diameter_cmpyP, ou=PermissionCode,o=Crossroads
-presentationlabel: Diameter
+presentationlabel: Diameter (requires Visibility Diameter Option)
 presentationlabeltag: 4409
 presentationorder: 0070
 objectclass: tsipermissioncode
@@ -16,6 +16,11 @@ permissiongroupid: VisProactive_Co
 productuid: VisPro
 impliedpermissionid: VisPro_Co
 impliedpermissionid: VisPro_Vis
+
+dn: permissionid=Vis_Diameter_Option, ou=PermissionCode,o=Crossroads
+changetype: modify
+add: dependentpermissionid
+dependentpermissionid: VisPro_Diameter_cmpyP
 
 dn: permissionid=VisPro_Diameter_Alarm_Pod_View_userP, ou=PermissionCode,o=Crossroads
 presentationorder: 0010

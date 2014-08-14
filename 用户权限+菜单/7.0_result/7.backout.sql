@@ -15,6 +15,7 @@ delete from resourc where RSRC_ID='VisPro_Diameter_userP' and RSRC_TYP_CD='3';
 -- ./delObj permissionid=VisPro_Diameter_cmpyP ou=PermissionCode,o=Crossroads 
 
 -- ######################################
+delete from RSRC_TO_RSRC_REL where RSRC_ID1='Vis_Diameter_Option' and RSRC_ID2='VisPro_Diameter_cmpyP' and REL_TYP_CD='Dependant' and RSRC_TYP_CD='2';
 delete from RSRC_TO_RSRC_REL where RSRC_ID1='VisPro_Diameter_cmpyP'  and 
 		RSRC_TYP_CD='2';
 delete from RSRC_TO_COMPANY_REL where RSRC_ID='VisPro_Diameter_cmpyP'  and 
