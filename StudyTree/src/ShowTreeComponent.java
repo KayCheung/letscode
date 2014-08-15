@@ -2,20 +2,22 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Random;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-public class ShowTreeComponent extends JComponent {
+public class ShowTreeComponent extends JComponent implements MouseListener {
 	private static final long serialVersionUID = 1L;
 	private int verticalGap;
 	private int bottomLevelHorizontalGap;
 	private int startX;
 	private int startY;
-
 	private FullTreeNode[] arrayFullTree;
+	private FullTreeNode lastClickNode;
 
 	static class FullTreeNode {
 		public static int radius = 13;
@@ -31,17 +33,12 @@ public class ShowTreeComponent extends JComponent {
 		this.bottomLevelHorizontalGap = bottomLevelHorizontalGap;
 		this.startX = startX;
 		this.startY = startY;
-
 		arrayFullTree = arbitrary2full(root);
+		addMouseListener(this);
 	}
 
 	public ShowTreeComponent(VisibleNode root) {
-		this.verticalGap = 65;
-		this.bottomLevelHorizontalGap = 15;
-		this.startX = 20;
-		this.startY = 30;
-
-		arrayFullTree = arbitrary2full(root);
+		this(65, 15, root, 20, 30);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class ShowTreeComponent extends JComponent {
 
 		calculateXY(verticalGap, bottomLevelHorizontalGap, arrayFullTree,
 				startX, startY);
-		drawTreeGraphic(gCopy, arrayFullTree);
+		drawTreeGraphic(gCopy, arrayFullTree, lastClickNode);
 
 		gCopy.dispose();
 	}
@@ -96,45 +93,11 @@ public class ShowTreeComponent extends JComponent {
 		}
 	}
 
-	private void calculateXY_version2(int verticalGap,
-			int bottomLevelHorizontalGap, FullTreeNode[] listFullTree,
-			int startX, int startY) {
-		int totalLevel = TreeUtil.log2(listFullTree.length);// begins from 1
-		// currentLevel begins from 1
-		for (int currentLevel = totalLevel; currentLevel >= 1; currentLevel--) {
-			int Y = startY + ((currentLevel - 1) * verticalGap);
-
-			int leftestXInThisLevel = 0;
-			int firstNodeIndexInThisLevel = TreeUtil.pow2(currentLevel - 1);
-			// bottom level
-			if (currentLevel == totalLevel) {
-				leftestXInThisLevel = startX;
-			}
-			// NOT bottom level
-			else {
-				int leftChildIndex = firstNodeIndexInThisLevel * 2;
-				int rightChildIndex = leftChildIndex + 1;
-				FullTreeNode leftChild = listFullTree[leftChildIndex];
-				FullTreeNode rightChild = listFullTree[rightChildIndex];
-				leftestXInThisLevel = (leftChild.X + rightChild.X) >> 1;
-			}
-
-			int totalNodeCountInThisLevel = TreeUtil.pow2(currentLevel - 1);
-			int currentLevelHorizonGap = bottomLevelHorizontalGap
-					* TreeUtil.pow2(totalLevel - currentLevel);
-			for (int i = 0; i < totalNodeCountInThisLevel; i++) {
-				FullTreeNode nodeInThisLevel = listFullTree[firstNodeIndexInThisLevel
-						+ i];
-				nodeInThisLevel.Y = Y;
-				nodeInThisLevel.X = leftestXInThisLevel
-						+ currentLevelHorizonGap * i;
-			}
-		}
-	}
-
-	protected void drawTreeGraphic(Graphics gCopy, FullTreeNode[] listFullTree) {
+	protected void drawTreeGraphic(Graphics gCopy, FullTreeNode[] listFullTree,
+			FullTreeNode lastClickNode) {
 		drawAllTreeNode(gCopy, listFullTree);
 		drawAllTreeLine(gCopy, listFullTree);
+		drawArrow(gCopy, lastClickNode);
 	}
 
 	private void drawAllTreeNode(Graphics gCopy, FullTreeNode[] listFullTree) {
@@ -201,6 +164,26 @@ public class ShowTreeComponent extends JComponent {
 						+ FullTreeNode.radius);
 			}
 		}
+	}
+
+	private void drawArrow(Graphics gCopy, FullTreeNode lastClickNode) {
+		if (lastClickNode == null) {
+			return;
+		}
+		int r = FullTreeNode.radius;
+		int width = 2;
+		int height = 30;
+
+		int x = lastClickNode.X;
+		int y = lastClickNode.Y;
+		gCopy.setColor(Color.red);
+		gCopy.drawRect(x + r - 1, y - height, width, height);
+		gCopy.fillRect(x + r - 1, y - height, width, height);
+
+		// arrow's left part
+		gCopy.drawLine(x + r - 1, y, (x + r - 1 - 3), y - 10);
+		// arrow's right part
+		gCopy.drawLine(x + r + 1, y, (x + r + 1 + 3), y - 10);
 	}
 
 	public static FullTreeNode[] arbitrary2full(VisibleNode root) {
@@ -315,10 +298,65 @@ public class ShowTreeComponent extends JComponent {
 		frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if (e.getButton() != MouseEvent.BUTTON1) {
+			return;
+		}
+		if (e.getClickCount() < 2) {
+			return;
+		}
+		// left button, click 2 or more times
+		FullTreeNode clickNode = findClickNode(e.getX(), e.getY());
+		if (clickNode != null) {
+			lastClickNode = clickNode;
+			repaint();
+		}
+	}
+
+	private FullTreeNode findClickNode(int x, int y) {
+		for (int i = 1; i < arrayFullTree.length; i++) {
+			FullTreeNode clickNode = arrayFullTree[i];
+			if (clickNode.V == false) {
+				continue;
+			}
+			if (insideSqure(clickNode, x, y)) {
+				return clickNode;
+			}
+		}
+		return null;
+	}
+
+	private boolean insideSqure(FullTreeNode clickNode, int x, int y) {
+		int r = FullTreeNode.radius;
+		return (x >= clickNode.X && x <= clickNode.X + 2 * r)
+				&& (y >= clickNode.Y && y <= clickNode.Y + 2 * r);
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
+	}
+
 	public static void main(String[] args) {
-		// test_One_Component();
+		test_One_Component();
 		// test_Multiple_Component();
-		test_FullTree();
+		// test_FullTree();
 	}
 
 }
