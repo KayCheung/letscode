@@ -43,11 +43,11 @@ ID=Vis_Diameter_Option
 	echo "dependentpermissionid: VisPro_Diameter_cmpyP">>$1.ldif; 
 	echo "">>$1.ldif;
 
-ID=VisPro_Diameter_Alarm_Pod_View_userP
+ID=VisPro_Diameter_Alert_Pod_View_userP
 	echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
 	echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
 	echo "presentationorder: 0010">>$1.ldif;
-	echo "presentationlabel: Alarm Pod View">>$1.ldif;
+	echo "presentationlabel: Alert Pod View">>$1.ldif;
 	echo "presentationlabeltag: 4410">>$1.ldif;
 	echo "permissiongroupid: VisPro_Diameter_userP">>$1.ldif;
 	echo "objectclass: tsipermissioncode">>$1.ldif;
@@ -87,19 +87,19 @@ ID=VisPro_Diameter_Menu_prsn
     echo "objectclass: top">>$1.ldif;
     echo "type: presentationgroup">>$1.ldif;
     echo "">>$1.ldif;
-ID=VisPro_Diameter_Alarm_Pod_menuitem_prsn
+ID=VisPro_Diameter_Alert_Pod_menuitem_prsn
     echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
     echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
-    echo "presentationlabel: Alarm Pod">>$1.ldif; 
+    echo "presentationlabel: Alert Pod">>$1.ldif; 
     echo "presentationlabeltag: 4413">>$1.ldif;
     echo "presentationorder: 0010">>$1.ldif;
-    echo "permissionid: VisPro_Diameter_Alarm_Pod_View_userP">>$1.ldif;
+    echo "permissionid: VisPro_Diameter_Alert_Pod_View_userP">>$1.ldif;
 	echo "objectclass: menuitem">>$1.ldif;
     echo "objectclass: presentationgroup">>$1.ldif;
     echo "objectclass: presentationinfo">>$1.ldif;
     echo "objectclass: top">>$1.ldif;
     echo "presentationgroupid: VisPro_Diameter_Menu_prsn">>$1.ldif;
-	echo "onclick: parent.NavFrame.openWindow('https://${VISPRO_DIAMETER}/visproGUI/alert/index.html','AlarmPod','Alarm%20Pod')">>$1.ldif;
+	echo "onclick: parent.NavFrame.openWindow('https://${VISPRO_DIAMETER}/visproGUI/alert/index.html','AlertPod','Alert%20Pod')">>$1.ldif;
     echo "type: menuitem">>$1.ldif;
     echo "">>$1.ldif;     
 ID=VisPro_Diameter_Heat_Map_Pod_menuitem_prsn
@@ -221,7 +221,7 @@ echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODI
 
 
 echo "-- ######################################">>$1.sql;
-echo "-- dn: permissionid=VisPro_Diameter_Alarm_Pod_View_userP, ou=PermissionCode,o=Crossroads">>$1.sql;
+echo "-- dn: permissionid=VisPro_Diameter_Alert_Pod_View_userP, ou=PermissionCode,o=Crossroads">>$1.sql;
 echo "-- ######################################">>$1.sql;
 echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
         PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
@@ -230,7 +230,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
         PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
         VALUES  
-        ('VisPro_Diameter_Alarm_Pod_View_userP_prsn',null,null,null,'Alarm Pod View',null,
+        ('VisPro_Diameter_Alert_Pod_View_userP_prsn',null,null,null,'Alert Pod View',null,
         '4410',null,'0010',null,null,
         null,null,null,null,null,
         null,null,null,systimestamp,systimestamp,
@@ -242,8 +242,8 @@ echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,
 	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
 	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
 	values 
-	('VisPro_Diameter_Alarm_Pod_View_userP', 'VisPro_Diameter_Alarm_Pod_View_userP', null, '2', 'Unassigned', 
-	null, 'VisPro_Diameter_Alarm_Pod_View_userP_prsn', null, null, 
+	('VisPro_Diameter_Alert_Pod_View_userP', 'VisPro_Diameter_Alert_Pod_View_userP', null, '2', 'Unassigned', 
+	null, 'VisPro_Diameter_Alert_Pod_View_userP_prsn', null, null, 
 	null, null, null, null, 
 	null, null, null, null, null, 
 	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
@@ -253,27 +253,27 @@ echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
 	values 
-	('VisPro_Diameter_Alarm_Pod_View_userP','VisPro_Diameter_cmpyP','Copermission',systimestamp,systimestamp,
+	('VisPro_Diameter_Alert_Pod_View_userP','VisPro_Diameter_cmpyP','Copermission',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','2');">>$1.sql;
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
 	values 
-	('VisPro_Diameter_Alarm_Pod_View_userP','VisSvc','Product',systimestamp,systimestamp,
+	('VisPro_Diameter_Alert_Pod_View_userP','VisSvc','Product',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','2');">>$1.sql;
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
 	values 
-	('VisPro_Diameter_Alarm_Pod_View_userP','VisPro','Implied',systimestamp,systimestamp,
+	('VisPro_Diameter_Alert_Pod_View_userP','VisPro','Implied',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','2');">>$1.sql;
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
 	values 
-	('VisPro_Diameter_Alarm_Pod_View_userP','VisPro_Vis','Implied',systimestamp,systimestamp,
+	('VisPro_Diameter_Alert_Pod_View_userP','VisPro_Vis','Implied',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','2');">>$1.sql;
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
 	values 
-	('VisPro_Diameter_Alarm_Pod_View_userP','VisPro_Diameter_userP','PermissionGroup',systimestamp,systimestamp,
+	('VisPro_Diameter_Alert_Pod_View_userP','VisPro_Diameter_userP','PermissionGroup',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','2');">>$1.sql;
 
 
@@ -372,7 +372,7 @@ echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODI
 
 
 echo "-- ######################################">>$1.sql;
-echo "-- dn: uid=VisPro_Diameter_Alarm_Pod_menuitem_prsn, ou=PresentationObjects,o=Crossroads">>$1.sql;
+echo "-- dn: uid=VisPro_Diameter_Alert_Pod_menuitem_prsn, ou=PresentationObjects,o=Crossroads">>$1.sql;
 echo "-- ######################################">>$1.sql;
 echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
 	PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
@@ -381,20 +381,20 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
 	PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
 	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
 	VALUES  
-	('VisPro_Diameter_Alarm_Pod_menuitem_prsn',null,null,'parent.NavFrame.openWindow(''https://${VISPRO_DIAMETER}/visproGUI/alert/index.html'',''AlarmPod'',''Alarm%20Pod'')','Alarm Pod',null,
+	('VisPro_Diameter_Alert_Pod_menuitem_prsn',null,null,'parent.NavFrame.openWindow(''https://${VISPRO_DIAMETER}/visproGUI/alert/index.html'',''AlertPod'',''Alert%20Pod'')','Alert Pod',null,
 	'4413',null,'0010',null,null,
 	null,null,null,null,null,
 	null,null,null,systimestamp,systimestamp,
 	'cn=directory manager','uid=xroads,o=crossroads',null,'menuitem',null,
-	'VisPro_Diameter_Alarm_Pod_View_userP', null,null,null,
+	'VisPro_Diameter_Alert_Pod_View_userP', null,null,null,
 	null,null,null );">>$1.sql;
 echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,PRSNTTN_ID,
 	RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,RSRC_HOME_PAGE,RSRC_MAIL,
 	RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,PROD_MENU_CATEGORY, PRESENTATION_ORDER,
 	RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
 	values 
-	('VisPro_Diameter_Alarm_Pod_menuitem', 'VisPro_Diameter_Alarm_Pod_menuitem', null, '4', null, 
-	null, 'VisPro_Diameter_Alarm_Pod_menuitem_prsn', null, null, 
+	('VisPro_Diameter_Alert_Pod_menuitem', 'VisPro_Diameter_Alert_Pod_menuitem', null, '4', null, 
+	null, 'VisPro_Diameter_Alert_Pod_menuitem_prsn', null, null, 
 	null, null, null, null, 
 	null, null, null, null, null, 
 	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
@@ -404,7 +404,7 @@ echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY,RSRC_TYP_CD) 
 	values 
-	('VisPro_Diameter_Alarm_Pod_menuitem','VisPro_Diameter_Menu_prsn','PresGroup',systimestamp,systimestamp,
+	('VisPro_Diameter_Alert_Pod_menuitem','VisPro_Diameter_Menu_prsn','PresGroup',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','4');">>$1.sql;
 
 echo "-- ######################################">>$1.sql;
@@ -495,16 +495,16 @@ delete from resourc where RSRC_ID='VisPro_Diameter_cmpyP' and RSRC_TYP_CD='2';
 ">>$1.backout.sql;
 
 echo "-- ######################################">>$1.backout.sql;
-echo "-- ./delObj "permissionid=VisPro_Diameter_Alarm_Pod_View_userP" "ou=PermissionCode,o=Crossroads" 
+echo "-- ./delObj "permissionid=VisPro_Diameter_Alert_Pod_View_userP" "ou=PermissionCode,o=Crossroads" 
 ">>$1.backout.sql;
 echo "-- ######################################">>$1.backout.sql;
-echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='VisPro_Diameter_Alarm_Pod_View_userP'  and 
+echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='VisPro_Diameter_Alert_Pod_View_userP'  and 
 		RSRC_TYP_CD='2';
-delete from RSRC_TO_COMPANY_REL where RSRC_ID='VisPro_Diameter_Alarm_Pod_View_userP'  and 
+delete from RSRC_TO_COMPANY_REL where RSRC_ID='VisPro_Diameter_Alert_Pod_View_userP'  and 
 		RSRC_TYPE_CODE='2';
 delete from presentation where PRSNTTN_ID=(select PRSNTTN_ID from resourc where 
-		RSRC_ID='VisPro_Diameter_Alarm_Pod_View_userP' and RSRC_TYP_CD='2');
-delete from resourc where RSRC_ID='VisPro_Diameter_Alarm_Pod_View_userP' and RSRC_TYP_CD='2';
+		RSRC_ID='VisPro_Diameter_Alert_Pod_View_userP' and RSRC_TYP_CD='2');
+delete from resourc where RSRC_ID='VisPro_Diameter_Alert_Pod_View_userP' and RSRC_TYP_CD='2';
 ">>$1.backout.sql;
 
 echo "-- ######################################">>$1.backout.sql;
@@ -535,16 +535,16 @@ delete from presentation where PRSNTTN_ID='VisPro_Diameter_Menu_prsn';
 ">>$1.backout.sql;
 
 echo "-- ######################################">>$1.backout.sql;
-echo "-- ./delObj "uid=VisPro_Diameter_Alarm_Pod_menuitem_prsn" "ou=PresentationObjects,o=Crossroads" 
+echo "-- ./delObj "uid=VisPro_Diameter_Alert_Pod_menuitem_prsn" "ou=PresentationObjects,o=Crossroads" 
 ">>$1.backout.sql;
 echo "-- ######################################">>$1.backout.sql;
 echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1=(select RSRC_ID from resourc where 
-		PRSNTTN_ID='VisPro_Diameter_Alarm_Pod_menuitem_prsn' and RSRC_TYP_CD='4') and  RSRC_TYP_CD='4';
+		PRSNTTN_ID='VisPro_Diameter_Alert_Pod_menuitem_prsn' and RSRC_TYP_CD='4') and  RSRC_TYP_CD='4';
 delete from RSRC_TO_COMPANY_REL where RSRC_ID=(select RSRC_ID from resourc where 
-		PRSNTTN_ID='VisPro_Diameter_Alarm_Pod_menuitem_prsn' and RSRC_TYP_CD='4') and  RSRC_TYPE_CODE='4';
+		PRSNTTN_ID='VisPro_Diameter_Alert_Pod_menuitem_prsn' and RSRC_TYP_CD='4') and  RSRC_TYPE_CODE='4';
 delete from resourc where RSRC_ID=(select RSRC_ID from resourc where 
-		PRSNTTN_ID='VisPro_Diameter_Alarm_Pod_menuitem_prsn' and RSRC_TYP_CD='4') and  RSRC_TYP_CD='4';
-delete from presentation where PRSNTTN_ID='VisPro_Diameter_Alarm_Pod_menuitem_prsn';
+		PRSNTTN_ID='VisPro_Diameter_Alert_Pod_menuitem_prsn' and RSRC_TYP_CD='4') and  RSRC_TYP_CD='4';
+delete from presentation where PRSNTTN_ID='VisPro_Diameter_Alert_Pod_menuitem_prsn';
 ">>$1.backout.sql;
 
 echo "-- ######################################">>$1.backout.sql;
