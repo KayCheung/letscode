@@ -1,4 +1,4 @@
-public class Node {
+public class Node implements VisibleNode {
 	public int data;
 	public Node L;
 	public Node R;
@@ -7,6 +7,18 @@ public class Node {
 		Node n = new Node();
 		n.data = data;
 		return n;
+	}
+
+	public VisibleNode L() {
+		return L;
+	}
+
+	public VisibleNode R() {
+		return R;
+	}
+
+	public int data() {
+		return data;
 	}
 
 	@Override
