@@ -12,22 +12,14 @@ public class AVLutil {
 	 * 
 	 * @param n_1
 	 */
-	public static void R_Rotate(AVLNode n_1_Parent, AVLNode n_1) {
+	public static AVLNode R_Rotate(AVLNode n_1) {
 		System.out.println("R_Rotate: n_1.bf=" + n_1.bf);
 		AVLNode l_2 = n_1.L;
 		AVLNode lr_3 = l_2.R;
 
 		l_2.R = n_1;
 		n_1.L = lr_3;
-
-		if (n_1_Parent != null) {
-			// n_1 is leftChild
-			if (n_1_Parent.L == n_1) {
-				n_1_Parent.L = l_2;
-			} else {
-				n_1_Parent.R = l_2;
-			}
-		}
+		return l_2;
 	}
 
 	/**
@@ -41,34 +33,29 @@ public class AVLutil {
 	 * 
 	 * @param n_1
 	 */
-	public static void L_Rotate(AVLNode n_1_Parent, AVLNode n_1) {
+	public static AVLNode L_Rotate(AVLNode n_1) {
 		System.out.println("L_Rotate, n_1.bf=" + n_1.bf);
 		AVLNode r_2 = n_1.R;
 		AVLNode rl_3 = r_2.L;
 
 		r_2.L = n_1;
 		n_1.R = rl_3;
-
-		if (n_1_Parent != null) {
-			if (n_1_Parent.L == n_1) {
-				n_1_Parent.L = r_2;
-			} else {
-				n_1_Parent.R = r_2;
-			}
-			n_1_Parent.R = r_2;
-		}
+		return r_2;
 	}
 
 	/**
-	 * n_1.bf == LH
+	 * Precondition: n_1 is already LH
+	 * 
+	 * add a new leaf to n_1's left/right subtree
 	 * 
 	 * 
 	 * @param n_1_Parent
 	 * @param n_1
 	 */
-	public static void leftBalance(AVLNode n_1_Parent, AVLNode n_1) {
+	public static AVLNode leftBalance(AVLNode n_1) {
+		// n_1 is LH
+		// add leaf to n_1.L 's lef
 		AVLNode l_2 = n_1.L;
-
 		switch (l_2.bf) {
 		// never happen
 		case EH:
@@ -76,8 +63,7 @@ public class AVLutil {
 		case LH: // new child is on l_2's left
 			n_1.bf = AVLNode.BalanceFactor.EH;
 			l_2.bf = AVLNode.BalanceFactor.EH;
-			R_Rotate(n_1_Parent, n_1);
-			break;
+			return R_Rotate(n_1);
 		case RH: // new child is on l_2's right
 			AVLNode lr_3 = l_2.R;
 			switch (lr_3.bf) {
@@ -95,10 +81,10 @@ public class AVLutil {
 				break;
 			}
 			lr_3.bf = AVLNode.BalanceFactor.EH;
-			L_Rotate(n_1, l_2);
-			R_Rotate(n_1_Parent, n_1);
-			break;
+			AVLNode newRoot = L_Rotate(l_2);
+			R_Rotate(newRoot);
 		}
+		return null;
 	}
 
 	/**
@@ -108,7 +94,40 @@ public class AVLutil {
 	 * @param n_1_Parent
 	 * @param n_1
 	 */
-	public static void rightBalance(AVLNode n_1_Parent, AVLNode n_1) {
+	public static AVLNode rightBalance(AVLNode n_1) {
+		// n_1 is LH
+		// add leaf to n_1.L 's lef
+		AVLNode r_2 = n_1.R;
+		switch (r_2.bf) {
+		// never happen
+		case EH:
+			break;
+		case RH: // new child is on l_2's left
+			n_1.bf = AVLNode.BalanceFactor.EH;
+			r_2.bf = AVLNode.BalanceFactor.EH;
+			return R_Rotate(n_1);
+		case LH: // new child is on l_2's right
+			AVLNode rl_3 = r_2.L;
+			switch (rl_3.bf) {
+			case LH:
+				n_1.bf = AVLNode.BalanceFactor.LH;
+				r_2.bf = AVLNode.BalanceFactor.EH;
+				break;
+			case EH:
+				n_1.bf = AVLNode.BalanceFactor.EH;
+				r_2.bf = AVLNode.BalanceFactor.EH;
+				break;
+			case RH:
+				n_1.bf = AVLNode.BalanceFactor.EH;
+				r_2.bf = AVLNode.BalanceFactor.RH;
+				break;
+			}
+			rl_3.bf = AVLNode.BalanceFactor.EH;
+			AVLNode newRoot = R_Rotate(r_2);
+			L_Rotate(newRoot);
+		}
+		return null;
+
 	}
 
 	/**
@@ -120,27 +139,17 @@ public class AVLutil {
 	 * @param newValue
 	 * @return
 	 */
-	public static boolean insert(AVLNode nodeParent, AVLNode node, int newValue) {
+	public static boolean insert(AVLNode node, int newValue) {
 		// do insertion
 		if (node == null) {
 			AVLNode createdNewNode = new AVLNode();
 			createdNewNode.data = newValue;
 			createdNewNode.L = createdNewNode.R = null;
 			createdNewNode.bf = AVLNode.BalanceFactor.EH;
-			if (nodeParent != null) {
-				// new value is less
-				if (newValue < nodeParent.data) {
-					nodeParent.L = createdNewNode;
-				}
-				// new value is greater/equal to
-				else {
-					nodeParent.R = createdNewNode;
-				}
-			}
 			// Yes, tree grows taller
 			return true;
 		}
-		// find node, and then do insertion
+		// find node, and do insertion
 		else {
 			// new value is less.
 			// Should on node's left
@@ -148,14 +157,14 @@ public class AVLutil {
 				// It's apparently possible that appending a leaf on a tree does
 				// not increase this tree height
 				// node's left subtree grows taller.
-				boolean bGrowTaller = insert(node, node.L, newValue);
+				boolean bGrowTaller = insert(node.L, newValue);
 				if (bGrowTaller == true) {
-					// Based on node's ORIGINAL bf (before appending the new
-					// node)
+					// if grows taller, we need to balance node.L's parent
 					// do balance if necessary
 					switch (node.bf) {
 					case LH:
-						leftBalance(nodeParent, node);
+						AVLNode newRoot = leftBalance(node);
+						node.L = newRoot;
 						// tree tree with <code>node</code> as root does grow
 						// taller, but after we do balance, it's
 						// height does not change
@@ -171,7 +180,29 @@ public class AVLutil {
 			}
 			// new value is greater or equal to
 			else {
-				return false;
+				// It's apparently possible that appending a leaf on a tree does
+				// not increase this tree height
+				// node's left subtree grows taller.
+				boolean bGrowTaller = insert(node.R, newValue);
+				if (bGrowTaller == true) {
+					// if grows taller, we need to balance node.L's parent
+					// do balance if necessary
+					switch (node.bf) {
+					case RH:
+						AVLNode newRoot = rightBalance(node);
+						node.R = newRoot;
+						// tree tree with <code>node</code> as root does grow
+						// taller, but after we do balance, it's
+						// height does not change
+						return false;
+					case EH:
+						node.bf = AVLNode.BalanceFactor.RH;
+						return true;
+					case LH:
+						node.bf = AVLNode.BalanceFactor.EH;
+						return false;
+					}
+				}
 			}
 		}
 		// never reach
@@ -179,6 +210,11 @@ public class AVLutil {
 	}
 
 	public static AVLNode createAVLTree(int[] array) {
+		array = new int[]{10, 20, 30, 40};
+		for (int i = 0; i < array.length; i++) {
+			insert(null, array[i]);
+			
+		}
 		return null;
 	}
 }
