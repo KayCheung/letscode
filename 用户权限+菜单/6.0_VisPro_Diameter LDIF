@@ -99,7 +99,7 @@ ID=VisPro_Diameter_Alert_Pod_menuitem_prsn
     echo "objectclass: presentationinfo">>$1.ldif;
     echo "objectclass: top">>$1.ldif;
     echo "presentationgroupid: VisPro_Diameter_Menu_prsn">>$1.ldif;
-	echo "onclick: parent.NavFrame.openWindow('https://${VISPRO_DIAMETER}/visproGUI/alert/index.html','AlertPod','Alert%20Pod')">>$1.ldif;
+	echo "onclick: parent.NavFrame.openWindow('https://${VISPRO_DIAMETER}/ng-diameter/visproGUI/alert/index.html','AlertPod','Alert%20Pod')">>$1.ldif;
     echo "type: menuitem">>$1.ldif;
     echo "">>$1.ldif;     
 ID=VisPro_Diameter_Heat_Map_Pod_menuitem_prsn
@@ -114,7 +114,7 @@ ID=VisPro_Diameter_Heat_Map_Pod_menuitem_prsn
     echo "objectclass: presentationinfo">>$1.ldif;
     echo "objectclass: top">>$1.ldif;
     echo "presentationgroupid: VisPro_Diameter_Menu_prsn">>$1.ldif;
-    echo "onclick: parent.NavFrame.openWindow('https://${VISPRO_DIAMETER}/visproGUI/diameterHeatmap/index.html','HeatMapPod','Heat%20Map%20Pod')">>$1.ldif;
+    echo "onclick: parent.NavFrame.openWindow('https://${VISPRO_DIAMETER}/ng-diameter/visproGUI/diameterHeatmap/index.html','HeatMapPod','Heat%20Map%20Pod')">>$1.ldif;
     echo "type: menuitem">>$1.ldif;
     echo "">>$1.ldif;
     
@@ -381,7 +381,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
 	PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
 	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
 	VALUES  
-	('VisPro_Diameter_Alert_Pod_menuitem_prsn',null,null,'parent.NavFrame.openWindow(''https://${VISPRO_DIAMETER}/visproGUI/alert/index.html'',''AlertPod'',''Alert%20Pod'')','Alert Pod',null,
+	('VisPro_Diameter_Alert_Pod_menuitem_prsn',null,null,'parent.NavFrame.openWindow(''https://${VISPRO_DIAMETER}/ng-diameter/visproGUI/alert/index.html'',''AlertPod'',''Alert%20Pod'')','Alert Pod',null,
 	'4413',null,'0010',null,null,
 	null,null,null,null,null,
 	null,null,null,systimestamp,systimestamp,
@@ -417,7 +417,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
 	PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
 	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
 	VALUES  
-	('VisPro_Diameter_Heat_Map_Pod_menuitem_prsn',null,null, 'parent.NavFrame.openWindow(''https://${VISPRO_DIAMETER}/visproGUI/diameterHeatmap/index.html'',''HeatMapPod'',''Heat%20Map%20Pod'')','Heat Map Pod',null,
+	('VisPro_Diameter_Heat_Map_Pod_menuitem_prsn',null,null, 'parent.NavFrame.openWindow(''https://${VISPRO_DIAMETER}/ng-diameter/visproGUI/diameterHeatmap/index.html'',''HeatMapPod'',''Heat%20Map%20Pod'')','Heat Map Pod',null,
 	'4414',null,'0020',null,null,
 	null,null,null,null,null,
 	null,null,null,systimestamp,systimestamp,
