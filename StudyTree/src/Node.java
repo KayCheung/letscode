@@ -9,16 +9,16 @@ public class Node implements VisibleNode {
 		return n;
 	}
 
-	public VisibleNode L() {
+	public VisibleNode leftChild() {
 		return L;
 	}
 
-	public VisibleNode R() {
+	public VisibleNode rightChild() {
 		return R;
 	}
 
-	public int data() {
-		return data;
+	public String presentation() {
+		return data + "";
 	}
 
 	@Override

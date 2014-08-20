@@ -1,7 +1,7 @@
 public interface VisibleNode {
-	public VisibleNode L();
+	public VisibleNode leftChild();
 
-	public VisibleNode R();
+	public VisibleNode rightChild();
 
-	public int data();
+	public String presentation();
 }

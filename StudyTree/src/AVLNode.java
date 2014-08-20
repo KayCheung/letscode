@@ -5,23 +5,23 @@ public class AVLNode implements VisibleNode {
 	public BalanceFactor bf;
 
 	@Override
-	public VisibleNode L() {
+	public VisibleNode leftChild() {
 		return L;
 	}
 
 	@Override
-	public VisibleNode R() {
+	public VisibleNode rightChild() {
 		return R;
-	}
-
-	@Override
-	public int data() {
-		return data;
 	}
 
 	static enum BalanceFactor {
 		LH, // left higher
 		RH, // right higher
 		EH; // equal higher
+	}
+
+	@Override
+	public String presentation() {
+		return data + "";
 	}
 }

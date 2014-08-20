@@ -111,7 +111,7 @@ public class ShowTreeComponent extends JComponent implements MouseListener {
 			if (fullNode.V == true) {
 				drawEachTreeNode(gCopy, fullNode.X, fullNode.Y,
 						FullTreeNode.radius, outlineColor, fillColor,
-						fontColor, fullNode.node.data() + "");
+						fontColor, fullNode.node.presentation());
 			}
 		}
 	}
@@ -203,8 +203,9 @@ public class ShowTreeComponent extends JComponent implements MouseListener {
 		if (node != null) {
 			arrayFullTree[index].node = node;
 			arrayFullTree[index].V = true;
-			correspondingFullTreeIndex(node.L(), index << 1, arrayFullTree);
-			correspondingFullTreeIndex(node.R(), (index << 1) + 1,
+			correspondingFullTreeIndex(node.leftChild(), index << 1,
+					arrayFullTree);
+			correspondingFullTreeIndex(node.rightChild(), (index << 1) + 1,
 					arrayFullTree);
 		}
 	}
@@ -235,7 +236,7 @@ public class ShowTreeComponent extends JComponent implements MouseListener {
 	}
 
 	public static void test_FullTree() {
-		Node root = createFullTree(5);
+		VisibleNode root = TreeUtil.createFullTree(5);
 
 		int verticalGap = 65;
 		int bottomLevelHorizontalGap = 30;
@@ -251,26 +252,10 @@ public class ShowTreeComponent extends JComponent implements MouseListener {
 		frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	private static Node createTree(int nodeCount) {
-		Random r = new Random(47);
-		int maxInt = 51;
-		int[] array = new int[nodeCount];
-		for (int i = 0; i < array.length; i++) {
-			array[i] = r.nextInt(maxInt);
-		}
-
-		Node root = TreeUtil.createBST(array);
-		return root;
-	}
-
-	private static Node createFullTree(int H) {
-		return TreeUtil.createFullTree(H);
-	}
-
 	public static void test_Multiple_Component() {
-		Node root_9 = createTree(9);
-		Node root_7 = createTree(7);
-		Node root_8 = createTree(8);
+		VisibleNode root_9 = TreeUtil.createTree(9);
+		VisibleNode root_7 = TreeUtil.createTree(7);
+		VisibleNode root_8 = TreeUtil.createTree(8);
 
 		int verticalGap = 65;
 		int bottomLevelHorizontalGap = 25;

@@ -2,6 +2,18 @@ import java.util.Random;
 
 public class TreeUtil {
 
+	public static VisibleNode createTree(int nodeCount) {
+		Random r = new Random(47);
+		int maxInt = 51;
+		int[] array = new int[nodeCount];
+		for (int i = 0; i < array.length; i++) {
+			array[i] = r.nextInt(maxInt);
+		}
+
+		VisibleNode root = TreeUtil.createBST(array);
+		return root;
+	}
+
 	public static Node createBST(int[] array) {
 		if (array == null || array.length == 0) {
 			return null;
@@ -72,9 +84,9 @@ public class TreeUtil {
 		if (root == null) {
 			return 0;
 		}
-		int subLeftH = H(root.L());
+		int subLeftH = H(root.leftChild());
 		int totalLeftH = subLeftH + 1;
-		int subRightH = H(root.R());
+		int subRightH = H(root.rightChild());
 		int totalRightH = subRightH + 1;
 
 		return (totalLeftH > totalRightH) ? totalLeftH : totalRightH;
