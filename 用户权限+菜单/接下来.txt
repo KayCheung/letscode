@@ -54,6 +54,37 @@ onclick: parent.NavFrame.openWindow(''https://${VISPRO_DIAMETER}/ng-diameter/vis
 
 
 
+httpd.conf
+I have setup the proxy on ofmd1 for the 6.xx DEV.
+<VirtualHost *:7779>
+   SetHandler ccv
+   ServerName vis-diameter-portal-test-alt.syniverse.com
+   ProxyPass / http://hwvpabepvmd12.syniverse.com:19300/
+   ProxyPassReverse  / http://hwvpabepvmd12.syniverse.com:19300/
+</VirtualHost>
+
+VisProactive_Diameter
+
+
+<VirtualHost *:7777>
+   ServerName vis-diameter-portal-dev.syniverse.com
+   <Location />
+     order allow,deny
+     deny from all
+   </Location>
+   <Location /crossroad_sample>
+     order deny,allow
+     allow from all
+     SetHandler weblogic-handler
+     RequestHeader set IS_SSL ssl
+     RequestHeader set WL-Proxy-SSL true
+     WebLogicHost 10.28.121.41
+     WebLogicPort 9090 
+</Location>
+</VirtualHost>
+
+
+
 
 1、我看到，删除了 RSRC_TO_COMPANY_REL，那么，分配给user的，怎么删除呢？
 2、删除时，目前删除的这些，和 CSP、GTPC比起来，是不是删除的足够了。

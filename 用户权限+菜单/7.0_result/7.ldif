@@ -22,9 +22,9 @@ changetype: modify
 add: dependentpermissionid
 dependentpermissionid: VisPro_Diameter_cmpyP
 
-dn: permissionid=VisPro_Diameter_Alarm_Pod_View_userP, ou=PermissionCode,o=Crossroads
+dn: permissionid=VisPro_Diameter_Alert_Pod_View_userP, ou=PermissionCode,o=Crossroads
 presentationorder: 0010
-presentationlabel: Alarm Pod View
+presentationlabel: Alert Pod View
 presentationlabeltag: 4410
 permissiongroupid: VisPro_Diameter_userP
 objectclass: tsipermissioncode
@@ -57,19 +57,19 @@ objectclass: presentationinfo
 objectclass: top
 type: presentationgroup
 
-dn: uid=VisPro_Diameter_Alarm_Pod_menuitem_prsn, ou=PresentationObjects,o=Crossroads
-presentationlabel: Alarm Pod
+dn: uid=VisPro_Diameter_Alert_Pod_menuitem_prsn, ou=PresentationObjects,o=Crossroads
+presentationlabel: Alert Pod
 presentationlabeltag: 4413
 presentationorder: 0010
-permissionid: VisPro_Diameter_Alarm_Pod_View_userP
+permissionid: VisPro_Diameter_Alert_Pod_View_userP
 objectclass: menuitem
 objectclass: presentationgroup
 objectclass: presentationinfo
 objectclass: top
 presentationgroupid: VisPro_Diameter_Menu_prsn
 frameid: NEW_TAB
-url: https://vis-diameter-portal-dev.syniverse.com/visproGUI/alert/index.html
-onclick: parent.NavFrame.openWindow('https://vis-diameter-portal-dev.syniverse.com/visproGUI/alert/index.html','AlarmPod','Alarm%20Pod')
+url: https://vis-diameter-portal-dev.syniverse.com/ng-diameter/visproGUI/alert/index.html
+onclick: parent.NavFrame.openWindow('https://vis-diameter-portal-dev.syniverse.com/ng-diameter/visproGUI/alert/index.html','AlertPod','Alert%20Pod')
 type: menuitem
 
 dn: uid=VisPro_Diameter_Heat_Map_Pod_menuitem_prsn, ou=PresentationObjects,o=Crossroads
@@ -83,8 +83,8 @@ objectclass: presentationinfo
 objectclass: top
 presentationgroupid: VisPro_Diameter_Menu_prsn
 frameid: NEW_TAB
-url: https://vis-diameter-portal-dev.syniverse.com/visproGUI/diameterHeatmap/index.html
-onclick: parent.NavFrame.openWindow('https://vis-diameter-portal-dev.syniverse.com/visproGUI/diameterHeatmap/index.html','HeatMapPod','Heat%20Map%20Pod')
+url: https://vis-diameter-portal-dev.syniverse.com/ng-diameter/visproGUI/diameterHeatmap/index.html
+onclick: parent.NavFrame.openWindow('https://vis-diameter-portal-dev.syniverse.com/ng-diameter/visproGUI/diameterHeatmap/index.html','HeatMapPod','Heat%20Map%20Pod')
 type: menuitem
 
 dn: carrieruid=57, ou=Carriers,o=Crossroads

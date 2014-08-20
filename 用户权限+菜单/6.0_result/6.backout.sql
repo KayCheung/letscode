@@ -25,16 +25,16 @@ delete from presentation where PRSNTTN_ID=(select PRSNTTN_ID from resourc where
 delete from resourc where RSRC_ID='VisPro_Diameter_cmpyP' and RSRC_TYP_CD='2';
 
 -- ######################################
--- ./delObj permissionid=VisPro_Diameter_Alarm_Pod_View_userP ou=PermissionCode,o=Crossroads 
+-- ./delObj permissionid=VisPro_Diameter_Alert_Pod_View_userP ou=PermissionCode,o=Crossroads 
 
 -- ######################################
-delete from RSRC_TO_RSRC_REL where RSRC_ID1='VisPro_Diameter_Alarm_Pod_View_userP'  and 
+delete from RSRC_TO_RSRC_REL where RSRC_ID1='VisPro_Diameter_Alert_Pod_View_userP'  and 
 		RSRC_TYP_CD='2';
-delete from RSRC_TO_COMPANY_REL where RSRC_ID='VisPro_Diameter_Alarm_Pod_View_userP'  and 
+delete from RSRC_TO_COMPANY_REL where RSRC_ID='VisPro_Diameter_Alert_Pod_View_userP'  and 
 		RSRC_TYPE_CODE='2';
 delete from presentation where PRSNTTN_ID=(select PRSNTTN_ID from resourc where 
-		RSRC_ID='VisPro_Diameter_Alarm_Pod_View_userP' and RSRC_TYP_CD='2');
-delete from resourc where RSRC_ID='VisPro_Diameter_Alarm_Pod_View_userP' and RSRC_TYP_CD='2';
+		RSRC_ID='VisPro_Diameter_Alert_Pod_View_userP' and RSRC_TYP_CD='2');
+delete from resourc where RSRC_ID='VisPro_Diameter_Alert_Pod_View_userP' and RSRC_TYP_CD='2';
 
 -- ######################################
 -- ./delObj permissionid=VisPro_Diameter_Heat_Map_Pod_View_userP ou=PermissionCode,o=Crossroads 
@@ -61,16 +61,16 @@ delete from resourc where RSRC_ID=(select RSRC_ID from resourc where
 delete from presentation where PRSNTTN_ID='VisPro_Diameter_Menu_prsn';
 
 -- ######################################
--- ./delObj uid=VisPro_Diameter_Alarm_Pod_menuitem_prsn ou=PresentationObjects,o=Crossroads 
+-- ./delObj uid=VisPro_Diameter_Alert_Pod_menuitem_prsn ou=PresentationObjects,o=Crossroads 
 
 -- ######################################
 delete from RSRC_TO_RSRC_REL where RSRC_ID1=(select RSRC_ID from resourc where 
-		PRSNTTN_ID='VisPro_Diameter_Alarm_Pod_menuitem_prsn' and RSRC_TYP_CD='4') and  RSRC_TYP_CD='4';
+		PRSNTTN_ID='VisPro_Diameter_Alert_Pod_menuitem_prsn' and RSRC_TYP_CD='4') and  RSRC_TYP_CD='4';
 delete from RSRC_TO_COMPANY_REL where RSRC_ID=(select RSRC_ID from resourc where 
-		PRSNTTN_ID='VisPro_Diameter_Alarm_Pod_menuitem_prsn' and RSRC_TYP_CD='4') and  RSRC_TYPE_CODE='4';
+		PRSNTTN_ID='VisPro_Diameter_Alert_Pod_menuitem_prsn' and RSRC_TYP_CD='4') and  RSRC_TYPE_CODE='4';
 delete from resourc where RSRC_ID=(select RSRC_ID from resourc where 
-		PRSNTTN_ID='VisPro_Diameter_Alarm_Pod_menuitem_prsn' and RSRC_TYP_CD='4') and  RSRC_TYP_CD='4';
-delete from presentation where PRSNTTN_ID='VisPro_Diameter_Alarm_Pod_menuitem_prsn';
+		PRSNTTN_ID='VisPro_Diameter_Alert_Pod_menuitem_prsn' and RSRC_TYP_CD='4') and  RSRC_TYP_CD='4';
+delete from presentation where PRSNTTN_ID='VisPro_Diameter_Alert_Pod_menuitem_prsn';
 
 -- ######################################
 -- ./delObj uid=VisPro_Diameter_Heat_Map_Pod_menuitem_prsn ou=PresentationObjects,o=Crossroads 

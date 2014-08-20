@@ -1246,7 +1246,7 @@
 1234=<Indemnification:>
 1235=<You agree to indemnify and defend Syniverse from any claim (including attorneys fees and costs) arising from your (a) use of the Site, (b) violation of any third party right, or (c) breach of any of these Terms and Conditions. You agree to cooperate as fully as reasonably required in the defense of any claim. Syniverse reserves the right, at its own expense, to assume the exclusive defense and control of any matter otherwise subject to indemnification under this section and, in any event, you agree not to settle any such matter without the prior written consent of Syniverse.>
 1236=<Procedure for Making Claims of Copyright Infringement:>
-1237=<In accordance with the Digital Millennium Copyright Act (17 U.S.C. § 512), Syniverse is registered with the United States Copyright Office as a Service Provider. Any notifications of claimed copyright infringement must be sent to our Copyright Agent:>
+1237=<In accordance with the Digital Millennium Copyright Act (17 U.S.C. ï¿½ 512), Syniverse is registered with the United States Copyright Office as a Service Provider. Any notifications of claimed copyright infringement must be sent to our Copyright Agent:>
 1238=Telephone>
 1239=<Syniverse respects the intellectual property of others, and we ask our users to do the same. If you believe that your work has been copied in a way that constitutes copyright infringement, please provide the Syniverse Copyright Agent the following information:>
 1240=<An electronic or physical signature of the person authorized to act on behalf of the owner of the copyright interest;>
@@ -1878,7 +1878,7 @@
 1878=<Upload CSE IMSI List>
 1879=<Upload CSE IMSI List (includes WBRRD981 Report)>
 1880=<AA14 Preview (requires AA14 View or Update)>
-1881=<S&E Marketing Roamer Outbound – CSE Information>
+1881=<S&E Marketing Roamer Outbound ï¿½ CSE Information>
 1882=<Manage Ratings>
 1883=<Manage Categories>
 1884=<Manage Advanced Options>
@@ -1998,7 +1998,7 @@
 1999=<View Invoice>
 2000=<Report>
 2001=<Invoice Setup and Distribution (Syniverse Only)>
-2002=<ACCESS CDR – Full Data View>
+2002=<ACCESS CDR ï¿½ Full Data View>
 2003=<ACCESS CDR (Syniverse only)>
 2004=<File Track Tar File Folder>
 2005=<Mobile Data SMS-IG>
@@ -2679,7 +2679,7 @@
 4120=<Platform Administration>
 4121=<Threshold>
 4122=<Billing Reconciliation Reports (MMGRD001, MMGRM001, MMGRM003)>
-4123=<Message Threshold Block Report – Detail>
+4123=<Message Threshold Block Report ï¿½ Detail>
 
 #-----------------------------------------------------------------------
 #SR 391161
@@ -2952,7 +2952,7 @@
 4318=<IRMS Analysis>
 4319=<IRMS>
 
-4320=<Subscriber – MIP>
+4320=<Subscriber ï¿½ MIP>
 4321=<MIP Enterprise>
 4322=<MIP MNO>
 4323=<MIP Syniverse>
@@ -3049,10 +3049,10 @@ NRTRDE_ROAMING_AGREEMENTS=<NRTRDE Roaming Agreements>
 #-----------------------------------------------
 4408=<VisProactive - Diameter>
 4409=<Diameter (requires Visibility Diameter Option)>
-4410=<Alarm Pod View>
+4410=<Alert Pod View>
 4411=<Heat Map Pod>
 4412=<Diameter>
-4413=<Alarm Pod>
+4413=<Alert Pod>
 4414=<Heat Map Pod>
 
 
