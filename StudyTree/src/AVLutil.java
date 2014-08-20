@@ -85,7 +85,8 @@ public class AVLutil {
 			}
 			lr_3.bf = AVLNode.BalanceFactor.EH;
 			AVLNode newRoot = L_Rotate(l_2);
-			return R_Rotate(newRoot);
+			n_1.L = newRoot;
+			return R_Rotate(n_1);
 		}
 		return null;
 	}
@@ -127,7 +128,8 @@ public class AVLutil {
 			}
 			rl_3.bf = AVLNode.BalanceFactor.EH;
 			AVLNode newRoot = R_Rotate(r_2);
-			return L_Rotate(newRoot);
+			n_1.R = newRoot;
+			return L_Rotate(n_1);
 		}
 		return null;
 	}
