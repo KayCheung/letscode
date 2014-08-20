@@ -33,12 +33,25 @@ public class ShowTreeComponent extends JComponent implements MouseListener {
 		this.bottomLevelHorizontalGap = bottomLevelHorizontalGap;
 		this.startX = startX;
 		this.startY = startY;
-		arrayFullTree = arbitrary2full(root);
 		addMouseListener(this);
+		arrayFullTree = arbitrary2full(root);
+	}
+
+	public void installNewTree(VisibleNode root) {
+		arrayFullTree = arbitrary2full(root);
+		lastClickNode = null;
+		this.repaint();
+	}
+
+	public VisibleNode getLastClickNode() {
+		if (lastClickNode == null) {
+			return null;
+		}
+		return lastClickNode.node;
 	}
 
 	public ShowTreeComponent(VisibleNode root) {
-		this(65, 15, root, 20, 30);
+		this(65, 26, root, 20, 30);
 	}
 
 	@Override
@@ -60,6 +73,9 @@ public class ShowTreeComponent extends JComponent implements MouseListener {
 
 	private void calculateXY(int verticalGap, int bottomLevelHorizontalGap,
 			FullTreeNode[] listFullTree, int startX, int startY) {
+		if (listFullTree == null || listFullTree.length == 0) {
+			return;
+		}
 		int totalLevel = TreeUtil.log2(listFullTree.length);// begins from 1
 		// currentLevel begins from 1
 		for (int currentLevel = totalLevel; currentLevel >= 1; currentLevel--) {
@@ -187,6 +203,9 @@ public class ShowTreeComponent extends JComponent implements MouseListener {
 	}
 
 	public static FullTreeNode[] arbitrary2full(VisibleNode root) {
+		if (root == null) {
+			return new FullTreeNode[0];
+		}
 		int height = TreeUtil.H(root);
 		int arrayLength = TreeUtil.pow2(height);
 		FullTreeNode[] arrayFullTree = new FullTreeNode[arrayLength];
@@ -203,9 +222,8 @@ public class ShowTreeComponent extends JComponent implements MouseListener {
 		if (node != null) {
 			arrayFullTree[index].node = node;
 			arrayFullTree[index].V = true;
-			correspondingFullTreeIndex(node.leftChild(), index << 1,
-					arrayFullTree);
-			correspondingFullTreeIndex(node.rightChild(), (index << 1) + 1,
+			correspondingFullTreeIndex(node.left(), index << 1, arrayFullTree);
+			correspondingFullTreeIndex(node.right(), (index << 1) + 1,
 					arrayFullTree);
 		}
 	}

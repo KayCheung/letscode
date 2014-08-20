@@ -84,9 +84,9 @@ public class TreeUtil {
 		if (root == null) {
 			return 0;
 		}
-		int subLeftH = H(root.leftChild());
+		int subLeftH = H(root.left());
 		int totalLeftH = subLeftH + 1;
-		int subRightH = H(root.rightChild());
+		int subRightH = H(root.right());
 		int totalRightH = subRightH + 1;
 
 		return (totalLeftH > totalRightH) ? totalLeftH : totalRightH;
@@ -119,6 +119,19 @@ public class TreeUtil {
 			return 1;
 		}
 		return 2 << (n - 1);
+	}
+
+	public static VisibleNode copyTree(VisibleNode root) {
+		if (root == null) {
+			return null;
+		}
+		VisibleNode left = copyTree(root.left());
+		VisibleNode right = copyTree(root.right());
+		VisibleNode newRoot = root.copyNode();
+		newRoot.setLeft(left);
+		newRoot.setRight(right);
+		return newRoot;
+
 	}
 
 	public static int log2(int n) {

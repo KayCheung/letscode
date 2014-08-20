@@ -9,11 +9,11 @@ public class Node implements VisibleNode {
 		return n;
 	}
 
-	public VisibleNode leftChild() {
+	public VisibleNode left() {
 		return L;
 	}
 
-	public VisibleNode rightChild() {
+	public VisibleNode right() {
 		return R;
 	}
 
@@ -24,5 +24,20 @@ public class Node implements VisibleNode {
 	@Override
 	public String toString() {
 		return data + "";
+	}
+
+	@Override
+	public VisibleNode copyNode() {
+		return createNode(data);
+	}
+
+	@Override
+	public void setLeft(VisibleNode left) {
+		L = (Node) left;
+	}
+
+	@Override
+	public void setRight(VisibleNode right) {
+		R = (Node) right;
 	}
 }

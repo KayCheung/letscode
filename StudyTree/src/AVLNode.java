@@ -5,12 +5,12 @@ public class AVLNode implements VisibleNode {
 	public BalanceFactor bf;
 
 	@Override
-	public VisibleNode leftChild() {
+	public VisibleNode left() {
 		return L;
 	}
 
 	@Override
-	public VisibleNode rightChild() {
+	public VisibleNode right() {
 		return R;
 	}
 
@@ -23,5 +23,22 @@ public class AVLNode implements VisibleNode {
 	@Override
 	public String presentation() {
 		return data + "";
+	}
+
+	@Override
+	public VisibleNode copyNode() {
+		AVLNode n = new AVLNode();
+		n.data = this.data;
+		return n;
+	}
+
+	@Override
+	public void setLeft(VisibleNode left) {
+		L = (AVLNode) left;
+	}
+
+	@Override
+	public void setRight(VisibleNode right) {
+		R = (AVLNode) right;
 	}
 }
