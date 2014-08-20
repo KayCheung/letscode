@@ -123,7 +123,7 @@ public class ShowTreeFrame extends JFrame {
 	 * @param newValue
 	 */
 	private void insertNode(int newValue) {
-		previousRoot = TreeUtil.copyTree(currentRoot);
+		previousRoot = TreeUtil.copyTree((AVLNode)currentRoot);
 
 		AVLutil.InsertResult ir = AVLutil.insert((AVLNode) currentRoot,
 				newValue);

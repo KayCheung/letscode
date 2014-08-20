@@ -121,17 +121,33 @@ public class TreeUtil {
 		return 2 << (n - 1);
 	}
 
-	public static VisibleNode copyTree(VisibleNode root) {
+	public static Node copyTree(Node root) {
 		if (root == null) {
 			return null;
 		}
-		VisibleNode left = copyTree(root.left());
-		VisibleNode right = copyTree(root.right());
-		VisibleNode newRoot = root.copyNode();
-		newRoot.setLeft(left);
-		newRoot.setRight(right);
+		Node left = copyTree(root.L);
+		Node right = copyTree(root.R);
+		Node newRoot = Node.createNode(root.data);
+		newRoot.L = left;
+		newRoot.R = right;
 		return newRoot;
+	}
 
+	public static AVLNode copyTree(AVLNode root) {
+		if (root == null) {
+			return null;
+		}
+		AVLNode left = copyTree(root.L);
+		AVLNode right = copyTree(root.R);
+
+		AVLNode newRoot = new AVLNode();
+		newRoot.data = root.data;
+		newRoot.bf = root.bf;
+
+		newRoot.L = left;
+		newRoot.R = right;
+
+		return newRoot;
 	}
 
 	public static int log2(int n) {

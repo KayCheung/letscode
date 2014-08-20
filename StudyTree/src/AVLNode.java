@@ -24,21 +24,4 @@ public class AVLNode implements VisibleNode {
 	public String presentation() {
 		return data + "";
 	}
-
-	@Override
-	public VisibleNode copyNode() {
-		AVLNode n = new AVLNode();
-		n.data = this.data;
-		return n;
-	}
-
-	@Override
-	public void setLeft(VisibleNode left) {
-		L = (AVLNode) left;
-	}
-
-	@Override
-	public void setRight(VisibleNode right) {
-		R = (AVLNode) right;
-	}
 }

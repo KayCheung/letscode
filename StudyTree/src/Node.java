@@ -25,19 +25,4 @@ public class Node implements VisibleNode {
 	public String toString() {
 		return data + "";
 	}
-
-	@Override
-	public VisibleNode copyNode() {
-		return createNode(data);
-	}
-
-	@Override
-	public void setLeft(VisibleNode left) {
-		L = (Node) left;
-	}
-
-	@Override
-	public void setRight(VisibleNode right) {
-		R = (Node) right;
-	}
 }
