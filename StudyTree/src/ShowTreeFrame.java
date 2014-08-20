@@ -141,7 +141,7 @@ public class ShowTreeFrame extends JFrame {
 
 	public static void main(String[] args) {
 		ShowTreeFrame frm = new ShowTreeFrame(AVLutil.createAVLTree(new int[] {
-				10, 20, 30, 40, 50 }));
+				10, 20, 30, 40, 50, 234, 4}));
 		frm.setVisible(true);
 		frm.setSize(700, 500);
 		frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
