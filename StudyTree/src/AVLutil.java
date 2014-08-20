@@ -62,7 +62,7 @@ public class AVLutil {
 		switch (l_2.bf) {
 		// never happen
 		case EH:
-			break;
+			return null;
 		case LH: // new child is on l_2's left
 			n_1.bf = AVLNode.BalanceFactor.EH;
 			l_2.bf = AVLNode.BalanceFactor.EH;
@@ -85,7 +85,7 @@ public class AVLutil {
 			}
 			lr_3.bf = AVLNode.BalanceFactor.EH;
 			AVLNode newRoot = L_Rotate(l_2);
-			R_Rotate(newRoot);
+			return R_Rotate(newRoot);
 		}
 		return null;
 	}
@@ -104,7 +104,7 @@ public class AVLutil {
 		switch (r_2.bf) {
 		// never happen
 		case EH:
-			break;
+			return null;
 		case RH: // new child is on l_2's left
 			n_1.bf = AVLNode.BalanceFactor.EH;
 			r_2.bf = AVLNode.BalanceFactor.EH;
@@ -127,7 +127,7 @@ public class AVLutil {
 			}
 			rl_3.bf = AVLNode.BalanceFactor.EH;
 			AVLNode newRoot = R_Rotate(r_2);
-			L_Rotate(newRoot);
+			return L_Rotate(newRoot);
 		}
 		return null;
 	}
