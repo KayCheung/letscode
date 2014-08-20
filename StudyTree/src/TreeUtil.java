@@ -27,7 +27,7 @@ public class TreeUtil {
 			while (tmpNode != null) {
 				parent = tmpNode;
 				// to be inserted data is bigger
-				if (nowData > tmpNode.data) {
+				if (nowData >= tmpNode.data) {
 					tmpNode = tmpNode.R;
 					asRightChild = true;
 				} else {

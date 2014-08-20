@@ -237,7 +237,7 @@ public class ShowTreeComponent extends JComponent implements MouseListener {
 			array[i] = r.nextInt(maxInt);
 		}
 		array = new int[] { 10, 20, 30, 40, 50, 60, 70, 80, 90 };
-		VisibleNode root = AVLutil.createAVLTree(array);
+		VisibleNode root = AVLUtil.createAVLTree(array);
 
 		int verticalGap = 65;
 		int bottomLevelHorizontalGap = 20;

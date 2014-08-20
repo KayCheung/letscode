@@ -1,4 +1,4 @@
-public class AVLutil {
+public class AVLUtil {
 
 	/**
 	 * <pre>

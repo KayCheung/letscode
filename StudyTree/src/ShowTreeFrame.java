@@ -123,11 +123,22 @@ public class ShowTreeFrame extends JFrame {
 	 * @param newValue
 	 */
 	private void insertNode(int newValue) {
-		previousRoot = TreeUtil.copyTree((AVLNode)currentRoot);
+		insertBST(newValue);
+		// insertAVL(newValue);
+	}
 
-		AVLutil.InsertResult ir = AVLutil.insert((AVLNode) currentRoot,
+	private void insertAVL(int newValue) {
+		previousRoot = TreeUtil.copyTree((AVLNode) currentRoot);
+
+		AVLUtil.InsertResult ir = AVLUtil.insert((AVLNode) currentRoot,
 				newValue);
 		currentRoot = ir.newRoot;
+	}
+
+	private void insertBST(int newValue) {
+		previousRoot = TreeUtil.copyTree((Node) currentRoot);
+
+		currentRoot = BSTUtil.insertIntoBST((Node) currentRoot, newValue);
 	}
 
 	/**
@@ -140,8 +151,11 @@ public class ShowTreeFrame extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		ShowTreeFrame frm = new ShowTreeFrame(AVLutil.createAVLTree(new int[] {
-				10, 20, 30, 40, 50, 234, 4}));
+		// ShowTreeFrame frm = new ShowTreeFrame(AVLUtil.createAVLTree(new int[]
+		// {
+		// 10, 20, 30, 40, 50, 234, 4 }));
+		ShowTreeFrame frm = new ShowTreeFrame(TreeUtil.createBST(new int[] {
+				80, 50, 30, 40, 50, 234, 4 }));
 		frm.setVisible(true);
 		frm.setSize(700, 500);
 		frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
