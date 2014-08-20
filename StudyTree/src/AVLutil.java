@@ -15,8 +15,10 @@ public class AVLutil {
 	public static AVLNode R_Rotate(AVLNode n_1) {
 		System.out.println("R_Rotate: n_1.bf=" + n_1.bf);
 		AVLNode l_2 = n_1.L;
-		AVLNode lr_3 = l_2.R;
-
+		AVLNode lr_3 = null;
+		if (l_2 != null) {
+			lr_3 = l_2.R;
+		}
 		l_2.R = n_1;
 		n_1.L = lr_3;
 		return l_2;
@@ -36,7 +38,10 @@ public class AVLutil {
 	public static AVLNode L_Rotate(AVLNode n_1) {
 		System.out.println("L_Rotate, n_1.bf=" + n_1.bf);
 		AVLNode r_2 = n_1.R;
-		AVLNode rl_3 = r_2.L;
+		AVLNode rl_3 = null;
+		if (r_2 != null) {
+			rl_3 = r_2.L;
+		}
 
 		r_2.L = n_1;
 		n_1.R = rl_3;
@@ -105,11 +110,11 @@ public class AVLutil {
 		case RH: // new child is on l_2's left
 			n_1.bf = AVLNode.BalanceFactor.EH;
 			r_2.bf = AVLNode.BalanceFactor.EH;
-			return R_Rotate(n_1);
+			return L_Rotate(n_1);
 		case LH: // new child is on l_2's right
 			AVLNode rl_3 = r_2.L;
 			switch (rl_3.bf) {
-			case LH:
+			case RH:
 				n_1.bf = AVLNode.BalanceFactor.LH;
 				r_2.bf = AVLNode.BalanceFactor.EH;
 				break;
@@ -117,7 +122,7 @@ public class AVLutil {
 				n_1.bf = AVLNode.BalanceFactor.EH;
 				r_2.bf = AVLNode.BalanceFactor.EH;
 				break;
-			case RH:
+			case LH:
 				n_1.bf = AVLNode.BalanceFactor.EH;
 				r_2.bf = AVLNode.BalanceFactor.RH;
 				break;
@@ -127,7 +132,16 @@ public class AVLutil {
 			L_Rotate(newRoot);
 		}
 		return null;
+	}
 
+	static class InsertResult {
+		public AVLNode newRoot;
+		public boolean bGrowTaller;
+
+		public InsertResult(AVLNode newRoot, boolean bGrowTaller) {
+			this.newRoot = newRoot;
+			this.bGrowTaller = bGrowTaller;
+		}
 	}
 
 	/**
@@ -139,7 +153,7 @@ public class AVLutil {
 	 * @param newValue
 	 * @return
 	 */
-	public static boolean insert(AVLNode node, int newValue) {
+	public static InsertResult insert(AVLNode node, int newValue) {
 		// do insertion
 		if (node == null) {
 			AVLNode createdNewNode = new AVLNode();
@@ -147,74 +161,74 @@ public class AVLutil {
 			createdNewNode.L = createdNewNode.R = null;
 			createdNewNode.bf = AVLNode.BalanceFactor.EH;
 			// Yes, tree grows taller
-			return true;
+			return new InsertResult(createdNewNode, true);
 		}
 		// find node, and do insertion
 		else {
-			// new value is less.
-			// Should on node's left
+			// less. newValue should be on the left
 			if (newValue < node.data) {
-				// It's apparently possible that appending a leaf on a tree does
-				// not increase this tree height
-				// node's left subtree grows taller.
-				boolean bGrowTaller = insert(node.L, newValue);
-				if (bGrowTaller == true) {
-					// if grows taller, we need to balance node.L's parent
-					// do balance if necessary
+				// Whether node.L grows taller?
+				InsertResult ir = insert(node.L, newValue);
+				// IMPORTANT. After insertion, root node may change
+				node.L = ir.newRoot;
+				// node.L(node's left subtree) grows taller
+				if (ir.bGrowTaller == true) {
+					// OK, node's left subtree grows taller
+					// Let's balance node
 					switch (node.bf) {
 					case LH:
 						AVLNode newRoot = leftBalance(node);
-						node.L = newRoot;
-						// tree tree with <code>node</code> as root does grow
-						// taller, but after we do balance, it's
-						// height does not change
-						return false;
+						// node tree does not grow taller
+						return new InsertResult(newRoot, false);
 					case EH:
 						node.bf = AVLNode.BalanceFactor.LH;
-						return true;
+						return new InsertResult(node, true);
 					case RH:
 						node.bf = AVLNode.BalanceFactor.EH;
-						return false;
+						return new InsertResult(node, false);
 					}
+				} else {
+					return new InsertResult(node, false);
 				}
 			}
-			// new value is greater or equal to
+			// greater/equal. new value should be on the right
 			else {
-				// It's apparently possible that appending a leaf on a tree does
-				// not increase this tree height
-				// node's left subtree grows taller.
-				boolean bGrowTaller = insert(node.R, newValue);
-				if (bGrowTaller == true) {
-					// if grows taller, we need to balance node.L's parent
-					// do balance if necessary
+				// Whether node.L grows taller?
+				InsertResult ir = insert(node.R, newValue);
+				// IMPORTANT. After insertion, root node may change
+				node.R = ir.newRoot;
+				// node.L(node's right subtree) grows taller
+				if (ir.bGrowTaller == true) {
+					// OK, node's right subtree grows taller
+					// Let's balance node
 					switch (node.bf) {
 					case RH:
 						AVLNode newRoot = rightBalance(node);
-						node.R = newRoot;
-						// tree tree with <code>node</code> as root does grow
-						// taller, but after we do balance, it's
-						// height does not change
-						return false;
+						// node tree does not grow taller
+						return new InsertResult(newRoot, false);
 					case EH:
 						node.bf = AVLNode.BalanceFactor.RH;
-						return true;
+						return new InsertResult(node, true);
 					case LH:
 						node.bf = AVLNode.BalanceFactor.EH;
-						return false;
+						return new InsertResult(node, false);
 					}
+				} else {
+					return new InsertResult(node, false);
 				}
 			}
 		}
 		// never reach
-		return false;
+		return null;
 	}
 
 	public static AVLNode createAVLTree(int[] array) {
-		array = new int[]{10, 20, 30, 40};
+		AVLNode root = null;
 		for (int i = 0; i < array.length; i++) {
-			insert(null, array[i]);
-			
+			InsertResult ir = insert(root, array[i]);
+			root = ir.newRoot;
+
 		}
-		return null;
+		return root;
 	}
 }
