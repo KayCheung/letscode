@@ -13,7 +13,6 @@ public class AVLutil {
 	 * @param n_1
 	 */
 	public static AVLNode R_Rotate(AVLNode n_1) {
-		System.out.println("R_Rotate: n_1.bf=" + n_1.bf);
 		AVLNode l_2 = n_1.L;
 		AVLNode lr_3 = null;
 		if (l_2 != null) {
@@ -36,7 +35,6 @@ public class AVLutil {
 	 * @param n_1
 	 */
 	public static AVLNode L_Rotate(AVLNode n_1) {
-		System.out.println("L_Rotate, n_1.bf=" + n_1.bf);
 		AVLNode r_2 = n_1.R;
 		AVLNode rl_3 = null;
 		if (r_2 != null) {
