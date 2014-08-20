@@ -33,7 +33,6 @@ public class ShowTreeFrame extends JFrame {
 	private void initComponent() {
 		this.getContentPane().add(createCenterPanel(), BorderLayout.CENTER);
 		this.getContentPane().add(createSouthPanel(), BorderLayout.SOUTH);
-
 	}
 
 	private JPanel createCenterPanel() {
@@ -147,7 +146,9 @@ public class ShowTreeFrame extends JFrame {
 	 * @param nodeToBeDeleted
 	 */
 	private void deleteNode(VisibleNode nodeToBeDeleted) {
-		// previousRoot = TreeUtil.copyTree(currentRoot);
+		previousRoot = TreeUtil.copyTree((Node) currentRoot);
+
+		currentRoot = BSTUtil.deleteFromBST((Node)currentRoot, (Node)nodeToBeDeleted);
 	}
 
 	public static void main(String[] args) {
