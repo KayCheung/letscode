@@ -37,6 +37,10 @@ public class ShowTreeComponent extends JComponent implements MouseListener {
 		arrayFullTree = arbitrary2full(root);
 	}
 
+	public ShowTreeComponent(VisibleNode root) {
+		this(65, 26, root, 20, 30);
+	}
+
 	public void installNewTree(VisibleNode root) {
 		arrayFullTree = arbitrary2full(root);
 		lastClickNode = null;
@@ -48,10 +52,6 @@ public class ShowTreeComponent extends JComponent implements MouseListener {
 			return null;
 		}
 		return lastClickNode.node;
-	}
-
-	public ShowTreeComponent(VisibleNode root) {
-		this(65, 26, root, 20, 30);
 	}
 
 	@Override
