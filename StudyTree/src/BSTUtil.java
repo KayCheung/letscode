@@ -119,7 +119,7 @@ public class BSTUtil {
 		Node successorParent = null;
 		Node successor = nodeToBeDeleted;
 		Node tmp = nodeToBeDeleted.R;
-
+		// when tmp is null, successor is ok, and we also find successorParent
 		while (tmp != null) {
 			successorParent = successor;
 			successor = tmp;
