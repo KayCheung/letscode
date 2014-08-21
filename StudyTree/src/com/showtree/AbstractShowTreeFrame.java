@@ -132,9 +132,10 @@ public abstract class AbstractShowTreeFrame extends JFrame {
 	 */
 	public abstract void deleteNode(VisibleNode nodeToBeDeleted);
 
-	public static void showTreeFrm(AbstractShowTreeFrame frm) {
-		frm.setVisible(true);
+	public static void showTreeFrm(AbstractShowTreeFrame frm, String frmTitle) {
 		frm.setSize(700, 500);
+		frm.setTitle(frmTitle);
 		frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frm.setVisible(true);
 	}
 }

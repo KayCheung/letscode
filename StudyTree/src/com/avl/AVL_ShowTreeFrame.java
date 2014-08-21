@@ -1,4 +1,5 @@
 package com.avl;
+
 import com.showtree.AbstractShowTreeFrame;
 import com.showtree.VisibleNode;
 
@@ -31,7 +32,8 @@ public class AVL_ShowTreeFrame extends AbstractShowTreeFrame {
 
 		AVL_ShowTreeFrame frm = new AVL_ShowTreeFrame(root);
 
-		AbstractShowTreeFrame.showTreeFrm(frm);
+		AbstractShowTreeFrame.showTreeFrm(frm,
+				"AVL--Self-Balancing/Height-Balanced Binary Search Tree");
 	}
 
 }

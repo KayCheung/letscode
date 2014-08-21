@@ -34,6 +34,6 @@ public class BST_ShowTreeFrame extends AbstractShowTreeFrame {
 
 		BST_ShowTreeFrame frm = new BST_ShowTreeFrame(root);
 
-		AbstractShowTreeFrame.showTreeFrm(frm);
+		AbstractShowTreeFrame.showTreeFrm(frm, "BST--Binary Search Tree");
 	}
 }
