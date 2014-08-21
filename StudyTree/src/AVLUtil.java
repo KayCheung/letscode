@@ -31,6 +31,7 @@ public class AVLUtil {
 	 * 			O3
 	 * </pre>
 	 * 
+	 * naming convenience: n's level 1, son's level 2, grandson's level 3
 	 * 
 	 * @param n_1
 	 */
@@ -47,27 +48,68 @@ public class AVLUtil {
 	}
 
 	/**
-	 * Precondition: n_1 is already LH
+	 * <b>Now we've done appending leaf</b>
+	 * <p>
 	 * 
-	 * add a new leaf to n_1's left/right subtree
+	 * <b>The tree whose root is l_2 JUST grows taller due to appending a leaf
+	 * to this tree</b>
 	 * 
+	 * <p>
+	 * <b>n_1 currently is LH</b>
 	 * 
-	 * @param n_1_Parent
 	 * @param n_1
 	 */
 	public static AVLNode leftBalance(AVLNode n_1) {
-		// n_1 is LH
-		// add leaf to n_1.L 's lef
 		AVLNode l_2 = n_1.L;
 		switch (l_2.bf) {
-		// never happen
+		/*
+		 * Think about why this is impossible? If it were currently EH, it could
+		 * not have grown taller.
+		 * 
+		 * Currently, it could only be LH or RH
+		 */
 		case EH:
-			return null;
-		case LH: // new child is on l_2's left
+			throw new RuntimeException(
+					"l_2 has just grown taller. If it were currently EH, it could not have grown taller");
+
+			/**
+			 * new leaf just made l_2 LH (new leaf had been appended on l_2's
+			 * left)
+			 * 
+			 * 1. n_1 is LH
+			 * 
+			 * 2. n_1's left subtree grows taller
+			 * 
+			 * 3. l_2 is now LH
+			 * 
+			 * <pre>
+			 * 			01				02
+			 * 		02		--> 	03		01
+			 * 	03
+			 * </pre>
+			 */
+		case LH:
 			n_1.bf = AVLNode.BalanceFactor.EH;
 			l_2.bf = AVLNode.BalanceFactor.EH;
 			return R_Rotate(n_1);
-		case RH: // new child is on l_2's right
+
+			/**
+			 * new leaf just made l_2 RH (new leaf had been appended on l_2's
+			 * left)
+			 * 
+			 * 1. n_1 is LH
+			 * 
+			 * 2. n_1's left subtree grows taller
+			 * 
+			 * 3. l_2 is now LH
+			 * 
+			 * <pre>
+			 * 			01					01				03
+			 * 		02		--> 		03		-->		02		01
+			 * 			03			02
+			 * </pre>
+			 */
+		case RH:
 			AVLNode lr_3 = l_2.R;
 			switch (lr_3.bf) {
 			case LH:
@@ -88,29 +130,26 @@ public class AVLUtil {
 			n_1.L = newRoot;
 			return R_Rotate(n_1);
 		}
-		return null;
+		throw new RuntimeException("Never reach here");
 	}
 
 	/**
-	 * n_1.bf == RH
+	 * See leftBanlance
 	 * 
 	 * 
-	 * @param n_1_Parent
 	 * @param n_1
 	 */
 	public static AVLNode rightBalance(AVLNode n_1) {
-		// n_1 is LH
-		// add leaf to n_1.L 's lef
 		AVLNode r_2 = n_1.R;
 		switch (r_2.bf) {
-		// never happen
 		case EH:
-			return null;
-		case RH: // new child is on l_2's left
+			throw new RuntimeException(
+					"r_2 has just grown taller. If it were currently EH, it could not have grown taller");
+		case RH:
 			n_1.bf = AVLNode.BalanceFactor.EH;
 			r_2.bf = AVLNode.BalanceFactor.EH;
 			return L_Rotate(n_1);
-		case LH: // new child is on l_2's right
+		case LH:
 			AVLNode rl_3 = r_2.L;
 			switch (rl_3.bf) {
 			case RH:
@@ -131,7 +170,7 @@ public class AVLUtil {
 			n_1.R = newRoot;
 			return L_Rotate(n_1);
 		}
-		return null;
+		throw new RuntimeException("Never reach here");
 	}
 
 	static class InsertResult {
@@ -145,10 +184,6 @@ public class AVLUtil {
 	}
 
 	/**
-	 * 1. Always insert successfully
-	 * 
-	 * 2. true: tree grows taller, false: NOT taller
-	 * 
 	 * @param node
 	 * @param newValue
 	 * @return
@@ -178,7 +213,7 @@ public class AVLUtil {
 					switch (node.bf) {
 					case LH:
 						AVLNode newRoot = leftBalance(node);
-						// node tree does not grow taller
+						// After balance, node tree DOES NOT grow taller
 						return new InsertResult(newRoot, false);
 					case EH:
 						node.bf = AVLNode.BalanceFactor.LH;
@@ -204,7 +239,7 @@ public class AVLUtil {
 					switch (node.bf) {
 					case RH:
 						AVLNode newRoot = rightBalance(node);
-						// node tree does not grow taller
+						// After balance, node tree DOES NOT grow taller
 						return new InsertResult(newRoot, false);
 					case EH:
 						node.bf = AVLNode.BalanceFactor.RH;
