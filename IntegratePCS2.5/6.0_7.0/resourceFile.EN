@@ -3049,10 +3049,10 @@ NRTRDE_ROAMING_AGREEMENTS=<NRTRDE Roaming Agreements>
 #-----------------------------------------------
 4408=<VisProactive - Diameter>
 4409=<Diameter (requires Visibility Diameter Option)>
-4410=<Alarm Pod View>
+4410=<Alert Pod>
 4411=<Heat Map Pod>
 4412=<Diameter>
-4413=<Alarm Pod>
+4413=<Alert Pod>
 4414=<Heat Map Pod>
 
 
