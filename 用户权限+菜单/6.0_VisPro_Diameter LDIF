@@ -47,7 +47,7 @@ ID=VisPro_Diameter_Alert_Pod_View_userP
 	echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
 	echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
 	echo "presentationorder: 0010">>$1.ldif;
-	echo "presentationlabel: Alert Pod View">>$1.ldif;
+	echo "presentationlabel: Alert Pod">>$1.ldif;
 	echo "presentationlabeltag: 4410">>$1.ldif;
 	echo "permissiongroupid: VisPro_Diameter_userP">>$1.ldif;
 	echo "objectclass: tsipermissioncode">>$1.ldif;
@@ -230,7 +230,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
         PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
         VALUES  
-        ('VisPro_Diameter_Alert_Pod_View_userP_prsn',null,null,null,'Alert Pod View',null,
+        ('VisPro_Diameter_Alert_Pod_View_userP_prsn',null,null,null,'Alert Pod',null,
         '4410',null,'0010',null,null,
         null,null,null,null,null,
         null,null,null,systimestamp,systimestamp,
