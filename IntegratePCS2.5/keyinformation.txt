@@ -1,0 +1,36 @@
+Implied permission 总是 PRSNTTN_ORDER 0000；而且，它们永远都不会出现在 界面 上
+
+Menu item的 rsrc_typ_cd是4 (presentationgroup)。
+也就是说，根本就不存在 presentation 这种resourceTypeCode
+虽然存在着：3 permissiongroup 和 2 permission
+
+There is only one Alert menu item, Alert View and Update control the same Alert menu.
+
+If that is the case then that is not covered in the code.. as the menu item will still be displayed by the View Perm.
+
+@Marvin : As Alex mentioned, the Alert Pod menu item to be shown when either of the Alert Pod View or Alert Pod Update permission is assigned.
+You will have to define an implied permission and will have to imply that permission to the Alert Pod View and Alert Pod Update permission.
+The menu item now will be based on this new implied permission.
+
+
+
+Add 1 new link
+Analyzer PCS Reporting
+
+Add 2 new user permission
+Service Level View----Monitor my Subscriber
+Analyzer PCS Reporting----Analyzer PCS Reporting
+PCS_GUI_Analyzer_PCS_Reporting_menuitem_prsn
+
+
+Company Permission
+group
+Subscriber - Premium Customer Services
+
+company permission
+Premium Customer Services GUI (requires ACCESSibility 1 Server)
+
+
+User Permission
+group, rsrc_id: Subscriber_PCS_Group
+Subscriber - Premium Customer Services

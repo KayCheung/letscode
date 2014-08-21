@@ -78,68 +78,8 @@ ID=PCS_Billing_Defense_Report
 	echo "impliedpermissionid: Acc_Std_Rpt">>$1.ldif;
 	echo "impliedpermissionid: ACC_Function_15">>$1.ldif;
     echo "impliedpermissionid: ACC_Rpt-PCSRM001">>$1.ldif;
-	echo "">>$1.ldif;;
-
-ID=Implied_PCS_GUI_userP
-    echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
-    echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
-    echo "presentationorder: 0000">>$1.ldif;
-    echo "presentationlabel: Implied Premium Customer Services GUI">>$1.ldif;
-    echo "objectclass: tsipermissioncode">>$1.ldif;
-    echo "objectclass: top">>$1.ldif;
-    echo "productuid: SUBSCRIBER">>$1.ldif;      
-	echo "copermissionid: PCS_GUI_Co">>$1.ldif; 
 	echo "">>$1.ldif;
-
-ID=PCS_GUI
-    echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
-    echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
-    echo "presentationorder: 0010">>$1.ldif;
-    echo "presentationlabel: Premium Customer Services GUI">>$1.ldif;
-    echo "presentationlabeltag: 4268">>$1.ldif;
-    echo "permissiongroupid: Subscriber_PCS_Group">>$1.ldif;
-    echo "objectclass: tsipermissioncode">>$1.ldif;
-    echo "objectclass: top">>$1.ldif;
-    echo "productuid: SUBSCRIBER">>$1.ldif;      
-	echo "impliedpermissionid: Implied_PCS_GUI_userP">>$1.ldif;
-	echo "copermissionid: PCS_GUI_Co">>$1.ldif; 
-	echo "">>$1.ldif;
-
-ID=PCS_Service_Level_View_userP
-    echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
-    echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
-    echo "presentationorder: 0020">>$1.ldif;
-    echo "presentationlabel: Service Level View">>$1.ldif;
-    echo "presentationlabeltag: 4268">>$1.ldif;
-    echo "permissiongroupid: Subscriber_PCS_Group">>$1.ldif;
-    echo "objectclass: tsipermissioncode">>$1.ldif;
-    echo "objectclass: top">>$1.ldif;
-    echo "productuid: TBD">>$1.ldif; #change to what
-	echo "impliedpermissionid: Implied_PCS_GUI_userP">>$1.ldif;
-	echo "copermissionid: PCS_GUI_Co">>$1.ldif; 
-	echo "">>$1.ldif;
-
-ID=PCS_Analyzer_PCS_Reporting_userP
-	echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
-	echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
-	echo "presentationorder: 0015">>$1.ldif;
-	echo "presentationlabel: Analyzer PCS Reporting">>$1.ldif;
-	echo "presentationlabeltag: 4269">>$1.ldif;
-	echo "permissiongroupid: Subscriber_PCS_Group">>$1.ldif;
-	echo "objectclass: tsipermissioncode">>$1.ldif;
-	echo "objectclass: top">>$1.ldif;
-	echo "productuid: A-1">>$1.ldif;
-	echo "copermissionid: PCS_GUI_Co">>$1.ldif;
-	echo "impliedpermissionid: AccNA">>$1.ldif;
-	echo "impliedpermissionid: AccEU">>$1.ldif;
-    echo "impliedpermissionid: AccEUTab">>$1.ldif;
-	echo "impliedpermissionid: ACC_Prod-BIL">>$1.ldif;
-	echo "impliedpermissionid: Acc_Std_Rpt">>$1.ldif;
-	echo "impliedpermissionid: ACC_Function_15">>$1.ldif;
-    echo "impliedpermissionid: ACC_Rpt-PCSRM001">>$1.ldif;
-	echo "">>$1.ldif;
-	
- 
+	 
 SEARCHBASE=ou=PresentationObjects,o=Crossroads
 DN=uid
 ID=PCS_GUI_Monitor_Groups_Menu
@@ -178,22 +118,6 @@ ID=PCS_GUI_Group_History_Menu
         echo "frameid: parent.ContentFrame">>$1.ldif;
         echo "url: https://${PCS}/pcs/faces/grouphistory">>$1.ldif;
         echo "">>$1.ldif;
-
-
-ID=PCS_Analyzer_PCS_Reporting_menuitem_prsn
-        echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
-        echo "./delObj \"uid=$ID\" \"$SEARCHBASE\" ">>$1.backout;
-        echo "presentationlabel: Analyzer PCS Reporting">>$1.ldif;
-        echo "presentationorder: 0033">>$1.ldif;
-        echo "objectclass: menuitem">>$1.ldif;
-        echo "presentationgroupid: Premium_Customer_Service_Menu">>$1.ldif;
-        echo "type: menuitem">>$1.ldif;
-        echo "permissionid: PCS_Analyzer_PCS_Reporting_userP">>$1.ldif;
-        echo "frameid: parent.ContentFrame">>$1.ldif;
-        echo "url: https://${PCS}/pcs/faces/grouphistory">>$1.ldif;
-        echo "">>$1.ldif;
-
-
 
     if [[ ${IDC} = "N" ]]; then
 	SEARCHBASE=ou=Carriers,o=Crossroads
