@@ -1,3 +1,6 @@
+package com.common;
+import com.showtree.VisibleNode;
+
 public class Node implements VisibleNode {
 	public int data;
 	public Node L;
@@ -7,6 +10,10 @@ public class Node implements VisibleNode {
 		Node n = new Node();
 		n.data = data;
 		return n;
+	}
+
+	public static Node copyNode(Node orgn) {
+		return Node.createNode(orgn.data);
 	}
 
 	public VisibleNode left() {
@@ -23,6 +30,6 @@ public class Node implements VisibleNode {
 
 	@Override
 	public String toString() {
-		return data + "";
+		return "data=" + data;
 	}
 }

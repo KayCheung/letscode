@@ -1,3 +1,4 @@
+package com.showtree;
 public interface VisibleNode {
 	public VisibleNode left();
 

@@ -1,4 +1,50 @@
+package com.bst;
+import com.common.Node;
+
 public class BSTUtil {
+	public static Node createBSTtree(int[] array) {
+		if (array == null || array.length == 0) {
+			return null;
+		}
+		Node root = Node.createNode(array[0]);
+		for (int i = 1; i < array.length; i++) {
+			int nowData = array[i];
+			Node parent = null;
+			Node tmpNode = root;
+			boolean asRightChild = true;
+			while (tmpNode != null) {
+				parent = tmpNode;
+				// to be inserted data is bigger
+				if (nowData >= tmpNode.data) {
+					tmpNode = tmpNode.R;
+					asRightChild = true;
+				} else {
+					tmpNode = tmpNode.L;
+					asRightChild = false;
+				}
+			}
+			// since here, n == null
+			if (asRightChild) {
+				parent.R = Node.createNode(nowData);
+			} else {
+				parent.L = Node.createNode(nowData);
+			}
+		}
+		return root;
+	}
+
+	public static Node copyBSTtree(Node root) {
+		if (root == null) {
+			return null;
+		}
+		Node left = copyBSTtree(root.L);
+		Node right = copyBSTtree(root.R);
+		Node newRoot = Node.copyNode(root);
+		newRoot.L = left;
+		newRoot.R = right;
+		return newRoot;
+	}
+
 	public static Node insertIntoBST(Node root, int data) {
 		if (root == null) {
 			return Node.createNode(data);

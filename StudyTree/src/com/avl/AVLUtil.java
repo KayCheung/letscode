@@ -1,4 +1,30 @@
+package com.avl;
 public class AVLUtil {
+
+	public static AVLNode createAVLtree(int[] array) {
+		AVLNode root = null;
+		for (int i = 0; i < array.length; i++) {
+			InsertResult ir = insert(root, array[i]);
+			root = ir.newRoot;
+
+		}
+		return root;
+	}
+
+	public static AVLNode copyAVLtree(AVLNode root) {
+		if (root == null) {
+			return null;
+		}
+		AVLNode left = copyAVLtree(root.L);
+		AVLNode right = copyAVLtree(root.R);
+
+		AVLNode newRoot = AVLNode.copyAVLNode(root);
+
+		newRoot.L = left;
+		newRoot.R = right;
+
+		return newRoot;
+	}
 
 	/**
 	 * <pre>
@@ -255,15 +281,5 @@ public class AVLUtil {
 		}
 		// never reach
 		return null;
-	}
-
-	public static AVLNode createAVLTree(int[] array) {
-		AVLNode root = null;
-		for (int i = 0; i < array.length; i++) {
-			InsertResult ir = insert(root, array[i]);
-			root = ir.newRoot;
-
-		}
-		return root;
 	}
 }

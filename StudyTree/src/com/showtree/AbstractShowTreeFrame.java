@@ -1,3 +1,5 @@
+package com.showtree;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -13,19 +15,19 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-public class ShowTreeFrame extends JFrame {
+public abstract class AbstractShowTreeFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	private ShowTreeComponent previousTreeComp;
-	private VisibleNode previousRoot;
+	protected ShowTreeComponent previousTreeComp;
+	protected VisibleNode previousRoot;
 
-	private ShowTreeComponent currentTreeComp;
-	private VisibleNode currentRoot;
+	protected ShowTreeComponent currentTreeComp;
+	protected VisibleNode currentRoot;
 
 	private JTextField textField;
 	private JLabel noteLabel;
 
-	public ShowTreeFrame(VisibleNode root) {
+	public AbstractShowTreeFrame(VisibleNode root) {
 		this.currentRoot = root;
 		initComponent();
 	}
@@ -121,42 +123,16 @@ public class ShowTreeFrame extends JFrame {
 	 * 
 	 * @param newValue
 	 */
-	private void insertNode(int newValue) {
-		insertBST(newValue);
-		// insertAVL(newValue);
-	}
-
-	private void insertAVL(int newValue) {
-		previousRoot = TreeUtil.copyTree((AVLNode) currentRoot);
-
-		AVLUtil.InsertResult ir = AVLUtil.insert((AVLNode) currentRoot,
-				newValue);
-		currentRoot = ir.newRoot;
-	}
-
-	private void insertBST(int newValue) {
-		previousRoot = TreeUtil.copyTree((Node) currentRoot);
-
-		currentRoot = BSTUtil.insertIntoBST((Node) currentRoot, newValue);
-	}
+	public abstract void insertNode(int newValue);
 
 	/**
 	 * Change both previousRoot and currentRoot;
 	 * 
 	 * @param nodeToBeDeleted
 	 */
-	private void deleteNode(VisibleNode nodeToBeDeleted) {
-		previousRoot = TreeUtil.copyTree((Node) currentRoot);
+	public abstract void deleteNode(VisibleNode nodeToBeDeleted);
 
-		currentRoot = BSTUtil.deleteFromBST((Node)currentRoot, (Node)nodeToBeDeleted);
-	}
-
-	public static void main(String[] args) {
-		// ShowTreeFrame frm = new ShowTreeFrame(AVLUtil.createAVLTree(new int[]
-		// {
-		// 10, 20, 30, 40, 50, 234, 4 }));
-		ShowTreeFrame frm = new ShowTreeFrame(TreeUtil.createBST(new int[] {
-				80, 50, 30, 40, 50, 234, 4 }));
+	public static void showTreeFrm(AbstractShowTreeFrame frm) {
 		frm.setVisible(true);
 		frm.setSize(700, 500);
 		frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

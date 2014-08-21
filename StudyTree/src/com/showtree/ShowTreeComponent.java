@@ -1,7 +1,6 @@
+package com.showtree;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Random;
@@ -9,6 +8,9 @@ import java.util.Random;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+
+import com.avl.AVLUtil;
+import com.common.TreeUtil;
 
 public class ShowTreeComponent extends JComponent implements MouseListener {
 	private static final long serialVersionUID = 1L;
@@ -228,79 +230,6 @@ public class ShowTreeComponent extends JComponent implements MouseListener {
 		}
 	}
 
-	public static void test_One_Component() {
-		Random r = new Random();
-		int maxInt = 51;
-		int nodeCount = 14;
-		int[] array = new int[nodeCount];
-		for (int i = 0; i < array.length; i++) {
-			array[i] = r.nextInt(maxInt);
-		}
-		array = new int[] { 10, 20, 30, 40, 50, 60, 70, 80, 90 };
-		VisibleNode root = AVLUtil.createAVLTree(array);
-
-		int verticalGap = 65;
-		int bottomLevelHorizontalGap = 20;
-		int startX = 20;
-		int startY = 30;
-
-		JFrame frm = new JFrame();
-		frm.getContentPane().add(
-				new ShowTreeComponent(verticalGap, bottomLevelHorizontalGap,
-						root, startX, startY));
-		frm.setVisible(true);
-		frm.setSize(700, 500);
-		frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-
-	public static void test_FullTree() {
-		VisibleNode root = TreeUtil.createFullTree(5);
-
-		int verticalGap = 65;
-		int bottomLevelHorizontalGap = 30;
-		int startX = 20;
-		int startY = 30;
-
-		JFrame frm = new JFrame();
-		frm.getContentPane().add(
-				new ShowTreeComponent(verticalGap, bottomLevelHorizontalGap,
-						root, startX, startY));
-		frm.setVisible(true);
-		frm.setSize(700, 500);
-		frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-
-	public static void test_Multiple_Component() {
-		VisibleNode root_9 = TreeUtil.createTree(9);
-		VisibleNode root_7 = TreeUtil.createTree(7);
-		VisibleNode root_8 = TreeUtil.createTree(8);
-
-		int verticalGap = 65;
-		int bottomLevelHorizontalGap = 25;
-		int startX = 30;
-		int startY = 20;
-
-		ShowTreeComponent stc_9 = new ShowTreeComponent(verticalGap,
-				bottomLevelHorizontalGap, root_9, startX, startY);
-		ShowTreeComponent stc_7 = new ShowTreeComponent(verticalGap,
-				bottomLevelHorizontalGap, root_7, startX, startY);
-		ShowTreeComponent stc_8 = new ShowTreeComponent(verticalGap,
-				bottomLevelHorizontalGap, root_8, startX, startY);
-
-		JFrame frm = new JFrame();
-		Container container = frm.getContentPane();
-		container.setLayout(new GridLayout(3, 1));
-
-		container.add(stc_9);
-		container.add(stc_8);
-		container.add(stc_7);
-		// container.add(new JLabel());
-
-		frm.setVisible(true);
-		frm.setSize(500, 1000);
-		frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getButton() != MouseEvent.BUTTON1) {
@@ -356,9 +285,50 @@ public class ShowTreeComponent extends JComponent implements MouseListener {
 
 	}
 
+	public static void test_One_Component() {
+		Random r = new Random();
+		int maxInt = 51;
+		int nodeCount = 14;
+		int[] array = new int[nodeCount];
+		for (int i = 0; i < array.length; i++) {
+			array[i] = r.nextInt(maxInt);
+		}
+		array = new int[] { 10, 20, 30, 40, 50, 60, 70, 80, 90 };
+		VisibleNode root = AVLUtil.createAVLtree(array);
+
+		int verticalGap = 65;
+		int bottomLevelHorizontalGap = 20;
+		int startX = 20;
+		int startY = 30;
+
+		JFrame frm = new JFrame();
+		frm.getContentPane().add(
+				new ShowTreeComponent(verticalGap, bottomLevelHorizontalGap,
+						root, startX, startY));
+		frm.setVisible(true);
+		frm.setSize(700, 500);
+		frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	public static void test_FullTree() {
+		VisibleNode root = TreeUtil.createFullTree(5);
+
+		int verticalGap = 65;
+		int bottomLevelHorizontalGap = 30;
+		int startX = 20;
+		int startY = 30;
+
+		JFrame frm = new JFrame();
+		frm.getContentPane().add(
+				new ShowTreeComponent(verticalGap, bottomLevelHorizontalGap,
+						root, startX, startY));
+		frm.setVisible(true);
+		frm.setSize(700, 500);
+		frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
 	public static void main(String[] args) {
 		test_One_Component();
-		// test_Multiple_Component();
 		// test_FullTree();
 	}
 
