@@ -28,7 +28,7 @@ public class BST_ShowTreeFrame extends AbstractShowTreeFrame {
 	}
 
 	public static void main(String[] args) {
-		int[] array = new int[] { 10, 20, 30, 30, 10, 40, 50 };
+		int[] array = new int[] { 40, 20, 30, 50, 30, 10, 60};
 
 		Node root = BSTUtil.createBSTtree(array);
 
