@@ -11,7 +11,7 @@ public class MergeSort {
 		int curIndex2 = startIndex2;
 		int currentResultIndex = 0;
 		while (curIndex1 <= endIndex1 || curIndex2 <= endIndex2) {
-			// array1 is still OK
+			// array1 is still  OK
 			if (curIndex1 <= endIndex1) {
 				// array2 still OK
 				if (curIndex2 <= endIndex2) {
