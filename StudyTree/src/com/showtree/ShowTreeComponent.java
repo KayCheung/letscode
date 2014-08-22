@@ -1,4 +1,5 @@
 package com.showtree;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -127,6 +128,12 @@ public class ShowTreeComponent extends JComponent implements MouseListener {
 		for (int i = 1; i < listFullTree.length; i++) {
 			FullTreeNode fullNode = listFullTree[i];
 			if (fullNode.V == true) {
+				// Yes, node's outlineColor is designated by the node itself
+				if (fullNode.node instanceof VisibleColorNode) {
+					outlineColor = ((VisibleColorNode) fullNode.node).color();
+				} else {
+					// use default outlineColor
+				}
 				drawEachTreeNode(gCopy, fullNode.X, fullNode.Y,
 						FullTreeNode.radius, outlineColor, fillColor,
 						fontColor, fullNode.node.presentation());
