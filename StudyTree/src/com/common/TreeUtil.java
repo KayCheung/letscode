@@ -75,12 +75,23 @@ public class TreeUtil {
 	}
 
 	public static Node createCompleteTree(int[] array) {
-		int length = array.length;
-		for (int i = 0; i < length; i++) {
-			int value = array[i];
-
+		if (array == null || array.length == 0) {
+			return null;
 		}
-		return null;
+		Node[] arrayNode = new Node[array.length];
+		for (int i = 0; i < array.length; i++) {
+			arrayNode[i] = Node.createNode(array[i]);
+		}
+
+		int leftHalf = arrayNode.length / 2;
+		for (int i = 0; i < leftHalf; i++) {
+			Node parent = arrayNode[i];
+			int left = (i * 2) + 1;
+			int right = left + 1;
+			parent.L = arrayNode[left];
+			parent.R = arrayNode[right];
+		}
+		return arrayNode[0];
 	}
 
 	public static void main(String[] args) {
