@@ -1,5 +1,7 @@
 package test;
 
+import com.common.TreeUtil;
+
 /**
  * @时间 2014-3-30
  * @version 0.1
@@ -394,5 +396,8 @@ public class AVLTree<T extends Comparable<T>> {
 		tree.updateHeight();
 		root.updateHeight();
 		return root;
+	}
+	public static void main(String[] args) {
+		System.out.println(TreeUtil.log2(48));
 	}
 }

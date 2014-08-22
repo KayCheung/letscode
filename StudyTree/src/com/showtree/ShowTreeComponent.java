@@ -177,18 +177,63 @@ public class ShowTreeComponent extends JComponent implements MouseListener {
 			FullTreeNode rightChild = list[rightChildIndex];
 
 			if (leftChild.V == true) {
-				gCopy.drawLine(cur.X + FullTreeNode.radius, cur.Y
-						+ FullTreeNode.radius, leftChild.X
-						+ FullTreeNode.radius, leftChild.Y
-						+ FullTreeNode.radius);
+				int[] x1y1x2y2 = lineStartEnd(cur.X + FullTreeNode.radius,
+						cur.Y + FullTreeNode.radius, leftChild.X
+								+ FullTreeNode.radius, leftChild.Y
+								+ FullTreeNode.radius);
+
+				gCopy.drawLine(x1y1x2y2[0], x1y1x2y2[1], x1y1x2y2[2],
+						x1y1x2y2[3]);
 			}
+
 			if (rightChild.V == true) {
-				gCopy.drawLine(cur.X + FullTreeNode.radius, cur.Y
-						+ FullTreeNode.radius, rightChild.X
-						+ FullTreeNode.radius, rightChild.Y
-						+ FullTreeNode.radius);
+				int[] x1y1x2y2 = lineStartEnd(cur.X + FullTreeNode.radius,
+						cur.Y + FullTreeNode.radius, rightChild.X
+								+ FullTreeNode.radius, rightChild.Y
+								+ FullTreeNode.radius);
+				gCopy.drawLine(x1y1x2y2[0], x1y1x2y2[1], x1y1x2y2[2],
+						x1y1x2y2[3]);
 			}
 		}
+	}
+
+	private int[] lineStartEnd(int x1, int y1, int x2, int y2) {
+		int height = Math.abs(y1 - y2);
+		int width = Math.abs(x1 - x2);
+
+		double innerWSquare = ((width * width) * (FullTreeNode.radius * FullTreeNode.radius))
+				/ ((height * height) + (width * width));
+
+		double innerHSquare = ((height * height) * (FullTreeNode.radius * FullTreeNode.radius))
+				/ ((height * height) + (width * width));
+
+		int innerW = (int) Math.sqrt(innerWSquare);
+		int innerH = (int) Math.sqrt(innerHSquare);
+
+		int[] x1y1x2y2 = new int[4];
+
+		// x1 left
+		if (x1 < x2) {
+			x1y1x2y2[0] = x1 + innerW;
+			x1y1x2y2[2] = x2 - innerW;
+		}
+		// x2 left
+		else {
+			x1y1x2y2[0] = x1 - innerW;
+			x1y1x2y2[2] = x2 + innerW;
+		}
+
+		// y1 top
+		if (y1 < y2) {
+			x1y1x2y2[1] = y1 + innerH;
+			x1y1x2y2[3] = y2 - innerH;
+		}
+		// y2 top
+		else {
+			x1y1x2y2[1] = y1 - innerH;
+			x1y1x2y2[3] = y2 + innerH;
+		}
+		return x1y1x2y2;
 	}
 
 	private void drawArrow(Graphics gCopy, FullTreeNode lastClickNode) {
@@ -300,11 +345,12 @@ public class ShowTreeComponent extends JComponent implements MouseListener {
 		for (int i = 0; i < array.length; i++) {
 			array[i] = r.nextInt(maxInt);
 		}
-		array = new int[] { 10, 20, 30, 40, 50, 60, 70, 80, 90 };
+		array = new int[] { 10, 20, 30, 40, 50, 60, 70, 80, 40, 50, 60, 70, 80,
+				90, 32, 52, 54, 345, 63, 346, 63, 46, 63, 26 };
 		VisibleNode root = AVLUtil.createAVLtree(array);
 
 		int verticalGap = 65;
-		int bottomLevelHorizontalGap = 20;
+		int bottomLevelHorizontalGap = 26;
 		int startX = 20;
 		int startY = 30;
 
