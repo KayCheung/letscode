@@ -74,6 +74,15 @@ public class TreeUtil {
 		return root;
 	}
 
+	public static Node createCompleteTree(int[] array) {
+		int length = array.length;
+		for (int i = 0; i < length; i++) {
+			int value = array[i];
+
+		}
+		return null;
+	}
+
 	public static void main(String[] args) {
 		test_H();
 	}
