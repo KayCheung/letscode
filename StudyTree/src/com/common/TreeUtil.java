@@ -30,16 +30,10 @@ public class TreeUtil {
 	}
 
 	private static void test_H() {
-		Random r = new Random();
+		int nodeCount = 15;
 		int maxInt = 51;
-		int nodeCount = 10;
-		int[] array = new int[nodeCount];
-		for (int i = 0; i < array.length; i++) {
-			array[i] = r.nextInt(maxInt);
-		}
-
-		Node root = BSTUtil.createBSTtree(array);
-
+		Node root = BSTUtil.createBSTtree(genereateRandomArray(nodeCount,
+				maxInt));
 		System.out.println(H(root));
 
 	}
