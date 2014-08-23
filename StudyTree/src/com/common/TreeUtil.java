@@ -86,10 +86,14 @@ public class TreeUtil {
 		int leftHalf = arrayNode.length / 2;
 		for (int i = 0; i < leftHalf; i++) {
 			Node parent = arrayNode[i];
+
 			int left = (i * 2) + 1;
-			int right = left + 1;
 			parent.L = arrayNode[left];
-			parent.R = arrayNode[right];
+
+			int right = left + 1;
+			if (right <= arrayNode.length - 1) {
+				parent.R = arrayNode[right];
+			}
 		}
 		return arrayNode[0];
 	}

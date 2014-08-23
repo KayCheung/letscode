@@ -4,36 +4,59 @@ import java.util.Arrays;
 
 import com.common.TreeUtil;
 
-class ValueContainer {
-	private int valueIndex;
-	private boolean max;
-
-	public static ValueContainer createVC(int valueIndex) {
-		ValueContainer vc = new ValueContainer();
-		vc.setValueIndex(valueIndex);
-		return vc;
-	}
-
-	public boolean max() {
-		return max;
-	}
-
-	public int valueIndex() {
-		return valueIndex;
-	}
-
-	public void setValueIndex(int orgnIndex) {
-		max = false;
-		this.valueIndex = orgnIndex;
-	}
-
-	public void setMax() {
-		max = true;
-		valueIndex = -1;
-	}
-}
-
 public class LoserTreeUtil {
+	public static LSNode createVisibleLoserTree(int[] ls) {
+		if (ls == null || ls.length == 0) {
+			return null;
+		}
+		LSNode[] arrayNode = new LSNode[ls.length];
+		for (int i = 1; i < ls.length; i++) {
+			arrayNode[i] = LSNode.createNode(i, ls[i]);
+		}
+
+		int leftHalf = arrayNode.length / 2;
+		for (int i = 1; i < leftHalf; i++) {
+			LSNode parent = arrayNode[i];
+
+			int left = i * 2;
+			parent.L = arrayNode[left];
+
+			int right = left + 1;
+			if (right <= arrayNode.length - 1) {
+				parent.R = arrayNode[right];
+			}
+		}
+		return arrayNode[1];
+	}
+
+	static class ValueContainer {
+		private int valueIndex;
+		private boolean max;
+
+		public static ValueContainer createVC(int valueIndex) {
+			ValueContainer vc = new ValueContainer();
+			vc.setValueIndex(valueIndex);
+			return vc;
+		}
+
+		public boolean max() {
+			return max;
+		}
+
+		public int valueIndex() {
+			return valueIndex;
+		}
+
+		public void setValueIndex(int orgnIndex) {
+			max = false;
+			this.valueIndex = orgnIndex;
+		}
+
+		public void setMax() {
+			max = true;
+			valueIndex = -1;
+		}
+	}
 
 	public static void main(String[] args) {
 		test_createLoserTree();
