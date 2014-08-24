@@ -125,6 +125,7 @@ public class LoserTreeUtil {
 		// 1. lsIndex designated the cell index on ls
 		// 2. lsIndex is parent of adjustMe
 		int treeIndex = (valueIndex + containers.length) >> 1;
+		// Consume each node from this leaf up to root
 		while (treeIndex > 0) {
 			int parentIndex = ls[treeIndex];
 			// me bigger
