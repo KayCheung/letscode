@@ -113,7 +113,11 @@ public class LoserTreeUtil {
 	/**
 	 * 1. <b>a node is always compared with its parent</b>
 	 * 
-	 * 2. <code>ls</code>'s elements: index of <code>values</code>
+	 * 2. Consume each node from this leaf up to root
+	 * 
+	 * 3. <code>ls</code>'s elements: index of <code>values</code>
+	 * 
+	 * 
 	 * 
 	 * @param ls
 	 * @param containers
