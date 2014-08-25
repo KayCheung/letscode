@@ -5,6 +5,8 @@ import java.util.Arrays;
 import com.common.TreeUtil;
 
 public class LoserTreeUtil {
+	private static final int INDEX_OF_MINIMUM_VALUE = -1;
+
 	public static LSNode createVisibleLoserTree(int[] ls) {
 		if (ls == null || ls.length == 0) {
 			return null;
@@ -87,12 +89,31 @@ public class LoserTreeUtil {
 
 	}
 
+	public static int findMin(int[] array) {
+		if (array == null || array.length == 0) {
+			return -1;
+		}
+		int smallestIndex = 0;
+		for (int i = 0; i < array.length; i++) {
+			if (array[smallestIndex] > array[i]) {
+				smallestIndex = i;
+			}
+		}
+		return smallestIndex;
+	}
+
 	public static void test_createLoserTree() {
-		int[] array = TreeUtil.genereateRandomArray(60, 101);
+		int[] array = TreeUtil.genereateRandomArray(20, 100);
+		array = new int[] { 36, 42, 47, 72, 4, 18, 80, 7, 79, 67, 70, 21, 13,
+				37, 43, 50, 57, 21, 39, 66 };
 		createLoserTree(array);
 	}
 
 	public static int[] createLoserTree(int[] values) {
+		System.out.println("Original values:" + Arrays.toString(values));
+		int smallestIndex = findMin(values);
+		System.out.println("values' smallest index: " + smallestIndex);
+
 		ValueContainer[] containers = new ValueContainer[values.length];
 		for (int i = 0; i < containers.length; i++) {
 			containers[i] = ValueContainer.createVC(i);
@@ -100,17 +121,24 @@ public class LoserTreeUtil {
 
 		int[] ls = new int[values.length];
 		for (int i = 0; i < ls.length; i++) {
-			ls[i] = -1;
+			ls[i] = INDEX_OF_MINIMUM_VALUE;
 		}
 
-		for (int i = values.length - 1; i >= 0; i--) {
+//		for (int i = values.length - 1; i >= 0; i--) {
+//			adjust(ls, containers, i, values);
+//		}
+		for (int i = 0; i < values.length; i++) {
 			adjust(ls, containers, i, values);
 		}
-		System.out.println(Arrays.toString(ls));
+
+		System.out.println("Loser tree:" + Arrays.toString(ls));
+
 		return ls;
 	}
 
 	/**
+	 * 0. 让小值，在牛逼的道路上 一路狂奔。 对于任意一个 leaf，沿着 leaf---->root 的路径，让小值 一路比下去
+	 * 
 	 * 1. <b>a node is always compared with its parent</b>
 	 * 
 	 * 2. Consume each node from this leaf up to root
@@ -126,20 +154,25 @@ public class LoserTreeUtil {
 	 */
 	private static void adjust(int[] ls, final ValueContainer[] containers,
 			int valueIndex, int[] values) {
-		// 1. lsIndex designated the cell index on ls
-		// 2. lsIndex is parent of adjustMe
+		// valueIndex == 2*treeIndex - k
 		int treeIndex = (valueIndex + containers.length) >> 1;
 		// Consume each node from this leaf up to root
 		while (treeIndex > 0) {
+			// it's already the minimum values
+			// ls's value less than treeIndex would never change again.
+			// we can return directly INDEX_OF_MINIMUM_VALUE now
+			if (valueIndex == INDEX_OF_MINIMUM_VALUE) {
+				break;
+			}
 			int parentIndex = ls[treeIndex];
 			// me bigger
-			if (parentIndex < 0 // initial value
-					|| valueIndex < 0 // initial value
+			if (parentIndex == INDEX_OF_MINIMUM_VALUE // parent is minimum
+														// values
 					|| greatThan(containers[valueIndex],
 							containers[parentIndex], values)) {
 				// 1. move up childIndex
 				ls[treeIndex] = valueIndex;
-				// 2. smaller value should compare with it's parent
+				// 2. smaller value should continue to compare
 				valueIndex = parentIndex;
 			}
 			treeIndex = treeIndex / 2;
@@ -150,7 +183,7 @@ public class LoserTreeUtil {
 	private static boolean greatThan(ValueContainer A, ValueContainer B,
 			int[] values) {
 		if (A.max() && B.max()) {
-			return false;
+			return true;
 		}
 
 		if (A.max()) {
