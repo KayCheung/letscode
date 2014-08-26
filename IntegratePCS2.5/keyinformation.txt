@@ -1,8 +1,35 @@
-Implied permission ×ÜÊÇ PRSNTTN_ORDER 0000£»¶øÇÒ£¬ËüÃÇÓÀÔ¶¶¼²»»á³öÏÖÔÚ ½çÃæ ÉÏ
+ï»¿I used to run the LDAP script from the ofmd1 boxes.
+You can run the same from ofmd1.
 
-Menu itemµÄ rsrc_typ_cdÊÇ4 (presentationgroup)¡£
-Ò²¾ÍÊÇËµ£¬¸ù±¾¾Í²»´æÔÚ presentation ÕâÖÖresourceTypeCode
-ËäÈ»´æÔÚ×Å£º3 permissiongroup ºÍ 2 permission
+You can login on ofmd1 with user: xroads , password: xroads
+
+Go to the directory /crossroads/cgi-bin
+
+If you run this command when in the directory /crossroads/cgi-bin
+
+./addLDIF abc.ldif -e abc.rejects 
+
+Where abc.ldif is the file having the ldif commands.
+
+This will run the ldif contents against the 6.xx DEV LDAP.
+
+To backout the changes you will have to run the backout file.
+You will have to make this file executable and place it in the /crossroads/cgi-bin directory and just run the file to backout the changes.
+
+Thanks and Regards
+Gaurav Sharma
+
+
+
+upper(regexp_replace('Marvin Li', '[^a-zA-Z0-9\\s]', '_'))
+
+I agree, alphabetically makes more sense even though not all menus follow that.
+
+Implied permission æ€»æ˜¯ PRSNTTN_ORDER 0000ï¼›è€Œä¸”ï¼Œå®ƒä»¬æ°¸è¿œéƒ½ä¸ä¼šå‡ºç°åœ¨ ç•Œé¢ ä¸Š
+
+Menu itemçš„ rsrc_typ_cdæ˜¯4 (presentationgroup)ã€‚
+ä¹Ÿå°±æ˜¯è¯´ï¼Œæ ¹æœ¬å°±ä¸å­˜åœ¨ presentation è¿™ç§resourceTypeCode
+è™½ç„¶å­˜åœ¨ç€ï¼š3 permissiongroup å’Œ 2 permission
 
 There is only one Alert menu item, Alert View and Update control the same Alert menu.
 

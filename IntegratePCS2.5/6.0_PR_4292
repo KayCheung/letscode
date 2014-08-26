@@ -2,84 +2,12 @@
 #  Script:                    GenerateLDIF
 #
 
-PCSPhase2)
+PCSPhase2_5)
     	echo "#This line must be first">$1.ldif;
         echo "#This line must be first">$1.backout;
-
-SEARCHBASE=ou=PermissionGroups,o=Crossroads
-DN=permissiongroupid
-	
-ID=Subscriber_PCS_Group
-    echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
-    echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
-    echo "presentationorder: 043430">>$1.ldif;
-    echo "presentationlabel: Subscriber - Premium Customer Services">>$1.ldif;
-    echo "presentationlabeltag: 4267">>$1.ldif;
-    echo "objectclass: tsipermissiongroup">>$1.ldif;
-    echo "grouptype: user">>$1.ldif;
-    echo "">>$1.ldif;
         
 SEARCHBASE=ou=PermissionCode,o=Crossroads
 DN=permissionid	
-ID=PCS_GUI_Co
-    echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
-    echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
-    echo "presentationorder: 0015">>$1.ldif;
-    echo "presentationlabel: Premium Customer Services GUI (requires ACCESSibility 1 Server)">>$1.ldif;
-    echo "presentationlabeltag: 4268">>$1.ldif;
-    echo "permissiongroupid: SUBSCRIBER_Group_Co">>$1.ldif;
-    echo "objectclass: tsipermissioncode">>$1.ldif;
-    echo "objectclass: top">>$1.ldif;
-    echo "filtergroupid: RTI">>$1.ldif;
-    echo "filtergroupid: Billing">>$1.ldif;
-    echo "productuid: SUBSCRIBER">>$1.ldif;    
-    echo "impliedpermissionid: RTI_Co">>$1.ldif; 
-    echo "impliedpermissionid: ACC_Rpt-PCSRM001">>$1.ldif;
-    echo "impliedpermissionid: ACC_Function_15">>$1.ldif;     
-	echo "">>$1.ldif;
-
-ID=PCS_GUI
-    echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
-    echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
-    echo "presentationorder: 0010">>$1.ldif;
-    echo "presentationlabel: Premium Customer Services GUI">>$1.ldif;
-    echo "presentationlabeltag: 4268">>$1.ldif;
-    echo "permissiongroupid: Subscriber_PCS_Group">>$1.ldif;
-    echo "objectclass: tsipermissioncode">>$1.ldif;
-    echo "objectclass: top">>$1.ldif;
-    echo "productuid: SUBSCRIBER">>$1.ldif;      
-	echo "copermissionid: PCS_GUI_Co">>$1.ldif; 
-	echo "">>$1.ldif;
-
-ID=ACC_Rpt-PCSRM001
-    echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
-    echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
-    echo "presentationorder: 0000">>$1.ldif;
-    echo "presentationlabel: Implied PCS Billing Defense Report">>$1.ldif;
-    echo "objectclass: tsipermissioncode">>$1.ldif;
-    echo "productuid: BR-1">>$1.ldif;
-    echo "">>$1.ldif;
-
-ID=PCS_Billing_Defense_Report
-	echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
-	echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
-	echo "presentationorder: 0015">>$1.ldif;
-	echo "presentationlabel: Billing Report (PCSRM001)">>$1.ldif;
-	echo "presentationlabeltag: 4269">>$1.ldif;
-	echo "permissiongroupid: Subscriber_PCS_Group">>$1.ldif;
-	echo "objectclass: tsipermissioncode">>$1.ldif;
-	echo "objectclass: top">>$1.ldif;
-	echo "productuid: A-1">>$1.ldif;
-	echo "copermissionid: PCS_GUI_Co">>$1.ldif;
-	echo "impliedpermissionid: AccNA">>$1.ldif;
-	echo "impliedpermissionid: AccEU">>$1.ldif;
-    echo "impliedpermissionid: AccEUTab">>$1.ldif;
-	echo "impliedpermissionid: ACC_Prod-BIL">>$1.ldif;
-	echo "impliedpermissionid: Acc_Std_Rpt">>$1.ldif;
-	echo "impliedpermissionid: ACC_Function_15">>$1.ldif;
-    echo "impliedpermissionid: ACC_Rpt-PCSRM001">>$1.ldif;
-	echo "">>$1.ldif;;
-
 ID=Implied_PCS_GUI_userP
     echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
     echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
@@ -88,133 +16,81 @@ ID=Implied_PCS_GUI_userP
     echo "objectclass: tsipermissioncode">>$1.ldif;
     echo "objectclass: top">>$1.ldif;
     echo "productuid: SUBSCRIBER">>$1.ldif;      
-	echo "copermissionid: PCS_GUI_Co">>$1.ldif; 
 	echo "">>$1.ldif;
 
 ID=PCS_GUI
+	echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
+	echo "./multiAttrDel \"${DN}=${ID}\" \"$SEARCHBASE\" impliedpermissionid Implied_PCS_GUI_userP">>$1.backout;
+	echo "changetype: modify">>$1.ldif;
+	echo "add: impliedpermissionid">>$1.ldif;
+	echo "impliedpermissionid: Implied_PCS_GUI_userP">>$1.ldif; 
+	echo "">>$1.ldif;
+ID=PCS_GUI
     echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
-    echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
-    echo "presentationorder: 0010">>$1.ldif;
-    echo "presentationlabel: Premium Customer Services GUI">>$1.ldif;
-    echo "presentationlabeltag: 4268">>$1.ldif;
-    echo "permissiongroupid: Subscriber_PCS_Group">>$1.ldif;
-    echo "objectclass: tsipermissioncode">>$1.ldif;
-    echo "objectclass: top">>$1.ldif;
-    echo "productuid: SUBSCRIBER">>$1.ldif;      
-	echo "impliedpermissionid: Implied_PCS_GUI_userP">>$1.ldif;
-	echo "copermissionid: PCS_GUI_Co">>$1.ldif; 
+    echo "./modLDAP \"${DN}=${ID},$SEARCHBASE\" presentationorder 0010">>$1.backout;
+    echo "changetype: modify">>$1.ldif;
+ 	echo "replace: presentationorder">>$1.ldif;
+ 	echo "presentationorder: 0020">>$1.ldif; 
+    echo "">>$1.ldif;
+
+ID=PCS_Analyzer_PCS_Reporting_userP
+	echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
+	echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
+	echo "presentationorder: 0010">>$1.ldif;
+	echo "presentationlabel: Analyzer PCS Reporting">>$1.ldif;
+	echo "presentationlabeltag: ANALYZER_PCS_REPORTING">>$1.ldif;
+	echo "permissiongroupid: Subscriber_PCS_Group">>$1.ldif;
+	echo "objectclass: tsipermissioncode">>$1.ldif;
+	echo "objectclass: top">>$1.ldif;
+	echo "productuid: SUBSCRIBER">>$1.ldif;
+	echo "copermissionid: PCS_GUI_Co">>$1.ldif;
+    echo "impliedpermissionid: Implied_PCS_GUI_userP">>$1.ldif;
 	echo "">>$1.ldif;
 
 ID=PCS_Service_Level_View_userP
     echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
     echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
-    echo "presentationorder: 0020">>$1.ldif;
+    echo "presentationorder: 0025">>$1.ldif;
     echo "presentationlabel: Service Level View">>$1.ldif;
-    echo "presentationlabeltag: 4268">>$1.ldif;
+    echo "presentationlabeltag: SERVICE_LEVEL_VIEW">>$1.ldif;
     echo "permissiongroupid: Subscriber_PCS_Group">>$1.ldif;
     echo "objectclass: tsipermissioncode">>$1.ldif;
     echo "objectclass: top">>$1.ldif;
-    echo "productuid: TBD">>$1.ldif; #change to what
+    echo "productuid: SUBSCRIBER">>$1.ldif; 
 	echo "impliedpermissionid: Implied_PCS_GUI_userP">>$1.ldif;
 	echo "copermissionid: PCS_GUI_Co">>$1.ldif; 
 	echo "">>$1.ldif;
 
-ID=PCS_Analyzer_PCS_Reporting_userP
-	echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
-	echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
-	echo "presentationorder: 0015">>$1.ldif;
-	echo "presentationlabel: Analyzer PCS Reporting">>$1.ldif;
-	echo "presentationlabeltag: 4269">>$1.ldif;
-	echo "permissiongroupid: Subscriber_PCS_Group">>$1.ldif;
-	echo "objectclass: tsipermissioncode">>$1.ldif;
-	echo "objectclass: top">>$1.ldif;
-	echo "productuid: A-1">>$1.ldif;
-	echo "copermissionid: PCS_GUI_Co">>$1.ldif;
-	echo "impliedpermissionid: AccNA">>$1.ldif;
-	echo "impliedpermissionid: AccEU">>$1.ldif;
-    echo "impliedpermissionid: AccEUTab">>$1.ldif;
-	echo "impliedpermissionid: ACC_Prod-BIL">>$1.ldif;
-	echo "impliedpermissionid: Acc_Std_Rpt">>$1.ldif;
-	echo "impliedpermissionid: ACC_Function_15">>$1.ldif;
-    echo "impliedpermissionid: ACC_Rpt-PCSRM001">>$1.ldif;
-	echo "">>$1.ldif;
-	
- 
 SEARCHBASE=ou=PresentationObjects,o=Crossroads
 DN=uid
-ID=PCS_GUI_Monitor_Groups_Menu
-        echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
-        echo "./delObj \"uid=$ID\" \"$SEARCHBASE\" ">>$1.backout;
-        echo "presentationlabel: Monitor my Groups">>$1.ldif;
-        echo "presentationorder: 0025">>$1.ldif;
-        echo "objectclass: menuitem">>$1.ldif;
-        echo "presentationgroupid: Premium_Customer_Service_Menu">>$1.ldif;
-        echo "type: menuitem">>$1.ldif;
-        echo "permissionid: PCS_GUI">>$1.ldif;
-        echo "frameid: parent.ContentFrame">>$1.ldif;        
-        echo "url: https://${PCS}/pcs/faces/monitorgroups">>$1.ldif;
-        echo "">>$1.ldif;
 ID=PCS_GUI_Monitor_Subscribers_Menu
-        echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
-        echo "./delObj \"uid=$ID\" \"$SEARCHBASE\" ">>$1.backout;
-        echo "presentationlabel: Monitor my Subscribers">>$1.ldif;
-        echo "presentationorder: 0030">>$1.ldif;
-        echo "objectclass: menuitem">>$1.ldif;
-        echo "presentationgroupid: Premium_Customer_Service_Menu">>$1.ldif;
-        echo "type: menuitem">>$1.ldif;
-        echo "permissionid: PCS_GUI">>$1.ldif;
-        echo "frameid: parent.ContentFrame">>$1.ldif;
-        echo "url: https://${PCS}/pcs/faces/subscribers">>$1.ldif;
-        echo "">>$1.ldif;
-ID=PCS_GUI_Group_History_Menu
-        echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
-        echo "./delObj \"uid=$ID\" \"$SEARCHBASE\" ">>$1.backout;
-        echo "presentationlabel: Group History">>$1.ldif;
-        echo "presentationorder: 0035">>$1.ldif;
-        echo "objectclass: menuitem">>$1.ldif;
-        echo "presentationgroupid: Premium_Customer_Service_Menu">>$1.ldif;
-        echo "type: menuitem">>$1.ldif;
-        echo "permissionid: PCS_GUI">>$1.ldif;
-        echo "frameid: parent.ContentFrame">>$1.ldif;
-        echo "url: https://${PCS}/pcs/faces/grouphistory">>$1.ldif;
-        echo "">>$1.ldif;
-
+    echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
+    echo "./modLDAP \"${DN}=${ID},$SEARCHBASE\" permissionid PCS_GUI">>$1.backout;
+    echo "changetype: modify">>$1.ldif;
+ 	echo "replace: permissionid">>$1.ldif;
+ 	echo "permissionid: Implied_PCS_GUI_userP">>$1.ldif; 
+    echo "">>$1.ldif;
 
 ID=PCS_Analyzer_PCS_Reporting_menuitem_prsn
         echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
         echo "./delObj \"uid=$ID\" \"$SEARCHBASE\" ">>$1.backout;
+        echo "presentationorder: 0037">>$1.ldif;
         echo "presentationlabel: Analyzer PCS Reporting">>$1.ldif;
-        echo "presentationorder: 0033">>$1.ldif;
+    	echo "presentationlabeltag: ANALYZER_PCS_REPORTING">>$1.ldif;
         echo "objectclass: menuitem">>$1.ldif;
         echo "presentationgroupid: Premium_Customer_Service_Menu">>$1.ldif;
         echo "type: menuitem">>$1.ldif;
         echo "permissionid: PCS_Analyzer_PCS_Reporting_userP">>$1.ldif;
         echo "frameid: parent.ContentFrame">>$1.ldif;
-        echo "url: https://${PCS}/pcs/faces/grouphistory">>$1.ldif;
+        echo "url: https://${PCS}/pcs/faces/grouphistory">>$1.ldif; # new url
         echo "">>$1.ldif;
 
-
-
-    if [[ ${IDC} = "N" ]]; then
-	SEARCHBASE=ou=Carriers,o=Crossroads
-	ID=57
-        DN=carrieruid
-        echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
-        echo "./multiAttrDel \"${DN}=${ID}\" \"$SEARCHBASE\" permissionid \"PCS_GUI_Co^SUBSCRIBER\"">>$1.backout;
-        echo "./multiAttrDel \"${DN}=${ID}\" \"$SEARCHBASE\" permissionid \"ACC_Rpt-PCSRM001^BR-1\"">>$1.backout;
-        echo "changetype: modify">>$1.ldif;
-        echo "add: permissionid">>$1.ldif;
-        echo "permissionid: PCS_GUI_Co^SUBSCRIBER">>$1.ldif;
-        echo "permissionid: ACC_Rpt-PCSRM001^BR-1">>$1.ldif;
-        echo "">>$1.ldif;
-	fi
-    
 #SQL
 
 echo "-- This is the first line">$1.sql;
 
 echo "-- ######################################">>$1.sql;
-echo "-- dn: permissiongroupid=Subscriber_PCS_Group, ou=PermissionGroups,o=Crossroads">>$1.sql;
+echo "-- dn: permissionid=Implied_PCS_GUI_userP, ou=PermissionCode,o=Crossroads">>$1.sql;
 echo "-- ######################################">>$1.sql;
 echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
         PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
@@ -223,147 +99,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
         PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
         VALUES  
-        (presentation_id_seq.nextval,null,null,null,'Subscriber - Premium Customer Services',null,
-        '4267',null,'043430',null,null,
-        null,null,null,null,null,
-        null,null,null,systimestamp,systimestamp,
-        'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
-        null, null,null,null,
-        null,null,null );">>$1.sql;
-echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,
-	PRSNTTN_ID,RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,
-	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
-	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
-	values 
-	('Subscriber_PCS_Group', 'Subscriber_PCS_Group', null, '3', null, 
-	null, presentation_id_seq.currval, null, null, 
-	null, null, null, null, 
-	null, null, null, null, null, 
-	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
-	null, 'user', null, null, 
-	'n');">>$1.sql;
-
-echo "-- ######################################">>$1.sql;
-echo "-- dn: permissionid=PCS_GUI_Co, ou=PermissionCode,o=Crossroads">>$1.sql;
-echo "-- ######################################">>$1.sql;
-echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
-        PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
-        PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
-        TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
-        PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
-        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
-        VALUES  
-        (presentation_id_seq.nextval,null,null,null,'Premium Customer Services GUI (requires ACCESSibility 1 Server)',null,
-        '4268',null,'0015',null,null,
-        null,null,null,null,null,
-        null,null,null,systimestamp,systimestamp,
-        'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
-        null, null,null,null,
-        null,null,null );">>$1.sql;
-echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,
-	PRSNTTN_ID,RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,
-	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
-	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
-	values 
-	('PCS_GUI_Co', 'PCS_GUI_Co', null, '2', 'Unassigned', 
-	null, presentation_id_seq.currval, null, null, 
-	null, null, null, null, 
-	null, null, null, null, null, 
-	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
-	null, null, null, null, 
-	'n');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('PCS_GUI_Co','SUBSCRIBER','Product',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('PCS_GUI_Co','RTI_Co','Implied',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('PCS_GUI_Co','ACC_Rpt-PCSRM001','Implied',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('PCS_GUI_Co','ACC_Function_15','Implied',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('PCS_GUI_Co','SUBSCRIBER_Group_Co','PermissionGroup',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('PCS_GUI_Co','RTI','FilterGroup',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('PCS_GUI_Co','Billing','FilterGroup',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-
-echo "-- ######################################">>$1.sql;
-echo "-- dn: permissionid=PCS_GUI, ou=PermissionCode,o=Crossroads">>$1.sql;
-echo "-- ######################################">>$1.sql;
-echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
-        PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
-        PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
-        TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
-        PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
-        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
-        VALUES  
-        (presentation_id_seq.nextval,null,null,null,'Premium Customer Services GUI',null,
-        '4268',null,'0010',null,null,
-        null,null,null,null,null,
-        null,null,null,systimestamp,systimestamp,
-        'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
-        null, null,null,null,
-        null,null,null );">>$1.sql;
-echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,
-	PRSNTTN_ID,RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,
-	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
-	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
-	values 
-	('PCS_GUI', 'PCS_GUI', null, '2', 'Unassigned', 
-	null, presentation_id_seq.currval, null, null, 
-	null, null, null, null, 
-	null, null, null, null, null, 
-	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
-	null, null, null, null, 
-	'n');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('PCS_GUI','PCS_GUI_Co','Copermission',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('PCS_GUI','SUBSCRIBER','Product',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('PCS_GUI','Subscriber_PCS_Group','PermissionGroup',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-
-echo "-- ######################################">>$1.sql;
-echo "-- dn: permissionid=ACC_Rpt-PCSRM001, ou=PermissionCode,o=Crossroads">>$1.sql;
-echo "-- ######################################">>$1.sql;
-echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
-        PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
-        PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
-        TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
-        PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
-        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
-        VALUES  
-        (presentation_id_seq.nextval,null,null,null,'Implied PCS Billing Defense Report',null,
+        ('Implied_PCS_GUI_userP_prsn',null,null,null,'Implied Premium Customer Services GUI',null,
         null,null,'0000',null,null,
         null,null,null,null,null,
         null,null,null,systimestamp,systimestamp,
@@ -375,8 +111,8 @@ echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,
 	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
 	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
 	values 
-	('ACC_Rpt-PCSRM001', 'ACC_Rpt-PCSRM001', null, '2', 'Unassigned', 
-	null, presentation_id_seq.currval, null, null, 
+	('Implied_PCS_GUI_userP', 'Implied_PCS_GUI_userP', null, '2', 'Unassigned', 
+	null, 'Implied_PCS_GUI_userP_prsn', null, null, 
 	null, null, null, null, 
 	null, null, null, null, null, 
 	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
@@ -385,11 +121,26 @@ echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
 	values 
-	('ACC_Rpt-PCSRM001','BR-1','Product',systimestamp,systimestamp,
+	('Implied_PCS_GUI_userP','SUBSCRIBER','Product',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','2');">>$1.sql;
 
 echo "-- ######################################">>$1.sql;
-echo "-- dn: permissionid=PCS_Billing_Defense_Report, ou=PermissionCode,o=Crossroads">>$1.sql;
+echo "-- dn: permissionid=PCS_GUI, ou=PermissionCode,o=Crossroads">>$1.sql;
+echo "-- ######################################">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('PCS_GUI','Implied_PCS_GUI_userP','Implied',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+
+echo "-- ######################################">>$1.sql;
+echo "-- dn: permissionid=PCS_GUI, ou=PermissionCode,o=Crossroads">>$1.sql;
+echo "-- ######################################">>$1.sql;
+echo "update presentation set PRSNTTN_ORDER = '0020' where PRSNTTN_ORDER='0010' and 
+		PRSNTTN_ID = (Select PRSNTTN_ID from resourc where rsrc_id = 'PCS_GUI' and rsrc_typ_cd='2');">>$1.sql;
+
+echo "-- ######################################">>$1.sql;
+echo "-- dn: permissionid=PCS_Analyzer_PCS_Reporting_userP, ou=PermissionCode,o=Crossroads">>$1.sql;
 echo "-- ######################################">>$1.sql;
 echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
         PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
@@ -398,8 +149,8 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
         PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
         PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
         VALUES  
-        (presentation_id_seq.nextval,null,null,null,'Billing Report (PCSRM001)',null,
-        '4269',null,'0015',null,null,
+        ('PCS_Analyzer_PCS_Reporting_userP_prsn',null,null,null,'Analyzer PCS Reporting',null,
+        upper(regexp_replace('Analyzer PCS Reporting', '[^a-zA-Z0-9\\s]', '_')),null,'0010',null,null,
         null,null,null,null,null,
         null,null,null,systimestamp,systimestamp,
         'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
@@ -410,8 +161,8 @@ echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,
 	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
 	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
 	values 
-	('PCS_Billing_Defense_Report', 'PCS_Billing_Defense_Report', null, '2', 'Unassigned', 
-	null, presentation_id_seq.currval, null, null, 
+	('PCS_Analyzer_PCS_Reporting_userP', 'PCS_Analyzer_PCS_Reporting_userP', null, '2', 'Unassigned', 
+	null, 'PCS_Analyzer_PCS_Reporting_userP_prsn', null, null, 
 	null, null, null, null, 
 	null, null, null, null, null, 
 	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
@@ -420,126 +171,85 @@ echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
 	values 
-	('PCS_Billing_Defense_Report','PCS_GUI_Co','Copermission',systimestamp,systimestamp,
+	('PCS_Analyzer_PCS_Reporting_userP','PCS_GUI_Co','Copermission',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','2');">>$1.sql;
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
 	values 
-	('PCS_Billing_Defense_Report','A-1','Product',systimestamp,systimestamp,
+	('PCS_Analyzer_PCS_Reporting_userP','SUBSCRIBER','Product',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','2');">>$1.sql;
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
 	values 
-	('PCS_Billing_Defense_Report','AccNA','Implied',systimestamp,systimestamp,
+	('PCS_Analyzer_PCS_Reporting_userP','Implied_PCS_GUI_userP','Implied',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','2');">>$1.sql;
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
 	values 
-	('PCS_Billing_Defense_Report','AccEU','Implied',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('PCS_Billing_Defense_Report','AccEUTab','Implied',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('PCS_Billing_Defense_Report','ACC_Prod-BIL','Implied',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('PCS_Billing_Defense_Report','Acc_Std_Rpt','Implied',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('PCS_Billing_Defense_Report','ACC_Function_15','Implied',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('PCS_Billing_Defense_Report','ACC_Rpt-PCSRM001','Implied',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
-	('PCS_Billing_Defense_Report','Subscriber_PCS_Group','PermissionGroup',systimestamp,systimestamp,
+	('PCS_Analyzer_PCS_Reporting_userP','Subscriber_PCS_Group','PermissionGroup',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','2');">>$1.sql;
 
+
 echo "-- ######################################">>$1.sql;
-echo "-- dn: uid=PCS_GUI_Monitor_Groups_Menu, ou=PresentationObjects,o=Crossroads">>$1.sql;
+echo "-- dn: permissionid=PCS_Service_Level_View_userP, ou=PermissionCode,o=Crossroads">>$1.sql;
 echo "-- ######################################">>$1.sql;
 echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
-	PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
-	PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
-	TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
-	PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
-	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
-	VALUES  
-	('PCS_GUI_Monitor_Groups_Menu','parent.ContentFrame','https://${PCS}/pcs/faces/monitorgroups', null,'Monitor my Groups',null,
-	null,null,'0025',null,null,
-	null,null,null,null,null,
-	null,null,null,systimestamp,systimestamp,
-	'cn=directory manager','uid=xroads,o=crossroads',null,'menuitem',null,
-	'PCS_GUI', null,null,null,
-	null,null,null );">>$1.sql;
-echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,PRSNTTN_ID,
-	RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,RSRC_HOME_PAGE,RSRC_MAIL,
-	RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,PROD_MENU_CATEGORY, PRESENTATION_ORDER,
-	RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
+        PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
+        PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
+        TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
+        PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
+        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
+        VALUES  
+        ('PCS_Service_Level_View_userP_prsn',null,null,null,'Service Level View',null,
+        upper(regexp_replace('Service Level View', '[^a-zA-Z0-9\\s]', '_')),null,'0025',null,null,
+        null,null,null,null,null,
+        null,null,null,systimestamp,systimestamp,
+        'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
+        null, null,null,null,
+        null,null,null );">>$1.sql;
+echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,
+	PRSNTTN_ID,RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,
+	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
+	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
 	values 
-	(rsrc_id_seq.nextval, null, null, '4', null, 
-	null, 'PCS_GUI_Monitor_Groups_Menu', null, null, 
+	('PCS_Service_Level_View_userP', 'PCS_Service_Level_View_userP', null, '2', 'Unassigned', 
+	null, 'PCS_Service_Level_View_userP_prsn', null, null, 
 	null, null, null, null, 
 	null, null, null, null, null, 
 	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
 	null, null, null, null, 
 	'n');">>$1.sql;
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY,RSRC_TYP_CD) 
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
 	values 
-	(rsrc_id_seq.currval,'Premium_Customer_Service_Menu','PresGroup',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','4');">>$1.sql;
+	('PCS_Service_Level_View_userP','PCS_GUI_Co','Copermission',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('PCS_Service_Level_View_userP','SUBSCRIBER','Product',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('PCS_Service_Level_View_userP','Implied_PCS_GUI_userP','Implied',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('PCS_Service_Level_View_userP','Subscriber_PCS_Group','PermissionGroup',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+
 
 echo "-- ######################################">>$1.sql;
 echo "-- dn: uid=PCS_GUI_Monitor_Subscribers_Menu, ou=PresentationObjects,o=Crossroads">>$1.sql;
 echo "-- ######################################">>$1.sql;
-echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
-	PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
-	PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
-	TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
-	PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
-	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
-	VALUES  
-	('PCS_GUI_Monitor_Subscribers_Menu','parent.ContentFrame','https://${PCS}/pcs/faces/subscribers', null,'Monitor my Subscribers',null,
-	null,null,'0030',null,null,
-	null,null,null,null,null,
-	null,null,null,systimestamp,systimestamp,
-	'cn=directory manager','uid=xroads,o=crossroads',null,'menuitem',null,
-	'PCS_GUI', null,null,null,
-	null,null,null );">>$1.sql;
-echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,PRSNTTN_ID,
-	RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,RSRC_HOME_PAGE,RSRC_MAIL,
-	RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,PROD_MENU_CATEGORY, PRESENTATION_ORDER,
-	RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
-	values 
-	(rsrc_id_seq.nextval, null, null, '4', null, 
-	null, 'PCS_GUI_Monitor_Subscribers_Menu', null, null, 
-	null, null, null, null, 
-	null, null, null, null, null, 
-	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
-	null, null, null, null, 
-	'n');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY,RSRC_TYP_CD) 
-	values 
-	(rsrc_id_seq.currval,'Premium_Customer_Service_Menu','PresGroup',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','4');">>$1.sql;
+echo "update presentation set PRSNTTN_PERMISSIONID = 'Implied_PCS_GUI_userP' where PRSNTTN_PERMISSIONID = 'PCS_GUI' and 
+		PRSNTTN_ID = 'PCS_GUI_Monitor_Subscribers_Menu';">>$1.sql;
+
 
 echo "-- ######################################">>$1.sql;
-echo "-- dn: uid=PCS_GUI_Group_History_Menu, ou=PresentationObjects,o=Crossroads">>$1.sql;
+echo "-- dn: uid=PCS_Analyzer_PCS_Reporting_menuitem_prsn, ou=PresentationObjects,o=Crossroads">>$1.sql;
 echo "-- ######################################">>$1.sql;
 echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
 	PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
@@ -548,20 +258,20 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
 	PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
 	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
 	VALUES  
-	('PCS_GUI_Group_History_Menu','parent.ContentFrame','https://${PCS}/pcs/faces/grouphistory', null,'Group History',null,
-	null,null,'0035',null,null,
+	('PCS_Analyzer_PCS_Reporting_menuitem_prsn','parent.ContentFrame','https://${PCS}/pcs/faces/subscribers', null,'Analyzer PCS Reporting',null,
+	upper(regexp_replace('Analyzer PCS Reporting', '[^a-zA-Z0-9\\s]', '_')),null,'0037',null,null,
 	null,null,null,null,null,
 	null,null,null,systimestamp,systimestamp,
 	'cn=directory manager','uid=xroads,o=crossroads',null,'menuitem',null,
-	'PCS_GUI', null,null,null,
+	'PCS_Analyzer_PCS_Reporting_userP', null,null,null,
 	null,null,null );">>$1.sql;
 echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,PRSNTTN_ID,
 	RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,RSRC_HOME_PAGE,RSRC_MAIL,
 	RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,PROD_MENU_CATEGORY, PRESENTATION_ORDER,
 	RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
 	values 
-	(rsrc_id_seq.nextval, null, null, '4', null, 
-	null, 'PCS_GUI_Group_History_Menu', null, null, 
+	('PCS_Analyzer_PCS_Reporting_menuitem', null, null, '4', null, 
+	null, 'PCS_Analyzer_PCS_Reporting_menuitem_prsn', null, null, 
 	null, null, null, null, 
 	null, null, null, null, null, 
 	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
@@ -570,8 +280,9 @@ echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY,RSRC_TYP_CD) 
 	values 
-	(rsrc_id_seq.currval,'Premium_Customer_Service_Menu','PresGroup',systimestamp,systimestamp,
+	('PCS_Analyzer_PCS_Reporting_menuitem','Premium_Customer_Service_Menu','PresGroup',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','4');">>$1.sql;
+
 
 echo "-- ######################################">>$1.sql;
 echo "-- dn: carrieruid=57, ou=Carriers,o=Crossroads">>$1.sql;
@@ -579,25 +290,12 @@ echo "-- ######################################">>$1.sql;
 if [[ ${IDC} = "N" ]]; then
 echo "INSERT INTO COMPANY_RESOURCE (CMPNY_RSRC_ID,CMPNY_ID,RSRC_ID,CREATED_DT,MODIFY_DT,CREATED_BY,
 	MODIFY_BY,RSRC_TYP_CD) 
-	select COMP_RSRC_ID_SEQ.nextval,'57','PCS_GUI_Co',systimestamp,systimestamp,'cn=directory manager',
-	'uid=xroads,o=crossroads','2' from dual where not exists (select * from COMPANY_RESOURCE where CMPNY_ID='57' and RSRC_ID='PCS_GUI_Co' and RSRC_TYP_CD='2');">>$1.sql;
-echo "INSERT INTO COMPANY_RESOURCE (CMPNY_RSRC_ID,CMPNY_ID,RSRC_ID,CREATED_DT,MODIFY_DT,CREATED_BY,
-	MODIFY_BY,RSRC_TYP_CD) 
 	select COMP_RSRC_ID_SEQ.nextval,'57','SUBSCRIBER',systimestamp,systimestamp,'cn=directory manager',
 	'uid=xroads,o=crossroads','1' from dual where not exists (select * from COMPANY_RESOURCE where CMPNY_ID='57' and RSRC_ID='SUBSCRIBER' and RSRC_TYP_CD='1');">>$1.sql;
-echo "INSERT INTO COMPANY_RESOURCE (CMPNY_RSRC_ID,CMPNY_ID,RSRC_ID,CREATED_DT,MODIFY_DT,CREATED_BY,
-	MODIFY_BY,RSRC_TYP_CD) 
-	select COMP_RSRC_ID_SEQ.nextval,'57','ACC_Rpt-PCSRM001',systimestamp,systimestamp,'cn=directory manager',
-	'uid=xroads,o=crossroads','2' from dual where not exists (select * from COMPANY_RESOURCE where CMPNY_ID='57' and RSRC_ID='ACC_Rpt-PCSRM001' and RSRC_TYP_CD='2');">>$1.sql;
-echo "INSERT INTO COMPANY_RESOURCE (CMPNY_RSRC_ID,CMPNY_ID,RSRC_ID,CREATED_DT,MODIFY_DT,CREATED_BY,
-	MODIFY_BY,RSRC_TYP_CD) 
-	select COMP_RSRC_ID_SEQ.nextval,'57','BR-1',systimestamp,systimestamp,'cn=directory manager',
-	'uid=xroads,o=crossroads','1' from dual where not exists (select * from COMPANY_RESOURCE where CMPNY_ID='57' and RSRC_ID='BR-1' and RSRC_TYP_CD='1');">>$1.sql;
 fi
 
 
 #BACKOUT SQL
-
 
 echo "-- This is the first line">$1.backout.sql;
 if [[ ${PROD} = "N" ]]; then
@@ -608,132 +306,85 @@ echo "alter table ACCESS_AUTH  disable constraint ACCESS_RESOURC1_FK1;">>$1.back
 fi
 
 echo "-- ######################################">>$1.backout.sql;
-echo "-- ./delObj "permissiongroupid=Subscriber_PCS_Group" "ou=PermissionGroups,o=Crossroads" 
+echo "-- ./delObj "permissionid=Implied_PCS_GUI_userP" "ou=PermissionCode,o=Crossroads" 
 ">>$1.backout.sql;
 echo "-- ######################################">>$1.backout.sql;
-echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='Subscriber_PCS_Group'  and 
-		RSRC_TYP_CD='3';
-delete from RSRC_TO_COMPANY_REL where RSRC_ID='Subscriber_PCS_Group'  
-		and RSRC_TYPE_CODE='3';
-delete from presentation where PRSNTTN_ID=(select PRSNTTN_ID from resourc where 
-		RSRC_ID='Subscriber_PCS_Group' and RSRC_TYP_CD='3');
-delete from resourc where RSRC_ID='Subscriber_PCS_Group' and RSRC_TYP_CD='3';
-">>$1.backout.sql;
-
-echo "-- ######################################">>$1.backout.sql;
-echo "-- ./delObj "permissionid=PCS_GUI_Co" "ou=PermissionCode,o=Crossroads" 
-">>$1.backout.sql;
-echo "-- ######################################">>$1.backout.sql;
-echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='PCS_GUI_Co'  and 
+echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='Implied_PCS_GUI_userP'  and 
 		RSRC_TYP_CD='2';
-delete from RSRC_TO_COMPANY_REL where RSRC_ID='PCS_GUI_Co'  and 
+delete from RSRC_TO_COMPANY_REL where RSRC_ID='Implied_PCS_GUI_userP'  and 
 		RSRC_TYPE_CODE='2';
 delete from presentation where PRSNTTN_ID=(select PRSNTTN_ID from resourc where 
-		RSRC_ID='PCS_GUI_Co' and RSRC_TYP_CD='2');
-delete from resourc where RSRC_ID='PCS_GUI_Co' and RSRC_TYP_CD='2';
+		RSRC_ID='Implied_PCS_GUI_userP' and RSRC_TYP_CD='2');
+delete from resourc where RSRC_ID='Implied_PCS_GUI_userP' and RSRC_TYP_CD='2';
+">>$1.backout.sql;
+
+
+echo "-- ######################################">>$1.backout.sql;
+echo "-- ./multiAttrDel "permissionid=PCS_GUI" "ou=PermissionCode,o=Crossroads"
+">>$1.backout.sql;
+echo "-- ######################################">>$1.backout.sql;
+echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='PCS_GUI' and RSRC_ID2='Implied_PCS_GUI_userP' and REL_TYP_CD='Implied' and RSRC_TYP_CD='2';
+">>$1.backout.sql;
+
+
+echo "-- ######################################">>$1.backout.sql;
+echo "-- ./modLDAP "permissionid=PCS_GUI" "ou=PermissionCode,o=Crossroads"
+">>$1.backout.sql;
+echo "update presentation set PRSNTTN_ORDER = '0010' where PRSNTTN_ORDER='0020' and 
+		PRSNTTN_ID = (Select PRSNTTN_ID from resourc where rsrc_id = 'PCS_GUI' and rsrc_typ_cd='2');
 ">>$1.backout.sql;
 
 echo "-- ######################################">>$1.backout.sql;
-echo "-- ./delObj "permissionid=PCS_GUI" "ou=PermissionCode,o=Crossroads" 
+echo "-- ./delObj "permissionid=PCS_Analyzer_PCS_Reporting_userP" "ou=PermissionCode,o=Crossroads" 
 ">>$1.backout.sql;
 echo "-- ######################################">>$1.backout.sql;
-echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='PCS_GUI'  and 
+echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='PCS_Analyzer_PCS_Reporting_userP'  and 
 		RSRC_TYP_CD='2';
-delete from RSRC_TO_COMPANY_REL where RSRC_ID='PCS_GUI'  and 
+delete from RSRC_TO_COMPANY_REL where RSRC_ID='PCS_Analyzer_PCS_Reporting_userP'  and 
 		RSRC_TYPE_CODE='2';
 delete from presentation where PRSNTTN_ID=(select PRSNTTN_ID from resourc where 
-		RSRC_ID='PCS_GUI' and RSRC_TYP_CD='2');
-delete from resourc where RSRC_ID='PCS_GUI' and RSRC_TYP_CD='2';
+		RSRC_ID='PCS_Analyzer_PCS_Reporting_userP' and RSRC_TYP_CD='2');
+delete from resourc where RSRC_ID='PCS_Analyzer_PCS_Reporting_userP' and RSRC_TYP_CD='2';
 ">>$1.backout.sql;
 
 echo "-- ######################################">>$1.backout.sql;
-echo "-- ./delObj "permissionid=ACC_Rpt-PCSRM001" "ou=PermissionCode,o=Crossroads" 
+echo "-- ./delObj "permissionid=PCS_Service_Level_View_userP" "ou=PermissionCode,o=Crossroads" 
 ">>$1.backout.sql;
 echo "-- ######################################">>$1.backout.sql;
-echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='ACC_Rpt-PCSRM001'  and 
+echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='PCS_Service_Level_View_userP'  and 
 		RSRC_TYP_CD='2';
-delete from RSRC_TO_COMPANY_REL where RSRC_ID='ACC_Rpt-PCSRM001'  and 
+delete from RSRC_TO_COMPANY_REL where RSRC_ID='PCS_Service_Level_View_userP'  and 
 		RSRC_TYPE_CODE='2';
 delete from presentation where PRSNTTN_ID=(select PRSNTTN_ID from resourc where 
-		RSRC_ID='ACC_Rpt-PCSRM001' and RSRC_TYP_CD='2');
-delete from resourc where RSRC_ID='ACC_Rpt-PCSRM001' and RSRC_TYP_CD='2';
+		RSRC_ID='PCS_Service_Level_View_userP' and RSRC_TYP_CD='2');
+delete from resourc where RSRC_ID='PCS_Service_Level_View_userP' and RSRC_TYP_CD='2';
 ">>$1.backout.sql;
 
 echo "-- ######################################">>$1.backout.sql;
-echo "-- ./delObj "permissionid=PCS_Billing_Defense_Report" "ou=PermissionCode,o=Crossroads" 
+echo "-- ./modLDAP "uid=PCS_GUI_Monitor_Subscribers_Menu" "ou=PresentationObjects,o=Crossroads" 
 ">>$1.backout.sql;
-echo "-- ######################################">>$1.backout.sql;
-echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='PCS_Billing_Defense_Report'  and 
-		RSRC_TYP_CD='2';
-delete from RSRC_TO_COMPANY_REL where RSRC_ID='PCS_Billing_Defense_Report'  and 
-		RSRC_TYPE_CODE='2';
-delete from presentation where PRSNTTN_ID=(select PRSNTTN_ID from resourc where 
-		RSRC_ID='PCS_Billing_Defense_Report' and RSRC_TYP_CD='2');
-delete from resourc where RSRC_ID='PCS_Billing_Defense_Report' and RSRC_TYP_CD='2';
+echo "update presentation set PRSNTTN_PERMISSIONID = 'PCS_GUI' where PRSNTTN_PERMISSIONID = 'Implied_PCS_GUI_userP' and  
+		PRSNTTN_ID ='PCS_GUI_Monitor_Subscribers_Menu';
 ">>$1.backout.sql;
 
+
 echo "-- ######################################">>$1.backout.sql;
-echo "-- ./delObj "uid=PCS_GUI_Monitor_Groups_Menu" "ou=PresentationObjects,o=Crossroads" 
+echo "-- ./delObj "uid=PCS_Analyzer_PCS_Reporting_menuitem_prsn" "ou=PresentationObjects,o=Crossroads" 
 ">>$1.backout.sql;
 echo "-- ######################################">>$1.backout.sql;
 echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1=(select RSRC_ID from resourc where 
-		PRSNTTN_ID='PCS_GUI_Monitor_Groups_Menu' and RSRC_TYP_CD='4') and  RSRC_TYP_CD='4';
+		PRSNTTN_ID='PCS_Analyzer_PCS_Reporting_menuitem_prsn' and RSRC_TYP_CD='4') and  RSRC_TYP_CD='4';
 delete from RSRC_TO_COMPANY_REL where RSRC_ID=(select RSRC_ID from resourc where 
-		PRSNTTN_ID='PCS_GUI_Monitor_Groups_Menu' and RSRC_TYP_CD='4') and  RSRC_TYPE_CODE='4';
+		PRSNTTN_ID='PCS_Analyzer_PCS_Reporting_menuitem_prsn' and RSRC_TYP_CD='4') and  RSRC_TYPE_CODE='4';
 delete from resourc where RSRC_ID=(select RSRC_ID from resourc where 
-		PRSNTTN_ID='PCS_GUI_Monitor_Groups_Menu' and RSRC_TYP_CD='4') and  RSRC_TYP_CD='4';
-delete from presentation where PRSNTTN_ID='PCS_GUI_Monitor_Groups_Menu';
+		PRSNTTN_ID='PCS_Analyzer_PCS_Reporting_menuitem_prsn' and RSRC_TYP_CD='4') and  RSRC_TYP_CD='4';
+delete from presentation where PRSNTTN_ID='PCS_Analyzer_PCS_Reporting_menuitem_prsn';
 ">>$1.backout.sql;
 
-echo "-- ######################################">>$1.backout.sql;
-echo "-- ./delObj "uid=PCS_GUI_Monitor_Subscribers_Menu" "ou=PresentationObjects,o=Crossroads" 
-">>$1.backout.sql;
-echo "-- ######################################">>$1.backout.sql;
-echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1=(select RSRC_ID from resourc where 
-		PRSNTTN_ID='PCS_GUI_Monitor_Subscribers_Menu' and RSRC_TYP_CD='4') and  RSRC_TYP_CD='4';
-delete from RSRC_TO_COMPANY_REL where RSRC_ID=(select RSRC_ID from resourc where 
-		PRSNTTN_ID='PCS_GUI_Monitor_Subscribers_Menu' and RSRC_TYP_CD='4') and  RSRC_TYPE_CODE='4';
-delete from resourc where RSRC_ID=(select RSRC_ID from resourc where 
-		PRSNTTN_ID='PCS_GUI_Monitor_Subscribers_Menu' and RSRC_TYP_CD='4') and  RSRC_TYP_CD='4';
-delete from presentation where PRSNTTN_ID='PCS_GUI_Monitor_Subscribers_Menu';
-">>$1.backout.sql;
-
-echo "-- ######################################">>$1.backout.sql;
-echo "-- ./delObj "uid=PCS_GUI_Group_History_Menu" "ou=PresentationObjects,o=Crossroads" 
-">>$1.backout.sql;
-echo "-- ######################################">>$1.backout.sql;
-echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1=(select RSRC_ID from resourc where 
-		PRSNTTN_ID='PCS_GUI_Group_History_Menu' and RSRC_TYP_CD='4') and  RSRC_TYP_CD='4';
-delete from RSRC_TO_COMPANY_REL where RSRC_ID=(select RSRC_ID from resourc where 
-		PRSNTTN_ID='PCS_GUI_Group_History_Menu' and RSRC_TYP_CD='4') and  RSRC_TYPE_CODE='4';
-delete from resourc where RSRC_ID=(select RSRC_ID from resourc where 
-		PRSNTTN_ID='PCS_GUI_Group_History_Menu' and RSRC_TYP_CD='4') and  RSRC_TYP_CD='4';
-delete from presentation where PRSNTTN_ID='PCS_GUI_Group_History_Menu';
-">>$1.backout.sql;
-
-echo "-- ######################################">>$1.backout.sql;
-echo "-- ./multiAttrDel "carrieruid=57" "ou=Carriers,o=Crossroads" permissionid "PCS_GUI_Co^SUBSCRIBER"
-">>$1.backout.sql;
-echo "-- ######################################">>$1.backout.sql;
-if [[ ${IDC} = "N" ]]; then
-echo "delete from COMPANY_RESOURCE where CMPNY_ID='57' and RSRC_ID='PCS_GUI_Co' 
-	and RSRC_TYP_CD='2';">>$1.backout.sql;
-fi
-
-echo "-- ######################################">>$1.backout.sql;
-echo "-- ./multiAttrDel "carrieruid=57" "ou=Carriers,o=Crossroads" permissionid "ACC_Rpt-PCSRM001^BR-1"
-">>$1.backout.sql;
-echo "-- ######################################">>$1.backout.sql;
-if [[ ${IDC} = "N" ]]; then
-echo "delete from COMPANY_RESOURCE where CMPNY_ID='57' and RSRC_ID='ACC_Rpt-PCSRM001' 
-	and RSRC_TYP_CD='2';">>$1.backout.sql;
-fi
 if [[ ${PROD} = "N" ]]; then
 echo "alter table COMPANY_RESOURCE  enable NOVALIDATE constraint CMPNY_RSRC_FK;">>$1.backout.sql;
 echo "alter table ACCESS_AUTH  enable NOVALIDATE constraint ACCESS_RESOURC1_FK1;">>$1.backout.sql;
 fi
-
-
         
 chmod ug+wx $1.backout;;
 
