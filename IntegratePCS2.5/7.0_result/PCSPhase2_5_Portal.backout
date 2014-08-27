@@ -1,0 +1,8 @@
+#This line must be first
+./delObj "permissionid=Implied_PCS_GUI_userP" "ou=PermissionCode,o=Crossroads" 
+./multiAttrDel "permissionid=PCS_GUI" "ou=PermissionCode,o=Crossroads" impliedpermissionid Implied_PCS_GUI_userP
+./modLDAP "permissionid=PCS_GUI,ou=PermissionCode,o=Crossroads" presentationorder 0010
+./delObj "permissionid=PCS_Analyzer_PCS_Reporting_userP" "ou=PermissionCode,o=Crossroads" 
+./delObj "permissionid=PCS_Service_Level_View_userP" "ou=PermissionCode,o=Crossroads" 
+./modLDAP "uid=PCS_GUI_Monitor_Subscribers_Menu,ou=PresentationObjects,o=Crossroads" permissionid PCS_GUI
+./delObj "uid=PCS_Analyzer_PCS_Reporting_menuitem_prsn" "ou=PresentationObjects,o=Crossroads" 

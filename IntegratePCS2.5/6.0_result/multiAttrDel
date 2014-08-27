@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+#  Script:			multiAttrDel
+#  Instance:		1
+#  %version:		2 %
+#  Description:		
+#  %created_by:		buildmgr %
+#  %date_created:	Thu Feb 17 17:57:10 2005 %
+
+. ./xroads_config.dat
+
+SEARCH_FILTER=$1
+export SEARCH_FILTER
+SEARCH_BASE=$2
+export SEARCH_BASE
+NEW_ATTR_NAME=$3
+export NEW_ATTR_NAME
+NEW_ATTR_VALUE=$4
+export NEW_ATTR_VALUE
+echo "executing..."
+./ldapMultiAttrDel2.exe $5
+

@@ -1,8 +1,7 @@
 #
-#  Script:			grantPermissions
-#  Instance:		1
-#  
-SR573473)
+#  Script:                   grantPermissions 
+#
+PCSPhase2_5)
 
 ENV=$2;
 
@@ -11,14 +10,7 @@ ENV=$2;
 	
 	EXISTING_ID=PCS_GUI^SUBSCRIBER
 	ID1=PCS_Service_Level_View_userP^SUBSCRIBER
-	IMPL_ID1=ACC_Rpt-RCLRD001^SUBSCRIBER
 	
-	#Grant the permission RCLRD001_Subs_Reports^A-1 and implied permission ACC_Rpt-RCLRD001^A-1 to all Syniverse 
-	#users, roles and groups who have the ACC_Rpt-WBRRD1014^A-1 permission already.
-	
-	EXISTING_ID=ACC_Rpt-WBRRD1014^A-1 
-	ID1=RCLRD001_Subs_Reports^A-1
-	IMPL_ID1=ACC_Rpt-RCLRD001^A-1	 
 	
 	  java multiAttrAdd "(&(carrieruid=57)(permissionid=${EXISTING_ID}))" "ou=people,o=crossroads" permissionid  "${ID1}"  1>>grant$1.out 2>>grant$1.err;
 	  java multiAttrAdd "(&(carrieruid=57)(permissionid=${EXISTING_ID}^R))" "ou=people,o=crossroads" permissionid "${ID1}^R"  1>>grant$1.out 2>>grant$1.err;
@@ -99,45 +91,7 @@ echo " and ux.usr_typ_cd = 'UserGroup' and a.acsor_typ_cd = 'User'
 and ux.usr_id = cu.usr_id and cu.cmpny_id = '57' and aa.rsrc_typ_cd = '2' and aa.rsrc_id = 'PCS_GUI' and not exists 
 ( select c.accessor_id from access_auth c where c.accessor_id = aa.accessor_id and c.rsrc_id = 'SUBSCRIBER' 
 and c.rsrc_typ_cd = '1');">>$1.grantPermission.sql;
-########################### do not care this, begin, ###########################
-#don't need to assing this implied perm if installing in PORTAL environment.
-	if [ "$ENV" != "PORTAL" ];then
 
-echo "insert into access_auth (accessor_id, rsrc_id, scrty_acc_cd, created_by,modify_by,rsrc_typ_cd)
-select distinct aa.accessor_id , 'ACC_Rpt-RCLRD001' , '60', 'uid=admin,o=crossroads','uid=admin,o=crossroads', '2'  
-from access_auth aa , accessor a , user_xroads ux , cmpny_user cu
-where aa.accessor_id = a.accessor_id and a.usr_id = ux.usr_login_id and ux.usr_typ_cd != 'UserGroup' and a.acsor_typ_cd = 'User'
-and ux.usr_id = cu.usr_id and cu.cmpny_id = '57' and aa.rsrc_typ_cd = '2' and aa.rsrc_id = 'PCS_GUI' and not exists 
-( select c.accessor_id from access_auth c where c.accessor_id = aa.accessor_id and c.rsrc_id = 'ACC_Rpt-RCLRD001' 
-and c.rsrc_typ_cd = '2');">>$1.grantPermission.sql;
-
-echo "insert into access_auth (accessor_id, rsrc_id, scrty_acc_cd, created_by,modify_by,rsrc_typ_cd)
-select distinct aa.accessor_id , 'SUBSCRIBER' , '60', 'uid=admin,o=crossroads','uid=admin,o=crossroads', '1'  
-from access_auth aa , accessor a , user_xroads ux , cmpny_user cu
-where aa.accessor_id = a.accessor_id and a.usr_id = ux.usr_login_id and ux.usr_typ_cd != 'UserGroup' and a.acsor_typ_cd = 'User'
-and ux.usr_id = cu.usr_id and cu.cmpny_id = '57' and aa.rsrc_typ_cd = '2' and aa.rsrc_id = 'ACC_Rpt-RCLRD001' and not exists 
-( select c.accessor_id from access_auth c where c.accessor_id = aa.accessor_id and c.rsrc_id = 'SUBSCRIBER' 
-and c.rsrc_typ_cd = '1');">>$1.grantPermission.sql;
-
-echo "insert into access_auth (accessor_id, rsrc_id, scrty_acc_cd, created_by,modify_by,rsrc_typ_cd)
-select distinct aa.accessor_id , 'ACC_Rpt-RCLRD001' , '60', 'uid=admin,o=crossroads','uid=admin,o=crossroads', '2'  
-from access_auth aa , accessor a , company_role cr
-where aa.accessor_id = a.accessor_id and a.role_id = cr.role_id and  a.acsor_typ_cd = 'Role'
-and cr.cmpny_id = '57' and aa.rsrc_typ_cd = '2' and aa.rsrc_id = 'PCS_GUI' and not exists 
-( select c.accessor_id from access_auth c where c.accessor_id = aa.accessor_id and c.rsrc_id = 'ACC_Rpt-RCLRD001' 
-and c.rsrc_typ_cd = '2');">>$1.grantPermission.sql;
-
-echo "insert into access_auth (accessor_id, rsrc_id, scrty_acc_cd, created_by,modify_by,rsrc_typ_cd)
-select distinct aa.accessor_id , 'SUBSCRIBER' , '60', 'uid=admin,o=crossroads','uid=admin,o=crossroads', '1'  
-from access_auth aa , accessor a , company_role cr
-where aa.accessor_id = a.accessor_id and a.role_id = cr.role_id and  a.acsor_typ_cd = 'Role'
-and cr.cmpny_id = '57' and aa.rsrc_typ_cd = '2' and aa.rsrc_id = 'ACC_Rpt-RCLRD001' and not exists 
-( select c.accessor_id from access_auth c where c.accessor_id = aa.accessor_id and c.rsrc_id = 'SUBSCRIBER' 
-and c.rsrc_typ_cd = '1');">>$1.grantPermission.sql;
-
-
-	fi
-########################### do not care this, end, ###########################
 echo "Done." |tee -a grant$1.err >> grant$1.out;;
 
 
