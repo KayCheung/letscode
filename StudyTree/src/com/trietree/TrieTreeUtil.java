@@ -15,39 +15,66 @@ public class TrieTreeUtil {
 		}
 	}
 
-	public static void addC(TrieBranch toNode, int curCIndex, String word) {
+	public static void addC(TrieBranch toWho, int curCIndex, String word) {
 		if (curCIndex > word.length() - 1) {
 			return;
 		}
 		int nodeSlotIndex = indexForC(word.charAt(curCIndex));
-		// good, slot is waiting to be filled. Create leaf
-		if (toNode.children[nodeSlotIndex] == null) {
-			TrieLeaf tl = TrieLeaf.createBranchNode(toNode.level + 1);
-			tl.sb.append(word.substring(curCIndex));
-			toNode.children[nodeSlotIndex] = tl;
+
+		/**
+		 * good, slot is waiting to be filled. Create leaf
+		 */
+		if (toWho.children[nodeSlotIndex] == null) {
+			TrieLeaf leaf = TrieLeaf.createLeafNode(toWho.level + 1);
+			leaf.sb.append(word);
+			toWho.children[nodeSlotIndex] = leaf;
 		}
-		// nodeSlotIndex has been occupied
+		/**
+		 * nodeSlotIndex has been occupied
+		 */
 		else {
-			TrieNode tn = toNode.children[nodeSlotIndex];
-			// used by a leaf
+			TrieNode tn = toWho.children[nodeSlotIndex];
+			// nodeSlotIndex stands a leaf
 			if (tn.bLeaf == true) {
-				int leafLevel = tn.level;
-				char cBelong2LeafLevel = ((TrieLeaf) tn).sb
-						.charAt(leafLevel - 1);
-				//same
-				if(word.charAt(curCIndex)==cBelong2LeafLevel){
-					
+				TrieLeaf leaf = (TrieLeaf) tn;
+				if (word.equals(leaf.sb.toString())) {
+					leaf.occurrence++;
 				}
-				// different
-				else{
-					
-				
+				// dispose leaf
+				else {
+					char cBelong2LeafLevel;
+					if (leaf.sb.length() > leaf.level) {
+						cBelong2LeafLevel = leaf.sb.charAt(leaf.level - 1);
+					} else if (leaf.sb.length() == leaf.level) {
+
+					}
+					// leaf.sb.length() == leaf.level -1
+					else {
+
+					}
+
+					// the char to be added is the same with the
+					// cBelong2LeafLevel
+					if (word.charAt(curCIndex) == cBelong2LeafLevel) {
+
+					}
+					// different
+					else {
+						TrieBranch newBranch = TrieBranch
+								.createBranchNode(leaf.level);
+						toWho.children[nodeSlotIndex] = newBranch;
+
+						addC(newBranch, curCIndex + 1, word);
+						newBranch.children[indexForC(cBelong2LeafLevel)] = leaf;
+						leaf.level = leaf.level + 1;
+					}
 				}
 			}
-			// yes, a branch node
+			// nodeSlotIndex stands a branch node
 			else {
+				TrieBranch branch = (TrieBranch) tn;
 				// char at curCIndex has been consumed
-				addC((TrieBranch) tn, curCIndex + 1, word);
+				addC(branch, curCIndex + 1, word);
 			}
 
 		}
