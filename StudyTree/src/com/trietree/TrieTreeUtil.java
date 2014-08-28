@@ -37,7 +37,7 @@ public class TrieTreeUtil {
 			String word, ArrayList<TrieLeaf> resultList) {
 		System.out.println(word + ", curCIndex=" + curCIndexOfWord);
 		/**
-		 * On trietree, a specific string can only appear on one place
+		 * On trietree, a specific string can only appear on one place 
 		 * 
 		 * Two kinds of leaves
 		 * 
