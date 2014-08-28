@@ -4,33 +4,23 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class TrieTreeUtil {
+
 	public static final void main(String[] args) {
-		String[] arrayWords = new String[] {"ab","adc","abc"};
-		ArrayList<TrieLeaf> resultList = new ArrayList<TrieLeaf>();
-		addWords(arrayWords, resultList);
-
-		verifyResult(resultList, arrayWords);
-	}
-
-	public static void addWords(String[] arrayWords,
-			ArrayList<TrieLeaf> resultList) {
+		String[] arrayWords = new String[] { "ab", "adc", "abc" };
 
 		TrieBranch root = TrieBranch.createBranchNode();
+		ArrayList<TrieLeaf> resultList = new ArrayList<TrieLeaf>();
 
 		for (int i = 0; i < arrayWords.length; i++) {
 			addEachWord(root, arrayWords[i], resultList);
 		}
 
-	}
-
-	public static void verifyResult(ArrayList<TrieLeaf> resultList,
-			String[] arrayWords) {
 		System.out.println("Total words count: " + arrayWords.length);
 		int countInResult = 0;
 		for (Iterator<TrieLeaf> it = resultList.iterator(); it.hasNext();) {
-			TrieLeaf tl = (TrieLeaf) it.next();
-			countInResult += tl.occurrence;
-			System.out.println(tl);
+			TrieLeaf leaf = it.next();
+			System.out.println(leaf);
+			countInResult += leaf.occurrence;
 		}
 		System.out.println("Calculated words count: " + countInResult);
 	}
@@ -45,8 +35,21 @@ public class TrieTreeUtil {
 
 	private static void addChar(TrieBranch toWho, int curCIndexOfWord,
 			String word, ArrayList<TrieLeaf> resultList) {
-		System.out.println(word);
-		// hang to parent.$position
+		System.out.println(word + ", curCIndex=" + curCIndexOfWord);
+		/**
+		 * On trietree, a specific string can only appear on one place
+		 * 
+		 * Two kinds of leaves
+		 * 
+		 * 1. hang on parent's $ (consume $, consumedIndex == word.length() )
+		 * 
+		 * 2. hang on parent's normalIndex.
+		 * 
+		 * (consume normalIndex, consumedIndex <= word.length() )
+		 * 
+		 * **/
+
+		/** kind 1: hang to parent.$position */
 		if (curCIndexOfWord == word.length()) {
 			TrieLeaf leaf = (TrieLeaf) toWho.children[TrieBranch.DOLLAR_END_FLAG_INDEX];
 			// already exist
@@ -63,19 +66,13 @@ public class TrieTreeUtil {
 
 			return;
 		}
-
 		int slot4CurC = indexForC(word.charAt(curCIndexOfWord));
-		/*
-		 * Please note: since we've found slot4CurC
-		 * 
-		 * currentChar will never be hanged on position
-		 * TrieBranch.DOLLAR_END_FLAG_INDEX
-		 */
 		/**
 		 * good, slot is waiting to be filled
 		 * 
 		 * Create leaf
 		 */
+		/** kind 1: hang to parent.normalIndex */
 		if (toWho.children[slot4CurC] == null) {
 			TrieLeaf leaf = TrieLeaf.createLeafNode();
 			toWho.children[slot4CurC] = leaf;
@@ -87,14 +84,12 @@ public class TrieTreeUtil {
 		}
 		/**
 		 * 
-		 * slot4CurC is not TrieBranch.DOLLAR_END_FLAG_INDEX
-		 * 
-		 * means: LEAF ALWAYS CONSUME AT LEAST A CHAR
+		 * slot4CurC consume a real char in toWho
 		 */
 		else {
 			TrieNode occupiedNode = toWho.children[slot4CurC];
 			/** 1. nodeSlotIndex stands a leaf */
-			if (occupiedNode.bLeaf == true) {
+			if (occupiedNode.bLeaf() == true) {
 				TrieLeaf leaf = (TrieLeaf) occupiedNode;
 				if (word.equals(leaf.word)) {
 					leaf.occurrence++;
@@ -103,15 +98,13 @@ public class TrieTreeUtil {
 
 				// The leaf is NOT equals leaf.word
 
-				// leaf does not provide char at all
-				// Move it to index DOLLAR_END_FLAG_INDEX
+				// leaf does not provide char at all. It can be moved to $ index
 				if (leaf.consumedIndex == leaf.word.length()) {
 					TrieBranch commonBranch = TrieBranch.createBranchNode();
 					toWho.children[slot4CurC] = commonBranch;
-					// hitch leaf to newBranch
+					// hang leaf to newBranch
 					commonBranch.children[TrieBranch.DOLLAR_END_FLAG_INDEX] = leaf;
-
-					// hitch word
+					// hang word
 					addChar(commonBranch, curCIndexOfWord + 1, word, resultList);
 				}
 				// leaf itself DOES provided char
@@ -121,10 +114,10 @@ public class TrieTreeUtil {
 					TrieBranch commonBranch = TrieBranch.createBranchNode();
 					toWho.children[slot4CurC] = commonBranch;
 
-					// hitch leaf to newBranch4Leaf
+					// hang leaf to newBranch4Leaf
 					commonBranch.children[indexForC(cBelong2Leaf)] = leaf;
 					leaf.consumedIndex++;
-					// hitch word
+					// hang word
 					addChar(commonBranch, curCIndexOfWord + 1, word, resultList);
 				}
 

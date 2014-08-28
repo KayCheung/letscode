@@ -12,23 +12,26 @@ import com.util.IOUtil;
 public class TestTrieTree {
 	static Pattern ptn = Pattern.compile("\\w*");
 
-	public void fdfd() {
-	}
-
 	public static void main(String[] args) throws Exception {
 		TrieBranch root = TrieBranch.createBranchNode();
-		BufferedReader br = IOUtil.createBufferedReader(
-				"E:/Eden/gitworkspace/letscode/StudyTree/testfile.txt", null);
 		ArrayList<TrieLeaf> resultList = new ArrayList<TrieLeaf>();
-		String line = null;
-		while ((line = br.readLine()) != null) {
-			line = line.toLowerCase();
-			Matcher m = ptn.matcher(line);
-			while (m.find()) {
-				String word = m.group();
-				TrieTreeUtil.addEachWord(root, word, resultList);
+
+		String[] arrayFullPath = new String[] {
+				"/home/marvin/Eden/gitworkspace/letscode/StudyTree/testfile.txt",
+				"/home/marvin/testddd/letscode/GoodLuck/src/com/syniverse/goodluckprovider/GoodLuckFrame.java" };
+
+		for (String fullPath : arrayFullPath) {
+			BufferedReader br = IOUtil.createBufferedReader(fullPath, null);
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				Matcher m = ptn.matcher(line.toLowerCase());
+				while (m.find()) {
+					TrieTreeUtil.addEachWord(root, m.group(), resultList);
+				}
 			}
+			IOUtil.closeReader(br);
 		}
+
 		Collections.sort(resultList);
 		for (Iterator<TrieLeaf> it = resultList.iterator(); it.hasNext();) {
 			TrieLeaf tl = (TrieLeaf) it.next();

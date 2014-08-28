@@ -1,12 +1,11 @@
 package com.trietree;
 
-public class TrieLeaf extends TrieNode implements Comparable<TrieLeaf> {
+public class TrieLeaf implements TrieNode, Comparable<TrieLeaf> {
 	public String word;
 	public int occurrence;
 	public int consumedIndex;
 
 	private TrieLeaf() {
-		this.bLeaf = true;
 		this.occurrence = 0;
 		this.consumedIndex = 0;
 	}
@@ -26,7 +25,12 @@ public class TrieLeaf extends TrieNode implements Comparable<TrieLeaf> {
 		if (this.occurrence == another.occurrence) {
 			return this.word.compareTo(another.word);
 		}
-		return this.occurrence - another.occurrence;
+		return another.occurrence - this.occurrence;
+	}
+
+	@Override
+	public boolean bLeaf() {
+		return true;
 	}
 
 }

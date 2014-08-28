@@ -1,10 +1,5 @@
 package com.trietree;
 
-public class TrieNode {
-	
-	public boolean bLeaf;
-
-	public TrieNode() {
-
-	}
+public interface TrieNode {
+	public boolean bLeaf();
 }
