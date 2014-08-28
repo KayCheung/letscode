@@ -159,7 +159,7 @@ public class LoserTreeUtil {
 		// Consume each node from this leaf up to root
 		while (treeIndex > 0) {
 			// it's already the minimum values
-			// ls's value less than treeIndex would never change again.
+			// ls's word less than treeIndex would never change again.
 			// we can return directly INDEX_OF_MINIMUM_VALUE now
 			if (valueIndex == INDEX_OF_MINIMUM_VALUE) {
 				break;
@@ -172,7 +172,7 @@ public class LoserTreeUtil {
 							containers[parentIndex], values)) {
 				// 1. move up childIndex
 				ls[treeIndex] = valueIndex;
-				// 2. smaller value should continue to compare
+				// 2. smaller word should continue to compare
 				valueIndex = parentIndex;
 			}
 			treeIndex = treeIndex / 2;

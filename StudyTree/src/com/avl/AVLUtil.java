@@ -252,7 +252,7 @@ public class AVLUtil {
 					return new InsertResult(node, false);
 				}
 			}
-			// greater/equal. new value should be on the right
+			// greater/equal. new word should be on the right
 			else {
 				// Whether node.L grows taller?
 				InsertResult ir = insert(node.R, newValue);
