@@ -17,11 +17,11 @@ public abstract class AbstractBasicSort {
 
 	public static void runTest(AbstractBasicSort abs) {
 		int[] array = CommUtil.genereateRandomArray(10, 50);
-		abs.testSort(0, array.length, array);
+		abs.testSort(0, array.length - 1, array);
 	}
 
 	public static void runTest(AbstractBasicSort abs, int[] array) {
-		abs.testSort(0, array.length, array);
+		abs.testSort(0, array.length - 1, array);
 	}
 
 	public static void runTest(AbstractBasicSort abs, int start, int end,
