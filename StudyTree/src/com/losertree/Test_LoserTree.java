@@ -1,11 +1,11 @@
 package com.losertree;
 
-import com.common.TreeUtil;
 import com.showtree.ShowStaticTreeFrame;
+import com.util.CommUtil;
 
 public class Test_LoserTree {
 	public static void main(String[] args) {
-		int ls[] = LoserTreeUtil.createLoserTree(TreeUtil.genereateRandomArray(
+		int ls[] = LoserTreeUtil.createLoserTree(CommUtil.genereateRandomArray(
 				25, 101));
 		LSNode root = LoserTreeUtil.createVisibleLoserTree(ls);
 

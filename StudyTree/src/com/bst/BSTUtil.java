@@ -1,5 +1,5 @@
 package com.bst;
-import com.common.Node;
+import com.commontree.Node;
 
 public class BSTUtil {
 	public static Node createBSTtree(int[] array) {

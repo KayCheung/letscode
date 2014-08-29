@@ -1,4 +1,4 @@
-package com.common;
+package com.commontree;
 
 import com.showtree.AbstractShowTreeFrame;
 import com.showtree.VisibleNode;

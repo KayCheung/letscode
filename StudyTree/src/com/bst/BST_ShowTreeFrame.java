@@ -1,6 +1,6 @@
 package com.bst;
 
-import com.common.Node;
+import com.commontree.Node;
 import com.showtree.AbstractShowTreeFrame;
 import com.showtree.VisibleNode;
 

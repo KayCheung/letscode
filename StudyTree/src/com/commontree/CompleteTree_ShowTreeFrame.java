@@ -1,7 +1,8 @@
-package com.common;
+package com.commontree;
 
 import com.showtree.AbstractShowTreeFrame;
 import com.showtree.VisibleNode;
+import com.util.CommUtil;
 
 public class CompleteTree_ShowTreeFrame extends AbstractShowTreeFrame {
 	private static final long serialVersionUID = 1L;
@@ -22,7 +23,7 @@ public class CompleteTree_ShowTreeFrame extends AbstractShowTreeFrame {
 	}
 
 	public static void main(String[] args) {
-		Node root = TreeUtil.createCompleteTree(TreeUtil.genereateRandomArray(
+		Node root = TreeUtil.createCompleteTree(CommUtil.genereateRandomArray(
 				13, 51));
 
 		CompleteTree_ShowTreeFrame frm = new CompleteTree_ShowTreeFrame(root);

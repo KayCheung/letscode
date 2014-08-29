@@ -2,7 +2,7 @@ package com.losertree;
 
 import java.util.Arrays;
 
-import com.common.TreeUtil;
+import com.util.CommUtil;
 
 public class LoserTreeUtil {
 	private static final int INDEX_OF_MINIMUM_VALUE = -1;
@@ -103,7 +103,7 @@ public class LoserTreeUtil {
 	}
 
 	public static void test_createLoserTree() {
-		int[] array = TreeUtil.genereateRandomArray(20, 100);
+		int[] array = CommUtil.genereateRandomArray(20, 100);
 		array = new int[] { 36, 42, 47, 72, 4, 18, 80, 7, 79, 67, 70, 21, 13,
 				37, 43, 50, 57, 21, 39, 66 };
 		createLoserTree(array);
