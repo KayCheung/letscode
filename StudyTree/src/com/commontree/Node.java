@@ -1,4 +1,4 @@
-package com.common;
+package com.commontree;
 import com.showtree.VisibleNode;
 
 public class Node implements VisibleNode {

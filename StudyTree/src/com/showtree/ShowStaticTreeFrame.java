@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import com.common.TreeUtil;
+import com.commontree.TreeUtil;
 
 public class ShowStaticTreeFrame extends JFrame {
 	private static final long serialVersionUID = 1L;

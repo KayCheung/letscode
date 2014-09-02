@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import com.avl.AVLUtil;
-import com.common.TreeUtil;
+import com.commontree.TreeUtil;
 
 public class ShowTreeComponent extends JComponent implements MouseListener {
 	private static final long serialVersionUID = 1L;

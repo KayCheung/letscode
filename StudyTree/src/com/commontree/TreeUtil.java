@@ -1,20 +1,10 @@
-package com.common;
-
-import java.util.Random;
+package com.commontree;
 
 import com.bst.BSTUtil;
 import com.showtree.VisibleNode;
+import com.util.CommUtil;
 
 public class TreeUtil {
-	public static int[] genereateRandomArray(int arrayLength, int maxIntExcluded) {
-		Random r = new Random();
-		int[] array = new int[arrayLength];
-		for (int i = 0; i < array.length; i++) {
-			array[i] = r.nextInt(maxIntExcluded);
-		}
-
-		return array;
-	}
 
 	public static int H(VisibleNode root) {
 		// root node is in level 1 (NOTE: 1, not 0)
@@ -32,7 +22,7 @@ public class TreeUtil {
 	private static void test_H() {
 		int nodeCount = 15;
 		int maxInt = 51;
-		Node root = BSTUtil.createBSTtree(genereateRandomArray(nodeCount,
+		Node root = BSTUtil.createBSTtree(CommUtil.genereateRandomArray(nodeCount,
 				maxInt));
 		System.out.println(H(root));
 
