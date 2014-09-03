@@ -28,7 +28,11 @@ VISPRO_DIAMETER=vis-diameter-portal-dev.syniverse.com   7.xx DEV
 VISPRO_DIAMETER=vis-diameter-portal-test.syniverse.com  7.xx TEST
 
 
-
+vispro.syniverse.com [PROD]
+vispro-portal-dev-alt.syniverse.com [6.x DEV]
+vispro-portal-dev.syniverse.com [7.x DEV]
+vispro-portal-test-alt.syniverse.com [6.x TEST]
+vispro-portal-test.syniverse.com [7.x TEST]
 
 
 
