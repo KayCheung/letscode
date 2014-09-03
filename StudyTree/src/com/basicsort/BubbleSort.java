@@ -12,11 +12,10 @@ public class BubbleSort extends AbstractBasicSort {
 	 */
 	@Override
 	public int[] doSort(int start, int end, int[] array) {
-		int tmp;
 		for (int i = start; i <= end - 1; i++) {
 			for (int k = i + 1; k <= end; k++) {
 				if (array[i] > array[k]) {
-					tmp = array[i];
+					int tmp = array[i];
 					array[i] = array[k];
 					array[k] = tmp;
 				}
