@@ -10,6 +10,10 @@ public class SimpleSelectionSort extends AbstractBasicSort {
 		return array;
 	}
 
+	/**
+	 * 1. auxiliary space-------- Only a tmp int, used for swap
+	 * 
+	 */
 	public void simpleSelectionSort(int start, int end, int[] array) {
 		for (int i = start; i <= end - 1; i++) {
 			int minIndex = i;
