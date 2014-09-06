@@ -13,9 +13,9 @@ public class CommUtil {
 		return array;
 	}
 
-	public static void swap(int i1, int i2, int[] array) {
-		int tmp = array[i1];
-		array[i1] = array[i2];
-		array[i2] = tmp;
+	public static void swap(int index1, int index2, int[] array) {
+		int tmp = array[index1];
+		array[index1] = array[index2];
+		array[index2] = tmp;
 	}
 }
