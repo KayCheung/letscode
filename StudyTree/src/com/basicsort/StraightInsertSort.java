@@ -1,6 +1,6 @@
 package com.basicsort;
 
-public class InsertionSort extends AbstractBasicSort {
+public class StraightInsertSort extends AbstractBasicSort {
 
 	@Override
 	public int[] doSort(int start, int end, int[] array) {
@@ -8,6 +8,6 @@ public class InsertionSort extends AbstractBasicSort {
 	}
 
 	public static void main(String[] args) {
-		runTest(new InsertionSort());
+		runTest(new StraightInsertSort());
 	}
 }
