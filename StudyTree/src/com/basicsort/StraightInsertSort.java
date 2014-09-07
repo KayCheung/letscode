@@ -16,7 +16,7 @@ public class StraightInsertSort extends AbstractBasicSort {
 				if (curValue < array[s]) {
 					array[s + 1] = array[s];// (s+1) shifts back
 				} else {
-					newIndex = s + 1;
+					newIndex = s + 1;// curValue should fall into (s+1)
 					break;
 				}
 			}
