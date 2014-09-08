@@ -1,17 +1,6 @@
 package com.maze;
 
 public enum Direction {
-	NONE {
-		public Direction next() {
-			throw new RuntimeException(
-					"Tried all the 4 directions already. No next!!!");
-		}
-
-		public Direction opposite() {
-			throw new RuntimeException(
-					"Tried all the 4 directions already. No opposite!!!");
-		}
-	},
 	EAST {
 		public Direction next() {
 			return SOUTH;

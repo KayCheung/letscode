@@ -90,4 +90,44 @@ public class CommUtil {
 		}
 		return sb.toString();
 	}
+
+	public static void concat(StringBuilder sb, String[] array, String normal,
+			String lastSpecial) {
+		int length = array.length;
+		for (int i = 0; i < length; i++) {
+			sb.append(array[i]);
+			if (i == length - 1) {
+				sb.append(lastSpecial);
+			} else {
+				sb.append(normal);
+			}
+		}
+	}
+
+	public static boolean isEmpty(String str) {
+		if (str == null) {
+			return true;
+		}
+		return str.trim().length() == 0;
+	}
+
+	public static String trimToEmpty(String str) {
+		if (str == null) {
+			return "";
+		}
+		return str.trim();
+	}
+
+	public static void concat(StringBuilder sb, List<String> list,
+			String normal, String lastSpecial) {
+		concat(sb, list.toArray(new String[0]), normal, lastSpecial);
+	}
+
+	public static String concat(List<String> list, String normal,
+			String lastSpecial) {
+		StringBuilder sb = new StringBuilder("");
+		concat(sb, list.toArray(new String[0]), normal, lastSpecial);
+		return sb.toString();
+	}
+
 }

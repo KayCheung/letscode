@@ -5,8 +5,8 @@ import java.util.Set;
 
 public class Vertex {
 	public final MazeMap maze;
-	public final int x;
-	public final int y;
+	public final int col;
+	public final int row;
 	/**
 	 * (never forever change) initial status of this Vertex
 	 */
@@ -16,67 +16,127 @@ public class Vertex {
 
 	private boolean nonBlocked_but_has_been_discard = false;
 
-	public Direction lastDirec = null;
+	/**
+	 * 1. has not been tried
+	 * 
+	 * 2. next time, go this direction
+	 */
+	private Direction nextGoToDirection = null;
 
-	public Vertex(final MazeMap maze, final int x, final int y,
+	private Direction justActivelyConsumed = null;
+
+	public Vertex(final MazeMap maze, final int row, final int col,
 			final boolean blocked) {
 		this.maze = maze;
-		this.x = x;
-		this.y = y;
+		this.col = col;
+		this.row = row;
 		this.blocked = blocked;
 	}
 
-	private int[] shouldGoTo(int curX, int curY, Direction curDirec,
-			int X_MAX_INDEX, int Y_MAX_INDEX) {
-		int x = -1;
-		int y = -1;
-		switch (curDirec) {
-		// current EAST, want to SOUTH
-		case EAST:
-			x = curX;
-			y = (curY >= Y_MAX_INDEX) ? -1 : curY + 1;
-			break;
-		// current SOUTH, want to WEST
-		case SOUTH:
-			y = curY;
-			x = (curX == 0) ? -1 : curX - 1;
-			break;
-		// current WEST, want to NORTH
-		case WEST:
-			x = curX;
-			y = (curY == 0) ? -1 : curY - 1;
-			break;
-		// current NORTH, want to EAST
-		case NORTH:
-			y = curY;
-			x = (curX == X_MAX_INDEX) ? -1 : curX + 1;
-			break;
-		case NONE:
-			break;
+	public void setNextGoToDirection(Direction sourceGoDirec) {
+		Direction implicitConsumed = sourceGoDirec.opposite();
+		setTried.add(implicitConsumed);
+		// To get here, source go from source's WEST side
+		// So, equivalent to destination's EAST being tried already
+		if (implicitConsumed == Direction.EAST) {
+			nextGoToDirection = implicitConsumed.next();
+		} else {
+			nextGoToDirection = Direction.EAST;
 		}
-		return new int[] { x, y };
+		justActivelyConsumed = null;
 	}
 
-	public Vertex nextVertex() {
-		// already tried all the directions.
-		// But, you go into nextVertex again
-		if (setTried.size() == 4) {
-			nonBlocked_but_has_been_discard = true;
-			return null;
+	private int[] calculateGoTo(int curRow, int curCol,
+			Direction wantToGoDirec, int Row_MAX_INDEX, int Col_MAX_INDEX) {
+		int row = -1;
+		int col = -1;
+		switch (wantToGoDirec) {
+		case SOUTH:
+			col = curCol;
+			row = (curRow >= Row_MAX_INDEX) ? -1 : curRow + 1;
+			break;
+		case WEST:
+			row = curRow;
+			col = (curCol == 0) ? -1 : curCol - 1;
+			break;
+		case NORTH:
+			col = curCol;
+			row = (curRow == 0) ? -1 : curRow - 1;
+			break;
+		case EAST:
+			row = curRow;
+			col = (curCol == Col_MAX_INDEX) ? -1 : curCol + 1;
+			break;
 		}
-		int[] nextXY = shouldGoTo(x, y, lastDirec, maze.X_MAX_INDEX,
-				maze.Y_MAX_INDEX);
-		lastDirec = lastDirec.next();
-		setTried.add(lastDirec);
-		return maze.getV(nextXY[0], nextXY[1]);
+		return new int[] { row, col };
+	}
+
+	/**
+	 * null-->tried all directions, finally failed
+	 * <p>
+	 * NOT null-->good, find the next vertex anyway
+	 * 
+	 * @return
+	 */
+	public Vertex nextVertex() {
+		System.out.println("Go into nextVertex(): " + this);
+		while (setTried.size() < 4) {
+			// already been tried
+			if (setTried.contains(nextGoToDirection)) {
+				// nextGoToDirection already been consumed
+				// generate the new nextGoToDirection
+				nextGoToDirection = nextGoToDirection.next();
+			}
+			// good, never been tried
+			else {
+				int[] nextRowCol = calculateGoTo(row, col, nextGoToDirection,
+						maze.Row_MAX_INDEX, maze.Col_MAX_INDEX);
+				justActivelyConsumed = nextGoToDirection;
+
+				// nextGoToDirection has been consumed
+				setTried.add(nextGoToDirection);
+				// generate the new nextGoToDirection
+				nextGoToDirection = nextGoToDirection.next();
+				// anyway, direction is ok
+				// but note, we may still get null due to
+				// border edge
+				Vertex nextVertex = maze.getV(nextRowCol[0], nextRowCol[1]);
+				if (nextVertex == null) {
+					// continue next direction
+				} else {
+					System.out.println("Leave nextVertex(), good find one: "
+							+ this);
+					return nextVertex;
+				}
+			}
+		}
+		// For this vertex, we've tried all directions of it.
+		// 4 directions have all been tried, but finally failed
+		// Even direction is NOT available
+		// discard this vertex
+		nonBlocked_but_has_been_discard = true;
+		System.out
+				.println("Leave nextVertex(), but NO next vertex. Discard it: "
+						+ this);
+		return null;
 	}
 
 	public boolean nonBlocked_but_has_been_discard() {
 		return nonBlocked_but_has_been_discard;
 	}
 
+	public Direction getNextGoToDirection() {
+		return nextGoToDirection;
+	}
+
+	public Direction getJustActivelyConsumed() {
+		return justActivelyConsumed;
+	}
+
 	@Override
 	public String toString() {
-		return "Vertex [x=" + x + ", y=" + y + ", blocked=" + blocked + "]";
+		return "Vertex [row=" + row + ", col=" + col + ", blocked=" + blocked
+				+ ", justActivelyConsumed=" + justActivelyConsumed
+				+ ", nextGoToDirection=" + nextGoToDirection + "]";
 	}
 }
