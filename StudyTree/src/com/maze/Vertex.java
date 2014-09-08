@@ -78,7 +78,7 @@ public class Vertex {
 		// for each vertex, always start with EAST
 		Direction nextGoToDirection = (justActivelyConsumed == null) ? Direction.EAST
 				: justActivelyConsumed.next();
-		System.out.println("Go into nextVertex(): " + this);
+		System.out.print("Go into nextVertex(), current=" + this);
 		while (setConsumed.size() < 4) {
 			// direction already been tried
 			if (setConsumed.contains(nextGoToDirection)) {
@@ -105,8 +105,9 @@ public class Vertex {
 				}
 				// best, find an existing vertex
 				else {
-					System.out.println("Leave nextVertex(), good find one: "
-							+ this);
+					System.out
+							.println("----Leave nextVertex(), good, find next, next="
+									+ nextVertex);
 					return nextVertex;
 				}
 			}
@@ -117,7 +118,7 @@ public class Vertex {
 		// discard this vertex
 		nonBlocked_but_has_been_discard = true;
 		System.out
-				.println("Leave nextVertex(), but NO next vertex. Discard it: "
+				.println("----Leave nextVertex(), but NO next. Discard current="
 						+ this);
 		return null;
 	}

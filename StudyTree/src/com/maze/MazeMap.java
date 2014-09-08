@@ -159,7 +159,7 @@ public class MazeMap {
 
 	public void printPath(Stack<Vertex> stack) {
 		if (stack.size() == 0) {
-			System.out.println("You're dead!!!");
+			System.out.println("Oops, dead maze!!!");
 			return;
 		}
 		System.out.println("Congratulation!!! Go through " + stack.size()
@@ -218,7 +218,7 @@ public class MazeMap {
 
 		while (!stack.isEmpty()) {
 			Vertex curV = stack.peek();
-			System.out.println("Processing: " + curV);
+			System.out.println("Currently processing: " + curV);
 			// 1. good, find outlet
 			if (bExitVertex(curV, outRow, outCol)) {
 				break;
