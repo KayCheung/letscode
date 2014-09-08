@@ -36,7 +36,7 @@ public class MazeMap {
 				if (row == 0 && col == 0) {
 					Vertex v = new Vertex(this, row, col, false);
 					// set entry's
-					v.setNextGoToDirection(Direction.EAST);
+					v.fillPassivelyConsumedDirection(Direction.EAST);
 					arrayV[row][col] = v;
 				}
 				// outlet
@@ -133,7 +133,7 @@ public class MazeMap {
 				arrayV[row][col] = v;
 				// entry
 				if (row == 0 && col == 0) {
-					v.setNextGoToDirection(Direction.EAST);
+					v.fillPassivelyConsumedDirection(Direction.EAST);
 				}
 			}
 		}
@@ -210,7 +210,7 @@ public class MazeMap {
 			return stack;
 		}
 
-		stack.push(entry);// entry's lastDirec has been set already
+		stack.push(entry);// entry's justActivelyConsumed is null
 		if (entryRow == outRow && entryCol == outCol) {
 			// only one Vertex, already found the path
 			return stack;
@@ -223,7 +223,7 @@ public class MazeMap {
 			if (bExitVertex(curV, outRow, outCol)) {
 				break;
 			}
-			// NOT outlet, come on, let's do hard work
+			// NOT exit, come on, let's do hard work, marvin
 
 			// 1. blocked
 			if (curV.blocked) {
@@ -238,17 +238,20 @@ public class MazeMap {
 			// 3. curV is good
 			if (curV.blocked == false) {
 				Vertex nextV = curV.nextVertex();
-				// tried <b>curV's</b> all directions, finally failed
+				// tried <b>curV's</b> all directions
+				// but no direction is available
 				if (nextV == null) {
-					// curV not blocked, but after tried all direction, finally
-					// failed on it
+					// curV not blocked
+					// but after tried all direction, finally, we found no
+					// direction is available
 					// so curV is now been discard
 					stack.pop();//
 					continue;
 				}
 				// nextV NOT null
 				else {
-					nextV.setNextGoToDirection(curV.getJustActivelyConsumed());
+					nextV.fillPassivelyConsumedDirection(curV
+							.getJustActivelyConsumed());
 					stack.push(nextV);
 				}
 			}

@@ -12,17 +12,19 @@ public class Vertex {
 	 */
 	public final boolean blocked;
 
-	private Set<Direction> setTried = new HashSet<Direction>(4);
+	private Set<Direction> setConsumed = new HashSet<Direction>(4);
 
 	private boolean nonBlocked_but_has_been_discard = false;
 
 	/**
-	 * 1. has not been tried
+	 * 1. HAS BEEN tried
+	 * <p>
+	 * 2. this vertex tried this direction ACTIVELY
+	 * <p>
+	 * 3. When this vertex is pricked, we say this vertex passively consume a
+	 * direction ( being opposite of pricking vertex's direction)
 	 * 
-	 * 2. next time, go this direction
 	 */
-	private Direction nextGoToDirection = null;
-
 	private Direction justActivelyConsumed = null;
 
 	public Vertex(final MazeMap maze, final int row, final int col,
@@ -33,16 +35,10 @@ public class Vertex {
 		this.blocked = blocked;
 	}
 
-	public void setNextGoToDirection(Direction sourceGoDirec) {
-		Direction implicitConsumed = sourceGoDirec.opposite();
-		setTried.add(implicitConsumed);
-		// To get here, source go from source's WEST side
-		// So, equivalent to destination's EAST being tried already
-		if (implicitConsumed == Direction.EAST) {
-			nextGoToDirection = implicitConsumed.next();
-		} else {
-			nextGoToDirection = Direction.EAST;
-		}
+	public void fillPassivelyConsumedDirection(Direction sourceGoDirec) {
+		Direction passivelyConsumed = sourceGoDirec.opposite();
+		setConsumed.add(passivelyConsumed);
+		// none is actively consumed
 		justActivelyConsumed = null;
 	}
 
@@ -79,31 +75,36 @@ public class Vertex {
 	 * @return
 	 */
 	public Vertex nextVertex() {
+		// for each vertex, always start with EAST
+		Direction nextGoToDirection = (justActivelyConsumed == null) ? Direction.EAST
+				: justActivelyConsumed.next();
 		System.out.println("Go into nextVertex(): " + this);
-		while (setTried.size() < 4) {
-			// already been tried
-			if (setTried.contains(nextGoToDirection)) {
+		while (setConsumed.size() < 4) {
+			// direction already been tried
+			if (setConsumed.contains(nextGoToDirection)) {
 				// nextGoToDirection already been consumed
 				// generate the new nextGoToDirection
 				nextGoToDirection = nextGoToDirection.next();
 			}
-			// good, never been tried
+			// direction is available.
+			// we can get the next vertex/(or null is border is reached) by this
+			// direction
 			else {
 				int[] nextRowCol = calculateGoTo(row, col, nextGoToDirection,
 						maze.Row_MAX_INDEX, maze.Col_MAX_INDEX);
-				justActivelyConsumed = nextGoToDirection;
-
 				// nextGoToDirection has been consumed
-				setTried.add(nextGoToDirection);
-				// generate the new nextGoToDirection
-				nextGoToDirection = nextGoToDirection.next();
-				// anyway, direction is ok
-				// but note, we may still get null due to
-				// border edge
+				setConsumed.add(nextGoToDirection);
+				justActivelyConsumed = nextGoToDirection;
+				// anyway, direction is ok.
+				// but the reaching vertex may be null if border is reached
 				Vertex nextVertex = maze.getV(nextRowCol[0], nextRowCol[1]);
 				if (nextVertex == null) {
-					// continue next direction
-				} else {
+					// nextGoToDirection already been consumed
+					// generate the new nextGoToDirection
+					nextGoToDirection = nextGoToDirection.next();
+				}
+				// best, find an existing vertex
+				else {
 					System.out.println("Leave nextVertex(), good find one: "
 							+ this);
 					return nextVertex;
@@ -111,7 +112,7 @@ public class Vertex {
 			}
 		}
 		// For this vertex, we've tried all directions of it.
-		// 4 directions have all been tried, but finally failed
+		// 4 directions have all been tried, but no available direction
 		// Even direction is NOT available
 		// discard this vertex
 		nonBlocked_but_has_been_discard = true;
@@ -125,10 +126,6 @@ public class Vertex {
 		return nonBlocked_but_has_been_discard;
 	}
 
-	public Direction getNextGoToDirection() {
-		return nextGoToDirection;
-	}
-
 	public Direction getJustActivelyConsumed() {
 		return justActivelyConsumed;
 	}
@@ -136,7 +133,6 @@ public class Vertex {
 	@Override
 	public String toString() {
 		return "Vertex [row=" + row + ", col=" + col + ", blocked=" + blocked
-				+ ", justActivelyConsumed=" + justActivelyConsumed
-				+ ", nextGoToDirection=" + nextGoToDirection + "]";
+				+ ", justActivelyConsumed=" + justActivelyConsumed + "]";
 	}
 }
