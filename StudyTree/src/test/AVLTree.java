@@ -1,6 +1,6 @@
 package test;
 
-import com.commontree.TreeUtil;
+import com.tree.commontree.TreeUtil;
 
 /**
  * @时间 2014-3-30
