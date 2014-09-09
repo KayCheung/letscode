@@ -1,4 +1,4 @@
-package com.maze;
+package com.stack.maze;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

@@ -1,4 +1,4 @@
-package com.maze;
+package com.stack.maze;
 
 public enum Direction {
 	EAST {
