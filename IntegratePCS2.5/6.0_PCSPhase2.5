@@ -7,7 +7,76 @@ PCSPhase2_5)
         echo "#This line must be first">$1.backout;
         
 SEARCHBASE=ou=PermissionCode,o=Crossroads
-DN=permissionid	
+DN=permissionid
+# 4 introduced implied permission, begin
+ID=ANZ_SA_236
+        echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
+        echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;        
+        echo "presentationlabel: Implied Analyzer PCS Reporting (Non-Syniverse)">>$1.ldif;
+		echo "presentationorder: 0000">>$1.ldif;
+        echo "objectclass: tsipermissioncode">>$1.ldif;
+        echo "objectclass: top">>$1.ldif;
+		echo "subjectarea: 236">>$1.ldif;
+		echo "nqproductid: SLS">>$1.ldif;
+        echo "companytype: nonadmin">>$1.ldif;
+		echo "productuid: SUBSCRIBER">>$1.ldif;
+		echo "">>$1.ldif;
+
+ID=ANZ_SA_237
+        echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
+        echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;        
+        echo "presentationlabel: Implied Analyzer PCS Reporting (Syniverse)">>$1.ldif;
+		echo "presentationorder: 0000">>$1.ldif;
+        echo "objectclass: tsipermissioncode">>$1.ldif;
+        echo "objectclass: top">>$1.ldif;
+		echo "subjectarea: 237">>$1.ldif;
+		echo "nqproductid: SLS">>$1.ldif;
+        echo "companytype: admin">>$1.ldif;
+		echo "productuid: SUBSCRIBER">>$1.ldif;
+		echo "">>$1.ldif;
+
+ID=ANZ_SA_238
+        echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
+        echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;        
+        echo "presentationlabel: Implied Service Level View (Non-Syniverse)">>$1.ldif;
+		echo "presentationorder: 0000">>$1.ldif;
+        echo "objectclass: tsipermissioncode">>$1.ldif;
+        echo "objectclass: top">>$1.ldif;
+		echo "subjectarea: 238">>$1.ldif;
+		echo "nqproductid: SLS">>$1.ldif;
+        echo "companytype: nonadmin">>$1.ldif;
+		echo "productuid: SUBSCRIBER">>$1.ldif;
+		echo "">>$1.ldif;
+
+ID=ANZ_SA_239
+        echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
+        echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;        
+        echo "presentationlabel: Implied Service Level View (Syniverse)">>$1.ldif;
+		echo "presentationorder: 0000">>$1.ldif;
+        echo "objectclass: tsipermissioncode">>$1.ldif;
+        echo "objectclass: top">>$1.ldif;
+		echo "subjectarea: 239">>$1.ldif;
+		echo "nqproductid: SLS">>$1.ldif;
+        echo "companytype: admin">>$1.ldif;
+		echo "productuid: SUBSCRIBER">>$1.ldif;
+		echo "">>$1.ldif;
+
+ID=PCS_GUI_Co
+	echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
+    echo "./multiAttrDel \"${DN}=${ID}\" \"$SEARCHBASE\" impliedpermissionid ANZ_SA_236">>$1.backout;
+    echo "./multiAttrDel \"${DN}=${ID}\" \"$SEARCHBASE\" impliedpermissionid ANZ_SA_237">>$1.backout;    
+    echo "./multiAttrDel \"${DN}=${ID}\" \"$SEARCHBASE\" impliedpermissionid ANZ_SA_238">>$1.backout;
+    echo "./multiAttrDel \"${DN}=${ID}\" \"$SEARCHBASE\" impliedpermissionid ANZ_SA_239">>$1.backout;    
+	echo "changetype: modify">>$1.ldif;
+	echo "add: impliedpermissionid">>$1.ldif;
+	echo "impliedpermissionid: ANZ_SA_236">>$1.ldif;
+	echo "impliedpermissionid: ANZ_SA_237">>$1.ldif;
+	echo "impliedpermissionid: ANZ_SA_238">>$1.ldif;
+	echo "impliedpermissionid: ANZ_SA_239">>$1.ldif;
+	echo "">>$1.ldif;
+
+# 4 introduced implied permission, end
+
 ID=Implied_PCS_GUI_userP
     echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
     echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;
@@ -44,7 +113,8 @@ ID=PCS_Analyzer_PCS_Reporting_userP
 	echo "objectclass: top">>$1.ldif;
 	echo "productuid: SUBSCRIBER">>$1.ldif;
 	echo "copermissionid: PCS_GUI_Co">>$1.ldif;
-    echo "impliedpermissionid: Implied_PCS_GUI_userP">>$1.ldif;
+    echo "impliedpermissionid: ANZ_SA_236">>$1.ldif;
+    echo "impliedpermissionid: ANZ_SA_237">>$1.ldif;
 	echo "">>$1.ldif;
 
 ID=PCS_Service_Level_View_userP
@@ -58,7 +128,9 @@ ID=PCS_Service_Level_View_userP
     echo "objectclass: top">>$1.ldif;
     echo "productuid: SUBSCRIBER">>$1.ldif; 
 	echo "impliedpermissionid: Implied_PCS_GUI_userP">>$1.ldif;
-	echo "copermissionid: PCS_GUI_Co">>$1.ldif; 
+    echo "impliedpermissionid: ANZ_SA_238">>$1.ldif;
+    echo "impliedpermissionid: ANZ_SA_239">>$1.ldif;
+    echo "copermissionid: PCS_GUI_Co">>$1.ldif; 
 	echo "">>$1.ldif;
 
 SEARCHBASE=ou=PresentationObjects,o=Crossroads
@@ -82,12 +154,199 @@ ID=PCS_Analyzer_PCS_Reporting_menuitem_prsn
         echo "type: menuitem">>$1.ldif;
         echo "permissionid: PCS_Analyzer_PCS_Reporting_userP">>$1.ldif;
         echo "frameid: parent.ContentFrame">>$1.ldif;
-        echo "url: https://${PCS}/pcs/faces/grouphistory">>$1.ldif; # new url
+        echo "url: https://${PCS}/pcs/faces/grouphistory">>$1.ldif; # URL for Analyzer PCS Reporting, change later 
         echo "">>$1.ldif;
 
 #SQL
 
 echo "-- This is the first line">$1.sql;
+
+echo "-- ######################################">>$1.sql;
+echo "-- dn: permissionid=ANZ_SA_236, ou=PermissionCode,o=Crossroads">>$1.sql;
+echo "-- ######################################">>$1.sql;
+echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
+        PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
+        PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
+        TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
+        PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
+        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
+        VALUES  
+        ('ANZ_SA_236_prsn',null,null,null,'Implied Analyzer PCS Reporting (Non-Syniverse)',null,
+        'NO_TRANSLATE',null,'0000',null,null,
+        null,null,null,null,null,
+        null,null,null,systimestamp,systimestamp,
+        'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
+        null, null,null,null,
+        null,null,null );">>$1.sql;
+echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,
+	PRSNTTN_ID,RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,
+	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
+	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
+	values 
+	('ANZ_SA_236', 'ANZ_SA_236', null, '2', 'nonadmin', 
+	null, 'ANZ_SA_236_prsn', null, null, 
+	null, null, null, null, 
+	null, null, null, null, '236', 
+	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
+	null, null, null, null, 
+	'n');">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('ANZ_SA_236','SUBSCRIBER','Product',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('ANZ_SA_236','SLS','nqproduct',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+
+
+echo "-- ######################################">>$1.sql;
+echo "-- dn: permissionid=ANZ_SA_237, ou=PermissionCode,o=Crossroads">>$1.sql;
+echo "-- ######################################">>$1.sql;
+echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
+        PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
+        PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
+        TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
+        PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
+        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
+        VALUES  
+        ('ANZ_SA_237_prsn',null,null,null,'Implied Analyzer PCS Reporting (Syniverse)',null,
+        'NO_TRANSLATE',null,'0000',null,null,
+        null,null,null,null,null,
+        null,null,null,systimestamp,systimestamp,
+        'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
+        null, null,null,null,
+        null,null,null );">>$1.sql;
+echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,
+	PRSNTTN_ID,RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,
+	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
+	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
+	values 
+	('ANZ_SA_237', 'ANZ_SA_237', null, '2', 'admin', 
+	null, 'ANZ_SA_237_prsn', null, null, 
+	null, null, null, null, 
+	null, null, null, null, '237', 
+	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
+	null, null, null, null, 
+	'n');">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('ANZ_SA_237','SUBSCRIBER','Product',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('ANZ_SA_237','SLS','nqproduct',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+
+
+echo "-- ######################################">>$1.sql;
+echo "-- dn: permissionid=ANZ_SA_238, ou=PermissionCode,o=Crossroads">>$1.sql;
+echo "-- ######################################">>$1.sql;
+echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
+        PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
+        PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
+        TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
+        PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
+        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
+        VALUES  
+        ('ANZ_SA_238_prsn',null,null,null,'Implied Service Level View (Non-Syniverse)',null,
+        'NO_TRANSLATE',null,'0000',null,null,
+        null,null,null,null,null,
+        null,null,null,systimestamp,systimestamp,
+        'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
+        null, null,null,null,
+        null,null,null );">>$1.sql;
+echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,
+	PRSNTTN_ID,RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,
+	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
+	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
+	values 
+	('ANZ_SA_238', 'ANZ_SA_238', null, '2', 'nonadmin', 
+	null, 'ANZ_SA_238_prsn', null, null, 
+	null, null, null, null, 
+	null, null, null, null, '238', 
+	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
+	null, null, null, null, 
+	'n');">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('ANZ_SA_238','SUBSCRIBER','Product',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('ANZ_SA_238','SLS','nqproduct',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+
+
+echo "-- ######################################">>$1.sql;
+echo "-- dn: permissionid=ANZ_SA_239, ou=PermissionCode,o=Crossroads">>$1.sql;
+echo "-- ######################################">>$1.sql;
+echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
+        PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
+        PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
+        TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
+        PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
+        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
+        VALUES  
+        ('ANZ_SA_239_prsn',null,null,null,'Implied Service Level View (Syniverse)',null,
+        'NO_TRANSLATE',null,'0000',null,null,
+        null,null,null,null,null,
+        null,null,null,systimestamp,systimestamp,
+        'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
+        null, null,null,null,
+        null,null,null );">>$1.sql;
+echo "INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,
+	PRSNTTN_ID,RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,
+	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
+	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
+	values 
+	('ANZ_SA_239', 'ANZ_SA_239', null, '2', 'admin', 
+	null, 'ANZ_SA_239_prsn', null, null, 
+	null, null, null, null, 
+	null, null, null, null, '239', 
+	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
+	null, null, null, null, 
+	'n');">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('ANZ_SA_239','SUBSCRIBER','Product',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('ANZ_SA_239','SLS','nqproduct',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+
+echo "-- ######################################">>$1.sql;
+echo "-- dn: permissionid=PCS_GUI_Co, ou=PermissionCode,o=Crossroads">>$1.sql;
+echo "-- ######################################">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('PCS_GUI_Co','ANZ_SA_236','Implied',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('PCS_GUI_Co','ANZ_SA_237','Implied',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('PCS_GUI_Co','ANZ_SA_238','Implied',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
+echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('PCS_GUI_Co','ANZ_SA_239','Implied',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');">>$1.sql;
 
 echo "-- ######################################">>$1.sql;
 echo "-- dn: permissionid=Implied_PCS_GUI_userP, ou=PermissionCode,o=Crossroads">>$1.sql;
@@ -181,11 +440,6 @@ echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODI
 echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
 	values 
-	('PCS_Analyzer_PCS_Reporting_userP','Implied_PCS_GUI_userP','Implied',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');">>$1.sql;
-echo "Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
 	('PCS_Analyzer_PCS_Reporting_userP','Subscriber_PCS_Group','PermissionGroup',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','2');">>$1.sql;
 
@@ -258,7 +512,7 @@ echo "INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PR
 	PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
 	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
 	VALUES  
-	('PCS_Analyzer_PCS_Reporting_menuitem_prsn','parent.ContentFrame','https://${PCS}/pcs/faces/subscribers', null,'Analyzer PCS Reporting',null,
+	('PCS_Analyzer_PCS_Reporting_menuitem_prsn','parent.ContentFrame','https://${PCS}/pcs/faces/grouphistory', null,'Analyzer PCS Reporting',null,
 	upper(regexp_replace('Analyzer PCS Reporting', '[^a-zA-Z0-9\\s]', '_')),null,'0037',null,null,
 	null,null,null,null,null,
 	null,null,null,systimestamp,systimestamp,
@@ -304,6 +558,76 @@ echo "alter session set ddl_lock_timeout = 600;">>$1.backout.sql;
 echo "alter table COMPANY_RESOURCE  disable constraint CMPNY_RSRC_FK;">>$1.backout.sql;
 echo "alter table ACCESS_AUTH  disable constraint ACCESS_RESOURC1_FK1;">>$1.backout.sql;
 fi
+
+echo "-- ######################################">>$1.backout.sql;
+echo "-- ./delObj "permissionid=ANZ_SA_236" "ou=PermissionCode,o=Crossroads" 
+">>$1.backout.sql;
+echo "-- ######################################">>$1.backout.sql;
+echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='ANZ_SA_236'  and 
+		RSRC_TYP_CD='2';
+delete from RSRC_TO_COMPANY_REL where RSRC_ID='ANZ_SA_236'  and 
+		RSRC_TYPE_CODE='2';
+delete from presentation where PRSNTTN_ID=(select PRSNTTN_ID from resourc where 
+		RSRC_ID='ANZ_SA_236' and RSRC_TYP_CD='2');
+delete from resourc where RSRC_ID='ANZ_SA_236' and RSRC_TYP_CD='2';
+">>$1.backout.sql;
+
+
+echo "-- ######################################">>$1.backout.sql;
+echo "-- ./delObj "permissionid=ANZ_SA_237" "ou=PermissionCode,o=Crossroads" 
+">>$1.backout.sql;
+echo "-- ######################################">>$1.backout.sql;
+echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='ANZ_SA_237'  and 
+		RSRC_TYP_CD='2';
+delete from RSRC_TO_COMPANY_REL where RSRC_ID='ANZ_SA_237'  and 
+		RSRC_TYPE_CODE='2';
+delete from presentation where PRSNTTN_ID=(select PRSNTTN_ID from resourc where 
+		RSRC_ID='ANZ_SA_237' and RSRC_TYP_CD='2');
+delete from resourc where RSRC_ID='ANZ_SA_237' and RSRC_TYP_CD='2';
+">>$1.backout.sql;
+
+
+echo "-- ######################################">>$1.backout.sql;
+echo "-- ./delObj "permissionid=ANZ_SA_238" "ou=PermissionCode,o=Crossroads" 
+">>$1.backout.sql;
+echo "-- ######################################">>$1.backout.sql;
+echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='ANZ_SA_238'  and 
+		RSRC_TYP_CD='2';
+delete from RSRC_TO_COMPANY_REL where RSRC_ID='ANZ_SA_238'  and 
+		RSRC_TYPE_CODE='2';
+delete from presentation where PRSNTTN_ID=(select PRSNTTN_ID from resourc where 
+		RSRC_ID='ANZ_SA_238' and RSRC_TYP_CD='2');
+delete from resourc where RSRC_ID='ANZ_SA_238' and RSRC_TYP_CD='2';
+">>$1.backout.sql;
+
+
+echo "-- ######################################">>$1.backout.sql;
+echo "-- ./delObj "permissionid=ANZ_SA_239" "ou=PermissionCode,o=Crossroads" 
+">>$1.backout.sql;
+echo "-- ######################################">>$1.backout.sql;
+echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='ANZ_SA_239'  and 
+		RSRC_TYP_CD='2';
+delete from RSRC_TO_COMPANY_REL where RSRC_ID='ANZ_SA_239'  and 
+		RSRC_TYPE_CODE='2';
+delete from presentation where PRSNTTN_ID=(select PRSNTTN_ID from resourc where 
+		RSRC_ID='ANZ_SA_239' and RSRC_TYP_CD='2');
+delete from resourc where RSRC_ID='ANZ_SA_239' and RSRC_TYP_CD='2';
+">>$1.backout.sql;
+
+echo "-- ######################################">>$1.backout.sql;
+echo "-- ./delObj "permissionid=PCS_GUI_Co" "ou=PermissionCode,o=Crossroads" 
+">>$1.backout.sql;
+echo "-- ######################################">>$1.backout.sql;
+echo "delete from RSRC_TO_RSRC_REL where RSRC_ID1='PCS_GUI_Co' and RSRC_ID2='ANZ_SA_236' and
+        REL_TYP_CD='Implied' and RSRC_TYP_CD='2';
+delete from RSRC_TO_RSRC_REL where RSRC_ID1='PCS_GUI_Co' and RSRC_ID2='ANZ_SA_237' and
+        REL_TYP_CD='Implied' and RSRC_TYP_CD='2';
+delete from RSRC_TO_RSRC_REL where RSRC_ID1='PCS_GUI_Co' and RSRC_ID2='ANZ_SA_238' and
+        REL_TYP_CD='Implied' and RSRC_TYP_CD='2';
+delete from RSRC_TO_RSRC_REL where RSRC_ID1='PCS_GUI_Co' and RSRC_ID2='ANZ_SA_239' and
+        REL_TYP_CD='Implied' and RSRC_TYP_CD='2';
+">>$1.backout.sql;
+
 
 echo "-- ######################################">>$1.backout.sql;
 echo "-- ./delObj "permissionid=Implied_PCS_GUI_userP" "ou=PermissionCode,o=Crossroads" 
