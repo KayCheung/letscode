@@ -1,0 +1,62 @@
+#
+#  Script:                    
+#  
+
+SEARCHBASE=ou=PermissionCode,o=Crossroads	
+DN=permissionid
+ID=ANZ_SA_236
+        echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
+        echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;        
+        echo "presentationlabel: Implied Analyzer PCS Reporting (Non-Syniverse)">>$1.ldif;
+		echo "presentationorder: 0000">>$1.ldif;
+        echo "objectclass: tsipermissioncode">>$1.ldif;
+        echo "objectclass: top">>$1.ldif;
+		echo "subjectarea: 236">>$1.ldif;
+        #echo "nqproductid: AWOL">>$1.ldif;
+		echo "nqproductid: SLS">>$1.ldif;
+        echo "companytype: nonadmin">>$1.ldif;
+		echo "productuid: SUBSCRIBER">>$1.ldif;
+		echo "">>$1.ldif;
+
+ID=ANZ_SA_237
+        echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
+        echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;        
+        echo "presentationlabel: Implied Analyzer PCS Reporting (Syniverse)">>$1.ldif;
+		echo "presentationorder: 0000">>$1.ldif;
+        echo "objectclass: tsipermissioncode">>$1.ldif;
+        echo "objectclass: top">>$1.ldif;
+		echo "subjectarea: 237">>$1.ldif;
+        #echo "nqproductid: AWOL">>$1.ldif;
+		echo "nqproductid: SLS">>$1.ldif;
+        echo "companytype: admin">>$1.ldif;
+		echo "productuid: SUBSCRIBER">>$1.ldif;
+		echo "">>$1.ldif;
+
+ID=ANZ_SA_238
+        echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
+        echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;        
+        echo "presentationlabel: Implied Service Level View (Non-Syniverse)">>$1.ldif;
+		echo "presentationorder: 0000">>$1.ldif;
+        echo "objectclass: tsipermissioncode">>$1.ldif;
+        echo "objectclass: top">>$1.ldif;
+		echo "subjectarea: 238">>$1.ldif;
+        #echo "nqproductid: AWOL">>$1.ldif;
+		echo "nqproductid: SLS">>$1.ldif;
+        echo "companytype: nonadmin">>$1.ldif;
+		echo "productuid: SUBSCRIBER">>$1.ldif;
+		echo "">>$1.ldif;
+
+ID=ANZ_SA_239
+        echo "dn: ${DN}=${ID}, $SEARCHBASE">>$1.ldif;
+        echo "./delObj \"${DN}=${ID}\" \"$SEARCHBASE\" ">>$1.backout;        
+        echo "presentationlabel: Implied Service Level View (Syniverse)">>$1.ldif;
+		echo "presentationorder: 0000">>$1.ldif;
+        echo "objectclass: tsipermissioncode">>$1.ldif;
+        echo "objectclass: top">>$1.ldif;
+		echo "subjectarea: 239">>$1.ldif;
+        #echo "nqproductid: AWOL">>$1.ldif;
+		echo "nqproductid: SLS">>$1.ldif;
+        echo "companytype: admin">>$1.ldif;
+		echo "productuid: SUBSCRIBER">>$1.ldif;
+		echo "">>$1.ldif;
+
