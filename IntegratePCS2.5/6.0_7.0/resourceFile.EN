@@ -3087,6 +3087,13 @@ REPORTING___SYNIVERSE=<Reporting - Syniverse>
 ANALYZER_A2P=<Analyzer A2P>
 
 
+#--------------------------------------------
+#Premium Customer Services (PCS) 2.5, PR_4292
+#--------------------------------------------
+ANALYZER_PCS_REPORTING=<Analyzer PCS Reporting>
+SERVICE_LEVEL_VIEW=<Service Level View>
+
+
 
 
 

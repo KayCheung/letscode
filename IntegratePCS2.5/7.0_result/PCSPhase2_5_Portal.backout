@@ -1,4 +1,12 @@
 #This line must be first
+./delObj "permissionid=ANZ_SA_236" "ou=PermissionCode,o=Crossroads" 
+./delObj "permissionid=ANZ_SA_237" "ou=PermissionCode,o=Crossroads" 
+./delObj "permissionid=ANZ_SA_238" "ou=PermissionCode,o=Crossroads" 
+./delObj "permissionid=ANZ_SA_239" "ou=PermissionCode,o=Crossroads" 
+./multiAttrDel "permissionid=PCS_GUI_Co" "ou=PermissionCode,o=Crossroads" impliedpermissionid ANZ_SA_236
+./multiAttrDel "permissionid=PCS_GUI_Co" "ou=PermissionCode,o=Crossroads" impliedpermissionid ANZ_SA_237
+./multiAttrDel "permissionid=PCS_GUI_Co" "ou=PermissionCode,o=Crossroads" impliedpermissionid ANZ_SA_238
+./multiAttrDel "permissionid=PCS_GUI_Co" "ou=PermissionCode,o=Crossroads" impliedpermissionid ANZ_SA_239
 ./delObj "permissionid=Implied_PCS_GUI_userP" "ou=PermissionCode,o=Crossroads" 
 ./multiAttrDel "permissionid=PCS_GUI" "ou=PermissionCode,o=Crossroads" impliedpermissionid Implied_PCS_GUI_userP
 ./modLDAP "permissionid=PCS_GUI,ou=PermissionCode,o=Crossroads" presentationorder 0010

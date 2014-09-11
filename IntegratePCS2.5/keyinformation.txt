@@ -61,3 +61,10 @@ Premium Customer Services GUI (requires ACCESSibility 1 Server)
 User Permission
 group, rsrc_id: Subscriber_PCS_Group
 Subscriber - Premium Customer Services
+
+
+ANZ_SA_236-->Implied Analyzer PCS Reporting (Non-Syniverse)
+ANZ_SA_237-->Implied Analyzer PCS Reporting (Syniverse)
+
+ANZ_SA_238-->Implied Service Level View (Non-Syniverse)
+ANZ_SA_239-->Implied Service Level View (Syniverse)

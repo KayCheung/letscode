@@ -1,4 +1,52 @@
 #This line must be first
+dn: permissionid=ANZ_SA_236, ou=PermissionCode,o=Crossroads
+presentationlabel: Implied Analyzer PCS Reporting (Non-Syniverse)
+presentationorder: 0000
+objectclass: tsipermissioncode
+objectclass: top
+subjectarea: 236
+nqproductid: SLS
+companytype: nonadmin
+productuid: SUBSCRIBER
+
+dn: permissionid=ANZ_SA_237, ou=PermissionCode,o=Crossroads
+presentationlabel: Implied Analyzer PCS Reporting (Syniverse)
+presentationorder: 0000
+objectclass: tsipermissioncode
+objectclass: top
+subjectarea: 237
+nqproductid: SLS
+companytype: admin
+productuid: SUBSCRIBER
+
+dn: permissionid=ANZ_SA_238, ou=PermissionCode,o=Crossroads
+presentationlabel: Implied Service Level View (Non-Syniverse)
+presentationorder: 0000
+objectclass: tsipermissioncode
+objectclass: top
+subjectarea: 238
+nqproductid: SLS
+companytype: nonadmin
+productuid: SUBSCRIBER
+
+dn: permissionid=ANZ_SA_239, ou=PermissionCode,o=Crossroads
+presentationlabel: Implied Service Level View (Syniverse)
+presentationorder: 0000
+objectclass: tsipermissioncode
+objectclass: top
+subjectarea: 239
+nqproductid: SLS
+companytype: admin
+productuid: SUBSCRIBER
+
+dn: permissionid=PCS_GUI_Co, ou=PermissionCode,o=Crossroads
+changetype: modify
+add: impliedpermissionid
+impliedpermissionid: ANZ_SA_236
+impliedpermissionid: ANZ_SA_237
+impliedpermissionid: ANZ_SA_238
+impliedpermissionid: ANZ_SA_239
+
 dn: permissionid=Implied_PCS_GUI_userP, ou=PermissionCode,o=Crossroads
 presentationorder: 0000
 presentationlabel: Implied Premium Customer Services GUI
@@ -25,7 +73,8 @@ objectclass: tsipermissioncode
 objectclass: top
 productuid: SUBSCRIBER
 copermissionid: PCS_GUI_Co
-impliedpermissionid: Implied_PCS_GUI_userP
+impliedpermissionid: ANZ_SA_236
+impliedpermissionid: ANZ_SA_237
 
 dn: permissionid=PCS_Service_Level_View_userP, ou=PermissionCode,o=Crossroads
 presentationorder: 0025
@@ -36,6 +85,8 @@ objectclass: tsipermissioncode
 objectclass: top
 productuid: SUBSCRIBER
 impliedpermissionid: Implied_PCS_GUI_userP
+impliedpermissionid: ANZ_SA_238
+impliedpermissionid: ANZ_SA_239
 copermissionid: PCS_GUI_Co
 
 dn: uid=PCS_GUI_Monitor_Subscribers_Menu, ou=PresentationObjects,o=Crossroads

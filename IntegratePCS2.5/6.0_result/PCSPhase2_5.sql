@@ -1,5 +1,184 @@
 -- This is the first line
 -- ######################################
+-- dn: permissionid=ANZ_SA_236, ou=PermissionCode,o=Crossroads
+-- ######################################
+INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
+        PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
+        PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
+        TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
+        PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
+        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
+        VALUES  
+        ('ANZ_SA_236_prsn',null,null,null,'Implied Analyzer PCS Reporting (Non-Syniverse)',null,
+        'NO_TRANSLATE',null,'0000',null,null,
+        null,null,null,null,null,
+        null,null,null,systimestamp,systimestamp,
+        'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
+        null, null,null,null,
+        null,null,null );
+INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,
+	PRSNTTN_ID,RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,
+	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
+	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
+	values 
+	('ANZ_SA_236', 'ANZ_SA_236', null, '2', 'nonadmin', 
+	null, 'ANZ_SA_236_prsn', null, null, 
+	null, null, null, null, 
+	null, null, null, null, '236', 
+	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
+	null, null, null, null, 
+	'n');
+Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('ANZ_SA_236','SUBSCRIBER','Product',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');
+Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('ANZ_SA_236','SLS','nqproduct',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');
+-- ######################################
+-- dn: permissionid=ANZ_SA_237, ou=PermissionCode,o=Crossroads
+-- ######################################
+INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
+        PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
+        PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
+        TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
+        PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
+        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
+        VALUES  
+        ('ANZ_SA_237_prsn',null,null,null,'Implied Analyzer PCS Reporting (Syniverse)',null,
+        'NO_TRANSLATE',null,'0000',null,null,
+        null,null,null,null,null,
+        null,null,null,systimestamp,systimestamp,
+        'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
+        null, null,null,null,
+        null,null,null );
+INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,
+	PRSNTTN_ID,RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,
+	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
+	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
+	values 
+	('ANZ_SA_237', 'ANZ_SA_237', null, '2', 'admin', 
+	null, 'ANZ_SA_237_prsn', null, null, 
+	null, null, null, null, 
+	null, null, null, null, '237', 
+	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
+	null, null, null, null, 
+	'n');
+Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('ANZ_SA_237','SUBSCRIBER','Product',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');
+Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('ANZ_SA_237','SLS','nqproduct',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');
+-- ######################################
+-- dn: permissionid=ANZ_SA_238, ou=PermissionCode,o=Crossroads
+-- ######################################
+INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
+        PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
+        PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
+        TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
+        PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
+        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
+        VALUES  
+        ('ANZ_SA_238_prsn',null,null,null,'Implied Service Level View (Non-Syniverse)',null,
+        'NO_TRANSLATE',null,'0000',null,null,
+        null,null,null,null,null,
+        null,null,null,systimestamp,systimestamp,
+        'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
+        null, null,null,null,
+        null,null,null );
+INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,
+	PRSNTTN_ID,RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,
+	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
+	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
+	values 
+	('ANZ_SA_238', 'ANZ_SA_238', null, '2', 'nonadmin', 
+	null, 'ANZ_SA_238_prsn', null, null, 
+	null, null, null, null, 
+	null, null, null, null, '238', 
+	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
+	null, null, null, null, 
+	'n');
+Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('ANZ_SA_238','SUBSCRIBER','Product',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');
+Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('ANZ_SA_238','SLS','nqproduct',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');
+-- ######################################
+-- dn: permissionid=ANZ_SA_239, ou=PermissionCode,o=Crossroads
+-- ######################################
+INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
+        PRSNTTN_LABEL_TAG,PRSNTTN_LABEL_POS,PRSNTTN_ORDER,PRSNTTN_RESTRICT,PRSNTTN_CHK_BX_GRP, PRSNTTN_POS,
+        PRSNTTN_COL_HEADING,PRSNTTN_COL_WIDTH,PRSNTTN_ACC_TAG,PRSNTTN_HTML_ATTR,PRSNTTN_RADIO_GRP,PRSNTTN_RADIO_BUTTON,
+        TIM_ZN_CD,CREATED_DT,MODIFY_DT, CREATED_BY,MODIFY_BY,PRSNTTN_READ_ONLY,PRSNTTN_TYPE,PRSNTTN_LAUNCHTYPE,
+        PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
+        PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
+        VALUES  
+        ('ANZ_SA_239_prsn',null,null,null,'Implied Service Level View (Syniverse)',null,
+        'NO_TRANSLATE',null,'0000',null,null,
+        null,null,null,null,null,
+        null,null,null,systimestamp,systimestamp,
+        'cn=directory manager','uid=xroads,o=crossroads',null,null,null,
+        null, null,null,null,
+        null,null,null );
+INSERT INTO resourc (RSRC_ID,RSRC_NAME,RSRC_DESC,RSRC_TYP_CD,CMPNY_TYP_CD,RSRC_REQ_HRCHY_CD,
+	PRSNTTN_ID,RSRC_OWNER,RSRC_UNRESTRICTED_ACC,RSRC_RESTRICTED,RSRC_UNRESTRICTED, RSRC_HELP_URL,RSRC_HOST,
+	RSRC_HOME_PAGE,RSRC_MAIL,RSRC_FULL_PATH,RSRC_PORTAL,RSRC_SUBJECT_AREA,CREATED_DT,MODIFY_DT,CREATED_BY,MODIFY_BY,
+	PROD_MENU_CATEGORY, PRESENTATION_ORDER,RSRC_GROUPTYPE,RESTRICT_GRANT,ACC_ENV_SUFFIX,CO_PERM_CHECKED_FOR_CO) 
+	values 
+	('ANZ_SA_239', 'ANZ_SA_239', null, '2', 'admin', 
+	null, 'ANZ_SA_239_prsn', null, null, 
+	null, null, null, null, 
+	null, null, null, null, '239', 
+	systimestamp, systimestamp, 'cn=directory manager', 'uid=xroads,o=crossroads', null, 
+	null, null, null, null, 
+	'n');
+Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('ANZ_SA_239','SUBSCRIBER','Product',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');
+Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('ANZ_SA_239','SLS','nqproduct',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');
+-- ######################################
+-- dn: permissionid=PCS_GUI_Co, ou=PermissionCode,o=Crossroads
+-- ######################################
+Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('PCS_GUI_Co','ANZ_SA_236','Implied',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');
+Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('PCS_GUI_Co','ANZ_SA_237','Implied',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');
+Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('PCS_GUI_Co','ANZ_SA_238','Implied',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');
+Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
+	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
+	values 
+	('PCS_GUI_Co','ANZ_SA_239','Implied',systimestamp,systimestamp,
+	'cn=directory manager','cn=directory manager','2');
+-- ######################################
 -- dn: permissionid=Implied_PCS_GUI_userP, ou=PermissionCode,o=Crossroads
 -- ######################################
 INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_LABEL2,
@@ -88,11 +267,6 @@ Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_D
 Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
 	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
 	values 
-	('PCS_Analyzer_PCS_Reporting_userP','Implied_PCS_GUI_userP','Implied',systimestamp,systimestamp,
-	'cn=directory manager','cn=directory manager','2');
-Insert into RSRC_TO_RSRC_REL (RSRC_ID1,RSRC_ID2,REL_TYP_CD,CREATED_DT,MODIFIED_DT,
-	CREATED_BY,MODIFIED_BY, RSRC_TYP_CD) 
-	values 
 	('PCS_Analyzer_PCS_Reporting_userP','Subscriber_PCS_Group','PermissionGroup',systimestamp,systimestamp,
 	'cn=directory manager','cn=directory manager','2');
 -- ######################################
@@ -159,7 +333,7 @@ INSERT INTO presentation (PRSNTTN_ID,FRAME_ID,URL,ONCLICK,PRSNTTN_LABEL,PRSNTTN_
 	PRSNTTN_PERMISSIONID,PRSNTTN_PRODUCTUID,PRSNTTN_COPERMISSIONID,PRSNTTN_DENYUSERCLASS, PRSNTTN_COMPANY_TYPE,
 	PRSNTTTN_ALLOW_USERCLASS,PRSNTTN_GROUP_ID) 
 	VALUES  
-	('PCS_Analyzer_PCS_Reporting_menuitem_prsn','parent.ContentFrame','https://pcs.syniverse.com/pcs/faces/subscribers', null,'Analyzer PCS Reporting',null,
+	('PCS_Analyzer_PCS_Reporting_menuitem_prsn','parent.ContentFrame','https://pcs.syniverse.com/pcs/faces/grouphistory', null,'Analyzer PCS Reporting',null,
 	upper(regexp_replace('Analyzer PCS Reporting', '[^a-zA-Z0-9\s]', '_')),null,'0037',null,null,
 	null,null,null,null,null,
 	null,null,null,systimestamp,systimestamp,

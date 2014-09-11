@@ -1,5 +1,66 @@
 -- This is the first line
 -- ######################################
+-- ./delObj permissionid=ANZ_SA_236 ou=PermissionCode,o=Crossroads 
+
+-- ######################################
+delete from RSRC_TO_RSRC_REL where RSRC_ID1='ANZ_SA_236'  and 
+		RSRC_TYP_CD='2';
+delete from RSRC_TO_COMPANY_REL where RSRC_ID='ANZ_SA_236'  and 
+		RSRC_TYPE_CODE='2';
+delete from presentation where PRSNTTN_ID=(select PRSNTTN_ID from resourc where 
+		RSRC_ID='ANZ_SA_236' and RSRC_TYP_CD='2');
+delete from resourc where RSRC_ID='ANZ_SA_236' and RSRC_TYP_CD='2';
+
+-- ######################################
+-- ./delObj permissionid=ANZ_SA_237 ou=PermissionCode,o=Crossroads 
+
+-- ######################################
+delete from RSRC_TO_RSRC_REL where RSRC_ID1='ANZ_SA_237'  and 
+		RSRC_TYP_CD='2';
+delete from RSRC_TO_COMPANY_REL where RSRC_ID='ANZ_SA_237'  and 
+		RSRC_TYPE_CODE='2';
+delete from presentation where PRSNTTN_ID=(select PRSNTTN_ID from resourc where 
+		RSRC_ID='ANZ_SA_237' and RSRC_TYP_CD='2');
+delete from resourc where RSRC_ID='ANZ_SA_237' and RSRC_TYP_CD='2';
+
+-- ######################################
+-- ./delObj permissionid=ANZ_SA_238 ou=PermissionCode,o=Crossroads 
+
+-- ######################################
+delete from RSRC_TO_RSRC_REL where RSRC_ID1='ANZ_SA_238'  and 
+		RSRC_TYP_CD='2';
+delete from RSRC_TO_COMPANY_REL where RSRC_ID='ANZ_SA_238'  and 
+		RSRC_TYPE_CODE='2';
+delete from presentation where PRSNTTN_ID=(select PRSNTTN_ID from resourc where 
+		RSRC_ID='ANZ_SA_238' and RSRC_TYP_CD='2');
+delete from resourc where RSRC_ID='ANZ_SA_238' and RSRC_TYP_CD='2';
+
+-- ######################################
+-- ./delObj permissionid=ANZ_SA_239 ou=PermissionCode,o=Crossroads 
+
+-- ######################################
+delete from RSRC_TO_RSRC_REL where RSRC_ID1='ANZ_SA_239'  and 
+		RSRC_TYP_CD='2';
+delete from RSRC_TO_COMPANY_REL where RSRC_ID='ANZ_SA_239'  and 
+		RSRC_TYPE_CODE='2';
+delete from presentation where PRSNTTN_ID=(select PRSNTTN_ID from resourc where 
+		RSRC_ID='ANZ_SA_239' and RSRC_TYP_CD='2');
+delete from resourc where RSRC_ID='ANZ_SA_239' and RSRC_TYP_CD='2';
+
+-- ######################################
+-- ./delObj permissionid=PCS_GUI_Co ou=PermissionCode,o=Crossroads 
+
+-- ######################################
+delete from RSRC_TO_RSRC_REL where RSRC_ID1='PCS_GUI_Co' and RSRC_ID2='ANZ_SA_236' and
+        REL_TYP_CD='Implied' and RSRC_TYP_CD='2';
+delete from RSRC_TO_RSRC_REL where RSRC_ID1='PCS_GUI_Co' and RSRC_ID2='ANZ_SA_237' and
+        REL_TYP_CD='Implied' and RSRC_TYP_CD='2';
+delete from RSRC_TO_RSRC_REL where RSRC_ID1='PCS_GUI_Co' and RSRC_ID2='ANZ_SA_238' and
+        REL_TYP_CD='Implied' and RSRC_TYP_CD='2';
+delete from RSRC_TO_RSRC_REL where RSRC_ID1='PCS_GUI_Co' and RSRC_ID2='ANZ_SA_239' and
+        REL_TYP_CD='Implied' and RSRC_TYP_CD='2';
+
+-- ######################################
 -- ./delObj permissionid=Implied_PCS_GUI_userP ou=PermissionCode,o=Crossroads 
 
 -- ######################################
