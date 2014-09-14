@@ -73,7 +73,7 @@ public class MultiDimensionArray {
 		twoDim();
 		String fullPath = IOUtil
 				.getJarStayFolder_nologinfo(MultiDimensionArray.class)
-				+ "/maze.txt";
+				+ "/crw.txt";
 		construct_2D_Array(fullPath);
 	}
 }
