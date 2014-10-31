@@ -12,50 +12,51 @@ import java.util.List;
 import java.util.Random;
 
 abstract class Shape implements Serializable {
-	public static final int RED = 1, BLUE = 2, GREEN = 3;
-	private int xPos, yPos, dimension;
-	private static Random rand = new Random(47);
-	private static int counter = 0;
+	public static final int RED_1 = 1, BLUE_2 = 2, GREEN_3 = 3;
+	private int xPos, yPos;
 
 	public abstract void setColor(int newColor);
 
 	public abstract int getColor();
 
-	public Shape(int xVal, int yVal, int dim) {
+	public Shape(int xVal, int yVal) {
 		xPos = xVal;
 		yPos = yVal;
-		dimension = dim;
 	}
 
-	public String toString() {
-		return getClass() + "color[" + getColor() + "] xPos[" + xPos
-				+ "] yPos[" + yPos + "] dim[" + dimension + "]\n";
-	}
+	private static int counter = 0;
 
 	public static Shape randomFactory() {
+		Random rand = new Random(47);
 		int xVal = rand.nextInt(100);
 		int yVal = rand.nextInt(100);
-		int dim = rand.nextInt(100);
 		switch (counter++ % 3) {
 		default:
 		case 0:
-			return new Circle(xVal, yVal, dim);
+			return new Circle(xVal, yVal);
 		case 1:
-			return new Square(xVal, yVal, dim);
+			return new Square(xVal, yVal);
 		case 2:
-			return new Line(xVal, yVal, dim);
+			return new Line(xVal, yVal);
 		}
+	}
+
+	public String toString() {
+		return getClass().getSimpleName() + " color[" + getColor() + "] xPos["
+				+ xPos + "] yPos[" + yPos + "]\n";
 	}
 }
 
 class Circle extends Shape {
-	//Marvin: 恢复时，不动 static 变量
-	//   1. 如果 <clinit> 尚未运行（即，被反序列化的类还没有被load），则运行 <clinit>。在 <clinit> 中，static 可能被改变
-	//   2. 如果 <clinit> 已经运行过，static 保持原来的值
-	private static int color = RED;
+	// Marvin: 恢复时，不动 static 变量
+	// 1. 如果 <clinit> 尚未运行（即，被反序列化的类还没有被load--link--initialize.<clinit>），则运行
+	// <clinit>。
+	// 在 <clinit> 中，static 可能被改变
+	// 2. 如果 <clinit> 已经运行过，static 保持原来的值
+	private static int color = RED_1;
 
-	public Circle(int xVal, int yVal, int dim) {
-		super(xVal, yVal, dim);
+	public Circle(int xVal, int yVal) {
+		super(xVal, yVal);
 	}
 
 	public void setColor(int newColor) {
@@ -69,10 +70,11 @@ class Circle extends Shape {
 
 class Square extends Shape {
 	private static int color;
+
 	// Marvin: 构函内的 static 值，在 发序列化时 不会触及
-	public Square(int xVal, int yVal, int dim) {
-		super(xVal, yVal, dim);
-		color = RED;
+	public Square(int xVal, int yVal) {
+		super(xVal, yVal);
+		color = RED_1;
 	}
 
 	public void setColor(int newColor) {
@@ -85,7 +87,7 @@ class Square extends Shape {
 }
 
 class Line extends Shape {
-	private static int color = RED;
+	private static int color = BLUE_2;
 
 	public static void serializeStaticState(ObjectOutputStream os)
 			throws IOException {
@@ -97,8 +99,8 @@ class Line extends Shape {
 		color = os.readInt();
 	}
 
-	public Line(int xVal, int yVal, int dim) {
-		super(xVal, yVal, dim);
+	public Line(int xVal, int yVal) {
+		super(xVal, yVal);
 	}
 
 	public void setColor(int newColor) {
@@ -112,6 +114,7 @@ class Line extends Shape {
 
 public class StoreCADState {
 	public static void main(String[] args) throws Exception {
+		// Marvin: List<? extends/super Shape> 才符合 PECS 原则。注意看，这个可不一样哦
 		List<Class<? extends Shape>> shapeTypes = new ArrayList<Class<? extends Shape>>();
 		// Add references to the class objects:
 		shapeTypes.add(Circle.class);
@@ -121,11 +124,10 @@ public class StoreCADState {
 		List<Shape> shapes = new ArrayList<Shape>();
 		// Make some shapes:
 		for (int i = 0; i < 10; i++) {
-			shapes.add(Shape.randomFactory());
-		}
-		// Set all the static colors to GREEN:
-		for (int i = 0; i < 10; i++) {
-			((Shape) shapes.get(i)).setColor(Shape.GREEN);
+			Shape s = Shape.randomFactory();
+			// Set all the static colors to GREEN:
+			s.setColor(Shape.GREEN_3);
+			shapes.add(s);
 		}
 
 		// Save the state vector:

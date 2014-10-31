@@ -39,7 +39,7 @@ public class MyWorld {
 		animals.add(new Animal("Molly the cat", house));
 		print("animals: " + animals);
 		//Marvin: 
-		// 1. 可以通过一个字节数组来使用对象序列化
+		// 1. 可以通过一个 字节数组 来使用对象序列化
 		// 2. Serializable 实现的是“深度复制 deep copy”。复制了 整个对象网（而不仅仅是基本对象及其引用）
 		ByteArrayOutputStream buf1 = new ByteArrayOutputStream();
 		ObjectOutputStream o1 = new ObjectOutputStream(buf1);
@@ -53,7 +53,7 @@ public class MyWorld {
 		ByteArrayOutputStream buf2 = new ByteArrayOutputStream();
 		ObjectOutputStream o2 = new ObjectOutputStream(buf2);
 		//Marvin
-		// 2. 这里 向另外一个流 写入。后面恢复时（animals3），Java无法知道其他流（前面那个流，即：buf1）中的对象和此流
+		// 2. 这里 向另外一个流 写入。后面恢复时（animals3），Java 无法知道 其他流（前面那个流，即：buf1）中的对象和此流
 		// 内的对象是同一个对象（同一个流内，Java可以知道“吼吼，它们指的是同一个对象”），所以，此流恢复时，
 		// 再产生了一次“和前面完全不同的又一个 对象网”
 		o2.writeObject(animals);
