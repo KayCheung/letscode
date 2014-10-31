@@ -40,6 +40,7 @@ public class Logon implements Serializable {
 				"Logon.out"));
 		print("Recovering object at " + new Date());
 		a = (Logon) in.readObject();
+		in.close();
 		print("logon a = " + a);
 	}
 } /*
