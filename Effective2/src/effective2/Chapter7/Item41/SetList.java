@@ -18,8 +18,11 @@ public class SetList {
 		}
 
 		for (int i = 0; i < 3; i++) {
-			set.remove(i);
-			list.remove(i);
+			set.remove(i);// Set 只有 remove(oneElement)。所以，auto-box后，删除。一切 OK
+
+			// List 则 remove(index) 和 remove(oneElement)
+			list.remove(i);// Marvin： 实际走的是 remove(index)
+							// 而不是 auto-box 后，进行 remove(oneElement)
 		}
 
 		System.out.println(set + " " + list);

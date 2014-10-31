@@ -2,6 +2,7 @@ package com.util;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -14,6 +15,50 @@ public class CommUtil {
 		}
 
 		return array;
+	}
+
+	public static void addAll(Collection<Integer> c, int[] array) {
+		for (int i : array) {
+			c.add(Integer.valueOf(i));
+		}
+	}
+
+	public static int[] minValueIndices(int start, int end, int[] array) {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		list.add(Integer.valueOf(start));
+
+		int minValue = array[start];
+		for (int i = start + 1; i <= end; i++) {
+			if (minValue == array[i]) {
+				list.add(Integer.valueOf(i));
+			} else if (array[i] < minValue) {
+				list.clear();
+				list.add(Integer.valueOf(i));
+				minValue = array[i];
+			}
+		}
+		int[] indices = new int[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			indices[i] = list.get(i).intValue();
+
+		}
+		return indices;
+	}
+
+	public static int minValueIndex(int start, int end, int[] array) {
+		int minValue = array[start];
+		int minValueIndex = start;
+		for (int i = start + 1; i <= end; i++) {
+			if (array[i] < minValue) {
+				minValue = array[i];
+				minValueIndex = i;
+			}
+		}
+		return minValueIndex;
+	}
+
+	public static int minValueIndex(int[] array) {
+		return minValueIndex(0, array.length, array);
 	}
 
 	public static void swap(int index1, int index2, int[] array) {
