@@ -27,7 +27,7 @@ abstract class Shape implements Serializable {
 	private static int counter = 0;
 
 	public static Shape randomFactory() {
-		Random rand = new Random(47);
+		Random rand = new Random();
 		int xVal = rand.nextInt(100);
 		int yVal = rand.nextInt(100);
 		switch (counter++ % 3) {
@@ -91,9 +91,10 @@ class Line extends Shape {
 
 	public static void serializeStaticState(ObjectOutputStream os)
 			throws IOException {
-		os.writeInt(color);
+		os.writeInt(99);
 	}
 
+	// Marvin: 这里是赖皮。就是把一个数字 送与Line.color 啦
 	public static void deserializeStaticState(ObjectInputStream os)
 			throws IOException {
 		color = os.readInt();
@@ -123,7 +124,7 @@ public class StoreCADState {
 
 		List<Shape> shapes = new ArrayList<Shape>();
 		// Make some shapes:
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 3; i++) {
 			Shape s = Shape.randomFactory();
 			// Set all the static colors to GREEN:
 			s.setColor(Shape.GREEN_3);
@@ -133,7 +134,7 @@ public class StoreCADState {
 		// Save the state vector:
 		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(
 				"CADState.out"));
-		// 1. Marvin: 写入 shpeTypes
+		// 1. Marvin: 写入 shpeTypes, xxx.class
 		out.writeObject(shapeTypes);
 		// 2. Marvin: 写入 一个int值
 		Line.serializeStaticState(out);
