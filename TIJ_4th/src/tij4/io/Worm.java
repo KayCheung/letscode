@@ -27,7 +27,7 @@ class Data implements Serializable {
 }
 
 public class Worm implements Serializable {
-	private static Random rand = new Random(47);
+	private static Random rand = new Random();
 	private Data[] d = { new Data(rand.nextInt(10)),
 			new Data(rand.nextInt(10)), new Data(rand.nextInt(10)) };
 	private Worm next;
@@ -43,7 +43,7 @@ public class Worm implements Serializable {
 
 	public Worm() {
 		// 4. Marvin: 反序列化时，不会调用构函。也不会调用默认构函
-		print("Default constructor");
+		print("Worm Default constructor");
 	}
 
 	public String toString() {
@@ -61,18 +61,20 @@ public class Worm implements Serializable {
 	public static void main(String[] args) throws ClassNotFoundException,
 			IOException {
 		Worm w = new Worm(6, 'a');
-		print("w = " + w);
+		print("original Worm = " + w);
 		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(
 				"worm.out"));
 		// 1. Marvin: writeObject()会抛出 IOException
 		out.writeObject("Worm storage\n");
 		out.writeObject(w);
 		out.close(); // Also flushes output
+		
 		ObjectInputStream in = new ObjectInputStream(new FileInputStream(
 				"worm.out"));
 		// 2. Marvin: readObject()会抛出 IOException, ClassNotFoundException
 		String s = (String) in.readObject();
 		Worm w2 = (Worm) in.readObject();
+		in.close();
 		print(s + "w2 = " + w2);
 
 		// 3. Marvin: 此处是使用 ByteArrayOutput(Input)Stream 替换
@@ -81,12 +83,13 @@ public class Worm implements Serializable {
 		ObjectOutputStream out2 = new ObjectOutputStream(bout);
 		out2.writeObject("Worm storage\n");
 		out2.writeObject(w);
-		out2.flush();
+		out2.close();
 
 		ObjectInputStream in2 = new ObjectInputStream(new ByteArrayInputStream(
 				bout.toByteArray()));
 		s = (String) in2.readObject();
 		Worm w3 = (Worm) in2.readObject();
+		in2.close();
 		print(s + "w3 = " + w3);
 	}
 }

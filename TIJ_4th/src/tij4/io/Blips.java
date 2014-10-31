@@ -20,7 +20,8 @@ import java.io.ObjectOutputStream;
  * <p>
  * 2. Externalizable
  * 
- * a. invoke default constructor(explicit public xxx() must exist, otherwise an error will be thrown)
+ * a. invoke default constructor(explicit public xxx() must exist, otherwise an
+ * error will be thrown)
  * 
  * b. invoke readExternal
  * 
@@ -80,8 +81,4 @@ public class Blips {
 		print("Recovering b2:");
 		b2 = (Blip2) in.readObject();
 	}
-} /*
- * Output: Constructing objects: Blip1 Constructor Blip2 Constructor Saving
- * objects: Blip1.writeExternal Blip2.writeExternal Recovering b1: Blip1
- * Constructor Blip1.readExternal
- */// :~
+}
