@@ -53,6 +53,7 @@ class Mail {
 	// Generate test Mail:
 	public static Mail randomMail() {
 		Mail m = new Mail();
+		// Marvin: 这种用法就叫做 class literal
 		m.generalDelivery = Enums.random(GeneralDelivery.class);
 		m.scannability = Enums.random(Scannability.class);
 		m.readability = Enums.random(Readability.class);
@@ -140,13 +141,16 @@ public class PostOffice {
 				}
 			}
 		};
+
 		abstract boolean handle(Mail m);
+
 	}
 
-	static void handle(Mail m) {
-		for (MailHandler handler : MailHandler.values())
-			if (handler.handle(m))
+	static void handle_a_mail_by_all_strategies(Mail m) {
+		for (MailHandler oneHandler : MailHandler.values())
+			if (oneHandler.handle(m)) {
 				return;
+			}
 		print(m + " is a dead letter");
 	}
 
@@ -154,32 +158,8 @@ public class PostOffice {
 		Iterable<Mail> dddd = Mail.generator(10);
 		for (Mail mail : dddd) {
 			print(mail.details());
-			handle(mail);
+			handle_a_mail_by_all_strategies(mail);
 			print("*****");
 		}
 	}
-} /*
- * Output: Mail 0, General Delivery: NO2, Address Scanability: UNSCANNABLE,
- * Address Readability: YES3, Address Address: OK1, Return address: OK1
- * Delivering Mail 0 normally**** Mail 1, General Delivery: NO5, Address
- * Scanability: YES3, Address Readability: ILLEGIBLE, Address Address: OK5,
- * Return address: OK1 Delivering Mail 1 automatically**** Mail 2, General
- * Delivery: YES, Address Scanability: YES3, Address Readability: YES1, Address
- * Address: OK1, Return address: OK5 Using general delivery for Mail 2**** Mail
- * 3, General Delivery: NO4, Address Scanability: YES3, Address Readability:
- * YES1, Address Address: INCORRECT, Return address: OK4 Returning Mail 3 to
- * sender**** Mail 4, General Delivery: NO4, Address Scanability: UNSCANNABLE,
- * Address Readability: YES1, Address Address: INCORRECT, Return address: OK2
- * Returning Mail 4 to sender**** Mail 5, General Delivery: NO3, Address
- * Scanability: YES1, Address Readability: ILLEGIBLE, Address Address: OK4,
- * Return address: OK2 Delivering Mail 5 automatically**** Mail 6, General
- * Delivery: YES, Address Scanability: YES4, Address Readability: ILLEGIBLE,
- * Address Address: OK4, Return address: OK4 Using general delivery for Mail 6
- * **** Mail 7, General Delivery: YES, Address Scanability: YES3, Address
- * Readability: YES4, Address Address: OK2, Return address: MISSING Using
- * general delivery for Mail 7**** Mail 8, General Delivery: NO3, Address
- * Scanability: YES1, Address Readability: YES3, Address Address: INCORRECT,
- * Return address: MISSING Mail 8 is a dead letter**** Mail 9, General Delivery:
- * NO1, Address Scanability: UNSCANNABLE, Address Readability: YES2, Address
- * Address: OK1, Return address: OK4 Delivering Mail 9 normally****
- */// :~
+}

@@ -10,7 +10,7 @@ public enum RoShamBo2 implements Competitor<RoShamBo2> {
 	/**
 	 * 1. 当前(this)对象是：RoShamBo2
 	 * 
-	 * 2. DRAW-->得到 PAPER(DRAW)     结果（这时比较的对象是：RoShamBo2 PAPER，都是由compete()来决定）
+	 * 2. DRAW-->得到 vPAPER(DRAW)     结果（这时比较的对象是：RoShamBo2 PAPER，都是由compete()来决定）
 	 * 
 	 * 3. LOSE-->得到 vSCISSORS(LOSE) 结果（这时比较的对象是：RoShamBo2 SCISSORS，都是由compete()来决定）
 	 * 

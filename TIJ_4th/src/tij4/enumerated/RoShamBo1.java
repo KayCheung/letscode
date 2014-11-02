@@ -64,6 +64,7 @@ class Scissors implements Item {
 
 class Rock implements Item {
 	public Outcome compete(Item it) {
+		// Marvin: 注意，这里的调用，是 it实例 的方法，而不是当前实例的方法
 		return it.eval(this);
 	}
 
@@ -101,20 +102,15 @@ public class RoShamBo1 {
 	}
 
 	public static void match(Item a, Item b) {
+		// Marvin：两路分发。
+		// 1. a 的实际类型，决定走到 谁的 compete 方法
+		// 2. 进入 a.compete(b)，b.eval()是第二次 分发
 		System.out.println(a + " vs. " + b + ": " + a.compete(b));
 	}
 
 	public static void main(String[] args) {
-		for (int i = 0; i < SIZE; i++){
+		for (int i = 0; i < SIZE; i++) {
 			match(newItem(), newItem());
 		}
 	}
-} /*
- * Output: Rock vs. Rock: DRAW Paper vs. Rock: WIN Paper vs. Rock: WIN Paper vs.
- * Rock: WIN Scissors vs. Paper: WIN Scissors vs. Scissors: DRAW Scissors vs.
- * Paper: WIN Rock vs. Paper: LOSE Paper vs. Paper: DRAW Rock vs. Paper: LOSE
- * Paper vs. Scissors: LOSE Paper vs. Scissors: LOSE Rock vs. Scissors: WIN Rock
- * vs. Paper: LOSE Paper vs. Rock: WIN Scissors vs. Paper: WIN Paper vs.
- * Scissors: LOSE Paper vs. Scissors: LOSE Paper vs. Scissors: LOSE Paper vs.
- * Scissors: LOSE
- */// :~
+}

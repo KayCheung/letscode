@@ -42,6 +42,7 @@ public class CarWash {
 				print("Blowing dry");
 			}
 		};
+		//Marvin: 各个不同 enum instance 会有不同，所以，流出来这个让各个 instance 自己实现
 		abstract void action();
 	}
 
