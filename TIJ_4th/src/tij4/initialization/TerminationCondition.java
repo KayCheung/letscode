@@ -15,7 +15,7 @@ class Book {
     if(checkedOut)
       System.out.println("Error: checked out");
     // Normally, you'll also do this:
-    // super.finalize(); // Call the base-class version
+    // super.finalize(); // Call the BaseCls-class version
   }
 }
 

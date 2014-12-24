@@ -1,6 +1,7 @@
 package test;
 
-import com.tree.commontree.TreeUtil;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @时间 2014-3-30
@@ -397,7 +398,16 @@ public class AVLTree<T extends Comparable<T>> {
 		root.updateHeight();
 		return root;
 	}
+
 	public static void main(String[] args) {
-		System.out.println(TreeUtil.log2(48));
+		String regexp = "\"[^\\\\\"]*(\\\\.[^\\\\\"]*)*\"";
+		Pattern ptn = Pattern.compile(regexp);
+		String text = "\"This requires 2\\\" * 3\\\" photo\"";
+		System.out.println(text);
+		Matcher m = ptn.matcher(text);
+		while (m.find()) {
+			System.out.println(m.group());
+			System.out.println(m.group(1));
+		}
 	}
 }

@@ -29,7 +29,7 @@ public class Fill2 {
   }
 }
 
-// To adapt a base type, you must use composition.
+// To adapt a BaseCls type, you must use composition.
 // Make any Collection Addable using composition:
 class AddableCollectionAdapter<T> implements Addable<T> {
   private Collection<T> c;

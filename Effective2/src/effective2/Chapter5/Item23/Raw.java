@@ -1,12 +1,24 @@
 package effective2.Chapter5.Item23;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Raw {
     // Uses raw type (List) - fails at runtime! - Page 112
     public static void main(String[] args) {
-        List<String> strings = new ArrayList<String>();
-        unsafeAdd(strings, new Integer(42));
-        String s = strings.get(0); // Compiler-generated cast
+//    	numElementsInCommon(new HashSet<String>(), new HashSet<Integer>());
+//
+//    	List<String> strings = new ArrayList<String>();
+//        unsafeAdd(strings, new Integer(42));
+//        String s = strings.get(0); // Compiler-generated cast
+//
+//        List listRaw = strings;
+//        listRaw.add(new Integer(42));
+//        
+//        List<?> listWildcard = strings;
+////        listWildcard.add(new Integer(42));
+        System.out.println(2<<4);
     }
 
     private static void unsafeAdd(List list, Object o) {

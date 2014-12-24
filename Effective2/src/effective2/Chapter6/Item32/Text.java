@@ -9,6 +9,7 @@ public class Text {
     // Any Set could be passed in, but EnumSet is clearly best
     public void applyStyles(Set<Style> styles) {
         // Body goes here
+    	Style.value
     }
 
     // Sample use

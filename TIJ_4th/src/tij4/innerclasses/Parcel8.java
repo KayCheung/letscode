@@ -1,6 +1,6 @@
 package tij4.innerclasses;
 //: innerclasses/Parcel8.java
-// Calling the base-class constructor.
+// Calling the BaseCls-class constructor.
 
 public class Parcel8 {
   public Wrapping wrapping(int x) {

@@ -1,6 +1,6 @@
 package tij4.typeinfo;
 //: typeinfo/RegisteredFactories.java
-// Registering Class Factories in the base class.
+// Registering Class Factories in the BaseCls class.
 import tij4.typeinfo.factory.*;
 import java.util.*;
 

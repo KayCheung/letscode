@@ -41,6 +41,7 @@ public enum ExtendedOperation implements Operation {
 	// Marvin: 就是 String.class 这个样子
 	private static <T extends Enum<T> & Operation> void test(Class<T> opSet,
 			double x, double y) {
+		// Marvin: 根据 Class 得到 其所有的 enum instance
 		for (Operation op : opSet.getEnumConstants())
 			System.out.printf("%f %s %f = %f%n", x, op, y, op.apply(x, y));
 	}

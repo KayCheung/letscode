@@ -21,7 +21,7 @@ public class Detergent extends Cleanser {
   // Change a method:
   public void scrub() {
     append(" Detergent.scrub()");
-    super.scrub(); // Call base-class version
+    super.scrub(); // Call BaseCls-class version
   }
   // Add methods to the interface:
   public void foam() { append(" foam()"); }
@@ -33,11 +33,11 @@ public class Detergent extends Cleanser {
     x.scrub();
     x.foam();
     print(x);
-    print("Testing base class:");
+    print("Testing BaseCls class:");
     Cleanser.main(args);
   }	
 } /* Output:
 Cleanser dilute() apply() Detergent.scrub() scrub() foam()
-Testing base class:
+Testing BaseCls class:
 Cleanser dilute() apply() scrub()
 *///:~

@@ -1,7 +1,7 @@
 package tij4.reusing;
 //: reusing/Hide.java
-// Overloading a base-class method name in a derived
-// class does not hide the base-class versions.
+// Overloading a BaseCls-class method name in a derived
+// class does not hide the BaseCls-class versions.
 import static net.mindview.util.Print.*;
 
 class Homer {

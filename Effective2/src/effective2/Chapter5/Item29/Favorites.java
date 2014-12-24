@@ -10,7 +10,7 @@ public class Favorites {
 
     public <T> void putFavorite(Class<T> type, T instance) {
         if (type == null)
-            throw new NullPointerException("Type is null");
+            throw new NullPointerException("HerbTypes is null");
         favorites.put(type, instance);
     }
 
@@ -31,5 +31,6 @@ public class Favorites {
         Class<?> favoriteClass = f.getFavorite(Class.class);
         System.out.printf("%s %x %s%n", favoriteString,
                           favoriteInteger, favoriteClass.getName());
+        System.out.println(0xcafebabe);
     }
 }
