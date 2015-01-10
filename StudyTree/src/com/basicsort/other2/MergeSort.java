@@ -1,4 +1,6 @@
-package com.basicsort;
+package com.basicsort.other2;
+
+import com.basicsort.AbstractBasicSort;
 
 public class MergeSort extends AbstractBasicSort {
 
