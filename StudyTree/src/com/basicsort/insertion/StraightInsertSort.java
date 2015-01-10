@@ -1,4 +1,6 @@
-package com.basicsort;
+package com.basicsort.insertion;
+
+import com.basicsort.AbstractBasicSort;
 
 public class StraightInsertSort extends AbstractBasicSort {
 

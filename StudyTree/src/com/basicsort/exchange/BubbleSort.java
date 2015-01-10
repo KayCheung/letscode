@@ -1,4 +1,6 @@
-package com.basicsort;
+package com.basicsort.exchange;
+
+import com.basicsort.AbstractBasicSort;
 
 public class BubbleSort extends AbstractBasicSort {
 

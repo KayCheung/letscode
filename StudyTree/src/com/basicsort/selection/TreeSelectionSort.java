@@ -1,8 +1,9 @@
-package com.basicsort;
+package com.basicsort.selection;
 
+import com.basicsort.AbstractBasicSort;
 import com.util.CommUtil;
 
-public class SimpleSelectionSort extends AbstractBasicSort {
+public class TreeSelectionSort extends AbstractBasicSort {
 
 	@Override
 	public int[] doSort(int start, int end, int[] array) {
@@ -30,6 +31,6 @@ public class SimpleSelectionSort extends AbstractBasicSort {
 	}
 
 	public static void main(String[] args) {
-		runTest(new SimpleSelectionSort());
+		runTest(new TreeSelectionSort());
 	}
 }

@@ -1,7 +1,8 @@
-package com.basicsort;
+package com.basicsort.selection;
 
 import java.util.Arrays;
 
+import com.basicsort.AbstractBasicSort;
 import com.util.CommUtil;
 
 public class HeapSort extends AbstractBasicSort {

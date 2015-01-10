@@ -1,5 +1,6 @@
-package com.basicsort;
+package com.basicsort.exchange;
 
+import com.basicsort.AbstractBasicSort;
 import com.util.CommUtil;
 
 public class QuickSort extends AbstractBasicSort {
