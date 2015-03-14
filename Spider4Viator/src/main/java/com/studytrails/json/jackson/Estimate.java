@@ -98,7 +98,7 @@ public class Estimate {
 				FetchDestination.BASE_DIR
 						+ "sbBQ_exist_but_all_required_false.txt", false);
 		try {
-			bwBQExist_all_required_false.write(sb.toString());
+			bwBQExist_all_required_false.write(sbBQ_exist_but_all_required_false.toString());
 			bwBQExist_all_required_false.newLine();
 			bwBQExist_all_required_false
 					.write(countBQ_exist_but_all_required_false + "");

@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.math.BigInteger;
-import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -51,7 +50,7 @@ public class FetchProductDetail {
 
 		long begin = System.currentTimeMillis();
 		// testParser();
-		boolean bFromNetwork = false;
+		boolean bFromNetwork = true;
 		reallyGetProductDetail(bFromNetwork);
 
 		System.out.println("FetchProductDetail main() totally cost: "
@@ -61,14 +60,16 @@ public class FetchProductDetail {
 	}
 
 	private static void testParser() throws Exception {
+		List<ProductInfo> listProdInfo = new ArrayList<ProductInfo>();
 		ObjectMapper mapper = new ObjectMapper();
 		String[] filenames = { "productDetail_2280LI_5H.json",
 				"productDetail_5034ROM17.json" };
 		FetchProductDetail fpd = new FetchProductDetail();
 		for (String fname : filenames) {
-			fpd.parseDetailToGetProductInfo(mapper,
-					IOUtil.readContent(FetchDestination.BASE_DIR + fname));
+			listProdInfo.add(fpd.parseDetailToGetProductInfo(mapper,
+					IOUtil.readContent(FetchDestination.BASE_DIR + fname)));
 		}
+		new Estimate().estimate(listProdInfo);
 	}
 
 	private static void reallyGetProductDetail(boolean bFromNetwork)
@@ -241,6 +242,7 @@ public class FetchProductDetail {
 		write_ProductDetail_toFile(prodCodeIndex, productCode, productDetail);
 		ProductInfo prodInfo = parseDetailToGetProductInfo(mapper,
 				productDetail);
+		listProdInfo.add(prodInfo);
 
 		long cost = System.currentTimeMillis() - begin;
 		String log = (prodCodeIndex + 1) + " / " + totalProdCounts
