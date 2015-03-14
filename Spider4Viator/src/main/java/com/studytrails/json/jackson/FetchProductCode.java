@@ -185,11 +185,7 @@ public class FetchProductCode {
 			// create an ObjectMapper instance.
 			ObjectMapper mapper = new ObjectMapper();
 			for (int i = 0, totalDestCount = listDI.size(); i < totalDestCount; i++) {
-				if (!conn.isOpen()) {
-					Socket socket = new Socket(host.getHostName(),
-							host.getPort());
-					conn.bind(socket);
-				}
+				IOUtil.bindSocketSolidly(conn, host);
 
 				DestinationInfo di = listDI.get(i);
 				int tryCount = 0;
@@ -204,9 +200,7 @@ public class FetchProductCode {
 					if (response == null) {
 						tryCount++;
 						conn.close();
-						Socket socket = new Socket(host.getHostName(),
-								host.getPort());
-						conn.bind(socket);
+						IOUtil.bindSocketSolidly(conn, host);
 					} else {
 						// good
 						break;

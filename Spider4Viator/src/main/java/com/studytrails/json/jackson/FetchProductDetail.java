@@ -167,11 +167,7 @@ public class FetchProductDetail {
 			// create an ObjectMapper instance.
 			ObjectMapper mapper = new ObjectMapper();
 			for (int i = 0, totalSize = listProductCode.size(); i < totalSize; i++) {
-				if (!conn.isOpen()) {
-					Socket socket = new Socket(host.getHostName(),
-							host.getPort());
-					conn.bind(socket);
-				}
+				IOUtil.bindSocketSolidly(conn, host);
 
 				String productCode = listProductCode.get(i);
 				HttpResponse response = null;
@@ -184,9 +180,7 @@ public class FetchProductDetail {
 					if (response == null) {
 						tryCount++;
 						conn.close();
-						Socket socket = new Socket(host.getHostName(),
-								host.getPort());
-						conn.bind(socket);
+						IOUtil.bindSocketSolidly(conn, host);
 					} else {
 						// Good
 						break;

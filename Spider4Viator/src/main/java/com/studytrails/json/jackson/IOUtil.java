@@ -9,7 +9,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.math.BigInteger;
+import java.net.Socket;
 import java.util.List;
+
+import org.apache.http.HttpHost;
+import org.apache.http.impl.DefaultBHttpClientConnection;
 
 public class IOUtil {
 
@@ -110,4 +114,38 @@ public class IOUtil {
 			e.printStackTrace();
 		}
 	}
+
+	public static void bindSocketSolidly(DefaultBHttpClientConnection conn,
+			HttpHost host) {
+		if (!conn.isOpen()) {
+			int tryCount = 0;
+			while (tryCount <= 19) {
+				try {
+					Socket socket = new Socket(host.getHostName(),
+							host.getPort());
+					conn.bind(socket);
+					// Good, success
+					break;
+				} catch (Exception e) {
+					System.err.println(tryCount
+							+ " time to connect to host failed");
+					e.printStackTrace();
+					tryCount++;
+					System.err.println("Sleep and try again");
+
+					try {
+						Thread.sleep(1000 * 10 * tryCount);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+
+				}
+			}
+		}
+		// Good. Connectioni is open
+		else {
+
+		}
+	}
+
 }
