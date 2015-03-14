@@ -35,8 +35,9 @@ public class FetchProductDetail {
 	public static final String PRODUCT_DETAIL_URI = "/service/product";
 
 	public static void main(String[] args) throws Exception {
-		testParser();
-		// reallyGetProductDetail();
+		// testParser();
+		boolean bFromNetwork = true;
+		reallyGetProductDetail(bFromNetwork);
 	}
 
 	private static void testParser() throws Exception {
@@ -50,13 +51,22 @@ public class FetchProductDetail {
 		}
 	}
 
-	private static void reallyGetProductDetail() throws Exception {
-		FetchProductDetail fpd = new FetchProductDetail();
-		fpd.letGetProductDetails();
+	private static void reallyGetProductDetail(boolean bFromScratch)
+			throws Exception {
+		new FetchProductDetail().letGetProductDetails(bFromScratch);
 	}
 
-	public void letGetProductDetails() throws Exception {
-		List<String> listProductCode = provideProductCode();
+	public void letGetProductDetails(boolean bFromNetwork) throws Exception {
+		List<String> listProductCode = null;
+		if (bFromNetwork) {
+			FetchDestination fd = new FetchDestination();
+			FetchProductCode fpc = new FetchProductCode();
+			List<DestinationInfo> listDI = fd.getAllDestination();
+			listProductCode = fpc.fetchUniqueProductCode(listDI);
+		} else {
+			listProductCode = provideProductCode();
+		}
+
 		List<ProductInfo> listProdInfo = fetchAllProductDetail(listProductCode);
 		write_ListProdInfo(listProdInfo);
 		new Estimate().estimate(listProdInfo);

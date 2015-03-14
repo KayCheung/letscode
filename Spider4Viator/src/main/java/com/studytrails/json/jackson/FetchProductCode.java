@@ -45,12 +45,9 @@ public class FetchProductCode {
 	public static final String FOUR_DASH = "----";
 
 	public static void main(String[] args) throws Exception {
-
 		FetchDestination fd = new FetchDestination();
 		FetchProductCode fpc = new FetchProductCode();
-
 		List<DestinationInfo> listDI = fd.getAllDestination();
-
 		List<String> listProductCode = fpc.fetchUniqueProductCode(listDI);
 	}
 
