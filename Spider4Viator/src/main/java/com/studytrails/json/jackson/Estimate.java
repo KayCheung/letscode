@@ -21,6 +21,10 @@ public class Estimate {
 		int containsNone_Product_Count = 0;
 		int containsNone_Tour_Count = 0;
 
+		int countBQ_exist_but_all_required_false = 0;
+
+		StringBuilder sbBQ_exist_but_all_required_false = new StringBuilder();
+
 		for (ProductInfo prodInfo : listProdInfo) {
 			int tourInProduct = prodInfo.tourGradesInfo.getTourGradeCount();
 			totalTourCount += tourInProduct;
@@ -35,6 +39,11 @@ public class Estimate {
 			}
 
 			if (containsBQ) {
+				if (prodInfo.bqInfo.yesAllAreRequired() == false) {
+					countBQ_exist_but_all_required_false++;
+					sbBQ_exist_but_all_required_false.append(prodInfo
+							.toString() + FetchDestination.ENTER);
+				}
 				if (containsHotelpickup) {
 					// Booking Questions, and hotelPickup
 					bothBQAndHotelpickup_Product_Count++;
@@ -84,10 +93,26 @@ public class Estimate {
 		sb.append("\nTour Grades Count (Only Hotel Pickup). Bad for us, as we CANNOT integrate them to Tuniu: ");
 		sb.append(onlyHotelpickupTrue_Tour_Count);
 
+		
+		BufferedWriter bwBQExist_all_required_false = IOUtil.createFileWriter(
+				FetchDestination.BASE_DIR
+						+ "sbBQ_exist_but_all_required_false.txt", false);
+		try {
+			bwBQExist_all_required_false.write(sb.toString());
+			bwBQExist_all_required_false.newLine();
+			bwBQExist_all_required_false
+					.write(countBQ_exist_but_all_required_false + "");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		IOUtil.close(bwBQExist_all_required_false);
+
+		
 		BufferedWriter bw = IOUtil.createFileWriter(FetchDestination.BASE_DIR
 				+ "FinalResult.txt", false);
 		try {
 			bw.write(sb.toString());
+			bw.newLine();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

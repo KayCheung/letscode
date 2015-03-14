@@ -46,7 +46,7 @@ public class DestinationInfo {
 
 	@Override
 	public String toString() {
-		return destName + "," + destType + "," + destId;
+		return " [ " + destName + "," + destType + "," + destId + " ] ";
 	}
 
 }

@@ -2,7 +2,10 @@ package com.studytrails.json.jackson;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.math.BigInteger;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -34,10 +37,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class FetchProductDetail {
 	public static final String PRODUCT_DETAIL_URI = "/service/product";
 
+	public static int alreadyWriteDoneCount = 0;
+	public static int folderSequence = 1;
+
 	public static void main(String[] args) throws Exception {
+		String infolog = FetchDestination.BASE_DIR + "info.log";
+		PrintStream psInfo = new PrintStream(new File(infolog));
+		System.setOut(psInfo);
+
+		String errorlog = FetchDestination.BASE_DIR + "error.log";
+		PrintStream psError = new PrintStream(new File(errorlog));
+		System.setErr(psError);
+
+		long begin = System.currentTimeMillis();
 		// testParser();
-		boolean bFromNetwork = true;
+		boolean bFromNetwork = false;
 		reallyGetProductDetail(bFromNetwork);
+
+		System.out.println("FetchProductDetail main() totally cost: "
+				+ IOUtil.human(System.currentTimeMillis() - begin));
+		psInfo.close();
+		psError.close();
 	}
 
 	private static void testParser() throws Exception {
@@ -47,13 +67,13 @@ public class FetchProductDetail {
 		FetchProductDetail fpd = new FetchProductDetail();
 		for (String fname : filenames) {
 			fpd.parseDetailToGetProductInfo(mapper,
-					IOUtil.readContent("D:/Fast/Viator/statistic/" + fname));
+					IOUtil.readContent(FetchDestination.BASE_DIR + fname));
 		}
 	}
 
-	private static void reallyGetProductDetail(boolean bFromScratch)
+	private static void reallyGetProductDetail(boolean bFromNetwork)
 			throws Exception {
-		new FetchProductDetail().letGetProductDetails(bFromScratch);
+		new FetchProductDetail().letGetProductDetails(bFromNetwork);
 	}
 
 	public void letGetProductDetails(boolean bFromNetwork) throws Exception {
@@ -86,6 +106,8 @@ public class FetchProductDetail {
 		} finally {
 			IOUtil.close(br);
 		}
+		System.out.println("provideProductCode gets product code count: "
+				+ listProductCode.size());
 		return listProductCode;
 	}
 
@@ -130,7 +152,7 @@ public class FetchProductDetail {
 
 		long cost = System.currentTimeMillis() - begin;
 		String log = "Product Details Code Counts: " + listProductCode.size()
-				+ ", Fetch All Product Details cost: " + cost;
+				+ ", Fetch All Product Details cost: " + IOUtil.human(cost);
 		System.out.println(log);
 		return listProdInfo;
 	}
@@ -222,16 +244,36 @@ public class FetchProductDetail {
 		httpexecutor.postProcess(response, httpproc, coreContext);
 
 		String productDetail = EntityUtils.toString(response.getEntity());
+		write_ProductDetail_toFile(prodCodeIndex, productCode, productDetail);
 		ProductInfo prodInfo = parseDetailToGetProductInfo(mapper,
 				productDetail);
 
 		long cost = System.currentTimeMillis() - begin;
-		String log = (prodCodeIndex + 1) + " / " + prodCodeIndex
-				+ ", Get Product Detail By Code cost: " + cost + ". Product: "
-				+ prodInfo;
+		String log = (prodCodeIndex + 1) + " / " + totalProdCounts
+				+ ", Get Product Detail By Code cost: " + IOUtil.human(cost)
+				+ ". Product: " + prodInfo;
 		System.out.println(log);
 
 		return response;
+	}
+
+	private void write_ProductDetail_toFile(int prodCodeIndex,
+			String productCode, String productDetail) {
+		try {
+			String filename = IOUtil.int2str(new BigInteger(""
+					+ (prodCodeIndex + 1)), 5)
+					+ "_" + productCode + ".json";
+			String fullPath = FetchDestination.BASE_DIR + "data/"
+					+ folderSequence + "/" + filename;
+			BufferedWriter bw = IOUtil.createFileWriter(fullPath, false);
+			bw.write(productDetail);
+			IOUtil.close(bw);
+			alreadyWriteDoneCount++;
+			folderSequence = (alreadyWriteDoneCount / 1000) + 1;
+			System.out.println(filename + " is written done");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static String createURI(String productCode) {
@@ -305,11 +347,11 @@ public class FetchProductDetail {
 
 		}
 		long cost = System.currentTimeMillis() - begin;
-		String log = "--------Parsing json product detail cost: " + cost
-				+ ", tourGrades count: "
+		String log = "--------Parsing json product detail cost: "
+				+ IOUtil.human(cost) + ", tourGrades count: "
 				+ prodInfo.tourGradesInfo.getTourGradeCount();
 		System.out.println(log);
-		System.out.println(prodInfo);
+		// System.out.println(prodInfo);
 		return prodInfo;
 	}
 

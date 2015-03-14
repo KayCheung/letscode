@@ -11,6 +11,24 @@ public class BookQInfo {
 		return listQ.size();
 	}
 
+	/**
+	 * Precondition: at least one booking question exists
+	 * 
+	 * true: if all are true
+	 * 
+	 * false: if any of them is false
+	 * 
+	 * @return
+	 */
+	public boolean yesAllAreRequired() {
+		for (Boolean required : listRequired) {
+			if (required.booleanValue() == false) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

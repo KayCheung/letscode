@@ -34,6 +34,7 @@ import org.apache.http.util.EntityUtils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.studytrails.json.jackson.FetchDestination;
 
 public class FetchData {
 	public static void main(String[] args) throws Exception {
@@ -200,7 +201,7 @@ public class FetchData {
 		@Override
 		public String toString() {
 			return merchantNetPriceFrom + _merchantNetPriceFrom105 + price
-					+ code + title + destId + destType + destName + "\r\n";
+					+ code + title + destId + destType + destName + FetchDestination.ENTER;
 		}
 	}
 

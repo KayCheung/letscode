@@ -12,7 +12,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class FetchDestination {
-	public static final String BASE_DIR = "D:/Fast/Viator/statistic/";
+	// public static final String BASE_DIR = "D:/Fast/Viator/statistic/";
+	public static final String BASE_DIR = "/home/marvin/Tuniu/Fast/Viator/statistic/";
+	public static final String ENTER = System.getProperty("line.separator");
 	public static final String DESTINATION_URL = "http://prelive.viatorapi.viator.com/service/taxonomy/locations?apiKey=7996631481948906";
 
 	public List<DestinationInfo> getAllDestination() throws Exception {
@@ -46,7 +48,7 @@ public class FetchDestination {
 		}
 		writeDestination2File(list);
 		System.out.println("Getting all destinations cost: "
-				+ (System.currentTimeMillis() - begin)
+				+ IOUtil.human((System.currentTimeMillis() - begin))
 				+ ", destination count: " + list.size());
 		return list;
 	}

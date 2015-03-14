@@ -105,6 +105,7 @@ public class FetchProductCode {
 			System.out.println(sb.toString());
 			try {
 				bw.write(sb.toString());
+				bw.newLine();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -132,7 +133,8 @@ public class FetchProductCode {
 				+ "uniqueProductCode.txt", false);
 
 		StringBuilder sb = new StringBuilder();
-		IOUtil.concat(sb, listProductCode, "\r\n", "\r\n");
+		IOUtil.concat(sb, listProductCode, FetchDestination.ENTER,
+				FetchDestination.ENTER);
 		try {
 			bw.write(sb.toString());
 			bw.flush();
@@ -167,7 +169,7 @@ public class FetchProductCode {
 				coreContext, host, conn, connStrategy);
 
 		long cost = System.currentTimeMillis() - begin;
-		String log = "fetchAllProductCode cost: " + cost;
+		String log = "fetchAllProductCode cost: " + IOUtil.human(cost);
 		System.out.println(log);
 		return mapDest2ListProduct;
 	}
@@ -272,7 +274,7 @@ public class FetchProductCode {
 		long cost = System.currentTimeMillis() - begin;
 		String log = (destIndex + 1) + " / " + totalDestCount
 				+ ", Search Product Code By Destination, get: "
-				+ foundCodeCount + " Product Code, cost: " + cost
+				+ foundCodeCount + " Product Code, cost: " + IOUtil.human(cost)
 				+ ". By destination: " + di;
 		System.out.println(log);
 		return response;
@@ -320,7 +322,7 @@ public class FetchProductCode {
 		}
 		long cost = System.currentTimeMillis() - begin;
 		String log = "--------Parsing json node, get: " + codeCount
-				+ " product code, cost: " + cost;
+				+ " product code, cost: " + IOUtil.human(cost);
 		System.out.println(log);
 		return codeCount;
 	}

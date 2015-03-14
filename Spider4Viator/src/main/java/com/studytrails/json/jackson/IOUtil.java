@@ -8,9 +8,35 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.math.BigInteger;
 import java.util.List;
 
 public class IOUtil {
+
+	public static String human(long value) {
+		String str = value + "";
+		StringBuilder sb = new StringBuilder();
+		int cnt = 0;
+		for (int i = str.length() - 1; i >= 0; i--) {
+			cnt++;
+			if ((cnt == 3) && (i != 0)) {
+				cnt = 0;
+				sb.insert(0, "," + str.charAt(i));
+			} else {
+				sb.insert(0, str.charAt(i));
+			}
+		}
+		return sb.toString();
+	}
+
+	public static String int2str(BigInteger bi, int finalLength) {
+		StringBuilder sb = new StringBuilder(bi.toString());
+
+		while (sb.length() < finalLength) {
+			sb.insert(0, "0");
+		}
+		return sb.toString();
+	}
 
 	public static <E> void concat(StringBuilder sb, List<E> list,
 			String normal, String lastSpecial) {
@@ -33,7 +59,7 @@ public class IOUtil {
 			br = new BufferedReader(new FileReader(fullPath));
 			String line = null;
 			while ((line = br.readLine()) != null) {
-				sb.append(line + "\r\n");
+				sb.append(line + FetchDestination.ENTER);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
