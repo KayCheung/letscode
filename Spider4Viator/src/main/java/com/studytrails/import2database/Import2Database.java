@@ -19,9 +19,9 @@ import com.studytrails.json.jackson.IOUtil;
 
 public class Import2Database {
 	public static final String BASE_DIR = "D:/Fast/Viator/statistic/virgin_data/";
-	public static final String DB_URL = "jdbc:mysql://10.10.30.34:3306/cowboy?useUnicode=true&zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&allowMultiQueries=true";
-	public static final String DB_USER = "cowboy_dev";
-	public static final String DB_PWD = "tuniu520";
+	public static final String DB_URL = "jdbc:mysql://localhost:3306/cowboy?useUnicode=true&zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&allowMultiQueries=true";
+	public static final String DB_USER = "root";
+	public static final String DB_PWD = "mli";
 
 	static class SortFile implements Comparable<SortFile> {
 		public SortFile(String filename, File f) {
