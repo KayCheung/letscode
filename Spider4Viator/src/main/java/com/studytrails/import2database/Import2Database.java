@@ -1,17 +1,17 @@
 package com.studytrails.import2database;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,9 +19,9 @@ import com.studytrails.json.jackson.IOUtil;
 
 public class Import2Database {
 	public static final String BASE_DIR = "D:/Fast/Viator/statistic/virgin_data/";
-	public static final String DB_URL = "jdbc:mysql://localhost:3306/cowboy?useUnicode=true&zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&allowMultiQueries=true";
-	public static final String DB_USER = "root";
-	public static final String DB_PWD = "mli";
+	public static final String DB_URL = "jdbc:mysql://10.10.30.34:3306/cowboy?useUnicode=true&zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&allowMultiQueries=true";
+	public static final String DB_USER = "cowboy_dev";
+	public static final String DB_PWD = "tuniu520";
 
 	static class SortFile implements Comparable<SortFile> {
 		public SortFile(String filename, File f) {
@@ -51,6 +51,16 @@ public class Import2Database {
 	}
 
 	public static void main(String[] args) throws Exception {
+		long begin = System.currentTimeMillis();
+
+		String infolog = BASE_DIR + "dev_info.log";
+		PrintStream psInfo = new PrintStream(new File(infolog));
+		System.setOut(psInfo);
+
+		String errorlog = BASE_DIR + "dev_error.log";
+		PrintStream psError = new PrintStream(new File(errorlog));
+		System.setErr(psError);
+
 		Connection conn = getConn();
 		List<CategoryInfo> listCategory = analyseCategory(IOUtil
 				.readContent(BASE_DIR + "Viator_All_Categories.json"));
@@ -58,8 +68,13 @@ public class Import2Database {
 
 		insertVirginProduct(conn);
 
+		insertATP(conn);
 		conn.close();
-
+		long cost = System.currentTimeMillis() - begin;
+		System.out.println("insertATP totally cost: " + IOUtil.human(cost));
+		
+		psInfo.close();
+		psError.close();
 	}
 
 	private static void insertCategory(Connection conn,
@@ -85,7 +100,7 @@ public class Import2Database {
 		long longcurrent = System.currentTimeMillis();
 		String sql = "insert into viator_virgin_product(prd_code, prd_detail,create_time,update_time) values(?,?,?,?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		List<SortFile> listFiles = traverseTopFolder(BASE_DIR + "data");
+		List<SortFile> listFiles = traverseTopFolder(BASE_DIR + "data", false);
 
 		int currentFileIndex = 1;// start from 1
 		for (int i = 0; i < listFiles.size(); i++) {
@@ -114,18 +129,78 @@ public class Import2Database {
 		pstmt.close();
 	}
 
-	private static List<SortFile> traverseTopFolder(String topFolderPath) {
+	private static void insertATP(Connection conn) throws Exception {
+		long longcurrent = System.currentTimeMillis();
+		String sql = "insert into viator_avail_tourgrades_pricingmatrix(prd_code, prd_atp,year,month,create_time,update_time) values(?,?,'2015',?,?,?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		List<SortFile> listFiles = traverseTopFolder(BASE_DIR + "ATP", true);
+
+		int currentFileIndex = 1;// start from 1
+		for (int i = 0, size = listFiles.size(); i < size; i++) {
+			File aFile = listFiles.get(i).f;
+			String filename = aFile.getName();
+			// 01977_04_2140AGPHTLPRT.json
+			int dash_1 = filename.indexOf("_");
+			int dash_2 = filename.indexOf("_", dash_1 + 1);
+			int dot = filename.lastIndexOf(".");
+
+			String prodCode = filename.substring(dash_2 + 1, dot);
+			String atp = IOUtil.readContent(aFile.getAbsolutePath());
+			String month = filename.substring(dash_1 + 1, dash_2);
+
+			pstmt.setString(1, prodCode);
+			pstmt.setString(2, atp);
+			pstmt.setString(3, month);
+			pstmt.setTimestamp(4, new Timestamp(longcurrent));
+			pstmt.setTimestamp(5, new Timestamp(longcurrent));
+			pstmt.addBatch();
+			System.out.println("Adding: " + filename);
+			if (currentFileIndex % 1000 == 0) {
+				long begin = System.currentTimeMillis();
+				pstmt.executeBatch();
+				long cost = System.currentTimeMillis() - begin;
+				System.out.println(currentFileIndex + " / " + size
+						+ ", executeBatch cost: " + IOUtil.human(cost));
+			}
+			currentFileIndex++;
+		}
+
+		if (currentFileIndex % 1000 != 0) {
+			pstmt.executeBatch();
+		}
+		pstmt.close();
+	}
+
+	private static List<SortFile> traverseTopFolder(String topFolderPath,
+			boolean doFilter) {
+		long begin = System.currentTimeMillis();
+		Set<String> filterSet = null;
+		if (doFilter == true) {
+			filterSet = new HashSet<String>(13000);
+		}
 		List<SortFile> listFiles = new ArrayList<SortFile>(13000);
 		// D:\Fast\Viator\statistic\virgin_data\data
-
 		File fTopFolder = new File(topFolderPath);
 		File[] subFolders = fTopFolder.listFiles();
 		for (File aFolder : subFolders) {
 			File[] files = aFolder.listFiles();
 			for (File aFile : files) {
-				listFiles.add(new SortFile(aFile.getName(), aFile));
+				String filename = aFile.getName();
+				if (doFilter == true) {
+					if (!filterSet.contains(filename)) {
+						listFiles.add(new SortFile(filename, aFile));
+						filterSet.add(filename);
+					} else {
+						// already contained, do nothing
+					}
+				} else {
+					listFiles.add(new SortFile(filename, aFile));
+				}
 			}
 		}
+		long cost = System.currentTimeMillis() - begin;
+		System.out.println("traverseTopFolder cost: " + IOUtil.human(cost)
+				+ ", topFolderPath: " + topFolderPath);
 		Collections.sort(listFiles);
 		return listFiles;
 	}
