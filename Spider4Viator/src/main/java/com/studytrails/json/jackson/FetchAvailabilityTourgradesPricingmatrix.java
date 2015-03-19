@@ -34,7 +34,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 public class FetchAvailabilityTourgradesPricingmatrix {
 	public static final String D_Q = "\"";
 	public static final String ATP_URI = "/service/booking/availability/tourgrades/pricingmatrix?apiKey=7996631481948906";
-	public static final String[] MONTHS = { "03", "04", "05" };
+	public static final String[] MONTHS = { "04","05","06" };
 
 	public static int alreadyWriteDoneCount = 0;
 	public static int folderSequence = 1;
@@ -122,11 +122,11 @@ public class FetchAvailabilityTourgradesPricingmatrix {
 							// System.out.println("Connection kept alive...");
 						}
 					}
-					try {
-						Thread.sleep(200);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+//					try {
+//						Thread.sleep(200);
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
 				}
 			}
 		} finally {
