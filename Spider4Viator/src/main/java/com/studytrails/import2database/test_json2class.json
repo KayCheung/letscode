@@ -1,0 +1,169 @@
+{
+    "errorReference": null, 
+    "emptyObject": { }, 
+    "data": {
+        "supplierName": "Pedal Bike Tours - Hawaii", 
+        "currencyCode": "USD", 
+        "catIds": [
+            16
+        ], 
+        "catIdsxx": [
+           "aaaa","bbbb"
+        ], 
+        "subCatIds": [
+            55
+        ], 
+        "webURL": null, 
+        "specialReservationDetails": null, 
+        "panoramaCount": 0, 
+        "merchantCancellable": true, 
+        "bookingEngineId": "FreesaleBE", 
+        "onRequestPeriod": null, 
+        "primaryGroupId": null, 
+        "voucherRequirements": "You can present either a paper or an electronic voucher for this activity.", 
+        "tourGradesAvailable": false, 
+        "hotelPickup": false, 
+        "userPhotos": null, 
+        "reviews": null, 
+        "videos": null, 
+        "tourGrades": [
+            {
+                "sortOrder": 1, 
+                "currencyCode": "USD", 
+                "langServices": null, 
+                "gradeCode": "DEFAULT", 
+                "priceFromFormatted": "$134.80", 
+                "priceFrom": 134.8, 
+                "merchantNetPriceFrom": 114.85, 
+                "merchantNetPriceFromFormatted": "$114.85", 
+                "gradeTitle": "", 
+                "gradeDepartureTime": "", 
+                "gradeDescription": "", 
+                "defaultLanguageCode": "en"
+            }
+        ], 
+        "ageBands": [
+            {
+                "sortOrder": 1, 
+                "ageFrom": 12, 
+                "ageTo": 99, 
+                "bandId": 1, 
+                "pluralDescription": "Adults", 
+                "adult": true, 
+                "treatAsAdult": true, 
+                "description": "Adult", 
+                "count": 0
+            }, 
+            {
+                "sortOrder": 2, 
+                "ageFrom": 3, 
+                "ageTo": 11, 
+                "bandId": 0, 
+                "pluralDescription": "Children", 
+                "adult": false, 
+                "treatAsAdult": false, 
+                "description": "Child", 
+                "count": 0
+            }, 
+            {
+                "sortOrder": 3, 
+                "ageFrom": 0, 
+                "ageTo": 2, 
+                "bandId": 2, 
+                "pluralDescription": "Infants", 
+                "adult": false, 
+                "treatAsAdult": false, 
+                "description": "Infant", 
+                "count": 0
+            }
+        ], 
+        "bookingQuestions": [ ], 
+        "highlights": null, 
+        "salesPoints": [ ], 
+        "ratingCounts": {
+            "1": 0, 
+            "2": 0, 
+            "3": 0, 
+            "4": 0, 
+            "5": 0
+        }, 
+        "termsAndConditions": null, 
+        "itinerary": "", 
+        "departureTime": "9am (please arrive 15 minutes before)", 
+        "departureTimeComments": "", 
+        "departurePoint": "Bike shop inside the Queen Kapiolani Hotel", 
+        "inclusions": [
+            "Local guide", 
+            "Lunch at a shrimp truck", 
+            "All necessary equipment", 
+            "Water <br>", 
+            "Snacks", 
+            "Use of masks and snorkels for turtle viewing<br>"
+        ], 
+        "voucherOption": "VOUCHER_E", 
+        "exclusions": [
+            "Gratuities (optional)", 
+            "Food and drinks, unless specified", 
+            "Hotel pickup and drop-off<br>"
+        ], 
+        "destinationId": 672, 
+        "productPhotos": [
+            {
+                "photoURL": "http://cache.graphicslib.viator.com/graphicslib-prelive/6382/SITours/north-shore-bike-tour-in-oahu-158091.jpg", 
+                "caption": "Bikers on Oahu", 
+                "supplier": ""
+            }
+        ], 
+        "city": "Oahu", 
+        "additionalInfo": [
+            "Confirmation will be received at time of booking", 
+            "Subject to favorable weather conditions. If canceled due to poor weather, you will be given the option of an alternative date or full refund", 
+            "Not recommended for pregnant women", 
+            "Not recommended for participants with heart complaints or other serious medical conditions", 
+            "Not recommended for participants with back problems", 
+            "It is recommended that you wear closed-toe shoes and comfortable clothing, and bring a swimsuit and towel if you want to swim<br>"
+        ], 
+        "operates": "Daily", 
+        "returnDetails": "Returns to original departure point", 
+        "mapURL": null, 
+        "specialOffer": "", 
+        "description": "Start your tour at the local bike shop in Waikiki to meet your friendly tour guide, who will fit you with a helmet and match you to your bike, adjusting the seat to your height. Then hop in your tour minivan for the 2-hour drive to the North Shore. <br><br>During the journey out of Honolulu and up through the green mountains above the city, listen to stories from your guide about Oahuâs history, pass by several cultural landmarks and visit the Pali Cliffs, the site of the Battle of Nuâuanu, one of the bloodiest battles during the war to unify the Hawaiian Islands in 1795. <br><br>When you arrive on the North Shore, grab your bike after your guide unloads it from the van, and begin pedaling down a lush jungle cycling path that runs along a stretch of famous big-wave surfing beaches known as the Seven-Mile Miracle. Ride past locals carrying their surfboards on their bikes, and watch these talented daredevils on the legendary waves of Pipeline and Sunset Beach. As you pedal along the shady path, your guide will point out houses where the worldâs major surfing companies house their superstars during each winterâs big-wave season. <br><br>Make stops for photo ops and to hear commentary from your guide at locations like Waimea Bay and Turtle Beach, where thereâs a good chance youâll spot green sea turtles sunning themselves on the sand and volcanic rocks. Cycle through the picturesque surf town of Haleiwa, and then stop for lunch at one of Oahuâs original shrimp trucks, a North Shore tradition. <br><br>Pedal past one of the last sugar mills on Oahu in the town of Waialua, and stop at a quiet beach, known mostly only to locals, where you can swim or snorkel to look for more sea turtles (gear provided). Your bike tour ends here, where you'll re-board your minivan for the 1.5-hour drive back to Waikiki, which takes you by the Koolau and Waianae mountain ranges and provides you with views of Pearl Harbor. Your tour ends back at the bike shop. <br><br>Total biking distance is 13 miles (21 km); riding the entire route offers the best experience, but you may stop biking and ride in the tour vehicle if you get tired.", 
+        "location": "Waikiki, Oahu", 
+        "country": "United States of America", 
+        "region": "Hawaii", 
+        "shortDescription": "Explore Oahuâs famed North Shore on this bike tour with round-trip transport from Honolulu. With a local guide, youâll ride past legendary surf breaks like Pipeline and hear about Hawaiiâs rich surfing culture. Stop at Waimea Bay, ride through Haleiwa, snorkel with sea turtles, pass a historical sugar mill and have a typical North Shore lunch at one of the shrimp trucks along the coast. Plus, enjoy island views and see the site of a bloody Hawaiian battle during the drive from Waikiki. This bike tour is limited to seven people, providing a small-group experience.", 
+        "price": 134.8, 
+        "title": "North Shore Bike Tour", 
+        "specialReservation": false, 
+        "rating": 0, 
+        "thumbnailURL": "http://cache.graphicslib.viator.com/graphicslib-prelive/thumbs154x109/6382/SITours/north-shore-bike-tour-in-oahu-158094.jpg", 
+        "photoCount": 0, 
+        "reviewCount": 0, 
+        "supplierCode": "6382", 
+        "onSale": false, 
+        "rrp": 0, 
+        "rrpformatted": "", 
+        "savingAmount": 0, 
+        "savingAmountFormated": "", 
+        "videoCount": 0, 
+        "shortTitle": "North Shore Bike Tour", 
+        "translationLevel": 0, 
+        "primaryDestinationId": 672, 
+        "primaryDestinationName": "Oahu", 
+        "priceFormatted": "$134.80", 
+        "merchantNetPriceFrom": 114.85, 
+        "merchantNetPriceFromFormatted": "$114.85", 
+        "specialOfferAvailable": false, 
+        "thumbnailHiResURL": "http://cache.graphicslib.viator.com/graphicslib-prelive/thumbs674x446/6382/SITours/north-shore-bike-tour-in-oahu-158094.jpg", 
+        "duration": "7 hours", 
+        "code": "6382NORTHSHORE"
+    }, 
+    "dateStamp": "2015-03-14T11:39:12+0000", 
+    "errorType": null, 
+    "errorMessage": null, 
+    "errorName": null, 
+    "success": true, 
+    "totalCount": 1, 
+    "vmid": "321001", 
+    "errorMessageText": null
+}

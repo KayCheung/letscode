@@ -73,6 +73,17 @@ public class IOUtil {
 		return sb.toString();
 	}
 
+	public static void writeContent(String content, String fullPath) {
+		BufferedWriter bw = createFileWriter(fullPath, false);
+		try {
+			bw.write(content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(bw);
+		}
+	}
+
 	public static BufferedWriter createFileWriter(String fullPath,
 			boolean append) {
 		try {
