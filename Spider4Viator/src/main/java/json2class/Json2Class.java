@@ -1,6 +1,13 @@
-package com.studytrails.import2database;
+package json2class;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.Closeable;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,12 +18,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
-import com.studytrails.json.jackson.IOUtil;
+import com.studytrails.json.jackson.FetchDestination;
 
 public class Json2Class {
 	public static final String ENTER = "\r\n";
 	public static final String FOUR_SPACE = "    ";
-	public static final String fullPath = "D:/Eden/gitworkspace/letscode/Spider4Viator/src/main/java/com/studytrails/import2database/test_json2class.json";
+	public static final String fullPath = "D:/Eden/gitworkspace/letscode/Spider4Viator/src/main/java/json2class/test_json2class.json";
 
 	private static NumberStrategy nmbStrategy = NumberStrategy.IntegerBigDecimal;
 
@@ -35,7 +42,7 @@ public class Json2Class {
 
 		String javaFullPath = f.getParentFile().getAbsolutePath() + "/"
 				+ jsonFilename + ".java";
-		json2Class(IOUtil.readContent(jsonFullPath), clsName, javaFullPath);
+		json2Class(readContent(jsonFullPath), clsName, javaFullPath);
 		return javaFullPath;
 	}
 
@@ -44,7 +51,7 @@ public class Json2Class {
 		List<StringBuilder> listSB = new ArrayList<StringBuilder>();
 		processObject(0, new ObjectMapper().readTree(jsonText), clsName, listSB);
 		String javaText = mergeSB(listSB);
-		IOUtil.writeContent(javaText, javaFullPath);
+		writeContent(javaText, javaFullPath);
 	}
 
 	private static String mergeSB(List<StringBuilder> listSB) {
@@ -231,6 +238,54 @@ public class Json2Class {
 			return "";
 		}
 		return str.substring(0, 1).toUpperCase() + str.substring(1);
+	}
+
+	public static String readContent(String fullPath) {
+		BufferedReader br = null;
+		StringBuilder sb = new StringBuilder();
+		try {
+			br = new BufferedReader(new FileReader(fullPath));
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				sb.append(line + ENTER);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(br);
+		}
+		return sb.toString();
+	}
+
+	public static void writeContent(String content, String fullPath) {
+		BufferedWriter bw = createFileWriter(fullPath, false);
+		try {
+			bw.write(content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(bw);
+		}
+	}
+
+	public static BufferedWriter createFileWriter(String fullPath,
+			boolean append) {
+		try {
+			new File(fullPath).getParentFile().mkdirs();
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+					new FileOutputStream(fullPath, append)));
+			return bw;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public static void close(Closeable c) {
+		try {
+			c.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	enum NumberStrategy {

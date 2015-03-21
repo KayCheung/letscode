@@ -1,4 +1,4 @@
-package com.studytrails.import2database;
+package json2class;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -97,13 +97,13 @@ public class Json2ClassFrame extends JFrame {
 		try {
 			String javaFullPath = Json2Class.file2Class(jsonFullPath);
 			StringBuilder sb = new StringBuilder();
-			sb.append("成功\r\n");
-			sb.append("生成文件：" + javaFullPath);
+			sb.append("成功" + Json2Class.ENTER);
+			sb.append("生成文件：" + javaFullPath + Json2Class.ENTER);
 			textArea.setText(sb.toString());
 		} catch (Exception e1) {
 			StringBuilder sb = new StringBuilder();
-			sb.append("失败\r\n");
-			sb.append("Json格式不对，或者，我不对\r\n\r\n");
+			sb.append("失败" + Json2Class.ENTER);
+			sb.append("Json格式不对，或者，我不对" + Json2Class.ENTER);
 			textArea.setText(sb.toString());
 		}
 	}
