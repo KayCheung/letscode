@@ -1,5 +1,6 @@
 package com.studytrails.import2database;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,28 +13,38 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.studytrails.json.jackson.IOUtil;
 
-public class JsonText2Class {
+public class Json2Class {
 	public static final String ENTER = "\r\n";
 	public static final String FOUR_SPACE = "    ";
-	public static final String fullPath = "/home/marvin/Desktop/test_json2class.json";
+	public static final String fullPath = "D:/Eden/gitworkspace/letscode/Spider4Viator/src/main/java/com/studytrails/import2database/test_json2class.json";
 
 	private static NumberStrategy nmbStrategy = NumberStrategy.IntegerBigDecimal;
 
 	public static void main(String[] args) throws Exception {
-		String jsonText = IOUtil.readContent(fullPath);
-		json2Class(jsonText, "ViatorProductDetailInfo", "/home/marvin/Desktop");
+		file2Class(fullPath);
 	}
 
-	public static void json2Class(String jsonText, String clsName, String folder)
-			throws Exception {
+	public static String file2Class(String jsonFullPath) throws Exception {
+		File f = new File(jsonFullPath);
+		String jsonFilename = f.getName();
+		String clsName = jsonFilename;
+		int dot = jsonFilename.lastIndexOf(".");
+		if (dot != -1) {
+			clsName = jsonFilename.substring(0, dot);
+		}
 
+		String javaFullPath = f.getParentFile().getAbsolutePath() + "/"
+				+ jsonFilename + ".java";
+		json2Class(IOUtil.readContent(jsonFullPath), clsName, javaFullPath);
+		return javaFullPath;
+	}
+
+	public static void json2Class(String jsonText, String clsName,
+			String javaFullPath) throws Exception {
 		List<StringBuilder> listSB = new ArrayList<StringBuilder>();
-		processObject(0, new ObjectMapper().readTree(jsonText), "myname",
-				listSB);
+		processObject(0, new ObjectMapper().readTree(jsonText), clsName, listSB);
 		String javaText = mergeSB(listSB);
-
-		String clsFullPath = folder + "/" + clsName + ".java";
-		IOUtil.writeContent(javaText, clsFullPath);
+		IOUtil.writeContent(javaText, javaFullPath);
 	}
 
 	private static String mergeSB(List<StringBuilder> listSB) {
@@ -105,7 +116,7 @@ public class JsonText2Class {
 		// object node
 		Iterator<Entry<String, JsonNode>> it = jnode.fields();
 		while (it.hasNext()) {
-			Map.Entry<java.lang.String, com.fasterxml.jackson.databind.JsonNode> entry = (Map.Entry<java.lang.String, com.fasterxml.jackson.databind.JsonNode>) it
+			Map.Entry<String, JsonNode> entry = (Map.Entry<String, JsonNode>) it
 					.next();
 			process((depth + 1), entry.getValue(), entry.getKey(), objSB,
 					listSB);
@@ -116,21 +127,59 @@ public class JsonText2Class {
 	private static void processArray(int depth, JsonNode jnode,
 			String strNodeName, StringBuilder objSB, List<StringBuilder> listSB) {
 		ArrayNode an = (ArrayNode) jnode;
-		if (an == null || an.size() == 0) {
+		if (an.size() == 0) {
 			objSB.append(varIndent(depth) + "private List<String> "
 					+ strNodeName + ";" + ENTER);
 		} else {
+			JsonNode ele = an.get(0);
+			JsonNodeType jnt = ele.getNodeType();
 			objSB.append(varIndent(depth) + "private List<"
-					+ upperFirstChar(strNodeName) + "> " + strNodeName + ";"
-					+ ENTER);
-			JsonNode eleOfArray = an.get(0);
-			if (eleOfArray.getNodeType() == JsonNodeType.ARRAY
-					|| eleOfArray.getNodeType() == JsonNodeType.OBJECT) {
-				process(depth + 1, an.get(0), strNodeName, objSB, listSB);
+					+ upperFirstChar(deriveArrayEleType(ele, strNodeName))
+					+ "> " + strNodeName + ";" + ENTER);
+			if (jnt == JsonNodeType.ARRAY || jnt == JsonNodeType.OBJECT) {
+				process(depth + 1, ele, strNodeName, objSB, listSB);
 			} else {
 				// not array or object, do nothing
 			}
 		}
+	}
+
+	private static String deriveArrayEleType(JsonNode eleOfArray,
+			String strNodeName) {
+		JsonNodeType jnt = eleOfArray.getNodeType();
+		if (jnt == JsonNodeType.OBJECT) {
+			return strNodeName;
+		} else if (jnt == JsonNodeType.ARRAY) {
+			// not sure on array's element is still an array
+			// like this: "tourGrades":[[k1:v1,k2:v2...],[k3:v3,k3:v3...]]
+			// just return String. may fix it when I'm clear on this
+			return "String";
+		} else {
+			String strEleOfArray = eleOfArray.asText();
+			// number
+			if (digitOrDot(strEleOfArray) == true) {
+				return deriveTypeByNumber(strEleOfArray, nmbStrategy);
+			}
+			// String
+			else {
+				return "String";
+			}
+		}
+	}
+
+	private static boolean digitOrDot(String str) {
+		if (empty(str)) {
+			return false;
+		}
+		str = trimToEmpty(str);
+		for (int i = 0; i < str.length(); i++) {
+			char ch = str.charAt(i);
+			// not digit, not dot
+			if (!Character.isDigit(ch) && ch != '.') {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private static String deriveTypeByNumber(String number,
@@ -168,6 +217,13 @@ public class JsonText2Class {
 
 	private static boolean empty(String str) {
 		return str == null ? true : str.trim().equals("");
+	}
+
+	public static String trimToEmpty(String str) {
+		if (str == null) {
+			return "";
+		}
+		return str.trim();
 	}
 
 	private static String upperFirstChar(String str) {
