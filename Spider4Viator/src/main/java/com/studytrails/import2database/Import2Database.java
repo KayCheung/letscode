@@ -25,9 +25,9 @@ import com.studytrails.json.jackson.IOUtil;
 
 public class Import2Database {
 	public static final String BASE_DIR = "D:/Fast/Viator/statistic/virgin_data/";
-	public static final String DB_URL = "jdbc:mysql://10.10.30.34:3306/cowboy?useUnicode=true&zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&allowMultiQueries=true";
-	public static final String DB_USER = "cowboy_dev";
-	public static final String DB_PWD = "tuniu520";
+	public static final String DB_URL = "jdbc:mysql://localhost:3306/cowboy?useUnicode=true&zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&allowMultiQueries=true";
+	public static final String DB_USER = "root";
+	public static final String DB_PWD = "mli";
 
 	static class SortFile implements Comparable<SortFile> {
 		public SortFile(String filename, File f) {
@@ -58,28 +58,32 @@ public class Import2Database {
 
 	public static void main(String[] args) throws Exception {
 		long begin = System.currentTimeMillis();
-
-		// String infolog = BASE_DIR + "dev_info.log";
-		// PrintStream psInfo = new PrintStream(new File(infolog));
-		// System.setOut(psInfo);
-		//
-		// String errorlog = BASE_DIR + "dev_error.log";
-		// PrintStream psError = new PrintStream(new File(errorlog));
-		// System.setErr(psError);
+//		String infolog = BASE_DIR + "dev_info.log";
+//		PrintStream psInfo = new PrintStream(new File(infolog));
+//		System.setOut(psInfo);
+//
+//		String errorlog = BASE_DIR + "dev_error.log";
+//		PrintStream psError = new PrintStream(new File(errorlog));
+//		System.setErr(psError);
+		
 		Connection conn = getConn();
-		// List<CategoryInfo> listCategory = parseCategory(IOUtil
-		// .readContent(BASE_DIR + "Viator_All_Categories.json"));
-		// insertCategory(conn, listCategory);
-		//
-		// insertVirginProduct(conn);
-		//
-		// insertATP(conn);
-		//
-		analyseProductDetail_2_StructureTable(conn);
+		
+		List<CategoryInfo> listCategory = parseCategory(IOUtil
+				.readContent(BASE_DIR + "Viator_All_Categories.json"));
+		
+		insertCategory(conn, listCategory);
+
+		insertVirginProduct(conn);
+
+		insertATP(conn);
+
+		// analyseProductDetail_2_StructureTable(conn);
 
 		conn.close();
 		long cost = System.currentTimeMillis() - begin;
-		System.out.println("analyseProductDetail_2_StructureTable totally cost: " + IOUtil.human(cost));
+		System.out
+				.println("analyseProductDetail_2_StructureTable totally cost: "
+						+ IOUtil.human(cost));
 
 		// psInfo.close();
 		// psError.close();
