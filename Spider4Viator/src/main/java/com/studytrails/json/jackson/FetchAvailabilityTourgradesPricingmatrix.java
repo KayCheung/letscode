@@ -34,12 +34,26 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 public class FetchAvailabilityTourgradesPricingmatrix {
 	public static final String D_Q = "\"";
 	public static final String ATP_URI = "/service/booking/availability/tourgrades/pricingmatrix?apiKey=7996631481948906";
-	public static final String[] MONTHS = { "04","05","06" };
+	public static final String[] MONTHS = { "04", "05", "06" };
 
 	public static int alreadyWriteDoneCount = 0;
 	public static int folderSequence = 1;
+	private long fetch_begin;
+	private PrintStream psInfo;
+	private PrintStream psError;
+
+	public FetchAvailabilityTourgradesPricingmatrix(PrintStream psInfo,
+			PrintStream psError) {
+		fetch_begin = System.currentTimeMillis();
+		this.psInfo = psInfo;
+		this.psError = psError;
+	}
 
 	public static void main(String[] args) throws Exception {
+		FetchDestination.BASE_DIR = IOUtil
+				.getJarStayFolder_nologinfo(FetchAvailabilityTourgradesPricingmatrix.class)
+				+ "/";
+
 		String infolog = FetchDestination.BASE_DIR + "atp_info.log";
 		PrintStream psInfo = new PrintStream(new File(infolog));
 		System.setOut(psInfo);
@@ -47,7 +61,8 @@ public class FetchAvailabilityTourgradesPricingmatrix {
 		String errorlog = FetchDestination.BASE_DIR + "atp_error.log";
 		PrintStream psError = new PrintStream(new File(errorlog));
 		System.setErr(psError);
-		new FetchAvailabilityTourgradesPricingmatrix().fetchAll_ATP();
+		new FetchAvailabilityTourgradesPricingmatrix(psInfo, psError)
+				.fetchAll_ATP();
 		psInfo.close();
 		psError.close();
 	}
@@ -69,6 +84,9 @@ public class FetchAvailabilityTourgradesPricingmatrix {
 
 		DefaultBHttpClientConnection conn = new DefaultBHttpClientConnection(
 				8 * 1024);
+		// 120 seconds
+		conn.setSocketTimeout(IOUtil.SO_TIMEOUT);
+
 		ConnectionReuseStrategy connStrategy = DefaultConnectionReuseStrategy.INSTANCE;
 
 		List<String> listProductCode = FetchProductDetail.provideProductCode();
@@ -89,10 +107,10 @@ public class FetchAvailabilityTourgradesPricingmatrix {
 			IOException, HttpException {
 		try {
 			for (int i = 0, totalProdCounts = listProductCode.size(); i < totalProdCounts; i++) {
+				String prodCode = listProductCode.get(i);
 				for (int m = 0; m < MONTHS.length; m++) {
 					String month = MONTHS[m];
 					IOUtil.bindSocketSolidly(conn, host);
-					String prodCode = listProductCode.get(i);
 					int tryCount = 0;
 					HttpResponse response = null;
 					while (tryCount <= 2) {
@@ -122,12 +140,13 @@ public class FetchAvailabilityTourgradesPricingmatrix {
 							// System.out.println("Connection kept alive...");
 						}
 					}
-//					try {
-//						Thread.sleep(200);
-//					} catch (InterruptedException e) {
-//						e.printStackTrace();
-//					}
 				}
+				long cost_by_now = System.currentTimeMillis() - fetch_begin;
+				System.out.println("Have done: " + (i + 1)
+						+ " product, by far cost: "
+						+ (IOUtil.human(cost_by_now) + " ms"));
+				psInfo.flush();
+				psError.flush();
 			}
 		} finally {
 			conn.close();

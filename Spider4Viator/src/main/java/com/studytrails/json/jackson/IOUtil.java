@@ -16,6 +16,7 @@ import org.apache.http.HttpHost;
 import org.apache.http.impl.DefaultBHttpClientConnection;
 
 public class IOUtil {
+	public static final int SO_TIMEOUT = 1000 * 300;
 
 	public static String human(long value) {
 		String str = value + "";
@@ -134,6 +135,7 @@ public class IOUtil {
 				try {
 					Socket socket = new Socket(host.getHostName(),
 							host.getPort());
+					socket.setSoTimeout(SO_TIMEOUT);
 					conn.bind(socket);
 					// Good, success
 					break;
@@ -145,7 +147,9 @@ public class IOUtil {
 					System.err.println("Sleep and try again");
 
 					try {
-						Thread.sleep(1000 * 10 * tryCount);
+						Thread.sleep(1000 * 15);
+						System.err.println("Just sleep for: " + (1000 * 15)
+								+ " ms");
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
@@ -159,4 +163,20 @@ public class IOUtil {
 		}
 	}
 
+	public static String getJarStayFolder_nologinfo(Class<?> cls) {
+		String jarSelf = cls.getProtectionDomain().getCodeSource()
+				.getLocation().getFile();
+		try {
+			jarSelf = java.net.URLDecoder.decode(jarSelf, "UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String jarStayFolder = new File(jarSelf).getParentFile()
+				.getAbsolutePath();
+		return jarStayFolder;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(getJarStayFolder_nologinfo(IOUtil.class));
+	}
 }
