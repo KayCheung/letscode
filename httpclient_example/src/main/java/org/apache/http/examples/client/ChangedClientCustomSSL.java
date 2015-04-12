@@ -39,6 +39,7 @@ import java.security.cert.CertificateException;
 
 import javax.net.ssl.SSLContext;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -48,6 +49,7 @@ import org.apache.http.conn.ssl.SSLContexts;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
 
@@ -75,13 +77,17 @@ public class ChangedClientCustomSSL {
 		CloseableHttpClient httpclient = HttpClients.custom()
 				.setSSLSocketFactory(sslsf).build();
 
-		HttpGet httpGet = new HttpGet("https://passport.jd.com/new/login.aspx?ReturnUrl=http%3A%2F%2Fwww.jd.com%2F");
+		HttpGet httpGet = new HttpGet("https://passport.jd.com/new/login.aspx");
+		httpGet.addHeader(new BasicHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:37.0) Gecko/20100101 Firefox/37.0"));
 		CloseableHttpResponse response = httpclient.execute(httpGet);
 		try {
 			System.out.println(response.getStatusLine());
 			System.out.println(EntityUtils.toString(response.getEntity()));
 			HttpEntity entity = response.getEntity();
 			EntityUtils.consume(entity);
+			for (Header hd : response.getAllHeaders()) {
+				System.out.println(hd);
+			}
 		} finally {
 			response.close();
 		}
