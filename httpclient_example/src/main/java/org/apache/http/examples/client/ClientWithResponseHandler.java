@@ -39,6 +39,15 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 /**
+ * This example demonstrates how to process HTTP responses using a response
+ * handler. This is the recommended way of executing HTTP requests and
+ * processing HTTP responses. This approach enables the caller to concentrate on
+ * the process of digesting HTTP responses and to delegate the task of system
+ * resource deallocation to HttpClient. The use of an HTTP response handler
+ * guarantees that the underlying HTTP connection will be released back to the
+ * connection manager automatically in all cases.
+ * 
+ * 
  * This example demonstrates the use of the {@link ResponseHandler} to simplify
  * the process of processing the HTTP response and releasing associated
  * resources.
