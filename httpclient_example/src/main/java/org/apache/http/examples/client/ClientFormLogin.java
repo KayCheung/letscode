@@ -58,7 +58,7 @@ import org.apache.http.util.EntityUtils;
  */
 public class ClientFormLogin {
 	public static final String user = "SoftwareEngineer";
-	public static final String pwd = "Susan263";
+	public static final String pwd = "aaaa";
 	public static final String URL_LOGIN = "https://passport.jd.com/new/login.aspx";
 	public static final String User_Agent = "Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:37.0) Gecko/20100101 Firefox/37.0";
 
