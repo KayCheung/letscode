@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -186,7 +187,18 @@ public class GoodLuckFrame extends JFrame {
 		}
 		return mapName2Bytes;
 	}
-
+	public static String getJarStayFolder_nologinfo(Class<?> cls) {
+		String jarSelf = cls.getProtectionDomain().getCodeSource()
+				.getLocation().getFile();
+		try {
+			jarSelf = java.net.URLDecoder.decode(jarSelf, "UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String jarStayFolder = new File(jarSelf).getParentFile()
+				.getAbsolutePath();
+		return jarStayFolder;
+	}
 	private static void fillMapName2Size() throws IOException {
 		// extracts just sizes only.
 		URL jarURL = GoodLuckFrame.class.getProtectionDomain().getCodeSource()
@@ -291,7 +303,6 @@ public class GoodLuckFrame extends JFrame {
 							System.out.println("actually is: "
 									+ finalWinnerIndex);
 							SwingUtilities.invokeLater(new Runnable() {
-								@Override
 								public void run() {
 									System.out.println("stop at: "
 											+ finalWinnerIndex);
@@ -309,7 +320,6 @@ public class GoodLuckFrame extends JFrame {
 
 					// Permit to run. flicker the left images
 					SwingUtilities.invokeLater(new Runnable() {
-						@Override
 						public void run() {
 							flickerWinnerIndex = generateWinner();
 							setIconByIndex(labelImage, flickerWinnerIndex);
