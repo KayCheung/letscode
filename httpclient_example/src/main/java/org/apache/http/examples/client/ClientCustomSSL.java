@@ -24,97 +24,49 @@
  * <http://www.apache.org/>.
  *
  */
-package org.apache.http.examples;
+package org.apache.http.examples.client;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
 
 import javax.net.ssl.SSLContext;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.SSLContexts;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.ssl.SSLContextBuilder;
+import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
 
 /**
  * This example demonstrates how to create secure connections with a custom SSL
+ * context.
  * 
- * http://stackoverflow.com/questions/19517538/ignoring-ssl-certificate-in-
- * apache-httpclient-4-3
- * 
- * 
+ * This example demonstrates how to create secure connections with a custom SSL
  * context.
  */
 public class ClientCustomSSL {
 
 	public final static void main(String[] args) throws Exception {
-		sss();
-		// original();
-	}
-
-	private static void sss() throws Exception {
-		SSLContextBuilder builder = new SSLContextBuilder();
-		builder.loadTrustMaterial(null, new TrustSelfSignedStrategy());
-		SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
-				builder.build());
-		CloseableHttpClient httpclient = HttpClients.custom()
-				.setSSLSocketFactory(sslsf).build();
-
-		HttpGet httpGet = new HttpGet("https://www.google.com");
-		CloseableHttpResponse response = httpclient.execute(httpGet);
-		try {
-			System.out.println(response.getStatusLine());
-			System.out.println(EntityUtils.toString(response.getEntity()));
-			HttpEntity entity = response.getEntity();
-			EntityUtils.consume(entity);
-		} finally {
-			response.close();
-		}
-	}
-
-	private static void original() throws KeyStoreException,
-			FileNotFoundException, IOException, NoSuchAlgorithmException,
-			CertificateException, KeyManagementException,
-			ClientProtocolException {
-		KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
-		FileInputStream instream = new FileInputStream(new File(
-				"D:/Fast/Viator/sso.tuniu.org.crt"));
-		try {
-			trustStore.load(instream, "Susan263".toCharArray());
-		} finally {
-			instream.close();
-		}
-
 		// Trust own CA and all self-signed certs
-		SSLContext sslcontext = SSLContexts.custom()
-				.loadTrustMaterial(trustStore, new TrustSelfSignedStrategy())
-				.build();
+		SSLContext sslcontext = SSLContexts
+				.custom()
+				.loadTrustMaterial(new File("my.keystore"),
+						"nopassword".toCharArray(),
+						new TrustSelfSignedStrategy()).build();
 		// Allow TLSv1 protocol only
 		SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
-				sslcontext, new String[] { "TLS" }, null,
-				SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
+				sslcontext, new String[] { "TLSv1" }, null,
+				SSLConnectionSocketFactory.getDefaultHostnameVerifier());
 		CloseableHttpClient httpclient = HttpClients.custom()
 				.setSSLSocketFactory(sslsf).build();
 		try {
 
-			HttpGet httpget = new HttpGet(
-					"http://crm.tuniu.com/main.php?do=new_crm_main");
+			HttpGet httpget = new HttpGet("https://localhost/");
 
-			System.out.println("executing request" + httpget.getRequestLine());
+			System.out.println("executing request " + httpget.getRequestLine());
 
 			CloseableHttpResponse response = httpclient.execute(httpget);
 			try {
@@ -122,10 +74,6 @@ public class ClientCustomSSL {
 
 				System.out.println("----------------------------------------");
 				System.out.println(response.getStatusLine());
-				if (entity != null) {
-					System.out.println("Response content length: "
-							+ entity.getContentLength());
-				}
 				EntityUtils.consume(entity);
 			} finally {
 				response.close();
@@ -134,4 +82,5 @@ public class ClientCustomSSL {
 			httpclient.close();
 		}
 	}
+
 }

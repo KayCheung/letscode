@@ -93,7 +93,7 @@ public class FetchProductDetail {
 		new Estimate().estimate(listProdInfo);
 	}
 
-	private List<String> provideProductCode() {
+	public static List<String> provideProductCode() {
 		BufferedReader br = IOUtil.createFileReader(FetchDestination.BASE_DIR
 				+ "uniqueProductCode.txt");
 		List<String> listProductCode = new ArrayList<String>();
