@@ -21,6 +21,6 @@ public class TestingService {
 
     public void insert() throws Exception {
         testingMapper.insert(new Testing("" + new Random().nextInt(), "" + new Random().nextInt()));
-        //testingMapper.insert(new Testing()); // this will throw an exception
+        testingMapper.insert(new Testing()); // this will throw an exception
     }
 }
