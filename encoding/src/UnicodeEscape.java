@@ -1,28 +1,31 @@
 public class UnicodeEscape {
 	public static void main(String[] args) {
-		// a
-		String a_1byte = "\u0061";
-		// ä
-		String a_2byte = "\u00E4";
-		// 退
-		String tui_2bytes = "\u9000";
-		// 𡯁
-		String burenshi_4bytes = "\u21BC1";// 错误。只能跟4个hex
+		// U+004D
+		char[] c_004D = Character.toChars(0x004D);
+		display("U+004D", c_004D);
+		// U+0430
+		char[] c_0430 = Character.toChars(0x0430);
+		display("U+0430", c_0430);
+		// U+10302
+		char[] c_10302 = Character.toChars(0x10302);
+		display("U+10302", c_10302);
+		System.out.println(Integer.toHexString(
+				(int) Character.highSurrogate(0x10302)).toUpperCase());
+		System.out.println(Integer.toHexString(
+				Character.codePointAt(c_10302, 1)).toUpperCase());
+	}
 
-		String[] arr = new String[] { a_1byte, a_2byte, tui_2bytes,
-				burenshi_4bytes };
-		for (String str : arr) {
-			System.out.println(str + "-->length=" + str.length());
+	private static void display(String str, char[] carray) {
+		for (int i = 0; i < carray.length; i++) {
+			char c = carray[i];
+			if (i == 0) {
+				System.out.print(str + " --> ");
+			}
+			if (i == carray.length - 1) {
+				System.out.println(c);
+			} else {
+				System.out.print(c + ",");
+			}
 		}
-
-		// 数学符号
-		String yeburenshi_4bytes = "\u1D56B";
-		System.out.println(Integer.toHexString(yeburenshi_4bytes.charAt(0)));
-		System.out.println(Integer.toHexString(yeburenshi_4bytes.charAt(1)));
-
-		String str1 = new String(Character.toChars(0x1D56B));
-		System.out.println(Integer.toHexString(str1.charAt(0)).toUpperCase());
-		System.out.println(Integer.toHexString(str1.charAt(1)).toUpperCase());
-		System.out.println(str1.codePointCount(0, str1.length()));
 	}
 }
