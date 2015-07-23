@@ -1,0 +1,7 @@
+version = '1.0'
+
+dependencies {
+    compile project(':meal-common')
+    compile ("org.springframework:spring-beans:4.1.6.RELEASE")
+    compile fileTree(dir: 'libs', include: '*.jar')
+}

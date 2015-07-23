@@ -1,0 +1,27 @@
+﻿http://crm.tuniu.com/main.php?do=new_crm_main
+http://crm.tuniu.com/main.php?do=new_crm
+
+https://sso2.tuniu.org/cas/login?service=http%3A%2F%2Fcrm.tuniu.com%2Fmain.php%3Fdo%3Dnew_crm
+
+https://sso2.tuniu.org/cas/login;jsessionid=45E758EBDCED9A0F6EB09CE943B1E673?service=http%3A%2F%2Fcrm.tuniu.com%2Fmain.php%3Fdo%3Dnew_crm
+
+
+
+
+Initial set of cookies:
+- [version: 0][name: BOSSSESSID][value: ffa61f688731d176f812cb3a2fc8e83c][domain: crm.tuniu.com][path: /][expiry: null]
+- [version: 0][name: JSESSIONID][value: B8644FCC53ED54DD2510230F0A2B3D78][domain: sso2.tuniu.org][path: /cas][expiry: null]
+
+
+http://crm.tuniu.com/oa/index.php?m=OaTuniuMeal%2Cadmin&class_id=2&where_cond=&food_id=0&area_id=&begin_date=2015-07-23&end_date=2015-07-23&dep_id=1333&dep_name=&saler_name=&add_user_name=
+http://crm.tuniu.com/oa/index.php?p=2&m=OaTuniuMeal%2Cadmin&class_id=2&where_cond=&food_id=0&area_id=&begin_date=2015-07-23&end_date=2015-07-23&dep_id=1333&dep_name=&saler_name=&add_user_name=
+
+username=libing2&password=Susan265&lt=LT-64254-4qbX2s0f0ipFMY7boNWAnfQN0MVu33&execution=e1s1&_eventId=submit&submit=%E7%99%BB%E5%BD%95
+
+
+        <input type="hidden" name="lt" value="LT-63905-Lq0wqSPliwMyyVw4jdj5S04ZgYgzcs" />
+						<input type="hidden" name="execution" value="e3s1" />
+						<input type="hidden" name="_eventId" value="submit" />
+						
+						
+						

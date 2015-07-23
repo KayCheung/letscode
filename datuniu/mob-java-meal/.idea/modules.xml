@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/meal-business/meal-business.iml" filepath="$PROJECT_DIR$/meal-business/meal-business.iml" />
+      <module fileurl="file://$PROJECT_DIR$/meal-common/meal-common.iml" filepath="$PROJECT_DIR$/meal-common/meal-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/meal-site/meal-site.iml" filepath="$PROJECT_DIR$/meal-site/meal-site.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mob-java-meal.iml" filepath="$PROJECT_DIR$/mob-java-meal.iml" />
+    </modules>
+  </component>
+</project>

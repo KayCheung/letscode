@@ -1,0 +1,41 @@
+ spring:
+  profiles:
+    active: @profiles@
+---
+# You can change the default http port
+server:
+  port: 13032
+  contextPath: /mob-java-meal
+
+logging:
+  config: logback.xml
+
+meal:
+  departments:
+    - 1471
+    - 2171
+  login:
+    schema: http
+
+# Different profiles' configuration
+---
+spring:
+  profiles: default
+
+meal:
+  department:
+    - 1471
+    - 2171
+  login:
+    schema: http
+
+---
+spring:
+  profiles: production
+
+meal:
+  department:
+    - 1471
+    - 2171
+  login:
+    schema: http
