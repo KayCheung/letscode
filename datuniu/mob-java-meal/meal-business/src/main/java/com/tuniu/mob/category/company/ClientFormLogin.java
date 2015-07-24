@@ -26,21 +26,7 @@
  */
 package com.tuniu.mob.category.company;
 
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.client.ClientProtocolException;
+import com.tuniu.mob.category.util.IOUtil;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -54,449 +40,197 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
 
-import com.tuniu.mob.category.util.IOUtil;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * This example demonstrates how HttpClient can be used to perform form-based
  * logon.
- * 
+ * <p>
  * A example that demonstrates how HttpClient APIs can be used to perform
  * form-based logon.
  */
 public class ClientFormLogin {
-	public static final String user = "SoftwareEngineer";
-	public static final String pwd = "aaaa";
-	public static final String URL_LOGIN = "https://passport.jd.com/new/login.aspx";
-	public static final String User_Agent = "Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:37.0) Gecko/20100101 Firefox/37.0";
-
-	public static final String POST_LOGIN = "https://passport.jd.com/uc/loginService?";
-	public static final String ORDER = "http://order.jd.com/center/list.action";
-	public static final String IMAGE = "https://authcode.jd.com/verify/image?a=1";
-	public static final String POST_AUTH = "https://passport.jd.com/uc/showAuthCode?r=0.5168508280235723&version=2015";
-
-	public static final String CKIMAGE_FOLDER = "/home/marvin/Desktop/monitor/";
-
-	private static String buildPostLoginURL(String uuid) {
-		StringBuilder sb = new StringBuilder(POST_LOGIN);
-		sb.append("uuid=" + uuid);
-		sb.append("&&r=0.7920307175038792&version=2015");
-		System.out.println(sb.toString());
-		return sb.toString();
-	}
-
-	private static String buildImageURL(String uuid) {
-		StringBuilder sb = new StringBuilder(IMAGE);
-		sb.append("&acid=" + uuid);
-		sb.append("&uid=" + uuid);
-		sb.append("&yys=" + System.currentTimeMillis());
-		System.out.println(sb.toString());
-		return sb.toString();
-	}
-
-	/**
-	 * @param loginContent
-	 * @return
-	 */
-	private static Map<String, String> postParameters(String loginContent) {
-		Map<String, String> kv = new HashMap<String, String>();
-		kv.put("authcode", "");
-		kv.put("chkRememberMe", "on");
-		kv.put("loginname", user);
-		kv.put("loginpwd", pwd);
-		kv.put("machineCpu", "");
-		kv.put("machineDisk", "");
-		kv.put("machineNet", "");
-		kv.put("nloginpwd", pwd);
-		kv.put("uuid", extractUUID(loginContent));
-		String[] rdm = extractRandom(loginContent);
-		kv.put(rdm[0], rdm[1]);
-		return kv;
-	}
-
-	private static Map<String, String> postParametersfdfdfdfdf(
-			String htmlContent) {
-		Map<String, String> kv = new HashMap<String, String>();
-		kv.put("username", "libing2");
-		kv.put("password", "Susan265");
-		kv.put("lt", value(htmlContent, "<input type=\"hidden\" name=\"lt\" value=\""));
-		kv.put("execution", value(htmlContent, "<input type=\"hidden\" name=\"execution\" value=\""));
-		kv.put("_eventId", "submit");
-		kv.put("submit", "%E7%99%BB%E5%BD%95");
-		return kv;
-	}
-
-	private static String value(String htmlContent, String prefixKey) {
-		int len = prefixKey.length();
-		int pos = htmlContent.indexOf(prefixKey);
-		int valueStart = pos + len;
-		int valueEnd = htmlContent.indexOf("\"", valueStart);
-		String value = htmlContent.substring(valueStart, valueEnd);
-		System.out.println(value);
-		return value;
-
-	}
-
-	private static String extractUUID(String loginContent) {
-		String uuidField = "<input type=\"hidden\" id=\"uuid\" name=\"uuid\" value=\"";
-		int start = loginContent.indexOf(uuidField) + uuidField.length();
-		int end = loginContent.indexOf("\"", start);
-		String uuid = loginContent.substring(start, end);
-		System.out.println("uuid=" + uuid);
-		return uuid;
-	}
-
-	private static String extractImage(String newContent) {
-		String uuidField = "src2=";
-		int start = newContent.indexOf(uuidField) + uuidField.length();
-
-		int dq_1 = newContent.indexOf("\"", start);
-		int dq_2 = newContent.indexOf("\"", dq_1 + 1);
-
-		String uuid = newContent.substring(dq_1 + 1, dq_2);
-		System.out.println("src2=" + uuid);
-		return uuid;
-	}
-
-	private static String[] extractRandom(String loginContent) {
-		String rdmAbove = "<input type=\"hidden\" name=\"machineDisk\" id=\"machineDisk\" value=\"\" class=\"hide\"/>";
-		int start = loginContent.indexOf(rdmAbove) + rdmAbove.length();
-
-		String rdmHeader = "<input type=\"hidden\" name";
-		int nameBegin = loginContent.indexOf(rdmHeader, start)
-				+ rdmHeader.length();
-
-		int dq_1 = loginContent.indexOf("\"", nameBegin);
-		int dq_2 = loginContent.indexOf("\"", dq_1 + 1);
-		int dq_3 = loginContent.indexOf("\"", dq_2 + 1);
-		int dq_4 = loginContent.indexOf("\"", dq_3 + 1);
-
-		String rdm0 = loginContent.substring(dq_1 + 1, dq_2);
-		String rdm1 = loginContent.substring(dq_3 + 1, dq_4);
-		System.out.println(rdm0 + "=" + rdm1);
-		return new String[] { rdm0, rdm1 };
-	}
-
-	public static void main(String[] args) throws Exception {
-		System.out.println("d");
-		fdfdfdfdfdfdfdf();
-	}
-
-	public static void fdfdfdfdfdfdfdf() throws Exception {
-		SSLContextBuilder builder = new SSLContextBuilder();
-		builder.loadTrustMaterial(null, new TrustSelfSignedStrategy());
-		SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
-				builder.build());
-		BasicCookieStore cookieStore = new BasicCookieStore();
-		CloseableHttpClient httpclient = HttpClients.custom()
-				.setSSLSocketFactory(sslsf).setDefaultCookieStore(cookieStore)
-				.build();
-
-		abc("http://crm.tuniu.com/main.php?do=new_crm_main", cookieStore,
-				httpclient);
-		abc("http://crm.tuniu.com/main.php?do=new_crm", cookieStore, httpclient);
-		String htmlContent = abc("https://sso2.tuniu.org/cas/login?service=http%3A%2F%2Fcrm.tuniu.com%2Fmain.php%3Fdo%3Dnew_crm",
-				cookieStore, httpclient);
-		postpostpost(cookieStore, htmlContent, httpclient);
+    public static final String User_Agent = "Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:37.0) Gecko/20100101 Firefox/37.0";
 
 
-		abc("http://crm.tuniu.com/oa/index.php?m=OaTuniuMeal%2Cadmin&class_id=2&where_cond=&food_id=0&area_id=&begin_date=2015-07-23&end_date=2015-07-23&dep_id=1333&dep_name=&saler_name=&add_user_name=", cookieStore,
-				httpclient);
-		
-	}
+    public static void main(String[] args) throws Exception {
+        fdfdfdfdfdfdfdf();
+    }
 
-	private static String abc(String geturl, BasicCookieStore cookieStore,
-			CloseableHttpClient httpclient) throws IOException,
-			ClientProtocolException {
-		String htmlcontent = "";
-		HttpGet httpget = new HttpGet(geturl);
-		httpget.addHeader("User-Agent", User_Agent);
-		httpget.addHeader("Accept",
-				"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-		httpget.addHeader("Accept-Encoding", "gzip, deflate");
-		httpget.addHeader("Accept-Language", "en-US,en;q=0.5");
-		httpget.addHeader("Connection", "keep-alive");
-		CloseableHttpResponse response1 = httpclient.execute(httpget);
-		try {
-			HttpEntity entity = response1.getEntity();
+    public static void fdfdfdfdfdfdfdf() throws Exception {
+        SSLContextBuilder builder = new SSLContextBuilder();
+        builder.loadTrustMaterial(null, new TrustSelfSignedStrategy());
+        SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
+                builder.build());
+        BasicCookieStore cookieStore = new BasicCookieStore();
+        CloseableHttpClient httpclient = HttpClients.custom()
+                .setSSLSocketFactory(sslsf).setDefaultCookieStore(cookieStore)
+                .build();
 
-			System.out.println("First Login form get: "
-					+ response1.getStatusLine());
-			htmlcontent = EntityUtils.toString(entity);
-			System.out.println(htmlcontent);
-			IOUtil.writeToFile(new BufferedWriter(new OutputStreamWriter(new FileOutputStream("c:/a.txt"))), htmlcontent);
-			System.out.println("Initial set of cookies:");
-			List<Cookie> cookies = cookieStore.getCookies();
-			if (cookies.isEmpty()) {
-				System.out.println("None");
-			} else {
-				for (int i = 0; i < cookies.size(); i++) {
-					System.out.println("- " + cookies.get(i).toString());
-				}
-			}
-		} finally {
-			response1.close();
-		}
-		return htmlcontent;
-	}
+        get("http://crm.tuniu.com/main.php?do=new_crm_main", httpclient, cookieStore);
+        get("http://crm.tuniu.com/main.php?do=new_crm", httpclient, cookieStore);
+        String htmlContent = get("https://sso2.tuniu.org/cas/login?service=http%3A%2F%2Fcrm.tuniu.com%2Fmain.php%3Fdo%3Dnew_crm",
+                httpclient, cookieStore);
+        doLogin(httpclient, cookieStore, htmlContent);
 
-	private static void fetchOrder(BasicCookieStore cookieStore,
-			CloseableHttpClient httpclient) throws IOException,
-			ClientProtocolException {
-		HttpGet httpget3 = new HttpGet(ORDER);
-		httpget3.addHeader("User-Agent", User_Agent);
-		CloseableHttpResponse response3 = httpclient.execute(httpget3);
-		try {
-			HttpEntity entity = response3.getEntity();
 
-			System.out.println("ORDER get: " + response3.getStatusLine());
-			// EntityUtils.consume(entity);
-			String orderContent = EntityUtils.toString(entity);
-			System.out.println(orderContent);
-			System.out.println("Order cookies:");
-			List<Cookie> cookies = cookieStore.getCookies();
-			if (cookies.isEmpty()) {
-				System.out.println("None");
-			} else {
-				for (int i = 0; i < cookies.size(); i++) {
-					System.out.println("- " + cookies.get(i).toString());
-				}
-			}
-		} finally {
-			response3.close();
-		}
-	}
+        get("http://crm.tuniu.com/oa/index.php?m=OaTuniuMeal%2Cadmin&class_id=2&where_cond=&food_id=0&area_id=&begin_date=2015-07-23&end_date=2015-07-23&dep_id=1333&dep_name=&saler_name=&add_user_name=", httpclient, cookieStore);
 
-	private static void writeCheckImage(BasicCookieStore cookieStore,
-			CloseableHttpClient httpclient, String firstLoginContent)
-			throws IOException, ClientProtocolException, FileNotFoundException {
+    }
 
-		HttpGet httpget4 = new HttpGet(
-				buildImageURL(extractUUID(firstLoginContent)));
-		httpget4.addHeader("User-Agent", User_Agent);
-		httpget4.addHeader("Content-Type", "image/jpeg");
-		httpget4.addHeader("Accept", "image/png,image/*;q=0.8,*/*;q=0.5");
-		httpget4.addHeader("Accept-Encoding", "gzip, deflate");
-		httpget4.addHeader("Accept-Language", "en-US,en;q=0.5");
-		httpget4.addHeader("Connection", "keep-alive");
-		httpget4.addHeader("Referer", "https://passport.jd.com/new/login.aspx");
+    private static String get(String geturl, CloseableHttpClient httpclient, BasicCookieStore cookieStore) {
+        HttpGet httpget = new HttpGet(geturl);
+        // set up http header
+        for (Entry<String, String> e : createGetHeaders().entrySet()) {
+            httpget.addHeader(e.getKey(), e.getValue());
+        }
 
-		CloseableHttpResponse response4 = httpclient.execute(httpget4);
-		try {
-			HttpEntity entity = response4.getEntity();
-			FileOutputStream fis = new FileOutputStream(CKIMAGE_FOLDER
-					+ "jd.jpg");
-			entity.writeTo(fis);
-			fis.close();
-			System.out.println("IMAGE get: " + response4.getStatusLine());
-			System.out.println("Image cookies:");
-			List<Cookie> cookies = cookieStore.getCookies();
-			if (cookies.isEmpty()) {
-				System.out.println("None");
-			} else {
-				for (int i = 0; i < cookies.size(); i++) {
-					System.out.println("- " + cookies.get(i).toString());
-				}
-			}
-		} finally {
-			response4.close();
-		}
-	}
+        CloseableHttpResponse resp = null;
+        try {
+            resp = httpclient.execute(httpget);
+            String statusLine = resp.getStatusLine().toString();
+            String htmlContent = EntityUtils.toString(resp.getEntity());
 
-	private static boolean needAuthImage(BasicCookieStore cookieStore,
-			CloseableHttpClient httpclient) throws URISyntaxException,
-			IOException, ClientProtocolException {
-		RequestBuilder rb = RequestBuilder.post().setUri(new URI(POST_AUTH));
+            displayResult("Get", geturl, statusLine, htmlContent);
+            displayCookies(cookieStore);
+            IOUtil.writeToFile(IOUtil.createBufferedWriter("c:/a.txt", "UTF-8", true), htmlContent);
+            return htmlContent;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            IOUtil.close(resp);
+        }
+        return null;
+    }
 
-		Map<String, String> kv = new HashMap<String, String>();
-		kv.put("loginName", user);
-		kv.put("User-Agent", User_Agent);
-		kv.put("Content-Type",
-				"application/x-www-form-urlencoded; charset=utf-8");
-		kv.put("Cache-Control", "no-cache");
-		kv.put("Pragma", "no-cache");
-		kv.put("Referer", "https://passport.jd.com/new/login.aspx");
-		kv.put("X-Requested-With", "XMLHttpRequest");
-		Iterator<Entry<String, String>> it = kv.entrySet().iterator();
-		while (it.hasNext()) {
-			Entry<String, String> entry = it.next();
-			rb.addParameter(entry.getKey(), entry.getValue());
-		}
-		String auth = "";
-		HttpUriRequest authPostRQ = rb.build();
-		CloseableHttpResponse response6 = httpclient.execute(authPostRQ);
-		try {
-			HttpEntity entity = response6.getEntity();
+    private static Map<String, String> createGetHeaders() {
+        Map<String, String> mapHeaders = new HashMap<>();
+        mapHeaders.put("User-Agent", User_Agent);
+        mapHeaders.put("Accept",
+                "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+        mapHeaders.put("Accept-Encoding", "gzip, deflate");
+        mapHeaders.put("Accept-Language", "en-US,en;q=0.5");
+        mapHeaders.put("Connection", "keep-alive");
+        return mapHeaders;
+    }
 
-			System.out.println("Auth get: " + response6.getStatusLine());
-			auth = EntityUtils.toString(entity);
-			System.out.println("Auth:\r\n" + auth);
+    private static String displayResult(String method, String url, String statusLine, String htmlContent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Method: " + method);
+        sb.append("\nURL: " + url);
+        sb.append("\nStatus Line: " + statusLine);
+        sb.append("\nhtmlContent: " + htmlContent);
+        return sb.toString();
+    }
 
-			System.out.println("Auth cookies:");
-			List<Cookie> cookies = cookieStore.getCookies();
-			if (cookies.isEmpty()) {
-				System.out.println("None");
-			} else {
-				for (int i = 0; i < cookies.size(); i++) {
-					System.out.println("- " + cookies.get(i).toString());
-				}
-			}
-		} finally {
-			response6.close();
-		}
-		return auth.indexOf("true") >= 0;
-	}
+    private static void displayCookies(BasicCookieStore cookieStore) {
+        List<Cookie> cookies = cookieStore.getCookies();
+        if (cookies.isEmpty()) {
+            System.out.println("None cookie");
+            return;
+        }
+        for (Cookie ck : cookies) {
+            System.out.println("- " + ck.toString());
+        }
+    }
 
-	private static String firstLogin(BasicCookieStore cookieStore,
-			CloseableHttpClient httpclient) throws IOException,
-			ClientProtocolException {
-		String loginContent;
-		HttpGet httpget = new HttpGet(URL_LOGIN);
-		httpget.addHeader("User-Agent", User_Agent);
-		httpget.addHeader("Accept",
-				"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-		httpget.addHeader("Accept-Encoding", "gzip, deflate");
-		httpget.addHeader("Accept-Language", "en-US,en;q=0.5");
-		httpget.addHeader("Connection", "keep-alive");
-		CloseableHttpResponse response1 = httpclient.execute(httpget);
-		try {
-			HttpEntity entity = response1.getEntity();
+    private static String createLoginUrl(BasicCookieStore cookieStore) {
+        String loginHeader = "https://sso2.tuniu.org/cas/login;jsessionid=";
+        String loginTail = "?service=http%3A%2F%2Fcrm.tuniu.com%2Fmain.php%3Fdo%3Dnew_crm";
 
-			System.out.println("First Login form get: "
-					+ response1.getStatusLine());
-			loginContent = EntityUtils.toString(entity);
-			System.out.println("Initial set of cookies:");
-			List<Cookie> cookies = cookieStore.getCookies();
-			if (cookies.isEmpty()) {
-				System.out.println("None");
-			} else {
-				for (int i = 0; i < cookies.size(); i++) {
-					System.out.println("- " + cookies.get(i).toString());
-				}
-			}
-		} finally {
-			response1.close();
-		}
-		return loginContent;
-	}
+        for (Cookie ck : cookieStore.getCookies()) {
+            String name = ck.getName();
+            String value = ck.getValue();
+            if ("JSESSIONID".equalsIgnoreCase(name)) {
+                String loginUrl = loginHeader + value + loginTail;
+                System.out.println("JSESSIONID=" + value + ", loginUrl=" + loginUrl);
+                return loginUrl;
+            }
+        }
+        return null;
+    }
 
-	private static String doRealLogin(BasicCookieStore cookieStore,
-			String loginContent, CloseableHttpClient httpclient, boolean need)
-			throws URISyntaxException, IOException, ClientProtocolException {
+    private static String doLogin(CloseableHttpClient httpclient, BasicCookieStore cookieStore,
+                                  String htmlContent) {
+        Map<String, String> mapHeaders = createPostHeaders("https://sso2.tuniu.org/cas/login?service=http%3A%2F%2Fcrm.tuniu.com%2Fmain.php%3Fdo%3Dnew_crm");
+        Map<String, String> mapParameters = createPostParameters(htmlContent);
+        return post(createLoginUrl(cookieStore), mapHeaders, httpclient, cookieStore, mapParameters);
+    }
 
-		String passport = "";
-		RequestBuilder rb = RequestBuilder.post().setUri(
-				new URI(buildPostLoginURL(extractUUID(loginContent))));
+    private static Map<String, String> createPostHeaders(String referer) {
+        Map<String, String> mapHeaders = new HashMap<>();
+        mapHeaders.put("User-Agent", User_Agent);
+        mapHeaders.put("Referer", referer);
+        mapHeaders.put("X-Requested-With", "XMLHttpRequest");
+        mapHeaders.put("Pragma", "no-cache");
+        mapHeaders.put("Content-Type",
+                "application/x-www-form-urlencoded; charset=utf-8");
+        mapHeaders.put("Connection", "keep-alive");
+        mapHeaders.put("Accept-Encoding", "gzip, deflate");
+        mapHeaders.put("Cache-Control", "no-cache");
+        mapHeaders.put("Accept", "text/plain, */*; q=0.01");
+        mapHeaders.put("Accept-Language", "en-US,en;q=0.5");
+        mapHeaders.put("Pragma", "no-cache");
+        return mapHeaders;
+    }
 
-		Map<String, String> kv = postParameters(loginContent);
-		if (need == true) {
-			kv.put("authcode",
-					IOUtil.readContent(CKIMAGE_FOLDER + "ckimage.txt"));
-		}
-		Iterator<Entry<String, String>> it = kv.entrySet().iterator();
-		while (it.hasNext()) {
-			Entry<String, String> entry = it.next();
-			rb.addParameter(entry.getKey(), entry.getValue());
-		}
-		HttpUriRequest login = rb.build();
-		login.addHeader("User-Agent", User_Agent);
-		login.addHeader("Referer", "https://passport.jd.com/new/login.aspx");
-		login.addHeader("X-Requested-With", "XMLHttpRequest");
-		login.addHeader("Pragma", "no-cache");
-		login.addHeader("Content-Type",
-				"application/x-www-form-urlencoded; charset=utf-8");
-		login.addHeader("Connection", "keep-alive");
-		login.addHeader("Accept-Encoding", "gzip, deflate");
-		login.addHeader("Cache-Control", "no-cache");
-		login.addHeader("Accept", "text/plain, */*; q=0.01");
-		login.addHeader("Accept-Language", "en-US,en;q=0.5");
-		login.addHeader("Pragma", "no-cache");
+    private static Map<String, String> createPostParameters(
+            String htmlContent) {
+        Map<String, String> kv = new HashMap<>();
+        kv.put("username", "libing2");
+        kv.put("password", "Susan265");
+        kv.put("lt", extract(htmlContent, "<input type=\"hidden\" name=\"lt\" extract=\""));
+        kv.put("execution", extract(htmlContent, "<input type=\"hidden\" name=\"execution\" extract=\""));
+        kv.put("_eventId", "submit");
+        kv.put("submit", "%E7%99%BB%E5%BD%95");
+        return kv;
+    }
 
-		CloseableHttpResponse response2 = httpclient.execute(login);
-		try {
-			HttpEntity entity = response2.getEntity();
+    private static String extract(String htmlContent, String prefixKey) {
+        int len = prefixKey.length();
+        int pos = htmlContent.indexOf(prefixKey);
+        int valueStart = pos + len;
+        int valueEnd = htmlContent.indexOf("\"", valueStart);
+        String value = htmlContent.substring(valueStart, valueEnd);
+        System.out.println("prefixKey=" + prefixKey + ", value=" + value);
+        return value;
 
-			System.out.println("Login form get: " + response2.getStatusLine());
-			passport = EntityUtils.toString(entity);
-			System.out.println("passport:\r\n" + passport);
+    }
 
-			System.out.println("Post logon cookies:");
-			List<Cookie> cookies = cookieStore.getCookies();
-			if (cookies.isEmpty()) {
-				System.out.println("None");
-			} else {
-				for (int i = 0; i < cookies.size(); i++) {
-					System.out.println("- " + cookies.get(i).toString());
-				}
-			}
-		} finally {
-			response2.close();
-		}
-		return passport;
-	}
+    private static String post(String posturl, Map<String, String> mapHeaders,
+                               CloseableHttpClient httpclient, BasicCookieStore cookieStore, Map<String, String> mapParameters) {
+        CloseableHttpResponse resp = null;
+        try {
+            RequestBuilder rb = RequestBuilder.post().setUri(new URI(posturl));
+            // set up post parameter
+            for (Entry<String, String> e : mapParameters.entrySet()) {
+                rb.addParameter(e.getKey(), e.getValue());
+            }
+            HttpUriRequest req = rb.build();
+            // set up http header
+            for (Entry<String, String> e : mapHeaders.entrySet()) {
+                req.addHeader(e.getKey(), e.getValue());
+            }
+            resp = httpclient.execute(req);
+            String statusLine = resp.getStatusLine().toString();
+            String htmlContent = EntityUtils.toString(resp.getEntity());
 
-	private static String postpostpost(BasicCookieStore cookieStore,
-			String htmlContent, CloseableHttpClient httpclient)
-			throws URISyntaxException, IOException, ClientProtocolException {
-		String jsessionid = "";
-		List<Cookie> cookies = cookieStore.getCookies();
-		for (Cookie cookie : cookies) {
-			String name = cookie.getName();
-			String value = cookie.getValue();
-			if ("JSESSIONID".equalsIgnoreCase(name)) {
-				jsessionid = value;
-			}
-		}
-		System.out.println("JSESSIONID=" + jsessionid);
-
-		String sso2 = "https://sso2.tuniu.org/cas/login;jsessionid="
-				+ ""
-				+ jsessionid
-				+ "?service=http%3A%2F%2Fcrm.tuniu.com%2Fmain.php%3Fdo%3Dnew_crm";
-
-		RequestBuilder rb = RequestBuilder.post().setUri(new URI(sso2));
-
-		Map<String, String> kv = postParametersfdfdfdfdf(htmlContent);
-
-		Iterator<Entry<String, String>> it = kv.entrySet().iterator();
-		while (it.hasNext()) {
-			Entry<String, String> entry = it.next();
-			rb.addParameter(entry.getKey(), entry.getValue());
-		}
-		HttpUriRequest login = rb.build();
-		login.addHeader("User-Agent", User_Agent);
-		login.addHeader("Referer", "https://sso2.tuniu.org/cas/login?service=http%3A%2F%2Fcrm.tuniu.com%2Fmain.php%3Fdo%3Dnew_crm");
-		login.addHeader("X-Requested-With", "XMLHttpRequest");
-		login.addHeader("Pragma", "no-cache");
-		login.addHeader("Content-Type",
-				"application/x-www-form-urlencoded; charset=utf-8");
-		login.addHeader("Connection", "keep-alive");
-		login.addHeader("Accept-Encoding", "gzip, deflate");
-		login.addHeader("Cache-Control", "no-cache");
-		login.addHeader("Accept", "text/plain, */*; q=0.01");
-		login.addHeader("Accept-Language", "en-US,en;q=0.5");
-		login.addHeader("Pragma", "no-cache");
-		String passport = "";
-		CloseableHttpResponse response2 = httpclient.execute(login);
-		try {
-			HttpEntity entity = response2.getEntity();
-
-			System.out.println("Login form get: " + response2.getStatusLine());
-			passport = EntityUtils.toString(entity);
-			System.out.println("passport:\r\n" + passport);
-
-			System.out.println("Post logon cookies:");
-			cookies = cookieStore.getCookies();
-			if (cookies.isEmpty()) {
-				System.out.println("None");
-			} else {
-				for (int i = 0; i < cookies.size(); i++) {
-					System.out.println("- " + cookies.get(i).toString());
-				}
-			}
-		} finally {
-			response2.close();
-		}
-		return passport;
-	}
+            displayResult("Post", posturl, statusLine, htmlContent);
+            displayCookies(cookieStore);
+            IOUtil.writeToFile(IOUtil.createBufferedWriter("c:/a.txt", "UTF-8", true), htmlContent);
+            return htmlContent;
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        } finally {
+            IOUtil.close(resp);
+        }
+        return null;
+    }
 
 }

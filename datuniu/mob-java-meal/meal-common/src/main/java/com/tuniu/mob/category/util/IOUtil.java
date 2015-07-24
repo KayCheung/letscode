@@ -54,7 +54,9 @@ public class IOUtil {
             bw.write(content);
             bw.flush();
         } catch (IOException e) {
-            // LOGGER.error("Error when writeToFile", e);
+            e.printStackTrace();
+        }finally {
+            close(bw);
         }
     }
 
