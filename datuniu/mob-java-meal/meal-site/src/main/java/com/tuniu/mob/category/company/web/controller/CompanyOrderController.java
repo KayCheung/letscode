@@ -25,7 +25,7 @@ public class CompanyOrderController {
         try {
             ClientFormLogin.fdfdfdfdfdfdfdf();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return "Congratulation!!!";
     }

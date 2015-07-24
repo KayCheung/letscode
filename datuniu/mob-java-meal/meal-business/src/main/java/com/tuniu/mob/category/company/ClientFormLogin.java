@@ -102,11 +102,10 @@ public class ClientFormLogin {
             IOUtil.writeToFile(IOUtil.createBufferedWriter("c:/a.txt", "UTF-8", true), htmlContent);
             return htmlContent;
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } finally {
             IOUtil.close(resp);
         }
-        return null;
     }
 
     private static Map<String, String> createGetHeaders() {
@@ -226,11 +225,10 @@ public class ClientFormLogin {
             IOUtil.writeToFile(IOUtil.createBufferedWriter("c:/a.txt", "UTF-8", true), htmlContent);
             return htmlContent;
         } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } finally {
             IOUtil.close(resp);
         }
-        return null;
     }
 
 }
