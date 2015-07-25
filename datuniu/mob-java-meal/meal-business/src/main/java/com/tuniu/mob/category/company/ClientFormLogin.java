@@ -43,6 +43,8 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,6 +84,36 @@ public class ClientFormLogin {
 
         get("http://crm.tuniu.com/oa/index.php?m=OaTuniuMeal%2Cadmin&class_id=2&where_cond=&food_id=0&area_id=&begin_date=2015-07-23&end_date=2015-07-23&dep_id=1333&dep_name=&saler_name=&add_user_name=", httpclient, cookieStore);
 
+    }
+
+    private static String createPage1GetMealUrl(String deptId){
+        return createGetMealUrl(1, deptId);
+    }
+
+    private static String createPageOthersGetMealUrl(String page1Content, String deptId){
+        return createGetMealUrl(1, deptId);
+    }
+    private static int parse2GetTotalCount(String page1Content){
+        return 0;
+    }
+    private static int[] calcPageOthers(int totalCount){
+        int pageSize = 20;
+        return new int[0];
+    }
+
+    private static String createGetMealUrl(int p, String deptId) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String strDate = sdf.format(new Date());
+
+        StringBuffer sb = new StringBuffer();
+        sb.append("http://crm.tuniu.com/oa/index.php?");
+        sb.append("p=" + p);
+        sb.append("&m=OaTuniuMeal%2Cadmin&class_id=2&where_cond=&food_id=0&area_id=");
+        sb.append("&begin_date=" + strDate + "&end_date=" + strDate);
+        sb.append("&dep_id=" + deptId);
+        sb.append("&dep_name=&saler_name=&add_user_name=");
+
+        return sb.toString();
     }
 
     private static String get(String geturl, CloseableHttpClient httpclient, BasicCookieStore cookieStore) {
