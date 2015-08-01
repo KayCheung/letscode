@@ -2,51 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="21867754-f20a-4c1c-bf5d-d457efa5b81f" name="Default" comment="">
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\artifacts\spring_mvc_showcase_war.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\artifacts\spring_mvc_showcase_war_exploded.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__aopalliance_aopalliance_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__com_fasterxml_jackson_core_jackson_annotations_2_4_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__com_fasterxml_jackson_core_jackson_core_2_4_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__com_fasterxml_jackson_core_jackson_databind_2_4_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__com_jayway_jsonpath_json_path_0_8_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__com_rometools_rome_1_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__com_rometools_rome_utils_1_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__commons_fileupload_commons_fileupload_1_2_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__commons_io_commons_io_2_0_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__commons_lang_commons_lang_2_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__javax_inject_javax_inject_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__javax_servlet_jsp_jsp_api_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__javax_servlet_jsp_jstl_jstl_api_1_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__javax_validation_validation_api_1_0_0_GA.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__joda_time_joda_time_2_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__junit_junit_4_11.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__log4j_log4j_1_2_16.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__net_minidev_json_smart_1_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_apache_tomcat_tomcat_servlet_api_7_0_30.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_aspectj_aspectjrt_1_8_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_glassfish_web_jstl_impl_1_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_hamcrest_hamcrest_core_1_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_hamcrest_hamcrest_library_1_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_hibernate_hibernate_validator_4_1_0_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_jdom_jdom_2_0_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_slf4j_jcl_over_slf4j_1_6_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_slf4j_slf4j_api_1_6_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_slf4j_slf4j_log4j12_1_6_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_springframework_security_spring_security_core_3_2_0_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_springframework_security_spring_security_web_3_2_0_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_springframework_spring_aop_4_1_0_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_springframework_spring_beans_4_1_0_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_springframework_spring_context_4_1_0_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_springframework_spring_core_4_1_0_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_springframework_spring_expression_4_1_0_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_springframework_spring_test_4_1_0_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_springframework_spring_web_4_1_0_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__org_springframework_spring_webmvc_4_1_0_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\.idea\libraries\Maven__xmlunit_xmlunit_1_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Eden\gitworkspace\letscode\datuniu\spring-mvc-showcase\spring-mvc-showcase.iml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="spring-mvc-showcase.iws" />
@@ -78,6 +33,13 @@
   <component name="JsBuildToolGruntFileManager" detection-done="true" />
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -148,8 +110,21 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="restartRequiresConfirmation" value="true" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Tomcat Server.mvcshowcase">
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
+      <deployment />
+      <server-settings />
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <method />
+    </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
@@ -393,6 +368,82 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
+    <configuration default="false" name="mvcshowcase" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.63" ALTERNATIVE_JRE_ENABLED="false" ALTERNATIVE_JRE_PATH="">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/spring-mvc-showcase/" />
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="spring-mvc-showcase:war">
+          <settings>
+            <option name="CONTEXT_PATH" value="/spring-mvc-showcase" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_spring-mvc-showcase_3" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="60349" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="spring-mvc-showcase:war" />
+        </option>
+      </method>
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Tomcat Server.mvcshowcase" />
+    </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="TaskManager">
@@ -401,12 +452,19 @@
       <created>1438438192467</created>
       <option name="number" value="Default" />
       <updated>1438438192467</updated>
-      <workItem from="1438438194885" duration="37000" />
+      <workItem from="1438438194885" duration="219000" />
     </task>
+    <task id="LOCAL-00001" summary="a">
+      <created>1438438287940</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1438438287940</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37000" />
+    <option name="totallyTimeSpent" value="219000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="984" extended-state="6" />
@@ -414,16 +472,18 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32942554" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32942554" sideWeight="0.502445" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32942554" sideWeight="0.49755502" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18398532" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20843521" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -431,21 +491,28 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39976552" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="a" />
+    <option name="LAST_COMMIT_MESSAGE" value="a" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
   </component>
 </project>
