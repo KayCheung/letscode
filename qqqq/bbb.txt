@@ -1,11 +1,3 @@
-On master, Idjdd've modified bbb
-what happeneddfdjjjjjjf
-aa
-bbb
-
-bbb's rebase
-
-
-rebasemerge
+I'll write it here. and then I'll revert it
 
 
