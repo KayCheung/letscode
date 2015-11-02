@@ -38,7 +38,7 @@ public class Beautiful {
             String saler = e.getKey();
             List<MealInfo> list = e.getValue();
 
-            sb.append("************* " + saler + " ：<font color=\"blue\"><b>" + list.size() +
+            sb.append("************* " + saler + " ：<font color=\"red\"><b>" + list.size() +
                     "</b></font> *************" + BR);
 
             sb.append(TABLE_HEADER);
