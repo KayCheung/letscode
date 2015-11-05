@@ -48,6 +48,7 @@ configure(javaProjects) {
         testCompile 'org.spockframework:spock-spring:1.0-groovy-2.4'
         testCompile "org.springframework:spring-test:4.1.6.RELEASE"
         testCompile "cglib:cglib-nodep:3.1"
+        compile 'org.springframework.boot:spring-boot-starter-web:1.2.3.RELEASE'
     }
 
     configurations {

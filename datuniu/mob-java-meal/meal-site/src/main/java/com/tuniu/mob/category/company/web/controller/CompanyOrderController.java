@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -55,7 +56,7 @@ public class CompanyOrderController {
         listDeptName.add("无线中心" + ClientFormLogin.DELIMITER +
                 "底层研发部");
 
-        return cfl.fetchAndGroupMeals(listDeptId, listDeptName);
+        return cfl.fetchAndGroupMeals(listDeptId, listDeptName, Collections.emptyList());
     }
 
     private String fetchAndGroupMeals_Yingyong() throws Exception {
@@ -66,7 +67,7 @@ public class CompanyOrderController {
         listDeptName.add("无线中心" + ClientFormLogin.DELIMITER +
                 "应用研发部");
 
-        return cfl.fetchAndGroupMeals(listDeptId, listDeptName);
+        return cfl.fetchAndGroupMeals(listDeptId, listDeptName, Collections.emptyList());
     }
 
     private String fetchAndGroupMeals_Chuyoufuwu() throws Exception {
@@ -77,7 +78,10 @@ public class CompanyOrderController {
         listDeptName.add("无线中心" + ClientFormLogin.DELIMITER +
                 "出游服务产品部");
 
-        return cfl.fetchAndGroupMeals(listDeptId, listDeptName);
+        List<String> plusThem = new ArrayList<>();
+        plusThem.add("吴昊天");
+
+        return cfl.fetchAndGroupMeals(listDeptId, listDeptName, plusThem);
     }
 
     @RequestMapping(value = "/total", method = RequestMethod.GET)
@@ -111,7 +115,7 @@ public class CompanyOrderController {
 
         prepare_Diceng_Yingyong_Chuyoufuwu(listDeptId, listDeptName);
 
-        return cfl.fetchAndGroupMeals(listDeptId, listDeptName);
+        return cfl.fetchAndGroupMeals(listDeptId, listDeptName, Collections.emptyList());
     }
 
     private void prepare_Diceng_Yingyong_Chuyoufuwu(List<String> listDeptId, List<String> listDeptName) {

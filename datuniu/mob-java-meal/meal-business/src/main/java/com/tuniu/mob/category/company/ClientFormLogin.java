@@ -26,6 +26,7 @@
  */
 package com.tuniu.mob.category.company;
 
+import com.tuniu.mob.category.util.CommUtil;
 import com.tuniu.mob.category.util.IOUtil;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -154,8 +155,31 @@ public class ClientFormLogin {
         }
     }
 
+    public MealInfo fetchIndividualMeal(String owner) throws Exception {
+        SSLContextBuilder builder = new SSLContextBuilder();
+        builder.loadTrustMaterial(null, new TrustSelfSignedStrategy());
+        SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
+                builder.build());
 
-    public String fetchAndGroupMeals(List<String> listDeptId, List<String> listDeptName) throws Exception {
+        BasicCookieStore cookieStore = new BasicCookieStore();
+        CloseableHttpClient httpclient = HttpClients.custom()
+                .setSSLSocketFactory(sslsf).setDefaultCookieStore(cookieStore)
+                .build();
+
+        prepareCookies(httpclient, cookieStore);
+        String individualUrl = createGetMealUrl(1, "", owner);
+        String individualContent = get(individualUrl, httpclient, cookieStore);
+        List<MealInfo> listAll = parseXML2GetMeal(individualContent, "");
+
+        for (MealInfo ml : listAll) {
+            if (ml.saler.equals(owner)) {
+                return ml;
+            }
+        }
+        return null;
+    }
+
+    public String fetchAndGroupMeals(List<String> listDeptId, List<String> listDeptName, List<String> plusThem) throws Exception {
         SSLContextBuilder builder = new SSLContextBuilder();
         builder.loadTrustMaterial(null, new TrustSelfSignedStrategy());
         SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
@@ -176,6 +200,8 @@ public class ClientFormLogin {
             listAllMealInfo.addAll(fetchMealByDeptId(deptId, deptName, httpclient, cookieStore));
         }
 
+        addPlus(listAllMealInfo, plusThem, cookieStore, httpclient);
+
         Set<MealInfo> setAllMealInfo = new HashSet<>();
         setAllMealInfo.addAll(listAllMealInfo);
 
@@ -188,6 +214,21 @@ public class ClientFormLogin {
 
         Map<String, List<MealInfo>> mapSaler2ListMeal = groupMeals(setAllMealInfo);
         return Beautiful.beautiful(setAllMealInfo.size(), listDeptName, mapSaler2ListMeal);
+    }
+
+    private void addPlus(List<MealInfo> listAllMealInfo, List<String> plusThem,
+                         BasicCookieStore cookieStore, CloseableHttpClient httpclient) {
+        for (String owner : plusThem) {
+            String individualUrl = createGetMealUrl(1, "", owner);
+            String individualContent = get(individualUrl, httpclient, cookieStore);
+            List<MealInfo> listAll = parseXML2GetMeal(individualContent, "");
+            for (MealInfo ml : listAll) {
+                if (ml.owner.equals(owner)) {
+                    listAllMealInfo.add(ml);
+                    break;
+                }
+            }
+        }
     }
 
     private static List<MealInfo> fetchMealByDeptId(String deptId, String deptName, CloseableHttpClient httpclient, BasicCookieStore cookieStore) throws Exception {
@@ -252,6 +293,12 @@ public class ClientFormLogin {
         if (m == null) {
             return false;
         }
+        // 传入的 deptName 为空，意味着，根本就不需要验证是否 under proper department
+        // 这时，总是认为 就是 位于合适的department下
+        if (CommUtil.isBlank(deptName)) {
+            return true;
+        }
+        // 既然到这里，说明，deptName不是空，即，需要验证 这个meal是否位于要求的 deptName下面
         String proper2ndDept = deptName.substring(deptName.lastIndexOf(DELIMITER) + 1);
         if (m.deptName.contains(proper2ndDept)) {
             return true;
@@ -382,7 +429,7 @@ public class ClientFormLogin {
     }
 
     private static String getFirstPageUrl(String deptId) {
-        return createGetMealUrl(1, deptId);
+        return createGetMealUrl(1, deptId, "");
     }
 
     private static String[] getPageUrls(String firstPageContent, String deptId) {
@@ -391,7 +438,7 @@ public class ClientFormLogin {
         String[] pageUrls = new String[pageNumbers.length];
 
         for (int i = 0; i < pageUrls.length; i++) {
-            pageUrls[i] = createGetMealUrl(pageNumbers[i], deptId);
+            pageUrls[i] = createGetMealUrl(pageNumbers[i], deptId, "");
         }
         return pageUrls;
     }
@@ -418,7 +465,7 @@ public class ClientFormLogin {
         return pageNumbers;
     }
 
-    private static String createGetMealUrl(int p, String deptId) {
+    private static String createGetMealUrl(int p, String deptId, String owner) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = sdf.format(new Date());
 //        String strDate = "2015-07-23";
@@ -429,7 +476,8 @@ public class ClientFormLogin {
         sb.append("&m=OaTuniuMeal%2Cadmin&class_id=2&where_cond=&food_id=0&area_id=");
         sb.append("&begin_date=" + strDate + "&end_date=" + strDate);
         sb.append("&dep_id=" + deptId);
-        sb.append("&dep_name=&saler_name=&add_user_name=");
+        owner = CommUtil.isBlank(owner) ? "" : owner.trim();
+        sb.append("&dep_name=&saler_name=" + owner + "&add_user_name=");
 
         return sb.toString();
     }

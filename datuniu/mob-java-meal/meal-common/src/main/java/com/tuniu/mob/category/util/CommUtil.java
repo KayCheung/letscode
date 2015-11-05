@@ -347,5 +347,27 @@ public class CommUtil {
 
 		return result.toString();
 	}
-
+	public static int str2int(String str, int dftValue) {
+		if (isBlank(str)) {
+			return dftValue;
+		}
+		try {
+			return Integer.valueOf(str);
+		} catch (NumberFormatException e) {
+			return dftValue;
+		}
+	}
+	//判断是否为空
+	public static boolean isBlank(String str) {
+		int strLen;
+		if (str == null || (strLen = str.length()) == 0) {
+			return true;
+		}
+		for (int i = 0; i < strLen; i++) {
+			if ((Character.isWhitespace(str.charAt(i)) == false)) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
