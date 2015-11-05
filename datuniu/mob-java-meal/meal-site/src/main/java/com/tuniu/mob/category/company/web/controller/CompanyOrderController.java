@@ -115,7 +115,10 @@ public class CompanyOrderController {
 
         prepare_Diceng_Yingyong_Chuyoufuwu(listDeptId, listDeptName);
 
-        return cfl.fetchAndGroupMeals(listDeptId, listDeptName, Collections.emptyList());
+        List<String> plusThem = new ArrayList<>();
+        plusThem.add("吴昊天");
+
+        return cfl.fetchAndGroupMeals(listDeptId, listDeptName, plusThem);
     }
 
     private void prepare_Diceng_Yingyong_Chuyoufuwu(List<String> listDeptId, List<String> listDeptName) {
