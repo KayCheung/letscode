@@ -16,6 +16,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by libing2 on 2015/6/10.
+ *
  */
 @RestController
 public class CompanyOrderController {
