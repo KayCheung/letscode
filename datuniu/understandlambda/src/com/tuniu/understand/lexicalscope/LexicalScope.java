@@ -8,7 +8,7 @@ import java.util.function.Function;
 public class LexicalScope {
 
     private final Runnable lambda1 = () -> {
-        System.out.println(this); // 指的是 enclosing object 
+        System.out.println(this); // 指的是 enclosing object
     };
     private final Runnable lambda2 = () -> {
         System.out.println(toString()); // 指的是 enclosing object的方法
