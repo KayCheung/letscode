@@ -10,6 +10,10 @@ import java.util.stream.Collectors;
  * Created by nuc on 2015/11/14.
  */
 public class Album {
+    public String getTitle() {
+        return title;
+    }
+
     public String title;
     public List<Track> tracks = new ArrayList<>();
 
