@@ -31,6 +31,10 @@ public class ContextsTargetType {
         Supplier<Runnable> spl = () -> () -> System.out.println("Hi");
     }
 
+    /**
+     * lambda body的返回值 可以用来确定 lambda本身的 参数类型
+     * （好像是这个意思，还没大搞明白）
+     */
     public static void lambdaBodyProvideInfo2Compiler() {
         List<Album> albums = new ArrayList<>();
 
@@ -38,10 +42,10 @@ public class ContextsTargetType {
                 // Stream<Album>
                 albums.stream()
                         // 1. map方法返回 Stream<R>
-                        // 2. Function<T, R>. 入参T 就是Album（要将 stream中流出来的 每一个Album 元素转换成 R）
+                        // 2. Function<T, R>. 入参T 就是Album（要将 stream中流出来的每一个Album 元素转换成 R）
                         // 3. R 我们自己订。Function返回啥，外层 map 就返回啥
                         // Function<Album, List<Album.Track>> ====== album->album.tracks
-                        .map(album -> album.tracks);
+                        .<List<Album.Track>>map(album -> album.tracks);
 
 
     }
