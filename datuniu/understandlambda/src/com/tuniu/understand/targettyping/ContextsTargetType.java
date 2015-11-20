@@ -50,6 +50,14 @@ public class ContextsTargetType {
 
     }
 
+    public static void castExplicitlyProvidesLambdaTargetType() {
+        //Error: Target type of a lambda convertion must be an interface
+        // 这也说明一个问题，lambda本身的类型，也可以叫做 "target type"
+        // Object obj1 = ()-> System.out.println("Hello");
+
+        Object obj = (Runnable) () -> System.out.println("Hello");
+    }
+
     public static void main(String[] args) {
         lambdaBodyProvideInfo2Compiler();
     }
