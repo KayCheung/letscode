@@ -28,6 +28,9 @@ public class ContextsTargetType {
 
 
         // 4. 方法参数 method/constructor argument
+        // Lambda expressions themselves provide target types for their bodies,
+        // in this case by deriving that type from the outer target type.
+        // This makes it convenient to write functions that return other functions:
         Supplier<Runnable> spl = () -> () -> System.out.println("Hi");
     }
 
