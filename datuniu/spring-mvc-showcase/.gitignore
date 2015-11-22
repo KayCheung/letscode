@@ -1,0 +1,6 @@
+build/
+.gradle/
+.idea/
+.idea/artifacts/
+target/
+out/
