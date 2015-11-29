@@ -8,15 +8,15 @@ import java.util.function.Supplier;
  */
 public class SupIndy {
     public Date theIndy(long hours, String min) {
-        Supplier<Date> sup = () -> new Date(System.currentTimeMillis() + (1000 * 60 * hours));
-        Date d = sup.get();
+//        Supplier<Date> sup = () -> new Date(System.currentTimeMillis() + (1000 * 60 * hours));
+//        Date d = sup.get();
 
 
         BiFunction<Long, Long, String> func = (first, second) ->
                 String.valueOf(first + second + hours) + min + getCurTime() + getRandom();
         String str = func.apply(8L, 9L);
 
-        return d;
+        return new Date();
     }
 
     public String getCurTime() {
