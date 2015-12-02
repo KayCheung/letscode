@@ -9,17 +9,22 @@ import java.util.function.BiFunction;
 public class SupIndy {
     public Date theIndy(long hours, String min) {
         BiFunction<Long, Long, String> func = (first, second) -> {
-            String executingMethodName = new Object() {
-            }.getClass().getEnclosingMethod().getName();
-            System.out.println(executingMethodName);
+            Method m = new Object() {
+            }.getClass().getEnclosingMethod();
+            System.out.println(m.getName() + " isSynthetic: " + m.isSynthetic());
             return String.valueOf(first + second + hours) + min + getCurTime() + getRandom();
         };
+        //printBiFunction(func);
+        String str = func.apply(8L, 9L);
+        return new Date();
+    }
 
+    private void printBiFunction(BiFunction<Long, Long, String> func) {
         Set<Method> methods = new LinkedHashSet<>();
         // 所有public method，包括继承的来的
-        methods.addAll(Arrays.asList(func.getClass().getMethods()));
+        methods.addAll(Arrays.asList(this.getClass().getMethods()));
         // 所有 public/protected/private/friendly method，但，不包括继承的来的
-        methods.addAll(Arrays.asList(func.getClass().getDeclaredMethods()));
+        methods.addAll(Arrays.asList(this.getClass().getDeclaredMethods()));
 
         for (Method method : methods) {
             System.out.println("method: " + method.getName());
@@ -28,6 +33,7 @@ public class SupIndy {
                 System.out.println("----" + paraType.getName());
             }
             System.out.println("-----" + method.getReturnType());
+            System.out.println("-----synthetic: " + method.isSynthetic());
         }
 
         Set<Field> fields = new LinkedHashSet<>();
@@ -39,10 +45,6 @@ public class SupIndy {
             System.out.println("field: " + field.getName());
             System.out.println("----" + field.getType());
         }
-
-        String str = func.apply(8L, 9L);
-
-        return new Date();
     }
 
     public String getCurTime() {
@@ -50,6 +52,7 @@ public class SupIndy {
     }
 
     public String getRandom() {
+
         return String.valueOf(new Random().nextLong());
     }
 
