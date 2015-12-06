@@ -10,10 +10,10 @@ import java.util.List;
  */
 public class InternalExternal {
     // 传统方式--外部迭代
-    private static double external(List<Shape> shapes) {
+    private static double external(List<TnShape> shapes) {
         double max = 0.0D;
         //所有 红色的shape中，最大面积是多少
-        for (Shape s : shapes) {
+        for (TnShape s : shapes) {
             if (s.getColor() == Color.RED) {
                 if (s.getArea() > max) {
                     max = s.getArea();
@@ -24,16 +24,16 @@ public class InternalExternal {
     }
 
     // 内部迭代
-    private static double internal(List<Shape> shapes) {
+    private static double internal(List<TnShape> shapes) {
         double max = shapes.stream().
                 filter(s -> s.getColor() == Color.RED).//只要红色
-                mapToDouble(Shape::getArea).//转换成 double
+                mapToDouble(TnShape::getArea).//转换成 double
                 max().orElse(0.0D);// 获取最大值
         return max;
     }
 
     public static void main(String[] args) {
-        List<Shape> shapes = new ArrayList<>();
+        List<TnShape> shapes = new ArrayList<>();
         external(shapes);
         internal(shapes);
     }

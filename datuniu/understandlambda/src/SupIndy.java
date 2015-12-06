@@ -1,6 +1,10 @@
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Random;
+import java.util.Set;
 import java.util.function.BiFunction;
 
 /**
@@ -9,14 +13,22 @@ import java.util.function.BiFunction;
 public class SupIndy {
     public Date theIndy(long hours, String min) {
         BiFunction<Long, Long, String> func = (first, second) -> {
-            Method m = new Object() {
-            }.getClass().getEnclosingMethod();
+            Method m = new Object() {}.getClass().getEnclosingMethod();
             System.out.println(m.getName() + " isSynthetic: " + m.isSynthetic());
+
             return String.valueOf(first + second + hours) + min + getCurTime() + getRandom();
         };
-        //printBiFunction(func);
         String str = func.apply(8L, 9L);
         return new Date();
+    }
+
+
+    public String getCurTime() {
+        return String.valueOf(System.currentTimeMillis() + new Random().nextLong());
+    }
+
+    public String getRandom() {
+        return String.valueOf(new Random().nextLong());
     }
 
     private void printBiFunction(BiFunction<Long, Long, String> func) {
@@ -45,15 +57,6 @@ public class SupIndy {
             System.out.println("field: " + field.getName());
             System.out.println("----" + field.getType());
         }
-    }
-
-    public String getCurTime() {
-        return String.valueOf(System.currentTimeMillis() + new Random().nextLong());
-    }
-
-    public String getRandom() {
-
-        return String.valueOf(new Random().nextLong());
     }
 
     public static void main(String[] args) {
