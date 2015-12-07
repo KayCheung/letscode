@@ -1,6 +1,5 @@
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -15,10 +14,6 @@ import java.util.function.Function;
 public class SupIndy {
     public Date theIndy(long hours, String min) {
         BiFunction<Long, Long, String> func = (first, second) -> {
-            Method m = new Object() {
-            }.getClass().getEnclosingMethod();
-            System.out.println(m.getName() + " isSynthetic: " + m.isSynthetic());
-
             return String.valueOf(first + second + hours) + min + getCurTime() + getRandom();
         };
         printBiFunction(func);
@@ -36,6 +31,7 @@ public class SupIndy {
     }
 
     private void printBiFunction(Object obj) {
+        System.out.println(obj.getClass() + " BiFunction isSynthetic: " + obj.getClass().isSynthetic());
         Set<Method> methods = new LinkedHashSet<>();
         // 所有public method，包括继承的来的
         methods.addAll(Arrays.asList(this.getClass().getMethods()));
@@ -43,13 +39,8 @@ public class SupIndy {
         methods.addAll(Arrays.asList(this.getClass().getDeclaredMethods()));
 
         for (Method method : methods) {
-            System.out.println("method: " + method.getName());
-            Class[] paraTypes = method.getParameterTypes();
-            for (Class paraType : paraTypes) {
-                System.out.println("----" + paraType.getName());
-            }
-            System.out.println("-----" + method.getReturnType());
-            System.out.println("-----synthetic: " + method.isSynthetic()+", static:"+ Modifier.isStatic(method.getModifiers()));
+            System.out.print(method);
+            System.out.println("-----method synthetic: " + method.isSynthetic());
         }
 
         Set<Field> fields = new LinkedHashSet<>();
@@ -57,16 +48,16 @@ public class SupIndy {
         fields.addAll(Arrays.asList(obj.getClass().getFields()));
         // 所有 public/protected/private/friendly fields，但，不包括继承的来的
         fields.addAll(Arrays.asList(obj.getClass().getDeclaredFields()));
+        System.out.println();
         for (Field field : fields) {
-            System.out.println("field: " + field.getName());
-            System.out.println("----" + field.getType());
+            System.out.print(field);
+            System.out.println("-----field synthetic: " + field.isSynthetic());
         }
     }
 
     public void notCapture() {
-        Function<String, Date> func = (str) -> new Date(str);
-        //printBiFunction(func);
-        Date d = func.apply("Sat, 12 Aug 1995 13:30:00 GMT+0430");
+        Function<String, Date> func = (str) -> new Date(Long.parseLong(str));
+        Date d = func.apply((System.currentTimeMillis() + 1000L) + "");
         System.out.println(d);
     }
 
