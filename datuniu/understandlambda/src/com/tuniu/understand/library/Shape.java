@@ -9,6 +9,15 @@ import java.util.List;
  */
 public class Shape {
     private Color color;
+    private double area;
+
+    public double getArea() {
+        return area;
+    }
+
+    public void setArea(double area) {
+        this.area = area;
+    }
 
     public Color getColor() {
         return color;
