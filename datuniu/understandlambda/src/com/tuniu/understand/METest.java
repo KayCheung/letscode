@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Created by nuc on 2015/11/9.
  */
-public class ExperienceMethodHandle {
+public class METest {
 
     public static void aaa() throws Throwable {
         Object x, y;
