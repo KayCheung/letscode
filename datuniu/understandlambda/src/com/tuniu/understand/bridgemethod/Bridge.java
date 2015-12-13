@@ -1,5 +1,7 @@
 package com.tuniu.understand.bridgemethod;
 
+import com.tuniu.understand.util.ReflectUtils;
+
 import java.util.Date;
 
 /**
@@ -24,8 +26,11 @@ public class Bridge {
 
     public static void main(String[] args) {
         B b = new BImpl();
+        ReflectUtils.printMembers(b);
         b.m("b");
-        A a = (A)b;
+        // b.m(new Date());
+
+        A a = b;
         a.m(new Date());
     }
 }
