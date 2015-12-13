@@ -17,6 +17,13 @@ public class Bridge {
         void m(String t);
     }
 
+    static class AImpl<T> implements A<T> {
+        @Override
+        public void m(T t) {
+            System.out.println("I'm AImpl");
+        }
+    }
+
     static class BImpl implements B {
         @Override
         public void m(String t) {
@@ -26,9 +33,8 @@ public class Bridge {
 
     public static void main(String[] args) {
         B b = new BImpl();
-        ReflectUtils.printMembers(b);
         b.m("b");
-        // b.m(new Date());
+        //b.m(new Date());
 
         A a = b;
         a.m(new Date());
