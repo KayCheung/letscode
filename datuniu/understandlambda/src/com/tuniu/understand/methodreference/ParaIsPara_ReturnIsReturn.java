@@ -1,6 +1,5 @@
 package com.tuniu.understand.methodreference;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,4 +37,18 @@ public class ParaIsPara_ReturnIsReturn {
         Function<String, Integer> func2 = String::hashCode;
 
     }
+
+    public void getFirstOccurence(String context, String occurrence) {
+
+        Integer i = context.indexOf(occurrence);
+
+        BiFunction<String, String, Integer> func1 = (str, occur) -> str.indexOf(occur);
+        Integer i1 = func1.apply(context, occurrence);
+
+
+        BiFunction<String, String, Integer> func2 = String::indexOf;
+        Integer i2 = func2.apply(context, occurrence);
+
+    }
+
 }

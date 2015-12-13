@@ -5,13 +5,13 @@ package com.tuniu.understand.rule4default;
  */
 interface C {
     default void m() {
-        System.out.println("C.mB");
+        System.out.println("C.m");
     }
 }
 
 class Concrete {
     public void m() {
-        System.out.println("Concrete.mB");
+        System.out.println("Concrete.m");
     }
 }
 
@@ -19,11 +19,6 @@ class Concrete {
 public class ClassMethodPreferred extends Concrete implements C {
     // class中 同样签名的方法（即使是abstract的），总是优于 接口的default method
     // Hence the default keyword: default methods are a FALLBACK if the class hierarchy doesn't say anything
-    @Override
-    public void m() {
-        System.out.println("ClassMethodPreferred.mB");
-    }
-
     public static void main(String[] args) {
         C c = new ClassMethodPreferred();
         c.m();

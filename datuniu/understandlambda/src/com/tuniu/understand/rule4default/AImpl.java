@@ -4,40 +4,22 @@ package com.tuniu.understand.rule4default;
  * Created by nuc on 2015/11/17.
  */
 interface A0 {
-    void mA();
-
-    default void mB() {
-        System.out.println("A0.mB");
+    default void m() {
+        System.out.println("A0.m");
     }
 }
 
 interface A1 extends A0 {
-    void mA();
-
-    default void mB() {
-        System.out.println("A1.mB");
+    default void m() {
+        System.out.println("A1.m");
     }
 }
 
-interface A2 extends A0 {
-    void mA();
-
-//    default void mB() {
-//        System.out.println("A2.mB");
-//    }
-}
-
-public class AImpl implements A1, A2 {
-    @Override
-    public void mA() {
-        System.out.println("AImpl.mA");
-    }
-
+public class AImpl implements A0, A1 {
     public static void main(String[] args) {
         A0 a = new AImpl();
-        // 那些被覆盖过的方法，将被 抛弃
-        // A0.mB 别覆盖过了，是被A1.mB覆盖的。所以，A0.mB 被抛弃了
-        // 如果A2也覆盖下 A0.mB，则，AImpl 就不知道选谁了。编译错误
-        a.mB();
+        // 那些 <b>被</b> override 的方法，将被 抛弃
+        // A0.m 被 override 过了，是被 A1.m override 的。所以，A0.m 被抛弃了
+        a.m();
     }
 }
