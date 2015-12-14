@@ -22,7 +22,7 @@ public class OverloadMethod {
         om.overloadMethod((Callable<String>) () -> "bong");
         om.overloadMethod((PrivilegedAction<String>) () -> "bong");
 
-        // Both m1(A) and m1(B) match
+        // Both m1(SynthesizeWhat) and m1(B) match
         //om.overloadMethod(() -> "bong");
 
     }
