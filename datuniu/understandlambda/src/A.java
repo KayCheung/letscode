@@ -6,9 +6,6 @@ public class A {
         });
     }
 
-    public static void lambda$foo$0(String a) {
-
-    }
 
     public static void main(String[] args) {
         new A().foo();
