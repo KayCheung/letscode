@@ -1,8 +1,13 @@
 package com.tuniu.understand;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -95,11 +100,17 @@ public class Album {
     }
 
     public static void main(String[] args) {
-        int[] rst = IntStream.range(0, 5)
-                .parallel()
-                .map(x -> {System.out.println(Thread.currentThread().getName());return x * 2;}).toArray();
+        List<Integer> orgn = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
 
-        System.out.println(Arrays.toString(rst));
+        List<Integer> sychList = Collections.synchronizedList(new ArrayList<>());
+        long cnt = orgn.stream()
+                .parallel()
+                .map(x -> {
+                    sychList.add(x);//多线程执行时，谁先被处理，则，谁先被加进去。加入顺序就是处理顺序
+                    System.out.println(Thread.currentThread().getName() + "--------" + x);
+                    return x * 2;
+                }).count();
+        System.out.println(sychList);
     }
 
 }
