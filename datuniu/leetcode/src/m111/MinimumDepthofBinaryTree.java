@@ -79,7 +79,7 @@ public class MinimumDepthofBinaryTree {
 
         TreeNode cur = root;
         stack.push(cur);
-        
+        return null;
     }
 
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
