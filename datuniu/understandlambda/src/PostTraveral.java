@@ -17,42 +17,50 @@ public class PostTraveral {
         }
     }
 
+    public static class NodeAndRightAccessed {
+        public TreeNode node;
+        public boolean rightChildAccessed;
+
+        public NodeAndRightAccessed(TreeNode node, boolean rightChildAccessed) {
+            this.node = node;
+            this.rightChildAccessed = rightChildAccessed;
+        }
+    }
+
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> rst = new ArrayList<>();
+        if (root == null) {
+            return rst;
+        }
 
-        Deque<TreeNode> stack = new ArrayDeque<>();
-        Deque<Boolean> accessed = new ArrayDeque<>();
-
-        TreeNode cur = root;
+        Deque<NodeAndRightAccessed> stack = new ArrayDeque<>();
+        NodeAndRightAccessed cur = new NodeAndRightAccessed(root, false);
         while (!(cur == null && stack.isEmpty())) {
             if (cur == null) {
                 cur = stack.peek();
-                Boolean already = accessed.peek();
-
-                if (Boolean.TRUE.equals(already)) {
+                if (cur.rightChildAccessed) {
                     cur = stack.pop();
-                    accessed.pop();
-
-                    rst.add(cur.val);
+                    rst.add(cur.node.val);
                     cur = null;
                 } else {
-                    accessed.pop();
-                    accessed.push(Boolean.TRUE);
-                    cur = cur.right;
+                    cur.rightChildAccessed = true;
+                    if (cur.node.right == null) {
+                        cur = null;
+                    } else {
+                        cur = new NodeAndRightAccessed(cur.node.right, false);
+                    }
                 }
             } else {
-                if (cur.left != null) {
-                    stack.push(cur);
-                    accessed.push(Boolean.FALSE);
-                    cur = cur.left;
-                } else if (cur.right != null) {
-                    stack.push(cur);
-                    accessed.push(Boolean.TRUE);
-                    cur = cur.right;
+                if (cur.node.left != null) {
+                    stack.push(new NodeAndRightAccessed(cur.node, false));
+                    cur = new NodeAndRightAccessed(cur.node.left, false);
+                } else if (cur.node.right != null) {
+                    stack.push(new NodeAndRightAccessed(cur.node, true));
+                    cur = new NodeAndRightAccessed(cur.node.right, false);
                 }
                 // both left&&right are null
                 else {
-                    rst.add(cur.val);
+                    rst.add(cur.node.val);
                     cur = null;
                 }
             }
