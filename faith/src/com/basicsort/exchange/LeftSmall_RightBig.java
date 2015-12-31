@@ -5,7 +5,7 @@ public class LeftSmall_RightBig {
 		int firstValue = array[low];
 
 		while (low < high) {
-			while (array[high] >= firstValue && high > low) {
+            while (array[high] >= firstValue && high > low) {
 				high--;
 			}
 			array[low] = array[high];

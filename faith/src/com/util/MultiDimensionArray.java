@@ -29,7 +29,7 @@ public class MultiDimensionArray {
 	 * 
 	 * First column: column header
 	 * 
-	 * @param fullpath
+	 * @param fullPath
 	 * @return
 	 */
 	public static String[][] construct_2D_Array(String fullPath) {
