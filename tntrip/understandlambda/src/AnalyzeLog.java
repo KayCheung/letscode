@@ -48,7 +48,7 @@ public class AnalyzeLog {
     private ThreadAndQueue taq;
 
     public AnalyzeLog() {
-        taq = new ThreadAndQueue(apiMap, 1);
+        taq = new ThreadAndQueue(apiMap, 2);
     }
 
     public static class EachLine {
@@ -97,8 +97,8 @@ public class AnalyzeLog {
 
         public double avgRepInMilliSecond() {
             BigDecimal _200CostInMilliSecond = new BigDecimal(response200TotalMilliSecond);
-            BigDecimal _200Cnt = new BigDecimal(response200TotalMilliSecond);
-            BigDecimal rst = _200CostInMilliSecond.divide(_200Cnt, 1, 0);
+            BigDecimal _200Cnt = new BigDecimal(response200TotalCount);
+            BigDecimal rst = _200CostInMilliSecond.divide(_200Cnt, 2, BigDecimal.ROUND_HALF_UP);
             return rst.doubleValue();
         }
 
@@ -334,6 +334,9 @@ public class AnalyzeLog {
         d.taq.startThreads();
         d.taq.await();
 
+        for (Map.Entry<String, APIStatistic> entry : d.taq.apiMap.entrySet()) {
+            entry.getValue().cft.calculateFailureTime();
+        }
 
         String rst = convertMap2String(d.apiMap);
         try {
@@ -382,13 +385,15 @@ public class AnalyzeLog {
 
 
     public static void main(String[] args) {
+        long begin = System.currentTimeMillis();
         String fullPath = "D:\\sample1.log";
         consumeLogFileProductResult(fullPath, "D:\\sample1.log111");
+        System.out.println("Cost: " + (System.currentTimeMillis() - begin));
     }
 
 
     public static boolean gt30(int _500, int total) {
-        return new BigDecimal(_500).divide(new BigDecimal(total), 2, BigDecimal.ROUND_HALF_UP).compareTo(_03) > 1;
+        return new BigDecimal(_500).divide(new BigDecimal(total), 2, BigDecimal.ROUND_HALF_UP).compareTo(_03) == 1;
 
     }
 
@@ -694,6 +699,4 @@ public class AnalyzeLog {
             return failureEndPoint.idealEndTs - failureStartPoint.idealEndTs;
         }
     }
-
-
 }
