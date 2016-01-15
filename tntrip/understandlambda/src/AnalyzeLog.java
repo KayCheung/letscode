@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -279,6 +280,9 @@ public class AnalyzeLog {
             if (lastOccurOn != currentOccurOn) {
                 as.cft.add(as.nowCountWithinSecond);
                 if (as.cft.isRightFull()) {
+                    if (el.url.equals("/ror/category/query")) {
+                        System.out.println("d");
+                    }
                     as.cft.calculateFailureTime();
                 } else {
                     // do nothing
@@ -374,6 +378,8 @@ public class AnalyzeLog {
             if (strDate.contains(entry.getKey())) {
                 String strDateGood = strDate.replace(entry.getKey(), entry.getValue());
                 try {
+                    System.out.println(new Date().getTime());
+                    System.out.println(sdf.parse(strDateGood).getTime());
                     return sdf.parse(strDateGood).getTime() / 1000;
                 } catch (ParseException e) {
                     return -1L;
@@ -667,6 +673,7 @@ public class AnalyzeLog {
                 else {
                     long duration = increasedFailureTime(tsc, failureStartPoint);
                     failureTimeByFar += duration;
+                    failureStartPoint = null;
                 }
             }
             // 尚未拥有故障开始点
