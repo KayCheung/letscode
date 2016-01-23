@@ -1,5 +1,0 @@
-rootProject.name = 'mob-java-meal'
-
-include 'meal-site'
-include 'meal-business'
-include 'meal-common'
