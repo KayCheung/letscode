@@ -99,7 +99,7 @@ public class ChangedClientCustomSSL {
 			ClientProtocolException {
 		KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
 		FileInputStream instream = new FileInputStream(new File(
-				"D:/Fast/Viator/sso.tuniu.org.crt"));
+				"D:/Fast/Viator/sso.tntrip.org.crt"));
 		try {
 			trustStore.load(instream, "Susan263".toCharArray());
 		} finally {
@@ -119,7 +119,7 @@ public class ChangedClientCustomSSL {
 		try {
 
 			HttpGet httpget = new HttpGet(
-					"http://crm.tuniu.com/main.php?do=new_crm_main");
+					"http://crm.tntrip.com/main.php?do=new_crm_main");
 
 			System.out.println("executing request" + httpget.getRequestLine());
 
