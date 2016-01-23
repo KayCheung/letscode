@@ -5,3 +5,6 @@ build/
 .idea/artifacts/
 target/
 out/
+*.iml
+*.ipr
+*.iws
