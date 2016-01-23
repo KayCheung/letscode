@@ -9,7 +9,6 @@ public class AjaxUtils {
 		return requestedWith != null ? "XMLHttpRequest".equals(requestedWith) : false;
 	}
 
-
 	public static boolean isAjaxUploadRequest(WebRequest webRequest) {
 		return webRequest.getParameter("ajaxUpload") != null;
 	}

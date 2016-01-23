@@ -2,12 +2,7 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
       version="3.0">
-	  
-	  <display-name>Welcome to spring-mvc-showcase</display-name>
-	  <description>
-	     Welcome to spring-mvc-showcase description
-	  </description>
-	  
+
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
