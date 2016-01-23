@@ -1,4 +1,4 @@
-package org.springframework.beanload;
+package org.springframework.samples.mvc.beanload;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoadBeans implements ApplicationListener<ApplicationEvent> {
     @Autowired
-    private Superclass sp;
+    private Sub2 sp;
 
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
