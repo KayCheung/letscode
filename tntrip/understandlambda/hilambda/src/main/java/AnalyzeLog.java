@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +48,7 @@ public class AnalyzeLog {
     private ThreadAndQueue taq;
 
     public AnalyzeLog() {
-        taq = new ThreadAndQueue(apiMap, 2);
+        taq = new ThreadAndQueue(apiMap, 3);
     }
 
     public static class EachLine {
@@ -167,7 +166,7 @@ public class AnalyzeLog {
                 return;
             }
             try {
-                System.out.println(el.url.hashCode() % count);
+                //System.out.println(el.url.hashCode() % count);
                 queues[Math.abs(el.url.hashCode() % count)].put(el);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -280,10 +279,7 @@ public class AnalyzeLog {
             if (lastOccurOn != currentOccurOn) {
                 as.cft.add(as.nowCountWithinSecond);
                 if (as.cft.isRightFull()) {
-                    if (el.url.equals("/ror/category/query")) {
-                        System.out.println("d");
-                    }
-                    as.cft.calculateFailureTime();
+                    //as.cft.calculateFailureTime();
                 } else {
                     // do nothing
                 }
@@ -378,9 +374,7 @@ public class AnalyzeLog {
             if (strDate.contains(entry.getKey())) {
                 String strDateGood = strDate.replace(entry.getKey(), entry.getValue());
                 try {
-                    System.out.println(new Date().getTime());
-                    System.out.println(sdf.parse(strDateGood).getTime());
-                    return sdf.parse(strDateGood).getTime() / 1000;
+                    return sdf.parse(strDateGood).getTime() / 1000L;
                 } catch (ParseException e) {
                     return -1L;
                 }
