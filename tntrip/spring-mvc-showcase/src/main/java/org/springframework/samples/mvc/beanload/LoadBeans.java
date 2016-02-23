@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoadBeans implements ApplicationListener<ApplicationEvent> {
     @Autowired
-    private Sub2 sp;
+    private Sub1 sp;
 
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
