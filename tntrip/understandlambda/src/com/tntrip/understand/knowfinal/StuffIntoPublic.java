@@ -1,4 +1,7 @@
-package net.jcip.examples;
+package com.tntrip.understand.knowfinal;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * StuffIntoPublic
@@ -23,7 +26,12 @@ public class StuffIntoPublic {
 
         @Override
         public void run() {
-            sip.initialize();
+            ExecutorService es = Executors.newFixedThreadPool(200);
+            es.submit((Runnable) () -> {
+                while (true) {
+                    sip.initialize();
+                }
+            });
         }
     }
 
@@ -36,17 +44,18 @@ public class StuffIntoPublic {
 
         @Override
         public void run() {
-            while (sip.holder != null) {
+            while (true) {
                 sip.holder.assertSanity();// 会抛出异常
             }
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         StuffIntoPublic sip = new StuffIntoPublic();
-        Thread assertThread = new Thread(new AssignmentTask(sip));
+        Thread assertThread = new Thread(new AssertTask(sip));
         Thread assignmentThread = new Thread(new AssignmentTask(sip));
-        assertThread.start();
         assignmentThread.start();
+        Thread.sleep(1000);
+        assertThread.start();
     }
 }
