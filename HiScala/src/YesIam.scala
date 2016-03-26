@@ -1,3 +1,18 @@
+import scala.runtime.Null$
+package com {
+  package horstmann {
+    package impatient {
+
+      class Employee {
+
+      }
+
+    }
+
+  }
+
+}
+
 /**
   * Created by libing2 on 2016/3/22.
   */
@@ -29,10 +44,69 @@ trait ConsoleLogger extends Logged {
   }
 }
 
-object ForRun{
+
+//def abs1(x: Double) {
+//  if (x >= 0) x else -x
+//}
+
+
+object ForRun {
+
+  def abs(x: Double, s: String) = {
+    val border = "-" * s.length + "--\n"
+    println(border + "|" + s + "|\n" + border)
+    var a = 10
+  }
+
+  def box(s: String) = {
+    val border = "-" * s.length + "--\n"
+    println(border + "|" + s + "|\n" + border)
+    var a = 10
+    a
+  }
+
   def main(args: Array[String]) {
-    val acct = new SavingsAccount with ConsoleLogger
-    acct.log("dddddd")
-    print("我特么的就打印了一句话，咋这么happy")
+    println(abs(9.0D, "dddddddddddd").getClass)
+    println(box("aaaaaaaa"))
+    println(Void.TYPE)
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
