@@ -7,12 +7,13 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by nuc on 2016/6/11.
  */
 public class AnalyzeType {
-    public static <T extends Number> void testType(T t, List<? extends Number> list) {
+    public static <T> void testType(T t, Set<T> set, List<? extends Number> list) {
     }
 
     public static void analyzeType(Type type) {
@@ -59,7 +60,7 @@ public class AnalyzeType {
     }
 
     public static void main(String[] args) throws Exception {
-        Method m = AnalyzeType.class.getMethod("testType", Number.class, List.class);
+        Method m = AnalyzeType.class.getMethod("testType", Object.class, Set.class, List.class);
         Type[] genericParameterTypes = m.getGenericParameterTypes();
         for (Type gpt : genericParameterTypes) {
             analyzeType(gpt);
