@@ -30,8 +30,10 @@ public class UseType {
         System.out.println(getCustomersRsp());
 
         ApiResponse<IdName> a = JSON.parseObject(getIdNameRsp(), new TypeReference<ApiResponse<IdName>>(){}.getType());
-        ApiResponse<String> o = JSON.parseObject(getCustomersRsp(), new TypeReference<ApiResponse<Customers>>(){}.getType());
-        System.out.println(a);
+        ApiResponse<String> c = JSON.parseObject(getCustomersRsp(), new TypeReference<ApiResponse<Customers>>(){}.getType());
+
+        ApiResponse<Customers> c2 = JSON.parseObject(getCustomersRsp(), new TypeReference<ApiResponse<Customers>>(){});
+        System.out.println(c2);
     }
 
     public static void main(String[] args) {
