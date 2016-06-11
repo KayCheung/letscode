@@ -13,6 +13,30 @@ import java.util.Set;
  * Created by nuc on 2016/6/11.
  */
 public class AnalyzeType {
+
+    public static boolean isParameterizedType(Type type) {
+        return type instanceof ParameterizedType;
+    }
+
+    /**
+     * Only Class object provides the information whether the type in question has type parameters or not (is generic)
+     * <p>
+     * 只有 Class 对象才知道 此 type 是否有 type parameter（即 是否 generic type）
+     *
+     * @param clazz
+     * @return
+     */
+    public static boolean isGenericType(Class<?> clazz) {
+        return clazz.getTypeParameters().length > 0;
+    }
+
+    public static boolean isGenericType(Type type) {
+        if (!(type instanceof Class)) {
+            return false;
+        }
+        return isGenericType((Class) type);
+    }
+
     public static <T> void testType(T t, Set<T> set, List<? extends Number> list) {
     }
 
