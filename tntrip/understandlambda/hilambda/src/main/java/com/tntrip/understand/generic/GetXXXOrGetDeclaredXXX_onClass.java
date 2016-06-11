@@ -1,7 +1,12 @@
 package com.tntrip.understand.generic;
 
+import javafx.scene.media.SubtitleTrack;
+
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 1. Class 上的方法
@@ -15,8 +20,10 @@ public class GetXXXOrGetDeclaredXXX_onClass {
         public String superPublicField;
         private String superPrivateField;
 
-        public String public_method_str() {
-            return null;
+        public <E extends Long> List<? extends Number> public_method_str(E e) {
+            ArrayList<Long> list = new ArrayList<>();
+            list.add(e);
+            return list;
         }
 
         private String private_method_str() {
@@ -51,7 +58,18 @@ public class GetXXXOrGetDeclaredXXX_onClass {
         }
     }
 
+    private static void on_Member_getXXX_getGenericXXX(){
+        for (Method publicMethod : SuperType.class.getDeclaredMethods()) {
+            System.out.println(publicMethod.toGenericString());
+            System.out.println(publicMethod);
+            AnalyzeType.analyzeType(publicMethod.getGenericReturnType());
+            AnalyzeType.analyzeType(publicMethod.getReturnType());
+            System.out.println("\n");
+        }
+
+    }
     public static void main(String[] args) {
-        getXXX_getDeclaredXXX();
+        // getXXX_getDeclaredXXX();
+        on_Member_getXXX_getGenericXXX();
     }
 }

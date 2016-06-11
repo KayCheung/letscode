@@ -31,7 +31,6 @@ public class Declared_Dynamic_Actual<E> {
         // public static final List EMPTY_LIST = new EmptyList<>();
         // class EmptyList<E> extends AbstractList<E> implements RandomAccess, Serializable
         Field field = Collections.class.getDeclaredField("EMPTY_LIST");
-
         System.out.println("------------getGenericType------------");
         AnalyzeType.analyzeType(field.getGenericType());
 
@@ -40,7 +39,7 @@ public class Declared_Dynamic_Actual<E> {
         AnalyzeType.analyzeType(gettype);
 
         System.out.println("------------getClass------------");
-        Class<? extends List> aClass = Collections.emptyList().getClass();
+        Class<?> aClass = field.get(Collections.emptyList()).getClass();
         AnalyzeType.analyzeType(aClass);
 
     }
