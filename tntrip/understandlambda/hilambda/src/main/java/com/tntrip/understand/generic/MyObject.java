@@ -30,6 +30,7 @@ public class MyObject {
     private static void unsafeAdd_Raw(List rawList, Object obj) {
 
     }
+
     private static void wildcardSet(Set<?> set1, Set<?> set2) {
         for (Object o : set1) {
 

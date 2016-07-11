@@ -1,18 +1,18 @@
 package com.tntrip.understand.bridgemethod;
 
-import java.util.Date;
+import com.tntrip.understand.util.ReflectUtils;
 
 /**
  * Created by nuc on 2015/11/20.
  */
 public class Bridge {
-
     interface A<T> {
         void m(T t);
     }
 
+    // B 从 A 继承了方法 m(String t)
+    // 这点是必须的，得符合程序员预期
     interface B extends A<String> {
-        void m(String t);
     }
 
     static class AImpl<T> implements A<T> {
@@ -31,10 +31,11 @@ public class Bridge {
 
     public static void main(String[] args) {
         B b = new BImpl();
-        b.m("b");
-        //b.m(new Date());
+        ReflectUtils.printMembers(b);
 
-        A a = b;
-        a.m(new Date());
+//        b.m("b");
+//        //b.m(new Date());
+//        A a = b;
+//        a.m(new Date());
     }
 }
