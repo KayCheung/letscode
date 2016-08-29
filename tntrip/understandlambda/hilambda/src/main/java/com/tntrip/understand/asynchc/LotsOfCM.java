@@ -31,6 +31,8 @@ public class LotsOfCM {
         try {
             ConnectingIOReactor ior = new DefaultConnectingIOReactor(IOReactorConfig.custom().setIoThreadCount(1).build());
             PoolingNHttpClientConnectionManager cm = new PoolingNHttpClientConnectionManager(ior);
+            cm.setDefaultMaxPerRoute(100);
+            cm.setMaxTotal(500);
             CloseableHttpAsyncClient httpclient = HttpAsyncClients.custom().setConnectionManager(cm).build();
             return httpclient;
         } catch (IOReactorException e) {
@@ -63,7 +65,7 @@ public class LotsOfCM {
             httpclient.start();
             HttpGet request = new HttpGet(URL_163 + sequence);
             future = httpclient.execute(request, null);
-            HttpResponse response = future.get(2000, TimeUnit.SECONDS);
+            HttpResponse response = future.get(5, TimeUnit.SECONDS);
             rst = EntityUtils.toString(response.getEntity());
         } catch (InterruptedException | ExecutionException | TimeoutException | IOException e) {
             e.printStackTrace();
