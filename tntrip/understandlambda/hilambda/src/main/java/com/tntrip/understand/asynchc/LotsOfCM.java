@@ -24,12 +24,16 @@ import java.util.concurrent.TimeoutException;
  */
 public class LotsOfCM {
     public static final String URL_163 = "http://war.163.com/16/0825/10/BVABSAVQ000181KT.html?";
-    public static final CloseableHttpAsyncClient httpclient = create();
-    public static ExecutorService es = Executors.newFixedThreadPool(100, new NamedThreadFactory("commit-task"));
+    public static CloseableHttpAsyncClient httpclient = create();
+    public static ExecutorService es = Executors.newFixedThreadPool(120, new NamedThreadFactory("commit-task"));
 
     private static CloseableHttpAsyncClient create() {
         try {
-            ConnectingIOReactor ior = new DefaultConnectingIOReactor(IOReactorConfig.custom().setIoThreadCount(1).build());
+            int maxtotal = 5000;
+            int dp = 1000;
+            ConnectingIOReactor ior = new DefaultConnectingIOReactor(IOReactorConfig.custom().
+                    setIoThreadCount(4).
+                    build());
             PoolingNHttpClientConnectionManager cm = new PoolingNHttpClientConnectionManager(ior);
             cm.setDefaultMaxPerRoute(100);
             cm.setMaxTotal(500);
@@ -57,7 +61,7 @@ public class LotsOfCM {
         System.out.println(sequence + " " + finalRst + ", cost: " + (System.currentTimeMillis() - begin) + ", " + Thread.currentThread().getName());
     }
 
-    public static String callUrl(int sequence){
+    public static String callUrl(int sequence) {
 //        CloseableHttpAsyncClient httpclient = HttpAsyncClients.createDefault();
         Future<HttpResponse> future = null;
         String rst = null;
@@ -67,9 +71,11 @@ public class LotsOfCM {
             future = httpclient.execute(request, null);
             HttpResponse response = future.get(5, TimeUnit.SECONDS);
             rst = EntityUtils.toString(response.getEntity());
+            System.out.println(rst);
         } catch (InterruptedException | ExecutionException | TimeoutException | IOException e) {
             e.printStackTrace();
-            future.cancel(true);
+            //future.cancel(true);
+            httpclient = create();
         } finally {
             try {
 //                httpclient.close();
