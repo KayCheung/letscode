@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by nuc on 2016/10/11.
+ * Created by libing2 on 2016/10/11.
  */
 
-public class ClockwiseMatrix {
+public class ClockwiseMatrixAnswer {
 
     public static void clockwiseTraverseMatrix(List<Integer> listResult,
                                                int[][] twoDimensionArray,
@@ -37,7 +37,10 @@ public class ClockwiseMatrix {
                 listResult.add(twoDimensionArray[i][hStartInclusive]);
             }
         }
-        clockwiseTraverseMatrix(listResult, twoDimensionArray, ++hStartInclusive, --hEndInclusive, ++vStartInclusive, --vEndInclusive);
+        clockwiseTraverseMatrix(listResult,
+                twoDimensionArray,
+                ++hStartInclusive, --hEndInclusive,
+                ++vStartInclusive, --vEndInclusive);
     }
 
 
@@ -57,7 +60,7 @@ public class ClockwiseMatrix {
         StringBuilder b = new StringBuilder();
         b.append('[');
         for (int i = 0; ; i++) {
-            b.append(leftPad(a[i] + "", ' ', 3));
+            b.append(leftPad(a[i] + "", ' ', 2));
             if (i == iMax)
                 return b.append(']').toString();
             b.append(", ");
@@ -100,7 +103,7 @@ public class ClockwiseMatrix {
                 {1, 2, 3},
                 {4, 5, 6},
                 {7, 8, 9},
-                {10, 11, 12},
+                {10, 11, 15552},
         };
 
         int[][] array2 = new int[][]{
