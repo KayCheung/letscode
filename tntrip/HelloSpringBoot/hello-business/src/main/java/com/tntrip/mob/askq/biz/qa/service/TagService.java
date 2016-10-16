@@ -16,7 +16,7 @@ import java.util.List;
 
 @Component
 public class TagService {
-    @Autowired
+    //@Autowired
     private TagDao tagDao;
 
     public int insert(TagVO tagVO) {

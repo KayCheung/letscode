@@ -69,8 +69,8 @@ configure(javaProjects) {
 }
 
 configure(bootProjects) {
-    apply plugin: 'spring-boot'
     apply plugin: 'war'
+    apply plugin: 'spring-boot'
 }
 
 repositories {

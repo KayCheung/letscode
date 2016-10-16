@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -347,22 +346,6 @@ public class TnStringUtils {
         }
         return str.substring(prefix.length());
     }
-
-    // Just for curious purpose
-    public static class EncounterCount {
-        public final String strStartTime = DateUtil.dateToString(new java.util.Date());
-        public final AtomicLong encountCount = new AtomicLong();
-
-        @Override
-        public String toString() {
-            return "strStartTime=" + strStartTime +
-                    ", encountCount=" + TnStringUtils.human(encountCount.longValue()) + "times";
-        }
-
-    }
-
-    public static EncounterCount EC = new EncounterCount();
-
     /**
      * 将 <code>target</code> 中的增补字符替换成 <code>replacement</code>。
      * 注意：是整个增补字符替换为 <code>replacement</code>
@@ -406,9 +389,6 @@ public class TnStringUtils {
                 sbNormal.append(curC);
                 lastCharIsSurrogate = false;
             }
-        }
-        if (sbSurrogate.length() > 0) {
-            EC.encountCount.incrementAndGet();
         }
         return new String[]{sbNormal.toString(), sbSurrogate.toString()};
     }
@@ -555,31 +535,6 @@ public class TnStringUtils {
         } catch (UnsupportedEncodingException e) {
             LOGGER.error("encode url error", e);
             return "";
-        }
-    }
-
-    /**
-     * 对象转换成json字符串
-     *
-     * @param object
-     * @return
-     */
-    public static String convertObjToJsonString(Object object) {
-        String result = null;
-        try {
-            result = JsonFormatter.toJsonString(object);
-        } catch (IOException e) {
-            LOGGER.error("convert object to json string error", e);
-        }
-        return result;
-    }
-
-    public static <T> T convertJsonStringToObject(String content, Class<T> objectClass) {
-        try {
-            return JsonFormatter.toObject(content, objectClass);
-        } catch (IOException e) {
-            LOGGER.error("convert string to obj fail", e);
-            return null;
         }
     }
 
