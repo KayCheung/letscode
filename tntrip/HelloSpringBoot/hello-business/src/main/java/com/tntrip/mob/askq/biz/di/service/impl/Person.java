@@ -1,0 +1,11 @@
+package com.tntrip.mob.askq.biz.di.service.impl;
+
+import com.tntrip.mob.askq.biz.di.service.Party;
+import org.springframework.stereotype.Component;
+
+/**
+ * Created by libing2 on 2016/10/16.
+ */
+@Component
+public class Person implements Party {
+}
