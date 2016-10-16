@@ -1,9 +1,9 @@
 package com.tntrip.interview;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -14,18 +14,22 @@ public class Choice {
         System.out.println("I'm Collection");
     }
 
-    public void print(List<?> coll) {
-        System.out.println("I'm List");
+    public void print(ArrayList<?> coll) {
+        System.out.println("I'm ArrayList");
     }
 
     public void print(Set<?> coll) {
         System.out.println("I'm Set");
     }
+    
+    public void print(HashSet<?> coll) {
+        System.out.println("I'm HashSet");
+    }
 
     public static void main(String[] args) {
         Choice pe = new Choice();
 
-        Collection<?> c1 = Arrays.asList("One", "Two", "Three");
+        Collection<?> c1 = new ArrayList<>(Arrays.asList("One", "Two", "Three"));
         pe.print(c1);
 
         Set<?> c2 = new HashSet<>(Arrays.asList("One", "Two", "Three"));

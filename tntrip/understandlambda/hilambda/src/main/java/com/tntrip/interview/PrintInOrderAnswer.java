@@ -56,9 +56,6 @@ public class PrintInOrderAnswer {
         shouldPrint.put("A", true);
         shouldPrint.put("B", false);
         shouldPrint.put("C", false);
-        //要求：
-        // 1. 无论 线程的启动顺序 如何，都要保证 输出的是 ABC
-        // 2. 不要通过 “让线程sleep不同的时间段” 来实现。即不要通过：threadC.sleep(5000), threadB.sleep(3000), threadA.sleep(1000) 来实现
         List<Thread> threads = Arrays.asList(threadB, threadC, threadA);
         for (Thread t : threads) {
             t.start();
