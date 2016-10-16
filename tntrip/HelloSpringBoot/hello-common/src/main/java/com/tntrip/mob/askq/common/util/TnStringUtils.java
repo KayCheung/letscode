@@ -1,6 +1,5 @@
 package com.tntrip.mob.askq.common.util;
 
-import com.tntrip.operation.platform.base.json.JsonFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
@@ -23,9 +22,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-/**
- * Created by zhangjinye on 2015/5/12.
- */
+
 //stringutil工具类
 public class TnStringUtils {
 

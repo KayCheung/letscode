@@ -6,12 +6,6 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-/**
- * TagDao
- * Date: 2016-03-09
- *
- * @author wangzhonglin
- */
 public interface TagDao {
 
     int insert(@Param("tagVO") TagVO tagVO);

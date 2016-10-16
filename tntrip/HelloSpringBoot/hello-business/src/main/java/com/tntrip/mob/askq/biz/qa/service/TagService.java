@@ -14,12 +14,6 @@ import org.springframework.util.CollectionUtils;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * 订单状态改变服务
- * Date: 2016-05-06
- *
- * @author wangzhonglin
- */
 @Component
 public class TagService {
     @Autowired
