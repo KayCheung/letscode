@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 /**
  * Created by libing2 on 2016/10/16.
  */
-@Component
+@Component(value = "psn")
 public class Person implements Party {
     @Override
     public String partyName() {
