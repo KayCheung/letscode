@@ -4,8 +4,26 @@
 package com.tntrip.mob.askq;
 
 
+import com.tntrip.mob.askq.biz.di.service.Party;
+import com.tntrip.mob.askq.biz.di.service.impl.Person;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DatabaseConfig {
+    @Bean("ppp1")
+    public Party parrty1() {
+        return new Person();
+    }
+
+    @Bean("ppp2")
+    public Party parrty2() {
+        return new Person();
+    }
+
+    @Bean("ppp3")
+    public Party parrty3() {
+        return new Person();
+    }
+
 }
