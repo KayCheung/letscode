@@ -1,6 +1,9 @@
 package com.tntrip.mob.askq.web.di;
 
 import com.tntrip.mob.askq.biz.di.service.Party;
+import com.tntrip.mob.askq.biz.pojo.Pojo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,8 +35,18 @@ public class DIController {
     @Resource(name = "ppp3")
     private Party psn3;
 
+    @Autowired
+    @Qualifier(value = "pojo1")
+    private Pojo pj1;
+
+    @Autowired
+    @Qualifier(value = "pojo2")
+    private Pojo pj2;
+
     @RequestMapping("/api/hi")
     public String status() {
-        return (psn1 == psn2) + "----" + (psn1 == psn3);
+        String str1 = (psn1 == psn2) + "----" + (psn1 == psn3);
+        String str2 = (pj1 == pj2) + "";
+        return str1 + ", " + str2;
     }
 }

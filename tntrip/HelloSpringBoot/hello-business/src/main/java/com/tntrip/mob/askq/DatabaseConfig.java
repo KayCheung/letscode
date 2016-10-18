@@ -6,7 +6,6 @@ package com.tntrip.mob.askq;
 
 import com.tntrip.mob.askq.biz.di.service.Party;
 import com.tntrip.mob.askq.biz.di.service.impl.Person;
-import com.tntrip.mob.askq.common.util.Pet;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
