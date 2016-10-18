@@ -4,10 +4,11 @@
 
 /out
 /classes
-build/
+gradle/
 out/
 ServiceTreeInfo/
-
+gradlew
+gradlew.bat
 ### STS ###
 .classpath
 .factorypath
