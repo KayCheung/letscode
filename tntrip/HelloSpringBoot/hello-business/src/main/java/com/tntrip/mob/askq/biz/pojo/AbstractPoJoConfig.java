@@ -5,7 +5,7 @@ package com.tntrip.mob.askq.biz.pojo;
 
 
 public class AbstractPoJoConfig {
-    public Pojo createPojo() {
+    protected Pojo createPojo() {
         return new Pojo();
     }
 }
