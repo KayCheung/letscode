@@ -1,5 +1,7 @@
 package com.tntrip.mob.askq.web.di;
 
+import com.tntrip.mob.askq.biz.di.circular.AF;
+import com.tntrip.mob.askq.biz.di.circular.BF;
 import com.tntrip.mob.askq.biz.di.service.Party;
 import com.tntrip.mob.askq.biz.pojo.Pojo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +45,15 @@ public class DIController {
     @Qualifier(value = "pojo2")
     private Pojo pj2;
 
+    @Autowired
+    private AF af;
+    @Autowired
+    private BF bf;
+
     @RequestMapping("/api/hi")
     public String status() {
         String str1 = (psn1 == psn2) + "----" + (psn1 == psn3);
         String str2 = (pj1 == pj2) + "";
-        return str1 + ", " + str2;
+        return str1 + ", " + str2 + af.display() + bf.display();
     }
 }

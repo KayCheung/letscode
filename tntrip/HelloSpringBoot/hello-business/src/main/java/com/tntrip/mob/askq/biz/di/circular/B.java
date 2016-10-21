@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class B {
-    private A a;
+//    private A a;
 
-    public B(A a) {
-        this.a = a;
-        System.out.println("Already injected a into b...");
-    }
+//    public B(A a) {
+//        this.a = a;
+//        System.out.println("Already injected a into b...");
+//    }
 }
