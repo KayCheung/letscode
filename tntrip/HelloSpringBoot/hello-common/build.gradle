@@ -2,4 +2,6 @@
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+    compile('io.springfox:springfox-swagger-ui:2.6.0')
+    compile('io.springfox:springfox-swagger2:2.6.0')
 }

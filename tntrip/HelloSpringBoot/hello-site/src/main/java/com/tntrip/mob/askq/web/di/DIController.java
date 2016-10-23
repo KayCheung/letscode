@@ -7,6 +7,7 @@ import com.tntrip.mob.askq.biz.pojo.Pojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -50,8 +51,8 @@ public class DIController {
     @Autowired
     private BF bf;
 
-    @RequestMapping("/api/hi")
-    public String status() {
+    @RequestMapping(value = "/api/hi", method = RequestMethod.GET)
+    public String seeDI() {
         String str1 = (psn1 == psn2) + "----" + (psn1 == psn3);
         String str2 = (pj1 == pj2) + "";
         return str1 + ", " + str2 + af.display() + bf.display();
