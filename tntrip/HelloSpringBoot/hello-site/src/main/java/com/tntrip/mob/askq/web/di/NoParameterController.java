@@ -28,7 +28,7 @@ import javax.annotation.Resource;
  * </pre>
  */
 @RestController
-public class DIController {
+public class NoParameterController {
     @Resource(name = "ppp1")
     private Party psn1;
 
@@ -51,8 +51,8 @@ public class DIController {
     @Autowired
     private BF bf;
 
-    @RequestMapping(value = "/api/hi", method = RequestMethod.GET)
-    public String seeDI() {
+    @RequestMapping(value = "/api/noParameter", method = RequestMethod.GET)
+    public String noParameter() {
         String str1 = (psn1 == psn2) + "----" + (psn1 == psn3);
         String str2 = (pj1 == pj2) + "";
         return str1 + ", " + str2 + af.display() + bf.display();

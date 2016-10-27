@@ -7,7 +7,9 @@ public class UserModel {
     private int id;
     private String name;
     private int age;
+    public UserModel(){
 
+    }
     public UserModel(String name, int age) {
         this.name = name;
         this.age = age;

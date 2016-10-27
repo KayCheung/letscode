@@ -1,46 +1,123 @@
 package com.tntrip.mob.askq;
 
+import com.fasterxml.classmate.TypeResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.async.DeferredResult;
-import springfox.documentation.RequestHandler;
-import springfox.documentation.service.ApiInfo;
+import springfox.documentation.builders.ParameterBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.ResponseMessageBuilder;
+import springfox.documentation.schema.ModelRef;
+import springfox.documentation.service.ApiKey;
+import springfox.documentation.service.AuthorizationScope;
+import springfox.documentation.service.SecurityReference;
+import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.ApiKeyVehicle;
+import springfox.documentation.swagger.web.SecurityConfiguration;
+import springfox.documentation.swagger.web.UiConfiguration;
 
-import java.util.function.Predicate;
+import java.lang.reflect.WildcardType;
+import java.time.LocalDate;
+import java.util.List;
 
-import static com.google.common.base.Predicates.or;
-import static springfox.documentation.builders.PathSelectors.regex;
-import static springfox.documentation.builders.RequestHandlerSelectors.withClassAnnotation;
+import static com.google.common.collect.Lists.newArrayList;
+import static springfox.documentation.schema.AlternateTypeRules.newRule;
 
 @Configuration
 public class SwaggerConfig {
     @Bean
-    public Docket merchantStoreApi() {
+    public Docket petApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("internal-api")
-                .genericModelSubstitutes(DeferredResult.class)
-                .useDefaultResponseMessages(false)
-                .forCodeGeneration(true)
-                .pathMapping("/")// base，最终调用接口后会和paths拼接在一起
                 .select()
-                //.apis(((Predicate<RequestHandler>) withClassAnnotation(Swagger2igIe.class)::apply).negate()) //SwaggerIngore的注解的controller将会被忽略
-                .paths(or(regex("/api/.*")))
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
+                .build()
+                .pathMapping("/")
+                .directModelSubstitute(LocalDate.class,
+                        String.class)
+                .genericModelSubstitutes(ResponseEntity.class)
+//                .alternateTypeRules(
+//                        newRule(typeResolver.resolve(DeferredResult.class,
+//                                typeResolver.resolve(ResponseEntity.class, WildcardType.class)),
+//                                typeResolver.resolve(WildcardType.class)))
+                .useDefaultResponseMessages(false)
+                .globalResponseMessage(RequestMethod.GET,
+                        newArrayList(new ResponseMessageBuilder()
+                                .code(500)
+                                .message("500 message")
+                                .responseModel(new ModelRef("Error"))
+                                .build()))
+                //.securitySchemes(newArrayList(apiKey()))
+                //.securityContexts(newArrayList(securityContext()))
+                .enableUrlTemplating(false)
+//                .globalOperationParameters(
+//                        newArrayList(new ParameterBuilder()
+//                                .name("someGlobalParameter")
+//                                .description("Description of someGlobalParameter")
+//                                .modelRef(new ModelRef("string"))
+//                                .parameterType("query")
+//                                .required(true)
+//                                .build()))
+                .tags(new Tag("Pet Service", "All apis relating to pets"))
+                // .additionalModels(typeResolver.resolve(AdditionalModel.class))
+                ;
+    }
+
+    //@Autowired
+    // private TypeResolver typeResolver;
+
+    private ApiKey apiKey() {
+        return new ApiKey("mykey", "api_key", "header");
+    }
+
+    private SecurityContext securityContext() {
+        return SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .forPaths(PathSelectors.regex("/anyPath.*"))
                 .build();
     }
 
-    private ApiInfo testApiInfo() {
-        ApiInfo apiInfo = new ApiInfo("标题文档",//大标题
-                "文档的详细说",//小标题
-                "0.1",//版本
-                "NO terms of service",
-                "razorer@razorer.com",//作者
-                "The Apache License, Version 2.0",//链接显示文字
-                "www.razorer.com"//网站链接
-        );
+    List<SecurityReference> defaultAuth() {
+        AuthorizationScope authorizationScope
+                = new AuthorizationScope("global", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        return newArrayList(
+                new SecurityReference("mykey", authorizationScopes));
+    }
 
-        return apiInfo;
+    //@Bean
+    SecurityConfiguration security() {
+        return new SecurityConfiguration(
+                "test-app-client-id",
+                "test-app-client-secret",
+                "test-app-realm",
+                "test-app",
+                "apiKey",
+                ApiKeyVehicle.HEADER,
+                "api_key",
+                "," /*scope separator*/);
+    }
+
+    @Bean
+    UiConfiguration uiConfig() {
+        return new UiConfiguration(
+                "validatorUrl",// url
+                "none",       // docExpansion          => none | list
+                "alpha",      // apiSorter             => alpha
+                "schema",     // defaultModelRendering => schema
+                UiConfiguration.Constants.DEFAULT_SUBMIT_METHODS,
+                false,        // enableJsonEditor      => true | false
+                true);         // showRequestHeaders    => true | false
+        //60000L);      // requestTimeout => in milliseconds, defaults to null (uses jquery xh timeout)
     }
 }
+
 
