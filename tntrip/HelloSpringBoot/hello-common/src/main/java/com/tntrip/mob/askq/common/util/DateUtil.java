@@ -9,6 +9,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by zhangjinye on 2015/5/12.
@@ -150,6 +153,39 @@ public class DateUtil {
             return -1;
         } else {
             return 0;
+        }
+    }
+
+    public static void unthreadSafeSDF() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Map<String, Long> map = new HashMap<>();
+        long timeInMillis = 1477964571746L;
+        for (int i = 0; i < 1000; i++) {
+            long aTimeInMillis = timeInMillis - new Random().nextInt(99999999);
+            map.put(sdf.format(new Date(aTimeInMillis)), aTimeInMillis);
+        }
+
+        for (int i = 0; i < 20; i++) {
+            new Thread("thread-" + i) {
+                @Override
+                public void run() {
+                    while (true) {
+                        for (Map.Entry<String, Long> e : map.entrySet()) {
+                            String shouldBe = e.getKey();
+                            Date d = new Date(e.getValue());
+                            String actuallyBe = sdf.format(d);
+                            if (!shouldBe.equals(actuallyBe)) {
+                                String info = TnStringUtils.format("threadName={0}, timeInMills={1}, shouldBe={2}, actuallyBe={3}, formatItAgain={4}",
+                                        Thread.currentThread().getName(), e.getValue() + "", shouldBe, actuallyBe,
+                                        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(e.getValue())));
+                                System.out.println(info);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }.start();
         }
     }
 
