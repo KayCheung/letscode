@@ -5,7 +5,9 @@ package com.tntrip.mob.askq.biz.qa.service;
 
 import com.tntrip.mob.askq.biz.qa.dao.TagDao;
 import com.tntrip.mob.askq.biz.qa.vo.TagVO;
+import com.tntrip.mob.askq.common.util.TnStringUtils;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -38,6 +40,9 @@ public class TagService {
     }
 
     public List<TagVO> getTagByExactTagValue(String tagValue) {
+        if (TnStringUtils.isBlank(tagValue)) {
+            throw new RuntimeException("Criteria tag value cannot be empty. tagValue=" + tagValue);
+        }
         List<TagVO> list = tagDao.getTagByExactTagValue(tagValue);
         return CollectionUtils.isEmpty(list) ? Collections.emptyList() : list;
     }
@@ -77,6 +82,9 @@ public class TagService {
     }
 
     public TagVO getCityNameByPoiValue(String poiValue) {
+        if (TnStringUtils.blankOrLiteralNull(poiValue)) {
+            return null;
+        }
         return tagDao.getCityNameByPoiValue(poiValue);
     }
 }

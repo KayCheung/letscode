@@ -1,6 +1,7 @@
 def vJavaLang = '1.8'
 def javaProjects = [project(':hello-business'), project(':hello-common'), project(':hello-site')]
 def bootProjects = [project(':hello-site')]
+ext['elasticsearch.version'] = '2.4.0'
 buildscript {
     ext {
         springBootVersion = '1.4.1.RELEASE'
