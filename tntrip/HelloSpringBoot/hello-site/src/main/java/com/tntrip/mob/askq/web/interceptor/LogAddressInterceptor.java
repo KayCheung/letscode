@@ -13,7 +13,7 @@ public class LogAddressInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        LOGGER.info("Executing interceptor: remoteAddress=", request.getRemoteAddr());
+        LOGGER.info("Executing interceptor: remoteAddress={}", request.getRemoteAddr());
         return true;
     }
 }
