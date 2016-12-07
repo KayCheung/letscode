@@ -3,4 +3,7 @@ dependencies {
     compile "com.alibaba:fastjson:1.2.21"
     compile "org.apache.httpcomponents:httpasyncclient:4.1.2"
     compile "org.elasticsearch:elasticsearch:2.4.0"
+    // https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core
+    //compile group: 'org.openjdk.jmh', name: 'jmh-core', version: '1.17.1'
+
 }
