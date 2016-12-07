@@ -1,7 +1,8 @@
 def vJavaLang = '1.8'
 
 def javaProjects = [
-        project(':hilambda')
+        project(':hilambda'),
+        project(':jmh-samples')
 ]
 
 group 'com.tntrip.understand'

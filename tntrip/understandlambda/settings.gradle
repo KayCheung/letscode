@@ -1,3 +1,6 @@
 rootProject.name = 'understandlambda'
 
 include 'hilambda'
+
+include 'jmh-samples'
+
