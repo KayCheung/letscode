@@ -2,7 +2,8 @@ package com.tntrip.understand.exception;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Supplier;
 
 /**
@@ -14,6 +15,18 @@ interface SupplierWithException<T> {
 
 public class LambdaException {
     public static void main(String[] args) {
+        List<Boolean> booleanList = Arrays.asList(Boolean.TRUE, Boolean.FALSE);
+        int cnt = 0;
+        for (Boolean aBoolean : booleanList) {
+            cnt = aBoolean ? cnt++ : cnt;
+        }
+
+
+
+        System.out.println(cnt);
+    }
+
+    public static void aaaaa(String[] args) {
         execSupplier(new Supplier<String>() {
             @Override
             public String get() {
