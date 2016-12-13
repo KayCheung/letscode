@@ -84,7 +84,7 @@ public class BiasedLock {
     OrgnSB thesb = new OrgnSB();
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
-    @Warmup(iterations = 5, time = 500, timeUnit = TimeUnit.MILLISECONDS)
+    @Warmup     (iterations = 10, time = 500, timeUnit = TimeUnit.MILLISECONDS)
     @Measurement(iterations = 10, time = 500, timeUnit = TimeUnit.MILLISECONDS)
     @Fork(jvmArgsAppend = {"-XX:+UseBiasedLocking",
             "-XX:BiasedLockingStartupDelay=0",

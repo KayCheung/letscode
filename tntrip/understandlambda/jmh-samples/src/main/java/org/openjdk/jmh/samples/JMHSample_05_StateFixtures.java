@@ -42,7 +42,7 @@ public class JMHSample_05_StateFixtures {
     double x;
 
     /*
-     * Since @State objects are kept around during the lifetime of the
+     * Since @State objects are kept around(将...保留在周围) during the lifetime of the
      * benchmark, it helps to have the methods which do state housekeeping.
      * These are usual fixture methods, you are probably familiar with them from
      * JUnit and TestNG.
