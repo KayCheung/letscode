@@ -100,7 +100,7 @@ public class JMHSample_38_PerInvokeSetup {
      * that operation would be significantly faster!
      *
      * This is how we might *try* to measure it right by making a copy in Level.Invocation
-     * setup. However, this is susceptible to the problems described in Level.Invocation
+     * setup. However, this is susceptible(容易受影响的) to the problems described in Level.Invocation
      * Javadocs, READ AND UNDERSTAND THOSE DOCS BEFORE USING THIS APPROACH.
      */
 
@@ -121,9 +121,9 @@ public class JMHSample_38_PerInvokeSetup {
     }
 
     /*
-     * In an overwhelming majority of cases, the only sensible thing to do is to suck up
+     * In an overwhelming majority of cases, the only sensible(明智的) thing to do is to suck up(吸收)
      * the per-invocation setup costs into a benchmark itself. This work well in practice,
-     * especially when the payload costs dominate the setup costs.
+     * especially when the payload costs dominate(支配，即，远远大于) the setup costs.
      */
 
     @Benchmark
