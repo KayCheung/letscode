@@ -31,8 +31,10 @@
 package org.openjdk.jmh.samples;
 
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Measurement;
+import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
@@ -50,7 +52,7 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @Fork(1)
 @Threads(1)
-//@BenchmarkMode(Mode.All)
+@BenchmarkMode(Mode.AverageTime)
 public class BiasedLock {
     List<Integer> numberList = new MyList<>();
 
@@ -78,15 +80,25 @@ public class BiasedLock {
         numberList.clear();
     }
 
-    SynchronizedSB thesb = new SynchronizedSB();
-
-//    OrgnSB thesb = new OrgnSB();
+//        SynchronizedSB thesb = new SynchronizedSB();
+    OrgnSB thesb = new OrgnSB();
     @Benchmark
-    @Warmup(iterations = 5, time = 100, timeUnit = TimeUnit.MILLISECONDS)
-    @Measurement(iterations = 20, time = 300, timeUnit = TimeUnit.MILLISECONDS)
+    @BenchmarkMode(Mode.AverageTime)
+    @Warmup     (iterations = 10, time = 500, timeUnit = TimeUnit.MILLISECONDS)
+    @Measurement(iterations = 10, time = 500, timeUnit = TimeUnit.MILLISECONDS)
+    @Fork(jvmArgsAppend = {"-XX:+UseBiasedLocking",
+            "-XX:BiasedLockingStartupDelay=0",
+            "-server",
+            "-XX:+EliminateLocks"})
     public void stringBuilderTest() {
-        thesb.append("abc");
-        thesb.delete(0, thesb.length());
+//        SynchronizedSB thesb = this.thesb;
+        OrgnSB thesb = this.thesb;
+//        SynchronizedSB thesb = new SynchronizedSB();
+//    OrgnSB thesb = new OrgnSB();
+        for (int i = 0; i < 10000; i++) {
+            thesb.append("abc");
+            thesb.delete(0, thesb.length());
+        }
     }
 
     /*

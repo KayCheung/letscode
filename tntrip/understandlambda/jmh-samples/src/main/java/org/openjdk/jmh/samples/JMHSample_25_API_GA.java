@@ -55,7 +55,7 @@ public class JMHSample_25_API_GA {
      * the results programmatically, and hence we are missing all the fun.
      *
      * Let's consider this naive code, which obviously suffers from the
-     * performance anomalies, since current HotSpot is resistant to make
+     * performance anomalies(反常事物), since current HotSpot is resistant(拒绝) to make
      * the tail-call optimizations.
      */
 

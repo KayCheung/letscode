@@ -31,26 +31,33 @@
 package org.openjdk.jmh.samples;
 
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.TearDown;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
+
+import java.util.concurrent.TimeUnit;
 
 public class JMHSample_03_States {
 
     /*
      * Most of the time, you need to maintain some state while the benchmark is
      * running. Since JMH is heavily used to build concurrent benchmarks, we
-     * opted for an explicit notion of state-bearing objects.
+     * opted for(选择) an explicit notion(显式的表示法) of state-bearing objects.
      *
      * Below are two state objects. Their class names are not essential, it
      * matters they are marked with @State. These objects will be instantiated
-     * on demand, and reused during the entire benchmark trial.
+     * on demand(按需实例化), and reused during the entire benchmark trial(整个benchmark期间).
      *
      * The important property is that state is always instantiated by one of
-     * those benchmark threads which will then have the access to that state.
+     * those benchmark threads which will then have the access to that state(要对其进行访问的某个线程所实例化).
      * That means you can initialize the fields as if you do that in worker
      * threads (ThreadLocals are yours, etc).
      */
@@ -58,24 +65,53 @@ public class JMHSample_03_States {
     @State(Scope.Benchmark)
     public static class BenchmarkState {
         volatile double x = Math.PI;
+
+        @Setup
+        public void setup() {
+            System.out.println("\nSetup BenchmarkState: " + Thread.currentThread().getName() + ", " + x);
+
+        }
+
+        @TearDown
+        public void teardown() {
+            System.out.println("\nTearDown BenchmarkState: " + Thread.currentThread().getName() + ", " + x);
+
+        }
     }
+
 
     @State(Scope.Thread)
     public static class ThreadState {
         volatile double x = Math.PI;
+
+        @Setup
+        public void setup() {
+            System.out.println("\nSetup ThreadState: " + Thread.currentThread().getName() + ", " + x);
+
+        }
+
+        @TearDown
+        public void teardown() {
+            System.out.println("\nTearDown ThreadState: " + Thread.currentThread().getName() + ", " + x);
+
+        }
     }
 
     /*
      * Benchmark methods can reference the states, and JMH will inject the
      * appropriate states while calling these methods. You can have no states at
      * all, or have only one state, or have multiple states referenced. This
-     * makes building multi-threaded benchmark a breeze.
+     * makes building multi-threaded benchmark a breeze
+     *
+     * (使得构建多线程benchmark简直就像一阵清风).
      *
      * For this exercise, we have two methods.
      */
 
     @Benchmark
-    public void measureUnshared(ThreadState state) {
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    @BenchmarkMode(Mode.AverageTime)
+    public void measureThreadUnshared(ThreadState state) {
         // All benchmark threads will call in this method.
         //
         // However, since ThreadState is the Scope.Thread, each thread
@@ -85,11 +121,13 @@ public class JMHSample_03_States {
     }
 
     @Benchmark
-    public void measureShared(BenchmarkState state) {
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    @BenchmarkMode(Mode.AverageTime)
+    public void measureBenchmarkShared(BenchmarkState state) {
         // All benchmark threads will call in this method.
         //
         // Since BenchmarkState is the Scope.Benchmark, all threads
-        // will share the state instance, and we will end up measuring
+        // will share the state instance(所有线程共享这一个state变量), and we will end up measuring
         // shared case.
         state.x++;
     }
