@@ -43,12 +43,12 @@ public class JMHSample_05_StateFixtures {
 
     /*
      * Since @State objects are kept around(将...保留在周围) during the lifetime of the
-     * benchmark, it helps to have the methods which do state housekeeping.
-     * These are usual fixture methods, you are probably familiar with them from
+     * benchmark, it helps to have the methods which (do state housekeeping).
+     * These are usual fixture(固定) methods, you are probably familiar with them from
      * JUnit and TestNG.
      *
      * Fixture methods make sense only on @State objects, and JMH will fail to
-     * compile the test otherwise.
+     * compile the test otherwise(@Setup或@TearDown在的类 并不被 @State所标注，则编译失败).
      *
      * As with the State, fixture methods are only called by those benchmark
      * threads which are using the state. That means you can operate in the
@@ -79,8 +79,8 @@ public class JMHSample_05_StateFixtures {
     }
 
     /*
-     * This method obviously does the right thing, incrementing the field x
-     * in the benchmark state. check() will never fail this way, because
+     * This method obviously does the right thing, incrementing
+     * (the field x in the benchmark state). check() will never fail this way, because
      * we are always guaranteed to have at least one benchmark call.
      */
 

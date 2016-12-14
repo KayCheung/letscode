@@ -49,10 +49,14 @@ public class JMHSample_11_Loops {
      * this is a bad idea.
      *
      * Looping is done in the hope of minimizing the overhead of calling the
-     * test method, by doing the operations inside the loop instead of inside
-     * the method call. Don't buy this argument; you will see there is more
+     * test method, by doing the operations inside the loop (instead of inside
+     * the method call).
+     *
+     * Don't buy this argument; you will see there is more
      * magic happening when we allow optimizers to merge the loop iterations.
      */
+
+
 
     /*
      * Suppose we want to measure how much it takes to sum two integers:
@@ -71,7 +75,7 @@ public class JMHSample_11_Loops {
     }
 
     /*
-     * The following tests emulate the naive looping.
+     * The following tests emulate(模仿) the naive looping.
      * This is the Caliper-style benchmark.
      */
     private int reps(int reps) {
@@ -83,7 +87,7 @@ public class JMHSample_11_Loops {
     }
 
     /*
-     * We would like to measure this with different repetitions count.
+     * We would like to measure this with different repetitions(重复) count.
      * Special annotation is used to get the individual operation cost.
      */
 
@@ -126,13 +130,14 @@ public class JMHSample_11_Loops {
     /*
      * ============================== HOW TO RUN THIS TEST: ====================================
      *
-     * You might notice the larger the repetitions count, the lower the "perceived"
-     * cost of the operation being measured. Up to the point we do each addition with 1/20 ns,
-     * well beyond what hardware can actually do.
+     * You might notice the larger the repetitions count, the lower the "perceived"(觉察到的)
+     * cost of (the operation being measured). Up to the point we do each addition with 1/20 ns,
+     * well beyond(远远超过) what hardware can actually do.
      *
-     * This happens because the loop is heavily unrolled/pipelined, and the operation
-     * to be measured is hoisted from the loop. Morale: don't overuse loops, rely on JMH
-     * to get the measurement right.
+     * This happens because the loop is heavily unrolled/pipelined(展开和流水线化), and the operation
+     * to be measured is hoisted(吊离出来) from the loop.
+     *
+     * Morale: don't overuse loops, rely on JMH to get the measurement right.
      *
      * You can run this test:
      *

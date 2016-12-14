@@ -36,6 +36,8 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
+import java.util.concurrent.TimeUnit;
+
 @State(Scope.Thread)
 public class JMHSample_06_FixtureLevel {
 
@@ -46,12 +48,12 @@ public class JMHSample_06_FixtureLevel {
      * There are at least three Levels available to the user. These are, from
      * top to bottom:
      *
-     * Level.Trial: before or after the entire benchmark run (the sequence of iterations)
+     * Level.Trial: before or after the entire(整个的) benchmark run (the sequence of iterations)
      * Level.Iteration: before or after the benchmark iteration (the sequence of invocations)
      * Level.Invocation; before or after the benchmark method invocation (WARNING: read the Javadoc before using)
      *
-     * Time spent in fixture methods does not count into the performance
-     * metrics, so you can use this to do some heavy-lifting.
+     * Time spent in fixture methods does not count into the performance metrics,
+     * so you can use this to do some heavy-lifting.
      */
 
     @TearDown(Level.Iteration)
@@ -60,7 +62,9 @@ public class JMHSample_06_FixtureLevel {
     }
 
     @Benchmark
+//    @Threads(4)
     public void measureRight() {
+        //System.out.println(Thread.currentThread().getName());
         x++;
     }
 
