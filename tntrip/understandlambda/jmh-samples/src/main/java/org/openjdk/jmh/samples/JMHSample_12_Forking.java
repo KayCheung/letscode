@@ -44,10 +44,10 @@ import java.util.concurrent.TimeUnit;
 public class JMHSample_12_Forking {
 
     /*
-     * JVMs are notoriously good at profile-guided optimizations. This is bad
+     * JVMs are notoriously(众所周知地) good at profile-guided optimizations(profile导向的优化). This is bad
      * for benchmarks, because different tests can mix their profiles together,
      * and then render the "uniformly bad" code for every test. Forking (running
-     * in a separate process) each test can help to evade this issue.
+     * in a separate process) each test can help to evade(规避) this issue.
      *
      * JMH will fork the tests by default.
      */
