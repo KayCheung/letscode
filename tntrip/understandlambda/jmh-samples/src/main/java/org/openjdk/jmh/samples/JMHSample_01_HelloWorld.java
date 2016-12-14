@@ -63,7 +63,7 @@ public class JMHSample_01_HelloWorld {
      * overheads the infrastructure bear on the code you measure in the method.
      * There are no magical infrastructures which incur no overhead, and it is
      * important to know what are the infra overheads you are dealing with. You
-     * might find this thought unfolded in future examples by having the
+     * might find this thought(想法) unfolded in future examples by having the
      * "baseline" measurements to compare against.
      */
 
@@ -75,9 +75,9 @@ public class JMHSample_01_HelloWorld {
     /*
      * ============================== HOW TO RUN THIS TEST: ====================================
      *
-     * You are expected to see the run with large number of iterations, and
-     * very large throughput numbers. You can see that as the estimate of the
-     * harness overheads per method call. In most of our measurements, it is
+     * You are expected to see the run with (large number of iterations), and
+     * (very large throughput numbers). You can see that (as the estimate of the
+     * harness overheads per method call). In most of our measurements, it is
      * down to several cycles per call.
      *
      * a) Via command-line:
@@ -89,7 +89,7 @@ public class JMHSample_01_HelloWorld {
      *    $ java -jar target/benchmarks.jar -h
      *
      * b) Via the Java API:
-     *    (see the JMH homepage for possible caveats when running from IDE:
+     *    (see the JMH homepage for possible caveats(说明) when running from IDE:
      *      http://openjdk.java.net/projects/code-tools/jmh/)
      */
 
