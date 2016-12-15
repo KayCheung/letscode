@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class ReadExcel {
 
 
     public static void main(String[] args) throws Exception {
-        String fullPath = "C:/enlu_关键词配置模板.xlsx";
+        String fullPath = "C:/火车票----关键词配置模板.xlsx";
         FileInputStream fis = new FileInputStream(fullPath);
         // Use an InputStream, needs more memory
         Workbook wb = new XSSFWorkbook(fis);
@@ -87,12 +88,11 @@ public class ReadExcel {
         fis.close();
 
         String finalSQL = generateSQL(list);
-        try (FileWriter fw = new FileWriter("c:/finalSQL.sql");
+        try (FileWriter fw = new FileWriter(new File(fullPath).getAbsolutePath()+".sql");
              BufferedWriter bw = new BufferedWriter(fw);
         ) {
             bw.write(finalSQL);
         }
-
 
     }
 
