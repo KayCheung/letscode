@@ -44,15 +44,15 @@ import java.util.concurrent.TimeUnit;
 public class JMHSample_10_ConstantFold {
 
     /*
-     * The flip side of dead-code elimination is constant-folding.
+     * The flip side(反面) of dead-code elimination is constant-folding(常量折叠).
      *
      * If JVM realizes the result of the computation is the same no matter what,
      * it can cleverly optimize it. In our case, that means we can move the
      * computation outside of the internal JMH loop.
      *
-     * This can be prevented by always reading the inputs from non-final
-     * instance fields of @State objects, computing the result based on those
-     * values, and follow the rules to prevent DCE.
+     * This can be prevented(阻止) by always reading the inputs from non-final
+     * instance fields of @State objects(读取 非final field，从而阻止 constant-folding),
+     * computing the result based on those values, and follow the rules to prevent DCE.
      */
 
     // IDEs will say "Oh, you can convert this field to local variable". Don't. Trust. Them.
@@ -71,7 +71,7 @@ public class JMHSample_10_ConstantFold {
 
     @Benchmark
     public double measureWrong_1() {
-        // This is wrong: the source is predictable, and computation is foldable.
+        // This is wrong: the source is predictable, and computation is foldable(可折叠的).
         return Math.log(Math.PI);
     }
 
@@ -83,14 +83,14 @@ public class JMHSample_10_ConstantFold {
 
     @Benchmark
     public double measureRight() {
-        // This is correct: the source is not predictable.
+        // This is correct: the source is not predictable.(因为 x non-final)
         return Math.log(x);
     }
 
     /*
      * ============================== HOW TO RUN THIS TEST: ====================================
      *
-     * You can see the unrealistically fast calculation in with measureWrong_*(),
+     * You can see the unrealistically(不切实际的) fast calculation in with measureWrong_*(),
      * while realistic measurement with measureRight().
      *
      * You can run this test:

@@ -56,7 +56,7 @@ public class JMHSample_22_FalseSharing {
 
     /*
      * One of the unusual thing that can bite you back is false sharing.
-     * If two threads access (and possibly modify) the adjacent values
+     * If two threads access (and possibly modify) the adjacent(临近的) values
      * in memory, chances are, they are modifying the values on the same
      * cache line. This can yield significant (artificial) slowdowns.
      *
@@ -100,7 +100,7 @@ public class JMHSample_22_FalseSharing {
      * APPROACH 1: PADDING
      *
      * We can try to alleviate some of the effects with padding.
-     * This is not versatile because JVMs can freely rearrange the
+     * This is not versatile(万能的) because JVMs can freely rearrange the
      * field order.
      */
 

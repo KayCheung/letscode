@@ -80,10 +80,11 @@ public class BiasedLock {
     @Fork(jvmArgsAppend = {"-XX:+UseBiasedLocking",
             "-XX:BiasedLockingStartupDelay=0",
             "-server",
-            "-XX:+EliminateLocks","-XX:-DoEscapeAnalysis"})
-    public void sycn_Biased_On(SyncWrapper wrapper) {
+            "-XX:-EliminateLocks","-XX:-DoEscapeAnalysis"})
+    public StringBuilder sycn_Biased_On(SyncWrapper wrapper) {
         wrapper.thesb.append("abc");
         wrapper.thesb.delete(0, wrapper.thesb.length());
+        return wrapper.thesb.sb;
     }
 
     @Benchmark
@@ -93,10 +94,11 @@ public class BiasedLock {
     @Fork(jvmArgsAppend = {"-XX:-UseBiasedLocking",
             "-XX:BiasedLockingStartupDelay=0",
             "-server",
-            "-XX:+EliminateLocks","-XX:-DoEscapeAnalysis"})
-    public void sycn_Biased_Off(SyncWrapper wrapper) {
+            "-XX:-EliminateLocks","-XX:-DoEscapeAnalysis"})
+    public StringBuilder sycn_Biased_Off(SyncWrapper wrapper) {
         wrapper.thesb.append("abc");
         wrapper.thesb.delete(0, wrapper.thesb.length());
+        return wrapper.thesb.sb;
     }
 
     @Benchmark
@@ -106,10 +108,11 @@ public class BiasedLock {
     @Fork(jvmArgsAppend = {"-XX:+UseBiasedLocking",
             "-XX:BiasedLockingStartupDelay=0",
             "-server",
-            "-XX:+EliminateLocks","-XX:-DoEscapeAnalysis"})
-    public void unsycn_Biased_On(UnsyncWrapper wrapper) {
+            "-XX:-EliminateLocks","-XX:-DoEscapeAnalysis"})
+    public StringBuilder unsycn_Biased_On(UnsyncWrapper wrapper) {
         wrapper.thesb.append("abc");
         wrapper.thesb.delete(0, wrapper.thesb.length());
+        return wrapper.thesb.sb;
     }
 
     @Benchmark
@@ -119,10 +122,11 @@ public class BiasedLock {
     @Fork(jvmArgsAppend = {"-XX:-UseBiasedLocking",
             "-XX:BiasedLockingStartupDelay=0",
             "-server",
-            "-XX:+EliminateLocks","-XX:-DoEscapeAnalysis"})
-    public void unsycn_Biased_Off(UnsyncWrapper wrapper) {
+            "-XX:-EliminateLocks","-XX:-DoEscapeAnalysis"})
+    public StringBuilder unsycn_Biased_Off(UnsyncWrapper wrapper) {
         wrapper.thesb.append("abc");
         wrapper.thesb.delete(0, wrapper.thesb.length());
+        return wrapper.thesb.sb;
     }
 
     /*

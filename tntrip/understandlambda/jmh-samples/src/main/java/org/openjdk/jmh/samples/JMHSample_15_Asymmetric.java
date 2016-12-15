@@ -54,7 +54,7 @@ public class JMHSample_15_Asymmetric {
 
     /*
      * So far all the tests were symmetric: the same code was executed in all the threads.
-     * At times, you need the asymmetric test. JMH provides this with the notion of @Group,
+     * At times, you need the asymmetric(不对称的) test. JMH provides this with the notion of @Group,
      * which can bind several methods together, and all the threads are distributed among
      * the test methods.
      *

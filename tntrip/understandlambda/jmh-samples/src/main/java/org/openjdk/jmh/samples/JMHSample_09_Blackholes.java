@@ -45,19 +45,19 @@ import java.util.concurrent.TimeUnit;
 public class JMHSample_09_Blackholes {
 
     /*
-     * Should your benchmark require returning multiple results, you have to
+     * Should your benchmark require returning multiple results(需要返回多个结果), you have to
      * consider two options (detailed below).
      *
      * NOTE: If you are only producing a single result, it is more readable to
      * use the implicit return, as in JMHSample_08_DeadCode. Do not make your benchmark
-     * code less readable with explicit Blackholes!
+     * code less readable with explicit(显式的) Blackholes!
      */
 
     double x1 = Math.PI;
     double x2 = Math.PI * 2;
 
     /*
-     * Baseline measurement: how much single Math.log costs.
+     * Baseline measurement: how much (single Math.log) costs.
      */
 
     @Benchmark
@@ -67,7 +67,11 @@ public class JMHSample_09_Blackholes {
 
     /*
      * While the Math.log(x2) computation is intact, Math.log(x1)
-     * is redundant and optimized out.
+     * is redundant and optimized out(优化掉).
+     *
+     * 真是涨知识了，这玩意还真能优化掉了。我还以为那只是一个传说呢
+     * 1. debug时，还是能走进来吧？
+     * 2. 如果这是一个网络调用的，触发了另一个系统的某种情况。难道也会优化掉？？？
      */
 
     @Benchmark
@@ -80,7 +84,7 @@ public class JMHSample_09_Blackholes {
      * This demonstrates Option A:
      *
      * Merge multiple results into one and return it.
-     * This is OK when is computation is relatively heavyweight, and merging
+     * This is OK when computation is relatively heavyweight, and merging
      * the results does not offset the results much.
      */
 
@@ -105,8 +109,8 @@ public class JMHSample_09_Blackholes {
     /*
      * ============================== HOW TO RUN THIS TEST: ====================================
      *
-     * You will see measureWrong() running on-par with baseline().
-     * Both measureRight() are measuring twice the baseline, so the logs are intact.
+     * You will see measureWrong() running on-par(看齐、相其并论) with baseline().
+     * Both measureRight() are measuring twice the baseline, so the logs are intact(完整的).
      *
      * You can run this test:
      *

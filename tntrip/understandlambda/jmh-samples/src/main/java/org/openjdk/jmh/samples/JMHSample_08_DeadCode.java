@@ -44,7 +44,7 @@ import java.util.concurrent.TimeUnit;
 public class JMHSample_08_DeadCode {
 
     /*
-     * The downfall of many benchmarks is Dead-Code Elimination (DCE): compilers
+     * The downfall(衰败) of many benchmarks is Dead-Code Elimination (DCE): compilers
      * are smart enough to deduce some computations are redundant and eliminate
      * them completely. If the eliminated part was our benchmarked code, we are
      * in trouble.
@@ -52,7 +52,7 @@ public class JMHSample_08_DeadCode {
      * Fortunately, JMH provides the essential infrastructure to fight this
      * where appropriate: returning the result of the computation will ask JMH
      * to deal with the result to limit dead-code elimination (returned results
-     * are implicitly consumed by Blackholes, see JMHSample_09_Blackholes).
+     * are implicitly(隐式的) consumed by Blackholes, see JMHSample_09_Blackholes).
      */
 
     private double x = Math.PI;

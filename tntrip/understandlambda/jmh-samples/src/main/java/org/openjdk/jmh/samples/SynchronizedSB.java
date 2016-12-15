@@ -4,7 +4,7 @@ package org.openjdk.jmh.samples;
  * Created by nuc on 2016/12/8.
  */
 public class SynchronizedSB {
-    private StringBuilder sb = new StringBuilder();
+    StringBuilder sb = new StringBuilder();
 
     public synchronized int length() {
         return sb.length();

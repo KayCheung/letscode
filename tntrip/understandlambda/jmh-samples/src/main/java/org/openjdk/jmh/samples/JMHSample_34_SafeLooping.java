@@ -61,13 +61,13 @@ public class JMHSample_34_SafeLooping {
     /*
      * JMHSample_11_Loops warns about the dangers of using loops in @Benchmark methods.
      * Sometimes, however, one needs to traverse through several elements in a dataset.
-     * This is hard to do without loops, and therefore we need to devise a scheme for
+     * This is hard to do without loops, and therefore we need to devise(发明) a scheme for
      * safe looping.
      */
 
     /*
      * Suppose we want to measure how much it takes to execute work() with different
-     * arguments. This mimics a frequent use case when multiple instances with the same
+     * arguments. This mimics(模仿) a frequent use case when multiple instances with the same
      * implementation, but different data, is measured.
      */
 
@@ -98,7 +98,7 @@ public class JMHSample_34_SafeLooping {
 
     /*
      * First, the obviously wrong way: "saving" the result into a local variable would not
-     * work. A sufficiently smart compiler will inline work(), and figure out only the last
+     * work. A sufficiently(足够的) smart compiler will inline work(), and figure out only the last
      * work() call needs to be evaluated. Indeed, if you run it with varying $size, the score
      * will stay the same!
      */
@@ -116,12 +116,12 @@ public class JMHSample_34_SafeLooping {
      * Second, another wrong way: "accumulating" the result into a local variable. While
      * it would force the computation of each work() method, there are software pipelining
      * effects in action, that can merge the operations between two otherwise distinct work()
-     * bodies. This will obliterate the benchmark setup.
+     * bodies. This will obliterate(冲刷) the benchmark setup.
      *
-     * In this example, HotSpot does the unrolled loop, merges the $BASE operands into a single
+     * In this example, HotSpot does the unrolled(展开的) loop, merges the $BASE operands into a single
      * addition to $acc, and then does a bunch of very tight stores of $x-s. The final performance
      * depends on how much of the loop unrolling happened *and* how much data is available to make
-     * the large strides.
+     * the large strides(步幅).
      */
 
     @Benchmark
