@@ -33,7 +33,7 @@ public class ReadExcel {
 
 
     public static void main(String[] args) throws Exception {
-        String fullPath = "C:/火车票----关键词配置模板.xlsx";
+        String fullPath = "C:/关键词配置模板-机票.xlsx";
         FileInputStream fis = new FileInputStream(fullPath);
         // Use an InputStream, needs more memory
         Workbook wb = new XSSFWorkbook(fis);
