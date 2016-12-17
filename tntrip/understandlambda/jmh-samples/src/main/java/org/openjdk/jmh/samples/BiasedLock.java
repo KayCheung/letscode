@@ -52,12 +52,12 @@ public class BiasedLock {
 
     @State(Scope.Thread)
     public static class SyncWrapper {
-        private SynchronizedSB thesb = new SynchronizedSB();
+        private SynchSB thesb = new SynchSB();
     }
 
     @State(Scope.Thread)
     public static class UnsyncWrapper {
-        private OrgnSB thesb = new OrgnSB();
+        private UnsyncSB thesb = new UnsyncSB();
     }
     /*
      * In addition to all the command line options usable at run time,
