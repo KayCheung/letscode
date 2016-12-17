@@ -179,7 +179,7 @@ public class LockElision {
     @Fork(jvmArgsAppend = {Biased_OFF, Escape_OFF, ELIMINATE_OFF}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
     public StringBuilder unsycn_NoBiased_NoEscape_NoEliminate_0() {
         int count = 10000;
-        SynchronizedSB thesb = new SynchronizedSB();
+        OrgnSB thesb = new OrgnSB();
         for (int i = 0; i < count; i++) {
             thesb.append("abc");
             thesb.delete(0, thesb.length());
@@ -191,7 +191,7 @@ public class LockElision {
     @Fork(jvmArgsAppend = {Biased_OFF, Escape_OFF, ELIMINATE_ON}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
     public StringBuilder unsycn_NoBiased_NoEscape_Eliminate_1() {
         int count = 10000;
-        SynchronizedSB thesb = new SynchronizedSB();
+        OrgnSB thesb = new OrgnSB();
         for (int i = 0; i < count; i++) {
             thesb.append("abc");
             thesb.delete(0, thesb.length());
@@ -203,7 +203,7 @@ public class LockElision {
     @Fork(jvmArgsAppend = {Biased_OFF, Escape_ON, ELIMINATE_OFF}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
     public StringBuilder unsycn_NoBiased_Escape_NoEliminate_2() {
         int count = 10000;
-        SynchronizedSB thesb = new SynchronizedSB();
+        OrgnSB thesb = new OrgnSB();
         for (int i = 0; i < count; i++) {
             thesb.append("abc");
             thesb.delete(0, thesb.length());
@@ -215,7 +215,7 @@ public class LockElision {
     @Fork(jvmArgsAppend = {Biased_OFF, Escape_ON, ELIMINATE_ON}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
     public StringBuilder unsycn_NoBiased_Escape_Eliminate_3() {
         int count = 10000;
-        SynchronizedSB thesb = new SynchronizedSB();
+        OrgnSB thesb = new OrgnSB();
         for (int i = 0; i < count; i++) {
             thesb.append("abc");
             thesb.delete(0, thesb.length());
@@ -227,7 +227,7 @@ public class LockElision {
     @Fork(jvmArgsAppend = {Biased_ON, Escape_OFF, ELIMINATE_OFF}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
     public StringBuilder unsycn_Biased_NoEscape_NoEliminate_4() {
         int count = 10000;
-        SynchronizedSB thesb = new SynchronizedSB();
+        OrgnSB thesb = new OrgnSB();
         for (int i = 0; i < count; i++) {
             thesb.append("abc");
             thesb.delete(0, thesb.length());
@@ -239,7 +239,7 @@ public class LockElision {
     @Fork(jvmArgsAppend = {Biased_ON, Escape_OFF, ELIMINATE_ON}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
     public StringBuilder unsycn_Biased_NoEscape_Eliminate_5() {
         int count = 10000;
-        SynchronizedSB thesb = new SynchronizedSB();
+        OrgnSB thesb = new OrgnSB();
         for (int i = 0; i < count; i++) {
             thesb.append("abc");
             thesb.delete(0, thesb.length());
@@ -251,7 +251,7 @@ public class LockElision {
     @Fork(jvmArgsAppend = {Biased_ON, Escape_ON, ELIMINATE_OFF}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
     public StringBuilder unsycn_Biased_Escape_NoEliminate_6() {
         int count = 10000;
-        SynchronizedSB thesb = new SynchronizedSB();
+        OrgnSB thesb = new OrgnSB();
         for (int i = 0; i < count; i++) {
             thesb.append("abc");
             thesb.delete(0, thesb.length());
