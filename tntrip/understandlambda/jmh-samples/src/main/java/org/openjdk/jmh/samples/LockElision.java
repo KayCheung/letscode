@@ -40,7 +40,6 @@ import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
-import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
@@ -55,6 +54,18 @@ import java.util.concurrent.TimeUnit;
 @OperationsPerInvocation(10000)
 public class LockElision {
 
+    public static final String Server = "-server";
+    public static final String Biased_DELAY = "-XX:BiasedLockingStartupDelay=0";
+
+    public static final String Biased_ON = "-XX:-UseBiasedLocking";
+    public static final String Biased_OFF = "-XX:-UseBiasedLocking";
+
+    public static final String Escape_ON = "-XX:+DoEscapeAnalysis";
+    public static final String Escape_OFF = "-XX:-DoEscapeAnalysis";
+
+    public static final String ELIMINATE_ON = "-XX:+EliminateLocks";
+    public static final String ELIMINATE_OFF = "-XX:-EliminateLocks";
+
     @State(Scope.Thread)
     public static class SyncWrapper {
         private final SynchronizedSB thesb = new SynchronizedSB();
@@ -64,30 +75,12 @@ public class LockElision {
     public static class UnsyncWrapper {
         private final OrgnSB thesb = new OrgnSB();
     }
-    @Benchmark
-    @Fork(jvmArgsAppend = {
-            "-server", "-XX:+DoEscapeAnalysis",
-            "-XX:+EliminateLocks","-XX:+PrintFlagsFinal"}, value = 1)
-    public StringBuilder sycn_Escape_Eliminate(SyncWrapper sw) {
-        int count = 10000;
-        //SynchronizedSB thesb = sw.thesb;
-//                new SynchronizedSB();
-        for (int i = 0; i < count; i++) {
-            sw.thesb.append("abc");
-            sw.thesb.delete(0, sw.thesb.length());
-        }
-        return sw.thesb.sb;
-    }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @Fork(jvmArgsAppend = {
-            "-server", "-XX:+DoEscapeAnalysis",
-            "-XX:-EliminateLocks"}, value = 1)
-    public StringBuilder sycn_Escape_NoEliminate(SyncWrapper sw) {
+    @Fork(jvmArgsAppend = {Biased_OFF, Escape_OFF, ELIMINATE_OFF}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
+    public StringBuilder sycn_NoBiased_NoEscape_NoEliminate_0() {
         int count = 10000;
-        SynchronizedSB thesb = sw.thesb;
-//                new SynchronizedSB();
+        SynchronizedSB thesb = new SynchronizedSB();
         for (int i = 0; i < count; i++) {
             thesb.append("abc");
             thesb.delete(0, thesb.length());
@@ -96,13 +89,10 @@ public class LockElision {
     }
 
     @Benchmark
-    @Fork(jvmArgsAppend = {
-            "-server", "-XX:-DoEscapeAnalysis",
-            "-XX:+EliminateLocks"}, value = 1)
-    public StringBuilder sycn_NoEscape_Eliminate(SyncWrapper sw) {
+    @Fork(jvmArgsAppend = {Biased_OFF, Escape_OFF, ELIMINATE_ON}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
+    public StringBuilder sycn_NoBiased_NoEscape_Eliminate_1() {
         int count = 10000;
-        SynchronizedSB thesb = sw.thesb;
-//                new SynchronizedSB();
+        SynchronizedSB thesb = new SynchronizedSB();
         for (int i = 0; i < count; i++) {
             thesb.append("abc");
             thesb.delete(0, thesb.length());
@@ -111,78 +101,175 @@ public class LockElision {
     }
 
     @Benchmark
-    @Fork(jvmArgsAppend = {
-            "-server", "-XX:-DoEscapeAnalysis",
-            "-XX:-EliminateLocks"}, value = 1)
-    public StringBuilder sycn_NoEscape_NoEliminate(SyncWrapper sw) {
+    @Fork(jvmArgsAppend = {Biased_OFF, Escape_ON, ELIMINATE_OFF}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
+    public StringBuilder sycn_NoBiased_Escape_NoEliminate_2() {
         int count = 10000;
-        SynchronizedSB thesb = sw.thesb;
-//                new SynchronizedSB();
+        SynchronizedSB thesb = new SynchronizedSB();
         for (int i = 0; i < count; i++) {
             thesb.append("abc");
             thesb.delete(0, thesb.length());
         }
         return thesb.sb;
     }
-//
-//    @Benchmark
-//    @Fork(jvmArgsAppend = {
-//            "-server", "-XX:+DoEscapeAnalysis",
-//            "-XX:+EliminateLocks"}, value = 1)
-//    public StringBuilder unsycn_Escape_Eliminate() {
-//        int count = 10000;
-//        OrgnSB thesb = new OrgnSB();
-//        for (int i = 0; i < count; i++) {
-//            thesb.append("abc");
-//            thesb.delete(0, thesb.length());
-//        }
-//        return thesb.sb;
-//    }
-//
-//    @Benchmark
-//    @BenchmarkMode(Mode.AverageTime)
-//    @Fork(jvmArgsAppend = {
-//            "-server", "-XX:+DoEscapeAnalysis",
-//            "-XX:-EliminateLocks"}, value = 1)
-//    public StringBuilder unsycn_Escape_NoEliminate() {
-//        int count = 10000;
-//        OrgnSB thesb = new OrgnSB();
-//        for (int i = 0; i < count; i++) {
-//            thesb.append("abc");
-//            thesb.delete(0, thesb.length());
-//        }
-//        return thesb.sb;
-//    }
-//
-//    @Benchmark
-//    @Fork(jvmArgsAppend = {
-//            "-server", "-XX:-DoEscapeAnalysis",
-//            "-XX:+EliminateLocks"}, value = 1)
-//    @Warmup(iterations = 5, time = 1500, timeUnit = TimeUnit.MILLISECONDS)
-//    @Measurement(iterations = 5, time = 1500, timeUnit = TimeUnit.MILLISECONDS)
-//    public StringBuilder unsycn_NoEscape_Eliminate() {
-//        int count = 10000;
-//        OrgnSB thesb = new OrgnSB();
-//        for (int i = 0; i < count; i++) {
-//            thesb.append("abc");
-//            thesb.delete(0, thesb.length());
-//        }
-//        return thesb.sb;
-//    }
-//
-//    @Benchmark
-//    @Fork(jvmArgsAppend = {
-//            "-server", "-XX:-DoEscapeAnalysis",
-//            "-XX:-EliminateLocks"}, value = 1)
-//    public StringBuilder unsycn_NoEscape_NoEliminate() {
-//        int count = 10000;
-//        OrgnSB thesb = new OrgnSB();
-//        for (int i = 0; i < count; i++) {
-//            thesb.append("abc");
-//            thesb.delete(0, thesb.length());
-//        }
-//        return thesb.sb;
-//    }
+
+    @Benchmark
+    @Fork(jvmArgsAppend = {Biased_OFF, Escape_ON, ELIMINATE_ON}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
+    public StringBuilder sycn_NoBiased_Escape_Eliminate_3() {
+        int count = 10000;
+        SynchronizedSB thesb = new SynchronizedSB();
+        for (int i = 0; i < count; i++) {
+            thesb.append("abc");
+            thesb.delete(0, thesb.length());
+        }
+        return thesb.sb;
+    }
+
+    @Benchmark
+    @Fork(jvmArgsAppend = {Biased_ON, Escape_OFF, ELIMINATE_OFF}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
+    public StringBuilder sycn_Biased_NoEscape_NoEliminate_4() {
+        int count = 10000;
+        SynchronizedSB thesb = new SynchronizedSB();
+        for (int i = 0; i < count; i++) {
+            thesb.append("abc");
+            thesb.delete(0, thesb.length());
+        }
+        return thesb.sb;
+    }
+
+    @Benchmark
+    @Fork(jvmArgsAppend = {Biased_ON, Escape_OFF, ELIMINATE_ON}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
+    public StringBuilder sycn_Biased_NoEscape_Eliminate_5() {
+        int count = 10000;
+        SynchronizedSB thesb = new SynchronizedSB();
+        for (int i = 0; i < count; i++) {
+            thesb.append("abc");
+            thesb.delete(0, thesb.length());
+        }
+        return thesb.sb;
+    }
+
+    @Benchmark
+    @Fork(jvmArgsAppend = {Biased_ON, Escape_ON, ELIMINATE_OFF}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
+    public StringBuilder sycn_Biased_Escape_NoEliminate_6() {
+        int count = 10000;
+        SynchronizedSB thesb = new SynchronizedSB();
+        for (int i = 0; i < count; i++) {
+            thesb.append("abc");
+            thesb.delete(0, thesb.length());
+        }
+        return thesb.sb;
+    }
+
+    @Benchmark
+    @Fork(jvmArgsAppend = {Biased_ON, Escape_ON, ELIMINATE_ON}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
+    public StringBuilder sycn_Biased_Escape_Eliminate_7() {
+        int count = 10000;
+        SynchronizedSB thesb = new SynchronizedSB();
+        for (int i = 0; i < count; i++) {
+            thesb.append("abc");
+            thesb.delete(0, thesb.length());
+        }
+        return thesb.sb;
+    }
+
+    /*******************************************************************************************************/
+
+
+    @Benchmark
+    @Fork(jvmArgsAppend = {Biased_OFF, Escape_OFF, ELIMINATE_OFF}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
+    public StringBuilder unsycn_NoBiased_NoEscape_NoEliminate_0() {
+        int count = 10000;
+        SynchronizedSB thesb = new SynchronizedSB();
+        for (int i = 0; i < count; i++) {
+            thesb.append("abc");
+            thesb.delete(0, thesb.length());
+        }
+        return thesb.sb;
+    }
+
+    @Benchmark
+    @Fork(jvmArgsAppend = {Biased_OFF, Escape_OFF, ELIMINATE_ON}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
+    public StringBuilder unsycn_NoBiased_NoEscape_Eliminate_1() {
+        int count = 10000;
+        SynchronizedSB thesb = new SynchronizedSB();
+        for (int i = 0; i < count; i++) {
+            thesb.append("abc");
+            thesb.delete(0, thesb.length());
+        }
+        return thesb.sb;
+    }
+
+    @Benchmark
+    @Fork(jvmArgsAppend = {Biased_OFF, Escape_ON, ELIMINATE_OFF}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
+    public StringBuilder unsycn_NoBiased_Escape_NoEliminate_2() {
+        int count = 10000;
+        SynchronizedSB thesb = new SynchronizedSB();
+        for (int i = 0; i < count; i++) {
+            thesb.append("abc");
+            thesb.delete(0, thesb.length());
+        }
+        return thesb.sb;
+    }
+
+    @Benchmark
+    @Fork(jvmArgsAppend = {Biased_OFF, Escape_ON, ELIMINATE_ON}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
+    public StringBuilder unsycn_NoBiased_Escape_Eliminate_3() {
+        int count = 10000;
+        SynchronizedSB thesb = new SynchronizedSB();
+        for (int i = 0; i < count; i++) {
+            thesb.append("abc");
+            thesb.delete(0, thesb.length());
+        }
+        return thesb.sb;
+    }
+
+    @Benchmark
+    @Fork(jvmArgsAppend = {Biased_ON, Escape_OFF, ELIMINATE_OFF}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
+    public StringBuilder unsycn_Biased_NoEscape_NoEliminate_4() {
+        int count = 10000;
+        SynchronizedSB thesb = new SynchronizedSB();
+        for (int i = 0; i < count; i++) {
+            thesb.append("abc");
+            thesb.delete(0, thesb.length());
+        }
+        return thesb.sb;
+    }
+
+    @Benchmark
+    @Fork(jvmArgsAppend = {Biased_ON, Escape_OFF, ELIMINATE_ON}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
+    public StringBuilder unsycn_Biased_NoEscape_Eliminate_5() {
+        int count = 10000;
+        SynchronizedSB thesb = new SynchronizedSB();
+        for (int i = 0; i < count; i++) {
+            thesb.append("abc");
+            thesb.delete(0, thesb.length());
+        }
+        return thesb.sb;
+    }
+
+    @Benchmark
+    @Fork(jvmArgsAppend = {Biased_ON, Escape_ON, ELIMINATE_OFF}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
+    public StringBuilder unsycn_Biased_Escape_NoEliminate_6() {
+        int count = 10000;
+        SynchronizedSB thesb = new SynchronizedSB();
+        for (int i = 0; i < count; i++) {
+            thesb.append("abc");
+            thesb.delete(0, thesb.length());
+        }
+        return thesb.sb;
+    }
+
+    @Benchmark
+    @Fork(jvmArgsAppend = {Biased_ON, Escape_ON, ELIMINATE_ON}, jvmArgsPrepend = {Server, Biased_DELAY}, value = 1)
+    public StringBuilder unsycn_Biased_Escape_Eliminate_7() {
+        int count = 10000;
+        OrgnSB thesb = new OrgnSB();
+        for (int i = 0; i < count; i++) {
+            thesb.append("abc");
+            thesb.delete(0, thesb.length());
+        }
+        return thesb.sb;
+    }
 
     /*
      * ============================== HOW TO RUN THIS TEST: ====================================
