@@ -51,8 +51,8 @@ import java.util.List;
 public class JMHSample_26_BatchSize {
 
     /*
-     * Sometimes you need to evaluate operation which doesn't have
-     * the steady state. The cost of a benchmarked operation may
+     * Sometimes you need to evaluate(评估) operation which doesn't have
+     * the steady state(并没有稳定的状态). The cost of a benchmarked operation may
      * significantly vary from invocation to invocation.
      *
      * In this case, using the timed measurements is not a good idea,
@@ -102,7 +102,7 @@ public class JMHSample_26_BatchSize {
     }
 
     @Setup(Level.Iteration)
-    public void setup(){
+    public void setup() {
         list.clear();
     }
 

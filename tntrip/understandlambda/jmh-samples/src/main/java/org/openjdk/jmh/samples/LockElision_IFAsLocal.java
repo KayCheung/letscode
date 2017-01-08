@@ -39,6 +39,7 @@ import org.openjdk.jmh.annotations.OperationsPerInvocation;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.Threads;
 import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -49,11 +50,12 @@ import java.util.concurrent.TimeUnit;
 
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @BenchmarkMode(Mode.AverageTime)
-@Warmup(iterations = 10, time = 500, timeUnit = TimeUnit.MILLISECONDS)
-@Measurement(iterations = 10, time = 500, timeUnit = TimeUnit.MILLISECONDS)
+@Warmup(iterations = 10, time = 1000, timeUnit = TimeUnit.MILLISECONDS)
+@Measurement(iterations = 10, time = 1000, timeUnit = TimeUnit.MILLISECONDS)
+@Threads(1)
 @OperationsPerInvocation(10000)
 @State(Scope.Thread)
-public class LockElision_InstanceFieldAsLocal {
+public class LockElision_IFAsLocal {
 
     public static final String Server = "-server";
     public static final String Biased_DELAY = "-XX:BiasedLockingStartupDelay=0";
@@ -285,7 +287,7 @@ public class LockElision_InstanceFieldAsLocal {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(LockElision_InstanceFieldAsLocal.class.getSimpleName())
+                .include(LockElision_IFAsLocal.class.getSimpleName())
                 .build();
 
         new Runner(opt).run();
