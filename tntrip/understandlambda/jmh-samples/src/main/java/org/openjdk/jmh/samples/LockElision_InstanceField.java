@@ -60,7 +60,7 @@ public class LockElision_InstanceField {
     public static final String Server = "-server";
     public static final String Biased_DELAY = "-XX:BiasedLockingStartupDelay=0";
 
-    public static final String Biased_ON = "-XX:-UseBiasedLocking";
+    public static final String Biased_ON = "-XX:+UseBiasedLocking";
     public static final String Biased_OFF = "-XX:-UseBiasedLocking";
 
     public static final String Escape_ON = "-XX:+DoEscapeAnalysis";
