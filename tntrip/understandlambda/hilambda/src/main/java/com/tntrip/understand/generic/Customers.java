@@ -1,5 +1,6 @@
 package com.tntrip.understand.generic;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by libing2 on 2016/6/10.
  */
 public class Customers {
-    private List<IdName> customers;
+    private List<IdName> customers = new ArrayList<>();
 
     public static Customers create(IdName[] arr) {
         Customers c = new Customers();
