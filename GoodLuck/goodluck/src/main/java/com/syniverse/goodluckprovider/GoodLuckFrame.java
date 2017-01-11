@@ -29,7 +29,7 @@ public class GoodLuckFrame extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final long INTERVAL = 20;
 
-    private Object lock = new Object();
+    private Object thelock = new Object();
     private Random r = new Random();
     private JLabel labelImage;
     private JButton btn;
@@ -57,8 +57,8 @@ public class GoodLuckFrame extends JFrame {
     private static final String NOT_CANDIDATE_NAME = "go4it.jpg";
     private static Icon NOT_CANDIDATE_ICON;
 
-    private static final String SYNIVERSE_LOGO_NAME = "syniverse_logo.jpg";
-    public static Image SYNIVERSE_LOGO_ICON;
+    private static final String SYNIVERSE_LOGO_NAME = "company_logo.jpg";
+    public static Image COMPANY_LOGO_ICON;
 
     private static final ArrayList<Icon> LIST_CANDIDATE_IMAGES = new ArrayList<Icon>();
     private static final Map<String, Integer> mapName2Size = new HashMap<String, Integer>();
@@ -68,7 +68,7 @@ public class GoodLuckFrame extends JFrame {
     private static void loadImage(String imageFolderName) {
         Map<String, byte[]> mapName2ImageBytes = null;
         try {
-            mapName2ImageBytes = doRead(imageFolderName);
+            mapName2ImageBytes = readFromFileSystem(imageFolderName);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -84,7 +84,7 @@ public class GoodLuckFrame extends JFrame {
                 NOT_CANDIDATE_ICON = createImageIcon(imageData, IMAGE_WIDTH,
                         IMAGE_HEIGHT);
             } else if (imageName.endsWith(SYNIVERSE_LOGO_NAME.toLowerCase())) {
-                SYNIVERSE_LOGO_ICON = Toolkit.getDefaultToolkit().createImage(
+                COMPANY_LOGO_ICON = Toolkit.getDefaultToolkit().createImage(
                         imageData);
                 System.out.println("syniverse logo image name: " + imageName);
             } else {
@@ -101,7 +101,7 @@ public class GoodLuckFrame extends JFrame {
     private static void loadSound(String soundFolderName) {
         Map<String, byte[]> mapName2SoundBytes = null;
         try {
-            mapName2SoundBytes = doRead(soundFolderName);
+            mapName2SoundBytes = readFromJarFileByFolderName(soundFolderName);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -130,11 +130,11 @@ public class GoodLuckFrame extends JFrame {
         return scaled;
     }
 
-    public static Map<String, byte[]> doRead(
+    public static Map<String, byte[]> readFromFileSystem(
             String imageFolderName) throws IOException {
-        String jarStayFolder = getJarStayFolder_nologinfo(GoodLuckFrame.class);
+        String jarStayFolder = getJarStayFolder(GoodLuckFrame.class);
         File[] images = new File(jarStayFolder + "/" + imageFolderName).listFiles();
-        Map<String, byte[]> mapName2Data = new HashMap<>();
+        Map<String, byte[]> mapName2Data = new HashMap<String, byte[]>();
         if (!isEmpty(images)) {
             for (File f : images) {
                 if (f.isFile()) {
@@ -153,24 +153,20 @@ public class GoodLuckFrame extends JFrame {
         return arr == null || arr.length == 0;
     }
 
-    public static Map<String, byte[]> readBinaryByFolderName(
+    public static Map<String, byte[]> readFromJarFileByFolderName(
             String imageFolderName) throws IOException {
-        String pkgNameWithDot = GoodLuckFrame.class.getPackage().getName();
-        String pkgNameWithSlash = pkgNameWithDot.replace('.', '/');
-
         URL jarURL = GoodLuckFrame.class.getProtectionDomain().getCodeSource()
                 .getLocation();
         InputStream is = jarURL.openStream();
 
         ZipInputStream zis = new ZipInputStream(is);
-        Map<String, byte[]> mapName2Data = doReadData(zis, mapName2Size,
-                pkgNameWithSlash + "/" + imageFolderName);
+        Map<String, byte[]> mapName2Data = doReadDataFromJar(zis, mapName2Size, imageFolderName);
         zis.close();
         return mapName2Data;
     }
 
-    private static Map<String, byte[]> doReadData(ZipInputStream zis,
-                                                  Map<String, Integer> mapName2Size, String prefixFolder)
+    private static Map<String, byte[]> doReadDataFromJar(ZipInputStream zis,
+                                                         Map<String, Integer> mapName2Size, String prefixFolder)
             throws IOException {
         String lowcasePrefix = prefixFolder.toLowerCase() + "/";
         Map<String, byte[]> mapName2Bytes = new HashMap<String, byte[]>();
@@ -201,7 +197,7 @@ public class GoodLuckFrame extends JFrame {
         return mapName2Bytes;
     }
 
-    public static String getJarStayFolder_nologinfo(Class<?> cls) {
+    public static String getJarStayFolder(Class<?> cls) {
         String jarSelf = cls.getProtectionDomain().getCodeSource()
                 .getLocation().getFile();
         try {
@@ -266,7 +262,7 @@ public class GoodLuckFrame extends JFrame {
     }
 
     private void handleClickEvent() {
-        synchronized (lock) {
+        synchronized (thelock) {
             // currently not running
             // Want to run: if you click, then run
             if (stopRunning == true) {
@@ -283,7 +279,7 @@ public class GoodLuckFrame extends JFrame {
                 // you have clicked. running now........
                 btn.setText(LOOKING_FOR);
                 stopRunning = false;
-                lock.notifyAll();
+                thelock.notifyAll();
             }
             // currently running
             // Want to stop running: if you click, then stop running
@@ -299,7 +295,7 @@ public class GoodLuckFrame extends JFrame {
                 // you have clicked. stopped running. screen not changing now
                 btn.setText(CLICK_TO_FIND);
                 stopRunning = true;
-                lock.notifyAll();
+                thelock.notifyAll();
             }
         }
     }
@@ -308,7 +304,7 @@ public class GoodLuckFrame extends JFrame {
         Thread thread = new Thread("Change-Image") {
             public void run() {
                 while (true) {
-                    synchronized (lock) {
+                    synchronized (thelock) {
                         // currently not running
                         // we've found the carrier, it is flickerWinnerIndex.
                         // flickerWinnerIndex won't appear any longer
@@ -326,7 +322,7 @@ public class GoodLuckFrame extends JFrame {
                                 }
                             });
                             try {
-                                lock.wait();
+                                thelock.wait();
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
@@ -403,7 +399,7 @@ public class GoodLuckFrame extends JFrame {
         GoodLuckFrame glf = new GoodLuckFrame();
         glf.initComponent();
 
-        glf.setIconImage(SYNIVERSE_LOGO_ICON);
+        glf.setIconImage(COMPANY_LOGO_ICON);
         glf.setTitle("Looking for Good-Luck-Provider");
         Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
         int width = 630;

@@ -1,4 +1,4 @@
-def vJavaLang = '1.8'
+def vJavaLang = '1.6'
 
 def javaProjects = [
         project(':goodluck'),
