@@ -1,4 +1,3 @@
-/out
 ### IDEA project files
 .idea
 *.iml
@@ -7,7 +6,10 @@
 
 ### Gradle template
 .gradle
+/out
+/classes
 build/
+out/
 ServiceTreeInfo/
 
 # Ignore Gradle GUI config
