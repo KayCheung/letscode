@@ -3,4 +3,5 @@ rootProject.name = 'understandlambda'
 include 'hilambda'
 
 include 'jmh-samples'
+include 'jcstress-samples'
 
